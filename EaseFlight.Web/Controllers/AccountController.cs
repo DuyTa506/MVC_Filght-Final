@@ -147,7 +147,7 @@ namespace EaseFlight.Web.Controllers
         [HttpPost]
         public JsonResult CheckUsernameExist(FormCollection collection)
         {
-            var result = new JsonResult { ContentType = "text" };
+            var result = new JsonResult { ContentType = "text", Data = new { msg = "" } };
             var username = collection.Get("username");
             var email = collection.Get("email");
             var user = this.AccountService.CheckUsernameExists(username, email);
@@ -164,7 +164,7 @@ namespace EaseFlight.Web.Controllers
         [HttpPost]
         public JsonResult ThirdPartyLogin(string id, string name, string email, string picture)
         {
-            var currentUser = this.AccountService.FindByEmail(email);
+            var currentUser = this.AccountService.FindByUsername(id);
 
             if (currentUser == null)
             {

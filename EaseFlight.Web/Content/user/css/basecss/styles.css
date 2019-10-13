@@ -848,7 +848,18 @@ body {
   border-top: 5px solid transparent;
 }
 .navbar-theme .dropdown-menu > li > a {
-  padding: 12px 20px;
+  padding: 4px 20px;
+  width: 159px !important;
+}
+.navbar-theme .dropdown-menu > li > a > i{
+    padding-right: 5px;
+    font-size: 13px;
+}
+.navbar-theme .dropdown-menu > li:first-child{
+    margin-top: 5px;
+}
+.navbar-theme .dropdown-menu > li:last-child{
+    margin-bottom: 5px;
 }
 .navbar-theme .dropdown-menu > li > a:hover {
   background: #0093d2;
@@ -14701,12 +14712,11 @@ body {
 }
 .login .facebook:hover{
     background-color: #6E83CD;
+    cursor: pointer;
 }
-.login .google:hover{
+.login .google:hover {
     background-color: #FF7566;
-}
-.login .github:hover{
-    background-color: #4D4D4d;;
+    cursor: pointer;
 }
 .login .forgot {
     color: #797979;
@@ -14793,4 +14803,7 @@ body {
 }
 .bg-gray.modal-open{
     padding-right: 0 !important;
+}
+.login .form-control.has-error {
+    border: 1px solid red !important;
 }

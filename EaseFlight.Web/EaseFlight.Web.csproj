@@ -193,6 +193,7 @@
     <Content Include="Scripts\user\basejs\sticky-kit.js" />
     <Content Include="Scripts\user\basejs\typeahead.js" />
     <Content Include="Scripts\user\basejs\window-scroll-action.js" />
+    <Content Include="Scripts\user\pages\account.js" />
     <Content Include="Scripts\user\pages\flight.js" />
     <Content Include="Scripts\user\pages\home.js" />
     <Content Include="Web.config" />

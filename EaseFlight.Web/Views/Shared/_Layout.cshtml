@@ -1,4 +1,23 @@
-﻿<!DOCTYPE HTML>
+﻿@using EaseFlight.Web.WebUtilities;
+@{
+    var loggedUser = SessionUtility.GetLoggedUser();
+    var shortName = string.Empty;
+
+    //Get short name for logged user fullname
+    if (loggedUser != null)
+    {
+        var fullName = loggedUser.FullName.Split(' ');
+        var lenght = fullName.Count();
+        shortName = fullName[0];
+
+        if (lenght != 1)
+        {
+            shortName = string.Format("{0} {1}", fullName[lenght - 2], fullName[lenght - 1]);
+        }
+    }
+}
+
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -460,37 +479,43 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        @*<li class="navbar-nav-item-user dropdown">
+                        @if (loggedUser != null)
+                        {
+                            <li class="navbar-nav-item-user dropdown">
                                 <a class="dropdown-toggle" href="account.html" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-user-circle-o navbar-nav-item-user-icon"></i>My Account
+                                    <i class="fa fa-user-circle-o navbar-nav-item-user-icon"></i>@shortName
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="account.html">Preferences</a>
+                                        <a href="#">
+                                            <i class="fa fa-ticket"></i>
+                                            Ticket
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="account-notifications.html">Notifications</a>
+                                        <a href="#">
+                                            <i class="fa fa-user"></i>
+                                            My Profile
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="account-cards.html">Payment Methods</a>
-                                    </li>
-                                    <li>
-                                        <a href="account-travelers.html">Travelers</a>
-                                    </li>
-                                    <li>
-                                        <a href="account-history.html">History</a>
-                                    </li>
-                                    <li>
-                                        <a href="account-bookmarks.html">Bookmarks</a>
+                                        <a href="@Url.Action("Logout","Account")">
+                                            <i class="fa fa-sign-out"></i>
+                                            Logout
+                                        </a>
                                     </li>
                                 </ul>
-                            </li>*@
-                        <li>
-                            <a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();" class="btn sign-in">Log in</a>
-                        </li>
-                        <li>
-                            <a data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();" class="btn">Sign up</a>
-                        </li>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();" class="btn sign-in">Log in</a>
+                            </li>
+                            <li>
+                                <a data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();" class="btn">Sign up</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

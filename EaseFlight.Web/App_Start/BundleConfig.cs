@@ -30,6 +30,9 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/flight").Include(
                 "~/Scripts/user/pages/flight.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/account").Include(
+                "~/Scripts/user/pages/account.js"));
             #endregion
 
             #region Styles
