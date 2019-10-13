@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+@Styles.Render("~/Content/home")
+@Scripts.Render("~/bundles/home")
+
+<div class="_pos-r">
+    <div class="theme-hero-area _h-desk-100vh">
+        <div class="theme-hero-area-bg-wrap">
+            <div class="theme-hero-area-bg" style="background-image:url(/Content/images/plate-flight-sky-sunset_1500x801.jpg);" id="hero-banner"></div>
+            <div class="theme-hero-area-mask theme-hero-area-mask-half"></div>
+            <div class="theme-hero-area-inner-shadow"></div>
+            <div class="blur-area blur-area-none-clippath" data-bg-area="#hero-banner" data-blur-area="#hero-search-form" data-blur="8"></div>
+        </div>
+        <div class="theme-hero-area-body _pos-desk-v-c _w-f _pv-mob-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-11 ">
+                        <div class="theme-search-area theme-search-area-stacked theme-search-area-white">
+                            <div class="theme-search-area-header _mb-20">
+                                <h1 class="theme-search-area-title">Cheap Flights Best Deals</h1>
+                                <p class="theme-search-area-subtitle">Search hundreds of travel sites at once</p>
+                            </div>
+                            <div class="theme-search-area-form" id="hero-search-form">
+                                <div class="row" data-gutter="none">
+                                    <div class="col-md-4-5 place">
+                                        <div class="row" data-gutter="none">
+                                            <div class="col-md-6 ">
+                                                <div class="theme-search-area-section first theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
+                                                    <div class="theme-search-area-section-inner">
+                                                        <i class="theme-search-area-section-icon lin lin-location-pin"></i>
+                                                        @*<input class="theme-search-area-section-input typeahead" type="text" placeholder="Departure" data-provide="typeahead" />*@
+                                                        <select class="theme-search-area-section-input">
+                                                            <option class="select-menu">Departure</option>
+                                                            <option class="select-menu">2</option>
+                                                            <option class="select-menu">3</option>
+                                                            <option class="select-menu">4</option>
+                                                            <option class="select-menu">5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="theme-search-area-section theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
+                                                    <div class="theme-search-area-section-inner">
+                                                        <i class="theme-search-area-section-icon lin lin-location-pin"></i>
+                                                        @*<input class="theme-search-area-section-input typeahead" type="text" placeholder="Arrival" data-provide="typeahead" />*@
+                                                        <select class="theme-search-area-section-input">
+                                                            <option class="select-menu">Arrival</option>
+                                                            <option class="select-menu">2</option>
+                                                            <option class="select-menu">3</option>
+                                                            <option class="select-menu">4</option>
+                                                            <option class="select-menu">5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6-5 time-place">
+                                        <div class="row" data-gutter="none">
+                                            <div class="col-md-4 checkin">
+                                                <div class="theme-search-area-section first theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
+                                                    <div class="theme-search-area-section-inner">
+                                                        <i class="theme-search-area-section-icon lin lin-calendar"></i>
+                                                        <input class="theme-search-area-section-input datePickerStart _mob-h" value="" type="text" placeholder="Departure Date" />
+                                                        <input class="theme-search-area-section-input _desk-h datePickerStart" value="" type="text" placeholder="Departure Date" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 hide checkout">
+                                                <div class="theme-search-area-section theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
+                                                    <div class="theme-search-area-section-inner">
+                                                        <i class="theme-search-area-section-icon lin lin-calendar"></i>
+                                                        <input class="theme-search-area-section-input datePickerEnd _mob-h" value="" type="text" placeholder="Return Date" />
+                                                        <input class="theme-search-area-section-input _desk-h datePickerEnd" value="" type="text" placeholder="Return Date" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 seatclass">
+                                                <div class="theme-search-area-section theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
+                                                    <div class="theme-search-area-section-inner">
+                                                        <i class="theme-search-area-section-icon lin lin-graph"></i>
+                                                        @*<input class="theme-search-area-section-input typeahead" type="text" placeholder="Seat Class" data-provide="typeahead" />*@
+                                                        <select class="theme-search-area-section-input">
+                                                            <option class="select-menu">1</option>
+                                                            <option class="select-menu">2</option>
+                                                            <option class="select-menu">3</option>
+                                                            <option class="select-menu">4</option>
+                                                            <option class="select-menu">5</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 passenger">
+                                                <div class="theme-search-area-section theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved quantity-selector" data-increment="Passengers">
+                                                    <div class="theme-search-area-section-inner">
+                                                        <i class="theme-search-area-section-icon lin lin-people"></i>
+                                                        <input class="theme-search-area-section-input" value="1 Passenger" type="text" />
+                                                        <div class="quantity-selector-box" id="FlySearchPassengers">
+                                                            <div class="quantity-selector-inner">
+                                                                <p class="quantity-selector-title">Passengers</p>
+                                                                <ul class="quantity-selector-controls">
+                                                                    <li class="quantity-selector-decrement">
+                                                                        <a href="#">&#45;</a>
+                                                                    </li>
+                                                                    <li class="quantity-selector-current">1</li>
+                                                                    <li class="quantity-selector-increment">
+                                                                        <a href="#">&#43;</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="quantity-selector-inner">
+                                                                <p class="quantity-selector-title">Passengers 2</p>
+                                                                <ul class="quantity-selector-controls">
+                                                                    <li class="quantity-selector-decrement">
+                                                                        <a href="#">&#45;</a>
+                                                                    </li>
+                                                                    <li class="quantity-selector-current">1</li>
+                                                                    <li class="quantity-selector-increment">
+                                                                        <a href="#">&#43;</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 ">
+                                        <button class="theme-search-area-submit _mt-0 theme-search-area-submit-glow theme-search-area-submit-curved">
+                                            <i class="theme-search-area-submit-icon fa fa-paper-plane"></i>
+                                            <span class="_desk-h">Search</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="theme-search-area-options theme-search-area-options-center theme-search-area-options-dot-primary-inverse clearfix">
+                                <div class="btn-group theme-search-area-options-list" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                        <input type="radio" name="flight-options" id="flight-option-1" checked />One Way
+                                    </label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="flight-options" id="flight-option-2" />Round Trip
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="_pt-100">
+                            <div class="row row-col-mob-gap">
+                                <div class="col-md-3 ">
+                                    <div class="feature">
+                                        <i class="feature-icon feature-icon-white feature-icon-box feature-icon-round feature-icon-xs fa fa-check"></i>
+                                        <div class="feature-caption _c-w">
+                                            <h5 class="feature-title">Explore the World</h5>
+                                            <p class="feature-subtitle _op-04">Start to discrover. We will help you to visit any place you can imagine</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="feature">
+                                        <i class="feature-icon feature-icon-white feature-icon-box feature-icon-round feature-icon-xs fa fa-check"></i>
+                                        <div class="feature-caption _c-w">
+                                            <h5 class="feature-title">Gifts & Rewards</h5>
+                                            <p class="feature-subtitle _op-04">Get even more from our service. Spend less and travel more</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="feature">
+                                        <i class="feature-icon feature-icon-white feature-icon-box feature-icon-round feature-icon-xs fa fa-check"></i>
+                                        <div class="feature-caption _c-w">
+                                            <h5 class="feature-title">Best prices</h5>
+                                            <p class="feature-subtitle _op-04">We are comparing hundreds travel websites to find best price for you</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="feature">
+                                        <i class="feature-icon feature-icon-white feature-icon-box feature-icon-round feature-icon-xs fa fa-check"></i>
+                                        <div class="feature-caption _c-w">
+                                            <h5 class="feature-title">27/7 Support</h5>
+                                            <p class="feature-subtitle _op-04">Contact us anytime, anywhere. We will resolve any issues ASAP</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="theme-footer-abs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="theme-footer-abs-nav">
+                        <li>
+                            <a href="hotel-index-1.html">Hotels</a>
+                        </li>
+                        <li>
+                            <a href="flight-index-1.html">Flights</a>
+                        </li>
+                        <li>
+                            <a href="room-index-1.html">Homes</a>
+                        </li>
+                        <li>
+                            <a href="car-index-1.html">Cars</a>
+                        </li>
+                        <li>
+                            <a href="exp-index-1.html">Experiences</a>
+                        </li>
+                        <li>
+                            <a href="about-us.html">About Us</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="theme-footer-abs-copyright">
+                        Copyright &copy; 2018
+                        <a href="#">Bookify</a>. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="theme-social-list theme-footer-abs-social">
+                        <li>
+                            <a class="fa fa-facebook" href="#"></a>
+                        </li>
+                        <li>
+                            <a class="fa fa-twitter" href="#"></a>
+                        </li>
+                        <li>
+                            <a class="fa fa-google" href="#"></a>
+                        </li>
+                        <li>
+                            <a class="fa fa-instagram" href="#"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

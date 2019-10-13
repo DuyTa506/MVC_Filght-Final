@@ -1,0 +1,7 @@
+**/bin
+**/obj
+**/logs
+**/PublishProfiles
+*.csproj.user
+.vs
+/packages

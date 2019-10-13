@@ -1,0 +1,23 @@
+﻿.blur-area-none-clippath{
+    clip-path: unset !important;
+}
+.theme-search-area-section-input{
+    height: 40px !important;
+    font-size: 14px !important;
+}
+.theme-search-area-section-icon{
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 14px !important;
+}
+.theme-search-area-submit{
+    height: 40px !important;
+    line-height: 40px !important;
+}
+.place, .time-place, .checkin, .checkout, .passenger, .seatclass{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.theme-search-area-section-input .select-menu {
+    color: black;
+}

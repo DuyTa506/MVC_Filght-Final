@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0c19de8aa92f43499c56d04857a9b0d3" Name="Diagram1">
+        <EntityTypeShape EntityType="EaseFlightModel.Account" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.AccountType" Width="1.5" PointX="1.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.Airport" Width="1.5" PointX="1.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.FlightRoad" Width="1.5" PointX="1.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.FlightRoadAirport" Width="1.5" PointX="3.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.FlightRoadSchedule" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.PassengerType" Width="1.5" PointX="2.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.Plane" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.PlaneSeatClass" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.Schedule" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.SeatClass" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.Ticket" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.TicketSchedule" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="EaseFlightModel.FK_Account_AccountType" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_Ticket_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_FlightRoadAirport_Airport" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_FlightRoadAirport_FlightRoad" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_FlightRoadSchedule_FlightRoad" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_FlightRoadSchedule_Plane" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_FlightRoadSchedule_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_PlaneSeatClass_Plane" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_PlaneSeatClass_SeatClass" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_TicketSchedule_Schedule" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_Ticket_SeatClass" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.FK_TicketSchedule_Ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="EaseFlightModel.PlaneFlightRoad" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

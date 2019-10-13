@@ -1,0 +1,55 @@
+﻿.div-data-gutter {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+.departure-date{
+    padding-left: 17px !important;
+}
+.div-passenger{
+    padding-right: 19px !important;
+}
+.disabled-tab {
+    opacity: 0.3;
+}
+.resutl-title {
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 0 2px;
+}
+.resutl-title .content {
+    background: #1ba0e2;
+    padding: 5px 20px;
+}
+.resutl-title .content-1 {
+    height: 85px;
+    width: 0;
+    vertical-align: middle;
+    display: inline-block;
+}
+.resutl-title .content-2 {
+    border-right: 2px solid #fff;
+    font-size: 45px;
+    line-height: 54px;
+    padding-left: 11px;
+    padding-right: 15px;
+}
+.resutl-title .content-2, .resutl-title .content-3 {
+    display: inline-block;
+    vertical-align: middle;
+}
+.resutl-title .content-title {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.resutl-title .content-time {
+    font-size: 12px;
+}
+.resutl-title .content-time, .resutl-title .content-title {
+    margin-bottom: 5px;
+}
+.resutl-title .content-time:last-of-type {
+    margin-bottom: 0;
+}
