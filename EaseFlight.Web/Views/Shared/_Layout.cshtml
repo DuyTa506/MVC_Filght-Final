@@ -483,7 +483,15 @@
                         {
                             <li class="navbar-nav-item-user dropdown">
                                 <a class="dropdown-toggle" href="account.html" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-user-circle-o navbar-nav-item-user-icon"></i>@shortName
+                                    @if (string.IsNullOrEmpty(loggedUser.Photo))
+                                    {
+                                        <i class="fa fa-user-circle-o navbar-nav-item-user-icon"></i>
+                                    }
+                                    else
+                                    {
+                                        <img class="user-avatar" src="@loggedUser.Photo" width="20" height="20" />
+                                    }
+                                    @shortName
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
