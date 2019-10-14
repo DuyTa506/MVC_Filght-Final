@@ -178,6 +178,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\user\basejs\blur-area.js" />
+    <Content Include="Scripts\user\basejs\bootstrap-select.js" />
     <Content Include="Scripts\user\basejs\bootstrap.js" />
     <Content Include="Scripts\user\basejs\bs-datepicker.js" />
     <Content Include="Scripts\user\basejs\custom.js" />

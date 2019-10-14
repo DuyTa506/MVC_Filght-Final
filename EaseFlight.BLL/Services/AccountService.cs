@@ -26,8 +26,8 @@ namespace EaseFlight.BLL.Services
         #region Functions
         public IEnumerable<AccountModel> FindAll()
         {
-            var modelList = this.AccountRepository.FindAll().ToList();
-            var result = modelList.Select(model => this.CreateViewModel(model)).ToList();
+            var modelList = this.AccountRepository.FindAll();
+            var result = modelList.Select(model => this.CreateViewModel(model));
 
             return result;
         }

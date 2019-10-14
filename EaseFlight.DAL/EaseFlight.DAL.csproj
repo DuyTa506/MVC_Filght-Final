@@ -109,9 +109,13 @@
     </Compile>
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\IAccountTypeRepository.cs" />
+    <Compile Include="Interfaces\ISeatClassRepository.cs" />
+    <Compile Include="Interfaces\IAirportRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\AccountTypeRepository.cs" />
+    <Compile Include="Repositories\SeatClassRepository.cs" />
+    <Compile Include="Repositories\AirportRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="UnitOfWorks\IUnitOfWork.cs" />
     <Compile Include="UnitOfWorks\UnitOfWork.cs" />

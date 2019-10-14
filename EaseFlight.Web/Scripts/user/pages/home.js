@@ -14,3 +14,11 @@
         $('.error').addClass('alert alert-success').html('Reset password successfully, please login!')
     }
 });
+
+//Select Departure and Arrial dropdown
+function placeSelect() {
+    var selText = $(event.target).closest('li').text().trim().split('\n');
+    var city = selText[0];
+    var airportCode = selText[1].split('-')[0].trim();
+    $(event.target).parents('.theme-search-area-section-inner').find('.place-result').html(city + ' (' + airportCode + ')');
+}

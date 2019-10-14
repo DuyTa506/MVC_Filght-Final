@@ -53,9 +53,13 @@
   <ItemGroup>
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IAccountTypeService.cs" />
+    <Compile Include="Interfaces\ISeatClassService.cs" />
+    <Compile Include="Interfaces\IAirportService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AccountTypeService.cs" />
+    <Compile Include="Services\SeatClassService.cs" />
+    <Compile Include="Services\AirportService.cs" />
     <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
   <ItemGroup>
