@@ -50,15 +50,19 @@ function checkInputText(textInput) {
         textInput.focus();
         $(textInput).addClass("has-error");
         $('.error').addClass('alert alert-danger').html("Please input " + textInput.placeholder);
+        $('.msg-error').text(textInput.placeholder + ' is required!');
         return false;
     }
     $(textInput).removeClass("has-error");
     $('.error').removeClass('alert alert-danger').html('');
+    $('.msg-error').text('');
     return true;
 }
 
 function forgotPassword() {
     var email = $('#email').val();
+    if (!checkInputText(document.getElementById('email'))) return;
+
     $.ajax({
         url: '/Account/ForgotPassword',
         type: 'post',
@@ -83,9 +87,14 @@ function forgotPassword() {
 
 function resetPassword() {
     var formData = $('#resetForm').serializeArray();
+    var password = document.getElementById('resetForm').querySelector('input[name="password"]');
+    var repassword = document.getElementById('resetForm').querySelector('input[name="repassword"]');
+    if (!checkInputText(password)) return;
+    if (!checkInputText(repassword)) return;
 
     if (formData[1].value != formData[2].value) {
         $('.msg-error').text('Confirm password not correct!');
+        $(repassword).addClass('has-error');
         return;
     }
 

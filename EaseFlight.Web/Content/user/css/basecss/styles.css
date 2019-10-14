@@ -14807,6 +14807,9 @@ body {
 .login .form-control.has-error {
     border: 1px solid red !important;
 }
+.form-control.has-error {
+    border: 1px solid red !important;
+}
 .user-avatar {
     border-radius: 50%;
     margin-right: 5px;
