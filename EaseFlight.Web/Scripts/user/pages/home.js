@@ -6,4 +6,11 @@
 
     //Add events One Way/Round Trip option
     addEventTripSearch();
+
+    //Check reset password success
+    var href = window.location.href.split('#');
+    if (href[1] == "login") {
+        openLoginModal();
+        $('.error').addClass('alert alert-success').html('Reset password successfully, please login!')
+    }
 });

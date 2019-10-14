@@ -74,11 +74,17 @@ namespace EaseFlight.Web.Controllers
             return result;
         }
 
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public JsonResult ForgotPassword(FormCollection collection)
+        public JsonResult ForgotPassword(string email)
         {
             var result = new JsonResult { ContentType = "text" };
-            var userModel = this.AccountService.CheckUsernameExists(collection.Get("username"), collection.Get("username"));
+            var userModel = this.AccountService.CheckUsernameExists(email, email);
             var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
 
             if (userModel != null)
@@ -119,7 +125,7 @@ namespace EaseFlight.Web.Controllers
                     else if (currentUser.ExpireToken < DateTime.Now)
                     {
                         currentUser.ResetPasswordToken = null;
-                        currentUser.Password = null;
+                        currentUser.ExpireToken = null;
 
                         this.AccountService.Update(currentUser);
                     }
@@ -128,20 +134,20 @@ namespace EaseFlight.Web.Controllers
             {
             }
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public ActionResult ResetPassword(AccountModel model)
+        public JsonResult ResetPassword(FormCollection collection)
         {
-            var userModel = this.AccountService.Find(model.ID);
+            var userModel = this.AccountService.Find(int.Parse(collection.Get("Id")));
 
-            userModel.Password = EncryptionUtility.BcryptHashPassword(model.Password);
+            userModel.Password = EncryptionUtility.BcryptHashPassword(collection.Get("password"));
             userModel.ResetPasswordToken = null;
             userModel.ExpireToken = null;
             this.AccountService.Update(userModel);
 
-            return RedirectToAction("Login", "Account");
+            return new JsonResult { ContentType = "text" };
         }
 
         [HttpPost]

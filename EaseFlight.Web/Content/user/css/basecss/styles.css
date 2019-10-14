@@ -5888,7 +5888,7 @@ img.mfp-img {
   background: #fff;
   -webkit-box-shadow: 0 10px 45px rgba(0,0,0,0.15) , 0 2px 4px rgba(0,0,0,0.1);
   box-shadow: 0 10px 45px rgba(0,0,0,0.15) , 0 2px 4px rgba(0,0,0,0.1);
-  border-radius: 2px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .theme-login-box-inner {
@@ -5926,11 +5926,11 @@ img.mfp-img {
   margin-bottom: 20px;
 }
 .theme-login-form-group .form-control {
-  height: 50px;
+  height: 35px;
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
-  font-size: 16px;
+  font-size: 14px;
   border-color: #dedede;
 }
 .theme-login-form-group .form-control:focus {
@@ -6042,7 +6042,7 @@ img.mfp-img {
 }
 .theme-login-pwd-reset-text {
   margin-bottom: 20px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.6em;
   color: #727272;
 }
@@ -14811,4 +14811,10 @@ body {
     border-radius: 50%;
     margin-right: 5px;
     vertical-align: bottom;
+}
+.msg-error{
+    color: red;
+}
+.msg-success{
+    color: green;
 }

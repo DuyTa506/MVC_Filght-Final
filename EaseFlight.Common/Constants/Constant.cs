@@ -26,7 +26,7 @@
         #region Emails
         public static string CONST_EMAIL_DEFAULT_EMAIL_SENDER = "warning.customer.service@gmail.com";
         public static string CONST_EMAIL_DEFAULT_EMAIL_SENDER_PASSWORD = "tanluc123";
-        public static string CONST_EMAIL_RESET_PASSWORD_SUBJECT = "Reset your password";
+        public static string CONST_EMAIL_RESET_PASSWORD_SUBJECT = "[Ease Flight] Reset your password";
         public static string CONST_EMAIL_RESET_PASSWORD_BODY1 = "<html><body style=\"font-size:13px; font-family:Tahoma;\"><h1>Password reset</h1><p>To reset your password click the link below:</p>"
                                                             + "<div><a href=\"";
         public static string CONST_EMAIL_RESET_PASSWORD_BODY2 = "\">Link</a></div><br /><p>This link will expire in 30 minutes.</p><p>"

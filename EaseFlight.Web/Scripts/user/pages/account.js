@@ -58,38 +58,46 @@ function checkInputText(textInput) {
 }
 
 function forgotPassword() {
-    var formData = $('#forgotForm').serialize();
+    var email = $('#email').val();
     $.ajax({
         url: '/Account/ForgotPassword',
         type: 'post',
-        data: formData,
+        data: {
+            email: email
+        },
         success: function (response) {
             var message = JSON.parse(response).msg;
-            $('.msg-error').html(message);
+            var type = JSON.parse(response).type;
+            if (type == "error") {
+                $('.msg-error').html(message);
+                $('.msg-success').html('');
+            }
+            else {
+                $('.msg-success').html(message);
+                $('.msg-error').html('');
+            }
+                
         }
     });
 }
 
-//function resetPassword() {
-//    var formData = $('#forgotForm').serializeArray();
+function resetPassword() {
+    var formData = $('#resetForm').serializeArray();
 
-//    if (formData[0].value != formData[1].value) {
-//        $('.msg-error').text('Confirm password not correct!');
-//        return;
-//    }
+    if (formData[1].value != formData[2].value) {
+        $('.msg-error').text('Confirm password not correct!');
+        return;
+    }
 
-//    $.ajax({
-//        url: '/Account/Login',
-//        type: 'post',
-//        data: $('#forgotForm').serialize(),
-//        success: function (response) {
-//            var message = JSON.parse(response).msg;
-//            if (message != "success")
-//                $('.msg-error').text(message);
-//            else window.location.reload();
-//        }
-//    });
-//}
+    $.ajax({
+        url: '/Account/ResetPassword',
+        type: 'post',
+        data: $('#resetForm').serialize(),
+        success: function (response) {
+            window.location.href = '/#login';
+        }
+    });
+}
 
 function login() {
     var username = document.getElementById('loginForm').querySelector('input[name="username"]');
@@ -108,30 +116,16 @@ function login() {
             if (message != "success")
                 $('.error').addClass('alert alert-danger').html(message);
             else {
-                if (url == '')
-                    window.location.reload();
+                if (url == '') {
+                    var href = window.location.href.split('#');
+                    if (href[1] == "login")
+                        window.location.href = "/";
+                    else window.location.reload();
+                }
                 else window.location.href = url;
             }
         }
     });
-}
-
-function getForgetPasswordTab() {
-    $('.li-forgot').removeClass('hide');
-    $('.li-forgot').addClass('active');
-    $('#forgot').addClass('active in');
-    $('.li-signin').addClass('hide');
-    $('#signin').addClass('hide');
-}
-
-function getSigninTab() {
-    $('.li-forgot').addClass('hide');
-    $('.li-forgot').removeClass('active');
-    $('#forgot').removeClass('active in');
-    $('.li-signin').removeClass('hide');
-    $('#signin').removeClass('hide');
-    $('.li-signin').addClass('active');
-    $('#signin').addClass('active in');
 }
 
 //Login with Google
