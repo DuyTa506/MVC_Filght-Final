@@ -4,20 +4,20 @@ using System;
 
 namespace EaseFlight.Models.EntityModels
 {
-    public class FlightRoadAirportModel
+    public class PlaneAirportModel
     {
         #region Properties
-        public int FlightRoadID { get; set; }
+        public int PlaneID { get; set; }
         public int AirportID { get; set; }
-        public Nullable<bool> PlaceTakeoff { get; set; }
+        public Nullable<int> DepartureOrArrival { get; set; }
         public virtual Airport Airport { get; set; }
-        public virtual FlightRoad FlightRoad { get; set; }
+        public virtual Plane Plane { get; set; }
         #endregion
 
         #region Functions
-        public FlightRoadAirport GetModel()
+        public PlaneAirport GetModel()
         {
-            var model = new FlightRoadAirport();
+            var model = new PlaneAirport();
             CommonMethods.CopyObjectProperties(this, model);
 
             return model;

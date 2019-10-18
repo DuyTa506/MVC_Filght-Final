@@ -12,19 +12,21 @@ namespace EaseFlight.DAL.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class PassengerType
+    public partial class SeatMap
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PassengerType()
+        public SeatMap()
         {
-            this.PassengerTickets = new HashSet<PassengerTicket>();
+            this.Planes = new HashSet<Plane>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Discount { get; set; }
+        public string Columns { get; set; }
+        public string RowWithoutSeat { get; set; }
+        public Nullable<int> Capacity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PassengerTicket> PassengerTickets { get; set; }
+        public virtual ICollection<Plane> Planes { get; set; }
     }
 }

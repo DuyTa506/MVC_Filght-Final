@@ -10,7 +10,6 @@ namespace EaseFlight.Models.EntityModels
         public int ID { get; set; }
         public string Name { get; set; }
         public virtual ICollection<PlaneSeatClass> PlaneSeatClasses { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
         #endregion
 
         #region Functions

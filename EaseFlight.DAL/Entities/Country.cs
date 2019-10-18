@@ -12,24 +12,18 @@ namespace EaseFlight.DAL.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class FlightRoad
+    public partial class Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FlightRoad()
+        public Country()
         {
-            this.FlightRoadAirports = new HashSet<FlightRoadAirport>();
-            this.FlightRoadSchedules = new HashSet<FlightRoadSchedule>();
-            this.Planes = new HashSet<Plane>();
+            this.Airports = new HashSet<Airport>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlightRoadAirport> FlightRoadAirports { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlightRoadSchedule> FlightRoadSchedules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Plane> Planes { get; set; }
+        public virtual ICollection<Airport> Airports { get; set; }
     }
 }

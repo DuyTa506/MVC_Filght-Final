@@ -4,20 +4,22 @@ using System;
 
 namespace EaseFlight.Models.EntityModels
 {
-    public class TicketScheduleModel
+    public class TicketFlightModel
     {
         #region Properties
         public int TicketID { get; set; }
-        public int ScheduleID { get; set; }
+        public int FlightID { get; set; }
+        public string SeatCode { get; set; }
         public Nullable<bool> RoundTrip { get; set; }
-        public virtual Schedule Schedule { get; set; }
+        public Nullable<int> Order { get; set; }
+        public virtual Flight Flight { get; set; }
         public virtual Ticket Ticket { get; set; }
         #endregion
 
         #region Functions
-        public TicketSchedule GetModel()
+        public TicketFlight GetModel()
         {
-            var model = new TicketSchedule();
+            var model = new TicketFlight();
             CommonMethods.CopyObjectProperties(this, model);
 
             return model;

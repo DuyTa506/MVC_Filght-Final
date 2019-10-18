@@ -62,6 +62,9 @@
     <Compile Include="Entities\Airport.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Country.cs">
+      <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\EaseFlightEntityDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -77,13 +80,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EaseFlightEntityDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Entities\FlightRoad.cs">
+    <Compile Include="Entities\Flight.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\FlightRoadAirport.cs">
-      <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\FlightRoadSchedule.cs">
+    <Compile Include="Entities\PassengerTicket.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\PassengerType.cs">
@@ -92,19 +92,22 @@
     <Compile Include="Entities\Plane.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\PlaneSeatClass.cs">
+    <Compile Include="Entities\PlaneAirport.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Schedule.cs">
+    <Compile Include="Entities\PlaneSeatClass.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\SeatClass.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\SeatMap.cs">
+      <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Ticket.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\TicketSchedule.cs">
+    <Compile Include="Entities\TicketFlight.cs">
       <DependentUpon>EaseFlightEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IAccountRepository.cs" />

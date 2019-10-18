@@ -18,7 +18,6 @@ namespace EaseFlight.DAL.Entities
         public SeatClass()
         {
             this.PlaneSeatClasses = new HashSet<PlaneSeatClass>();
-            this.Tickets = new HashSet<Ticket>();
         }
     
         public int ID { get; set; }
@@ -26,7 +25,5 @@ namespace EaseFlight.DAL.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlaneSeatClass> PlaneSeatClasses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

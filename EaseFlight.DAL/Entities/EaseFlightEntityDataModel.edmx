@@ -40,43 +40,37 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" />
           <Property Name="City" Type="nvarchar" MaxLength="250" />
+          <Property Name="CountryID" Type="int" />
         </EntityType>
-        <EntityType Name="FlightRoad">
+        <EntityType Name="Country">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="FlightRoadAirport">
+        <EntityType Name="Flight">
           <Key>
-            <PropertyRef Name="FlightRoadID" />
-            <PropertyRef Name="AirportID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="FlightRoadID" Type="int" Nullable="false" />
-          <Property Name="AirportID" Type="int" Nullable="false" />
-          <Property Name="PlaceTakeoff" Type="bit" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaneID" Type="int" />
+          <Property Name="DepartureDate" Type="datetime" />
+          <Property Name="ArrivalDate" Type="datetime" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Status" Type="varchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="FlightRoadSchedule">
-          <Key>
-            <PropertyRef Name="ScheduleID" />
-            <PropertyRef Name="FlightRoadID" />
-            <PropertyRef Name="PlaneID" />
-          </Key>
-          <Property Name="ScheduleID" Type="int" Nullable="false" />
-          <Property Name="FlightRoadID" Type="int" Nullable="false" />
-          <Property Name="PlaneID" Type="int" Nullable="false" />
-          <Property Name="Order" Type="int" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'EaseFlight.dbo.PassengerTicket' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="PassengerTicket">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TicketID" Type="int" />
           <Property Name="FullName" Type="nvarchar" MaxLength="250" />
           <Property Name="Gender" Type="bit" />
-          <Property Name="Birtday" Type="datetime" />
+          <Property Name="Birthday" Type="datetime" />
           <Property Name="PassengerTypeID" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="PassengerType">
           <Key>
             <PropertyRef Name="ID" />
@@ -91,15 +85,17 @@ warning 6013: The table/view 'EaseFlight.dbo.PassengerTicket' does not have a pr
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Airline" Type="varchar" MaxLength="250" />
+          <Property Name="SeatMapID" Type="int" />
           <Property Name="Status" Type="varchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="PlaneFlightRoad">
+        <EntityType Name="PlaneAirport">
           <Key>
             <PropertyRef Name="PlaneID" />
-            <PropertyRef Name="FlightRoadID" />
+            <PropertyRef Name="AirportID" />
           </Key>
           <Property Name="PlaneID" Type="int" Nullable="false" />
-          <Property Name="FlightRoadID" Type="int" Nullable="false" />
+          <Property Name="AirportID" Type="int" Nullable="false" />
+          <Property Name="DepartureOrArrival" Type="int" />
         </EntityType>
         <EntityType Name="PlaneSeatClass">
           <Key>
@@ -108,17 +104,9 @@ warning 6013: The table/view 'EaseFlight.dbo.PassengerTicket' does not have a pr
           </Key>
           <Property Name="PlaneID" Type="int" Nullable="false" />
           <Property Name="SeatClassID" Type="int" Nullable="false" />
-          <Property Name="Chair" Type="int" />
+          <Property Name="Capacity" Type="int" />
           <Property Name="Price" Type="float" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DepartureDate" Type="datetime" />
-          <Property Name="ArrivalDate" Type="datetime" />
-          <Property Name="Status" Type="varchar" MaxLength="250" />
+          <Property Name="Order" Type="int" />
         </EntityType>
         <EntityType Name="SeatClass">
           <Key>
@@ -126,6 +114,16 @@ warning 6013: The table/view 'EaseFlight.dbo.PassengerTicket' does not have a pr
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SeatMap">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Columns" Type="varchar" MaxLength="250" />
+          <Property Name="RowWithoutSeat" Type="varchar" MaxLength="250" />
+          <Property Name="Capacity" Type="int" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -138,18 +136,19 @@ warning 6013: The table/view 'EaseFlight.dbo.PassengerTicket' does not have a pr
           <Property Name="Description" Type="nvarchar" MaxLength="1250" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
-          <Property Name="SeatClassID" Type="int" />
           <Property Name="PaymentID" Type="varchar" MaxLength="250" />
           <Property Name="Status" Type="varchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="TicketSchedule">
+        <EntityType Name="TicketFlight">
           <Key>
             <PropertyRef Name="TicketID" />
-            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="FlightID" />
           </Key>
           <Property Name="TicketID" Type="int" Nullable="false" />
-          <Property Name="ScheduleID" Type="int" Nullable="false" />
+          <Property Name="FlightID" Type="int" Nullable="false" />
+          <Property Name="SeatCode" Type="varchar" MaxLength="50" />
           <Property Name="RoundTrip" Type="bit" />
+          <Property Name="Order" Type="int" />
         </EntityType>
         <Association Name="FK_Account_AccountType">
           <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
@@ -163,92 +162,86 @@ warning 6013: The table/view 'EaseFlight.dbo.PassengerTicket' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FlightRoadAirport_Airport">
-          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
-          <End Role="FlightRoadAirport" Type="Self.FlightRoadAirport" Multiplicity="*" />
+        <Association Name="FK_Airport_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Airport" Type="Self.Airport" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Airport">
+            <Principal Role="Country">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="FlightRoadAirport">
-              <PropertyRef Name="AirportID" />
+            <Dependent Role="Airport">
+              <PropertyRef Name="CountryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FlightRoadAirport_FlightRoad">
-          <End Role="FlightRoad" Type="Self.FlightRoad" Multiplicity="1" />
-          <End Role="FlightRoadAirport" Type="Self.FlightRoadAirport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FlightRoad">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FlightRoadAirport">
-              <PropertyRef Name="FlightRoadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FlightRoadSchedule_FlightRoad">
-          <End Role="FlightRoad" Type="Self.FlightRoad" Multiplicity="1" />
-          <End Role="FlightRoadSchedule" Type="Self.FlightRoadSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FlightRoad">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FlightRoadSchedule">
-              <PropertyRef Name="FlightRoadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FlightRoadSchedule_Plane">
-          <End Role="Plane" Type="Self.Plane" Multiplicity="1" />
-          <End Role="FlightRoadSchedule" Type="Self.FlightRoadSchedule" Multiplicity="*" />
+        <Association Name="FK_Flight_Plane">
+          <End Role="Plane" Type="Self.Plane" Multiplicity="0..1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plane">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="FlightRoadSchedule">
+            <Dependent Role="Flight">
               <PropertyRef Name="PlaneID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FlightRoadSchedule_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="FlightRoadSchedule" Type="Self.FlightRoadSchedule" Multiplicity="*" />
+        <Association Name="FK_PassengerTicket_PassengerType">
+          <End Role="PassengerType" Type="Self.PassengerType" Multiplicity="0..1" />
+          <End Role="PassengerTicket" Type="Self.PassengerTicket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Schedule">
+            <Principal Role="PassengerType">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="FlightRoadSchedule">
-              <PropertyRef Name="ScheduleID" />
+            <Dependent Role="PassengerTicket">
+              <PropertyRef Name="PassengerTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_PassengerTicket_PassengerType" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_PassengerTicket_Ticket" />-->
-        <Association Name="FK_PlaneFlightRoad_FlightRoad">
-          <End Role="FlightRoad" Type="Self.FlightRoad" Multiplicity="1" />
-          <End Role="PlaneFlightRoad" Type="Self.PlaneFlightRoad" Multiplicity="*" />
+        <Association Name="FK_PassengerTicket_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="PassengerTicket" Type="Self.PassengerTicket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="FlightRoad">
+            <Principal Role="Ticket">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="PlaneFlightRoad">
-              <PropertyRef Name="FlightRoadID" />
+            <Dependent Role="PassengerTicket">
+              <PropertyRef Name="TicketID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PlaneFlightRoad_Plane">
+        <Association Name="FK_Plane_SeatMap">
+          <End Role="SeatMap" Type="Self.SeatMap" Multiplicity="0..1" />
+          <End Role="Plane" Type="Self.Plane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeatMap">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Plane">
+              <PropertyRef Name="SeatMapID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaneAirport_Airport">
+          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
+          <End Role="PlaneAirport" Type="Self.PlaneAirport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airport">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlaneAirport">
+              <PropertyRef Name="AirportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaneAirport_Plane">
           <End Role="Plane" Type="Self.Plane" Multiplicity="1" />
-          <End Role="PlaneFlightRoad" Type="Self.PlaneFlightRoad" Multiplicity="*" />
+          <End Role="PlaneAirport" Type="Self.PlaneAirport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plane">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="PlaneFlightRoad">
+            <Dependent Role="PlaneAirport">
               <PropertyRef Name="PlaneID" />
             </Dependent>
           </ReferentialConstraint>
@@ -289,38 +282,26 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ticket_SeatClass">
-          <End Role="SeatClass" Type="Self.SeatClass" Multiplicity="0..1" />
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+        <Association Name="FK_TicketFlight_Flight">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+          <End Role="TicketFlight" Type="Self.TicketFlight" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SeatClass">
+            <Principal Role="Flight">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Ticket">
-              <PropertyRef Name="SeatClassID" />
+            <Dependent Role="TicketFlight">
+              <PropertyRef Name="FlightID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TicketSchedule_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="TicketSchedule" Type="Self.TicketSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TicketSchedule">
-              <PropertyRef Name="ScheduleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TicketSchedule_Ticket">
+        <Association Name="FK_TicketFlight_Ticket">
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
-          <End Role="TicketSchedule" Type="Self.TicketSchedule" Multiplicity="*" />
+          <End Role="TicketFlight" Type="Self.TicketFlight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ticket">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="TicketSchedule">
+            <Dependent Role="TicketFlight">
               <PropertyRef Name="TicketID" />
             </Dependent>
           </ReferentialConstraint>
@@ -329,48 +310,48 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Airport" EntityType="Self.Airport" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FlightRoad" EntityType="Self.FlightRoad" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FlightRoadAirport" EntityType="Self.FlightRoadAirport" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FlightRoadSchedule" EntityType="Self.FlightRoadSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flight" EntityType="Self.Flight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PassengerTicket" EntityType="Self.PassengerTicket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PassengerType" EntityType="Self.PassengerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plane" EntityType="Self.Plane" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PlaneFlightRoad" EntityType="Self.PlaneFlightRoad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaneAirport" EntityType="Self.PlaneAirport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlaneSeatClass" EntityType="Self.PlaneSeatClass" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeatClass" EntityType="Self.SeatClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeatMap" EntityType="Self.SeatMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TicketSchedule" EntityType="Self.TicketSchedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TicketFlight" EntityType="Self.TicketFlight" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account_AccountType" Association="Self.FK_Account_AccountType">
             <End Role="AccountType" EntitySet="AccountType" />
             <End Role="Account" EntitySet="Account" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadAirport_Airport" Association="Self.FK_FlightRoadAirport_Airport">
+          <AssociationSet Name="FK_Airport_Country" Association="Self.FK_Airport_Country">
+            <End Role="Country" EntitySet="Country" />
             <End Role="Airport" EntitySet="Airport" />
-            <End Role="FlightRoadAirport" EntitySet="FlightRoadAirport" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadAirport_FlightRoad" Association="Self.FK_FlightRoadAirport_FlightRoad">
-            <End Role="FlightRoad" EntitySet="FlightRoad" />
-            <End Role="FlightRoadAirport" EntitySet="FlightRoadAirport" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadSchedule_FlightRoad" Association="Self.FK_FlightRoadSchedule_FlightRoad">
-            <End Role="FlightRoad" EntitySet="FlightRoad" />
-            <End Role="FlightRoadSchedule" EntitySet="FlightRoadSchedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadSchedule_Plane" Association="Self.FK_FlightRoadSchedule_Plane">
+          <AssociationSet Name="FK_Flight_Plane" Association="Self.FK_Flight_Plane">
             <End Role="Plane" EntitySet="Plane" />
-            <End Role="FlightRoadSchedule" EntitySet="FlightRoadSchedule" />
+            <End Role="Flight" EntitySet="Flight" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadSchedule_Schedule" Association="Self.FK_FlightRoadSchedule_Schedule">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="FlightRoadSchedule" EntitySet="FlightRoadSchedule" />
+          <AssociationSet Name="FK_PassengerTicket_PassengerType" Association="Self.FK_PassengerTicket_PassengerType">
+            <End Role="PassengerType" EntitySet="PassengerType" />
+            <End Role="PassengerTicket" EntitySet="PassengerTicket" />
           </AssociationSet>
-          <AssociationSet Name="FK_PlaneFlightRoad_FlightRoad" Association="Self.FK_PlaneFlightRoad_FlightRoad">
-            <End Role="FlightRoad" EntitySet="FlightRoad" />
-            <End Role="PlaneFlightRoad" EntitySet="PlaneFlightRoad" />
+          <AssociationSet Name="FK_PassengerTicket_Ticket" Association="Self.FK_PassengerTicket_Ticket">
+            <End Role="Ticket" EntitySet="Ticket" />
+            <End Role="PassengerTicket" EntitySet="PassengerTicket" />
           </AssociationSet>
-          <AssociationSet Name="FK_PlaneFlightRoad_Plane" Association="Self.FK_PlaneFlightRoad_Plane">
+          <AssociationSet Name="FK_Plane_SeatMap" Association="Self.FK_Plane_SeatMap">
+            <End Role="SeatMap" EntitySet="SeatMap" />
             <End Role="Plane" EntitySet="Plane" />
-            <End Role="PlaneFlightRoad" EntitySet="PlaneFlightRoad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneAirport_Airport" Association="Self.FK_PlaneAirport_Airport">
+            <End Role="Airport" EntitySet="Airport" />
+            <End Role="PlaneAirport" EntitySet="PlaneAirport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneAirport_Plane" Association="Self.FK_PlaneAirport_Plane">
+            <End Role="Plane" EntitySet="Plane" />
+            <End Role="PlaneAirport" EntitySet="PlaneAirport" />
           </AssociationSet>
           <AssociationSet Name="FK_PlaneSeatClass_Plane" Association="Self.FK_PlaneSeatClass_Plane">
             <End Role="Plane" EntitySet="Plane" />
@@ -384,17 +365,13 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
             <End Role="Account" EntitySet="Account" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ticket_SeatClass" Association="Self.FK_Ticket_SeatClass">
-            <End Role="SeatClass" EntitySet="SeatClass" />
-            <End Role="Ticket" EntitySet="Ticket" />
+          <AssociationSet Name="FK_TicketFlight_Flight" Association="Self.FK_TicketFlight_Flight">
+            <End Role="Flight" EntitySet="Flight" />
+            <End Role="TicketFlight" EntitySet="TicketFlight" />
           </AssociationSet>
-          <AssociationSet Name="FK_TicketSchedule_Schedule" Association="Self.FK_TicketSchedule_Schedule">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="TicketSchedule" EntitySet="TicketSchedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TicketSchedule_Ticket" Association="Self.FK_TicketSchedule_Ticket">
+          <AssociationSet Name="FK_TicketFlight_Ticket" Association="Self.FK_TicketFlight_Ticket">
             <End Role="Ticket" EntitySet="Ticket" />
-            <End Role="TicketSchedule" EntitySet="TicketSchedule" />
+            <End Role="TicketFlight" EntitySet="TicketFlight" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -440,42 +417,43 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FlightRoadAirports" Relationship="Self.FK_FlightRoadAirport_Airport" FromRole="Airport" ToRole="FlightRoadAirport" />
+          <Property Name="CountryID" Type="Int32" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Airport_Country" FromRole="Airport" ToRole="Country" />
+          <NavigationProperty Name="PlaneAirports" Relationship="Self.FK_PlaneAirport_Airport" FromRole="Airport" ToRole="PlaneAirport" />
         </EntityType>
-        <EntityType Name="FlightRoad">
+        <EntityType Name="Country">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FlightRoadAirports" Relationship="Self.FK_FlightRoadAirport_FlightRoad" FromRole="FlightRoad" ToRole="FlightRoadAirport" />
-          <NavigationProperty Name="FlightRoadSchedules" Relationship="Self.FK_FlightRoadSchedule_FlightRoad" FromRole="FlightRoad" ToRole="FlightRoadSchedule" />
-          <NavigationProperty Name="Planes" Relationship="Self.PlaneFlightRoad" FromRole="FlightRoad" ToRole="Plane" />
+          <NavigationProperty Name="Airports" Relationship="Self.FK_Airport_Country" FromRole="Country" ToRole="Airport" />
         </EntityType>
-        <EntityType Name="FlightRoadAirport">
+        <EntityType Name="Flight">
           <Key>
-            <PropertyRef Name="FlightRoadID" />
-            <PropertyRef Name="AirportID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="FlightRoadID" Type="Int32" Nullable="false" />
-          <Property Name="AirportID" Type="Int32" Nullable="false" />
-          <Property Name="PlaceTakeoff" Type="Boolean" />
-          <NavigationProperty Name="Airport" Relationship="Self.FK_FlightRoadAirport_Airport" FromRole="FlightRoadAirport" ToRole="Airport" />
-          <NavigationProperty Name="FlightRoad" Relationship="Self.FK_FlightRoadAirport_FlightRoad" FromRole="FlightRoadAirport" ToRole="FlightRoad" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaneID" Type="Int32" />
+          <Property Name="DepartureDate" Type="DateTime" Precision="3" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Plane" Relationship="Self.FK_Flight_Plane" FromRole="Flight" ToRole="Plane" />
+          <NavigationProperty Name="TicketFlights" Relationship="Self.FK_TicketFlight_Flight" FromRole="Flight" ToRole="TicketFlight" />
         </EntityType>
-        <EntityType Name="FlightRoadSchedule">
+        <EntityType Name="PassengerTicket">
           <Key>
-            <PropertyRef Name="ScheduleID" />
-            <PropertyRef Name="FlightRoadID" />
-            <PropertyRef Name="PlaneID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
-          <Property Name="FlightRoadID" Type="Int32" Nullable="false" />
-          <Property Name="PlaneID" Type="Int32" Nullable="false" />
-          <Property Name="Order" Type="Int32" />
-          <NavigationProperty Name="FlightRoad" Relationship="Self.FK_FlightRoadSchedule_FlightRoad" FromRole="FlightRoadSchedule" ToRole="FlightRoad" />
-          <NavigationProperty Name="Plane" Relationship="Self.FK_FlightRoadSchedule_Plane" FromRole="FlightRoadSchedule" ToRole="Plane" />
-          <NavigationProperty Name="Schedule" Relationship="Self.FK_FlightRoadSchedule_Schedule" FromRole="FlightRoadSchedule" ToRole="Schedule" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TicketID" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="PassengerTypeID" Type="Int32" />
+          <NavigationProperty Name="PassengerType" Relationship="Self.FK_PassengerTicket_PassengerType" FromRole="PassengerTicket" ToRole="PassengerType" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_PassengerTicket_Ticket" FromRole="PassengerTicket" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="PassengerType">
           <Key>
@@ -484,6 +462,7 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Discount" Type="Int32" />
+          <NavigationProperty Name="PassengerTickets" Relationship="Self.FK_PassengerTicket_PassengerType" FromRole="PassengerType" ToRole="PassengerTicket" />
         </EntityType>
         <EntityType Name="Plane">
           <Key>
@@ -491,10 +470,23 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Airline" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="SeatMapID" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FlightRoadSchedules" Relationship="Self.FK_FlightRoadSchedule_Plane" FromRole="Plane" ToRole="FlightRoadSchedule" />
+          <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_Plane" FromRole="Plane" ToRole="Flight" />
+          <NavigationProperty Name="SeatMap" Relationship="Self.FK_Plane_SeatMap" FromRole="Plane" ToRole="SeatMap" />
+          <NavigationProperty Name="PlaneAirports" Relationship="Self.FK_PlaneAirport_Plane" FromRole="Plane" ToRole="PlaneAirport" />
           <NavigationProperty Name="PlaneSeatClasses" Relationship="Self.FK_PlaneSeatClass_Plane" FromRole="Plane" ToRole="PlaneSeatClass" />
-          <NavigationProperty Name="FlightRoads" Relationship="Self.PlaneFlightRoad" FromRole="Plane" ToRole="FlightRoad" />
+        </EntityType>
+        <EntityType Name="PlaneAirport">
+          <Key>
+            <PropertyRef Name="PlaneID" />
+            <PropertyRef Name="AirportID" />
+          </Key>
+          <Property Name="PlaneID" Type="Int32" Nullable="false" />
+          <Property Name="AirportID" Type="Int32" Nullable="false" />
+          <Property Name="DepartureOrArrival" Type="Int32" />
+          <NavigationProperty Name="Airport" Relationship="Self.FK_PlaneAirport_Airport" FromRole="PlaneAirport" ToRole="Airport" />
+          <NavigationProperty Name="Plane" Relationship="Self.FK_PlaneAirport_Plane" FromRole="PlaneAirport" ToRole="Plane" />
         </EntityType>
         <EntityType Name="PlaneSeatClass">
           <Key>
@@ -503,21 +495,11 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           </Key>
           <Property Name="PlaneID" Type="Int32" Nullable="false" />
           <Property Name="SeatClassID" Type="Int32" Nullable="false" />
-          <Property Name="Chair" Type="Int32" />
+          <Property Name="Capacity" Type="Int32" />
           <Property Name="Price" Type="Double" />
+          <Property Name="Order" Type="Int32" />
           <NavigationProperty Name="Plane" Relationship="Self.FK_PlaneSeatClass_Plane" FromRole="PlaneSeatClass" ToRole="Plane" />
           <NavigationProperty Name="SeatClass" Relationship="Self.FK_PlaneSeatClass_SeatClass" FromRole="PlaneSeatClass" ToRole="SeatClass" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DepartureDate" Type="DateTime" Precision="3" />
-          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FlightRoadSchedules" Relationship="Self.FK_FlightRoadSchedule_Schedule" FromRole="Schedule" ToRole="FlightRoadSchedule" />
-          <NavigationProperty Name="TicketSchedules" Relationship="Self.FK_TicketSchedule_Schedule" FromRole="Schedule" ToRole="TicketSchedule" />
         </EntityType>
         <EntityType Name="SeatClass">
           <Key>
@@ -526,7 +508,17 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PlaneSeatClasses" Relationship="Self.FK_PlaneSeatClass_SeatClass" FromRole="SeatClass" ToRole="PlaneSeatClass" />
-          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_SeatClass" FromRole="SeatClass" ToRole="Ticket" />
+        </EntityType>
+        <EntityType Name="SeatMap">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Columns" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RowWithoutSeat" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Capacity" Type="Int32" />
+          <NavigationProperty Name="Planes" Relationship="Self.FK_Plane_SeatMap" FromRole="SeatMap" ToRole="Plane" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -539,23 +531,24 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
           <Property Name="Description" Type="String" MaxLength="1250" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="SeatClassID" Type="Int32" />
           <Property Name="PaymentID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Ticket_Account" FromRole="Ticket" ToRole="Account" />
-          <NavigationProperty Name="SeatClass" Relationship="Self.FK_Ticket_SeatClass" FromRole="Ticket" ToRole="SeatClass" />
-          <NavigationProperty Name="TicketSchedules" Relationship="Self.FK_TicketSchedule_Ticket" FromRole="Ticket" ToRole="TicketSchedule" />
+          <NavigationProperty Name="PassengerTickets" Relationship="Self.FK_PassengerTicket_Ticket" FromRole="Ticket" ToRole="PassengerTicket" />
+          <NavigationProperty Name="TicketFlights" Relationship="Self.FK_TicketFlight_Ticket" FromRole="Ticket" ToRole="TicketFlight" />
         </EntityType>
-        <EntityType Name="TicketSchedule">
+        <EntityType Name="TicketFlight">
           <Key>
             <PropertyRef Name="TicketID" />
-            <PropertyRef Name="ScheduleID" />
+            <PropertyRef Name="FlightID" />
           </Key>
           <Property Name="TicketID" Type="Int32" Nullable="false" />
-          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="FlightID" Type="Int32" Nullable="false" />
+          <Property Name="SeatCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RoundTrip" Type="Boolean" />
-          <NavigationProperty Name="Schedule" Relationship="Self.FK_TicketSchedule_Schedule" FromRole="TicketSchedule" ToRole="Schedule" />
-          <NavigationProperty Name="Ticket" Relationship="Self.FK_TicketSchedule_Ticket" FromRole="TicketSchedule" ToRole="Ticket" />
+          <Property Name="Order" Type="Int32" />
+          <NavigationProperty Name="Flight" Relationship="Self.FK_TicketFlight_Flight" FromRole="TicketFlight" ToRole="Flight" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_TicketFlight_Ticket" FromRole="TicketFlight" ToRole="Ticket" />
         </EntityType>
         <Association Name="FK_Account_AccountType">
           <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
@@ -581,63 +574,99 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FlightRoadAirport_Airport">
+        <Association Name="FK_Airport_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Airport" Type="Self.Airport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Airport">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaneAirport_Airport">
           <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
-          <End Role="FlightRoadAirport" Type="Self.FlightRoadAirport" Multiplicity="*" />
+          <End Role="PlaneAirport" Type="Self.PlaneAirport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Airport">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="FlightRoadAirport">
+            <Dependent Role="PlaneAirport">
               <PropertyRef Name="AirportID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FlightRoadAirport_FlightRoad">
-          <End Role="FlightRoad" Type="Self.FlightRoad" Multiplicity="1" />
-          <End Role="FlightRoadAirport" Type="Self.FlightRoadAirport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FlightRoad">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FlightRoadAirport">
-              <PropertyRef Name="FlightRoadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FlightRoadSchedule_FlightRoad">
-          <End Role="FlightRoad" Type="Self.FlightRoad" Multiplicity="1" />
-          <End Role="FlightRoadSchedule" Type="Self.FlightRoadSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FlightRoad">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FlightRoadSchedule">
-              <PropertyRef Name="FlightRoadID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FlightRoadSchedule_Plane">
-          <End Role="Plane" Type="Self.Plane" Multiplicity="1" />
-          <End Role="FlightRoadSchedule" Type="Self.FlightRoadSchedule" Multiplicity="*" />
+        <Association Name="FK_Flight_Plane">
+          <End Role="Plane" Type="Self.Plane" Multiplicity="0..1" />
+          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plane">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="FlightRoadSchedule">
+            <Dependent Role="Flight">
               <PropertyRef Name="PlaneID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FlightRoadSchedule_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="FlightRoadSchedule" Type="Self.FlightRoadSchedule" Multiplicity="*" />
+        <Association Name="FK_TicketFlight_Flight">
+          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
+          <End Role="TicketFlight" Type="Self.TicketFlight" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Schedule">
+            <Principal Role="Flight">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="FlightRoadSchedule">
-              <PropertyRef Name="ScheduleID" />
+            <Dependent Role="TicketFlight">
+              <PropertyRef Name="FlightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassengerTicket_PassengerType">
+          <End Role="PassengerType" Type="Self.PassengerType" Multiplicity="0..1" />
+          <End Role="PassengerTicket" Type="Self.PassengerTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PassengerType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PassengerTicket">
+              <PropertyRef Name="PassengerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PassengerTicket_Ticket">
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
+          <End Role="PassengerTicket" Type="Self.PassengerTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ticket">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PassengerTicket">
+              <PropertyRef Name="TicketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plane_SeatMap">
+          <End Role="SeatMap" Type="Self.SeatMap" Multiplicity="0..1" />
+          <End Role="Plane" Type="Self.Plane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SeatMap">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Plane">
+              <PropertyRef Name="SeatMapID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaneAirport_Plane">
+          <End Role="Plane" Type="Self.Plane" Multiplicity="1" />
+          <End Role="PlaneAirport" Type="Self.PlaneAirport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plane">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PlaneAirport">
+              <PropertyRef Name="PlaneID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -665,60 +694,33 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TicketSchedule_Schedule">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="TicketSchedule" Type="Self.TicketSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TicketSchedule">
-              <PropertyRef Name="ScheduleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ticket_SeatClass">
-          <End Role="SeatClass" Type="Self.SeatClass" Multiplicity="0..1" />
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SeatClass">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Ticket">
-              <PropertyRef Name="SeatClassID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TicketSchedule_Ticket">
+        <Association Name="FK_TicketFlight_Ticket">
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
-          <End Role="TicketSchedule" Type="Self.TicketSchedule" Multiplicity="*" />
+          <End Role="TicketFlight" Type="Self.TicketFlight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ticket">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="TicketSchedule">
+            <Dependent Role="TicketFlight">
               <PropertyRef Name="TicketID" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="PlaneFlightRoad">
-          <End Role="FlightRoad" Type="Self.FlightRoad" Multiplicity="*" />
-          <End Role="Plane" Type="Self.Plane" Multiplicity="*" />
         </Association>
         <EntityContainer Name="EaseFlightEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
           <EntitySet Name="Airports" EntityType="Self.Airport" />
-          <EntitySet Name="FlightRoads" EntityType="Self.FlightRoad" />
-          <EntitySet Name="FlightRoadAirports" EntityType="Self.FlightRoadAirport" />
-          <EntitySet Name="FlightRoadSchedules" EntityType="Self.FlightRoadSchedule" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Flights" EntityType="Self.Flight" />
+          <EntitySet Name="PassengerTickets" EntityType="Self.PassengerTicket" />
           <EntitySet Name="PassengerTypes" EntityType="Self.PassengerType" />
           <EntitySet Name="Planes" EntityType="Self.Plane" />
+          <EntitySet Name="PlaneAirports" EntityType="Self.PlaneAirport" />
           <EntitySet Name="PlaneSeatClasses" EntityType="Self.PlaneSeatClass" />
-          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
           <EntitySet Name="SeatClasses" EntityType="Self.SeatClass" />
+          <EntitySet Name="SeatMaps" EntityType="Self.SeatMap" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
-          <EntitySet Name="TicketSchedules" EntityType="Self.TicketSchedule" />
+          <EntitySet Name="TicketFlights" EntityType="Self.TicketFlight" />
           <AssociationSet Name="FK_Account_AccountType" Association="Self.FK_Account_AccountType">
             <End Role="AccountType" EntitySet="AccountTypes" />
             <End Role="Account" EntitySet="Accounts" />
@@ -727,25 +729,37 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Ticket" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadAirport_Airport" Association="Self.FK_FlightRoadAirport_Airport">
+          <AssociationSet Name="FK_Airport_Country" Association="Self.FK_Airport_Country">
+            <End Role="Country" EntitySet="Countries" />
             <End Role="Airport" EntitySet="Airports" />
-            <End Role="FlightRoadAirport" EntitySet="FlightRoadAirports" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadAirport_FlightRoad" Association="Self.FK_FlightRoadAirport_FlightRoad">
-            <End Role="FlightRoad" EntitySet="FlightRoads" />
-            <End Role="FlightRoadAirport" EntitySet="FlightRoadAirports" />
+          <AssociationSet Name="FK_PlaneAirport_Airport" Association="Self.FK_PlaneAirport_Airport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="PlaneAirport" EntitySet="PlaneAirports" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadSchedule_FlightRoad" Association="Self.FK_FlightRoadSchedule_FlightRoad">
-            <End Role="FlightRoad" EntitySet="FlightRoads" />
-            <End Role="FlightRoadSchedule" EntitySet="FlightRoadSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadSchedule_Plane" Association="Self.FK_FlightRoadSchedule_Plane">
+          <AssociationSet Name="FK_Flight_Plane" Association="Self.FK_Flight_Plane">
             <End Role="Plane" EntitySet="Planes" />
-            <End Role="FlightRoadSchedule" EntitySet="FlightRoadSchedules" />
+            <End Role="Flight" EntitySet="Flights" />
           </AssociationSet>
-          <AssociationSet Name="FK_FlightRoadSchedule_Schedule" Association="Self.FK_FlightRoadSchedule_Schedule">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="FlightRoadSchedule" EntitySet="FlightRoadSchedules" />
+          <AssociationSet Name="FK_TicketFlight_Flight" Association="Self.FK_TicketFlight_Flight">
+            <End Role="Flight" EntitySet="Flights" />
+            <End Role="TicketFlight" EntitySet="TicketFlights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassengerTicket_PassengerType" Association="Self.FK_PassengerTicket_PassengerType">
+            <End Role="PassengerType" EntitySet="PassengerTypes" />
+            <End Role="PassengerTicket" EntitySet="PassengerTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassengerTicket_Ticket" Association="Self.FK_PassengerTicket_Ticket">
+            <End Role="Ticket" EntitySet="Tickets" />
+            <End Role="PassengerTicket" EntitySet="PassengerTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plane_SeatMap" Association="Self.FK_Plane_SeatMap">
+            <End Role="SeatMap" EntitySet="SeatMaps" />
+            <End Role="Plane" EntitySet="Planes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneAirport_Plane" Association="Self.FK_PlaneAirport_Plane">
+            <End Role="Plane" EntitySet="Planes" />
+            <End Role="PlaneAirport" EntitySet="PlaneAirports" />
           </AssociationSet>
           <AssociationSet Name="FK_PlaneSeatClass_Plane" Association="Self.FK_PlaneSeatClass_Plane">
             <End Role="Plane" EntitySet="Planes" />
@@ -755,21 +769,9 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
             <End Role="SeatClass" EntitySet="SeatClasses" />
             <End Role="PlaneSeatClass" EntitySet="PlaneSeatClasses" />
           </AssociationSet>
-          <AssociationSet Name="FK_TicketSchedule_Schedule" Association="Self.FK_TicketSchedule_Schedule">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="TicketSchedule" EntitySet="TicketSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ticket_SeatClass" Association="Self.FK_Ticket_SeatClass">
-            <End Role="SeatClass" EntitySet="SeatClasses" />
+          <AssociationSet Name="FK_TicketFlight_Ticket" Association="Self.FK_TicketFlight_Ticket">
             <End Role="Ticket" EntitySet="Tickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TicketSchedule_Ticket" Association="Self.FK_TicketSchedule_Ticket">
-            <End Role="Ticket" EntitySet="Tickets" />
-            <End Role="TicketSchedule" EntitySet="TicketSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="PlaneFlightRoad" Association="Self.PlaneFlightRoad">
-            <End Role="FlightRoad" EntitySet="FlightRoads" />
-            <End Role="Plane" EntitySet="Planes" />
+            <End Role="TicketFlight" EntitySet="TicketFlights" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -814,33 +816,39 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FlightRoads">
-            <EntityTypeMapping TypeName="EaseFlightModel.FlightRoad">
-              <MappingFragment StoreEntitySet="FlightRoad">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="EaseFlightModel.Country">
+              <MappingFragment StoreEntitySet="Country">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FlightRoadAirports">
-            <EntityTypeMapping TypeName="EaseFlightModel.FlightRoadAirport">
-              <MappingFragment StoreEntitySet="FlightRoadAirport">
-                <ScalarProperty Name="FlightRoadID" ColumnName="FlightRoadID" />
-                <ScalarProperty Name="AirportID" ColumnName="AirportID" />
-                <ScalarProperty Name="PlaceTakeoff" ColumnName="PlaceTakeoff" />
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="EaseFlightModel.Flight">
+              <MappingFragment StoreEntitySet="Flight">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FlightRoadSchedules">
-            <EntityTypeMapping TypeName="EaseFlightModel.FlightRoadSchedule">
-              <MappingFragment StoreEntitySet="FlightRoadSchedule">
-                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
-                <ScalarProperty Name="FlightRoadID" ColumnName="FlightRoadID" />
-                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
+          <EntitySetMapping Name="PassengerTickets">
+            <EntityTypeMapping TypeName="EaseFlightModel.PassengerTicket">
+              <MappingFragment StoreEntitySet="PassengerTicket">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="PassengerTypeID" ColumnName="PassengerTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -858,7 +866,17 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
               <MappingFragment StoreEntitySet="Plane">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Airline" ColumnName="Airline" />
+                <ScalarProperty Name="SeatMapID" ColumnName="SeatMapID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaneAirports">
+            <EntityTypeMapping TypeName="EaseFlightModel.PlaneAirport">
+              <MappingFragment StoreEntitySet="PlaneAirport">
+                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
+                <ScalarProperty Name="AirportID" ColumnName="AirportID" />
+                <ScalarProperty Name="DepartureOrArrival" ColumnName="DepartureOrArrival" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -867,18 +885,9 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
               <MappingFragment StoreEntitySet="PlaneSeatClass">
                 <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
                 <ScalarProperty Name="SeatClassID" ColumnName="SeatClassID" />
-                <ScalarProperty Name="Chair" ColumnName="Chair" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="EaseFlightModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
-                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -887,6 +896,17 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
               <MappingFragment StoreEntitySet="SeatClass">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeatMaps">
+            <EntityTypeMapping TypeName="EaseFlightModel.SeatMap">
+              <MappingFragment StoreEntitySet="SeatMap">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Columns" ColumnName="Columns" />
+                <ScalarProperty Name="RowWithoutSeat" ColumnName="RowWithoutSeat" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -900,29 +920,22 @@ error 6004: The table 'EaseFlight.dbo.PassengerTicket' is referenced by a relati
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="SeatClassID" ColumnName="SeatClassID" />
                 <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TicketSchedules">
-            <EntityTypeMapping TypeName="EaseFlightModel.TicketSchedule">
-              <MappingFragment StoreEntitySet="TicketSchedule">
+          <EntitySetMapping Name="TicketFlights">
+            <EntityTypeMapping TypeName="EaseFlightModel.TicketFlight">
+              <MappingFragment StoreEntitySet="TicketFlight">
                 <ScalarProperty Name="TicketID" ColumnName="TicketID" />
-                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+                <ScalarProperty Name="SeatCode" ColumnName="SeatCode" />
                 <ScalarProperty Name="RoundTrip" ColumnName="RoundTrip" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="PlaneFlightRoad" TypeName="EaseFlightModel.PlaneFlightRoad" StoreEntitySet="PlaneFlightRoad">
-            <EndProperty Name="FlightRoad">
-              <ScalarProperty Name="ID" ColumnName="FlightRoadID" />
-            </EndProperty>
-            <EndProperty Name="Plane">
-              <ScalarProperty Name="ID" ColumnName="PlaneID" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -28,15 +28,16 @@ namespace EaseFlight.DAL.Entities
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<AccountType> AccountTypes { get; set; }
         public virtual DbSet<Airport> Airports { get; set; }
-        public virtual DbSet<FlightRoad> FlightRoads { get; set; }
-        public virtual DbSet<FlightRoadAirport> FlightRoadAirports { get; set; }
-        public virtual DbSet<FlightRoadSchedule> FlightRoadSchedules { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Flight> Flights { get; set; }
+        public virtual DbSet<PassengerTicket> PassengerTickets { get; set; }
         public virtual DbSet<PassengerType> PassengerTypes { get; set; }
         public virtual DbSet<Plane> Planes { get; set; }
+        public virtual DbSet<PlaneAirport> PlaneAirports { get; set; }
         public virtual DbSet<PlaneSeatClass> PlaneSeatClasses { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<SeatClass> SeatClasses { get; set; }
+        public virtual DbSet<SeatMap> SeatMaps { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
-        public virtual DbSet<TicketSchedule> TicketSchedules { get; set; }
+        public virtual DbSet<TicketFlight> TicketFlights { get; set; }
     }
 }

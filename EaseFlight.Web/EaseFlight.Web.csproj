@@ -135,6 +135,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,7 +179,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\user\basejs\blur-area.js" />
-    <Content Include="Scripts\user\basejs\bootstrap-select.js" />
     <Content Include="Scripts\user\basejs\bootstrap.js" />
     <Content Include="Scripts\user\basejs\bs-datepicker.js" />
     <Content Include="Scripts\user\basejs\custom.js" />
@@ -234,7 +234,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Find.cshtml" />
+    <Content Include="Views\Flight\Find.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />

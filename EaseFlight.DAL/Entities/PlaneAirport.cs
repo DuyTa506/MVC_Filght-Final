@@ -12,13 +12,13 @@ namespace EaseFlight.DAL.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class FlightRoadAirport
+    public partial class PlaneAirport
     {
-        public int FlightRoadID { get; set; }
+        public int PlaneID { get; set; }
         public int AirportID { get; set; }
-        public Nullable<bool> PlaceTakeoff { get; set; }
+        public Nullable<int> DepartureOrArrival { get; set; }
     
         public virtual Airport Airport { get; set; }
-        public virtual FlightRoad FlightRoad { get; set; }
+        public virtual Plane Plane { get; set; }
     }
 }

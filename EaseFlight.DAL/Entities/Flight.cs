@@ -12,23 +12,23 @@ namespace EaseFlight.DAL.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Schedule
+    public partial class Flight
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Schedule()
+        public Flight()
         {
-            this.FlightRoadSchedules = new HashSet<FlightRoadSchedule>();
-            this.TicketSchedules = new HashSet<TicketSchedule>();
+            this.TicketFlights = new HashSet<TicketFlight>();
         }
     
         public int ID { get; set; }
+        public Nullable<int> PlaneID { get; set; }
         public Nullable<System.DateTime> DepartureDate { get; set; }
         public Nullable<System.DateTime> ArrivalDate { get; set; }
+        public Nullable<double> Price { get; set; }
         public string Status { get; set; }
     
+        public virtual Plane Plane { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlightRoadSchedule> FlightRoadSchedules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TicketSchedule> TicketSchedules { get; set; }
+        public virtual ICollection<TicketFlight> TicketFlights { get; set; }
     }
 }

@@ -16,8 +16,9 @@ namespace EaseFlight.DAL.Entities
     {
         public int PlaneID { get; set; }
         public int SeatClassID { get; set; }
-        public Nullable<int> Chair { get; set; }
+        public Nullable<int> Capacity { get; set; }
         public Nullable<double> Price { get; set; }
+        public Nullable<int> Order { get; set; }
     
         public virtual Plane Plane { get; set; }
         public virtual SeatClass SeatClass { get; set; }

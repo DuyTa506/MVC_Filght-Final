@@ -17,14 +17,16 @@ namespace EaseFlight.DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Airport()
         {
-            this.FlightRoadAirports = new HashSet<FlightRoadAirport>();
+            this.PlaneAirports = new HashSet<PlaneAirport>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
+        public Nullable<int> CountryID { get; set; }
     
+        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlightRoadAirport> FlightRoadAirports { get; set; }
+        public virtual ICollection<PlaneAirport> PlaneAirports { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace EaseFlight.DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ticket()
         {
-            this.TicketSchedules = new HashSet<TicketSchedule>();
+            this.PassengerTickets = new HashSet<PassengerTicket>();
+            this.TicketFlights = new HashSet<TicketFlight>();
         }
     
         public int ID { get; set; }
@@ -27,13 +28,13 @@ namespace EaseFlight.DAL.Entities
         public string Description { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<int> SeatClassID { get; set; }
         public string PaymentID { get; set; }
         public string Status { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual SeatClass SeatClass { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TicketSchedule> TicketSchedules { get; set; }
+        public virtual ICollection<PassengerTicket> PassengerTickets { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TicketFlight> TicketFlights { get; set; }
     }
 }

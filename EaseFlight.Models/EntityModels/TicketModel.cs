@@ -15,12 +15,10 @@ namespace EaseFlight.Models.EntityModels
         public string Description { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public Nullable<int> SeatClassID { get; set; }
         public string PaymentID { get; set; }
         public string Status { get; set; }
         public virtual Account Account { get; set; }
-        public virtual SeatClass SeatClass { get; set; }
-        public virtual ICollection<TicketSchedule> TicketSchedules { get; set; }
+        public virtual ICollection<TicketFlight> TicketFlights { get; set; }
         #endregion
 
         #region Functions

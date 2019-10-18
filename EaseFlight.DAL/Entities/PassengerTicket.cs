@@ -12,15 +12,16 @@ namespace EaseFlight.DAL.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class FlightRoadSchedule
+    public partial class PassengerTicket
     {
-        public int ScheduleID { get; set; }
-        public int FlightRoadID { get; set; }
-        public int PlaneID { get; set; }
-        public Nullable<int> Order { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> TicketID { get; set; }
+        public string FullName { get; set; }
+        public Nullable<bool> Gender { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<int> PassengerTypeID { get; set; }
     
-        public virtual FlightRoad FlightRoad { get; set; }
-        public virtual Plane Plane { get; set; }
-        public virtual Schedule Schedule { get; set; }
+        public virtual PassengerType PassengerType { get; set; }
+        public virtual Ticket Ticket { get; set; }
     }
 }

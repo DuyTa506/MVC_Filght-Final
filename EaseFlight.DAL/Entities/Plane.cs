@@ -17,20 +17,22 @@ namespace EaseFlight.DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Plane()
         {
-            this.FlightRoadSchedules = new HashSet<FlightRoadSchedule>();
+            this.Flights = new HashSet<Flight>();
+            this.PlaneAirports = new HashSet<PlaneAirport>();
             this.PlaneSeatClasses = new HashSet<PlaneSeatClass>();
-            this.FlightRoads = new HashSet<FlightRoad>();
         }
     
         public int ID { get; set; }
         public string Airline { get; set; }
+        public Nullable<int> SeatMapID { get; set; }
         public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlightRoadSchedule> FlightRoadSchedules { get; set; }
+        public virtual ICollection<Flight> Flights { get; set; }
+        public virtual SeatMap SeatMap { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlaneAirport> PlaneAirports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlaneSeatClass> PlaneSeatClasses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FlightRoad> FlightRoads { get; set; }
     }
 }

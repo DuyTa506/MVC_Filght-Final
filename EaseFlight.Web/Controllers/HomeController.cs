@@ -26,11 +26,6 @@ namespace EaseFlight.Web.Controllers
 
             return View();
         }
-
-        public ActionResult Find()
-        {
-            return View();
-        }
         #endregion
     }
 }

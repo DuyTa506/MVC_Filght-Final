@@ -1,26 +1,21 @@
 ﻿using EaseFlight.Common.Utilities;
 using EaseFlight.DAL.Entities;
-using System;
 using System.Collections.Generic;
 
 namespace EaseFlight.Models.EntityModels
 {
-    public class AirportModel
+    public class CountryModel
     {
         #region Properties
         public int ID { get; set; }
         public string Name { get; set; }
-        public string City { get; set; }
-        public Nullable<int> CountryID { get; set; }
-
-        public virtual Country Country { get; set; }
-        public virtual ICollection<PlaneAirport> PlaneAirports { get; set; }
+        public virtual ICollection<Airport> Airports { get; set; }
         #endregion
 
         #region Functions
-        public Airport GetModel()
+        public Country GetModel()
         {
-            var model = new Airport();
+            var model = new Country();
             CommonMethods.CopyObjectProperties(this, model);
 
             return model;
