@@ -29,7 +29,9 @@ namespace EaseFlight.DAL.Entities
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string Identification { get; set; }
+        public string IDCardOrPassport { get; set; }
+        public Nullable<System.DateTime> DateIssueOrExpiry { get; set; }
+        public string PlaceIssue { get; set; }
         public string Photo { get; set; }
         public string ResetPasswordToken { get; set; }
         public Nullable<System.DateTime> ExpireToken { get; set; }

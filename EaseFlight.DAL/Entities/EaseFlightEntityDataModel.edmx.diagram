@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fb9c99ad96ae4d2a81240e9ee892a89a" Name="Diagram1">
-        <EntityTypeShape EntityType="EaseFlightModel.Account" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+      <Diagram DiagramId="d1a35c98a1344ad1b6a7cab4c4a06015" Name="Diagram1">
+        <EntityTypeShape EntityType="EaseFlightModel.Account" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.AccountType" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.Airport" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.Country" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.Flight" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EaseFlightModel.PassengerTicket" Width="1.5" PointX="7.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EaseFlightModel.PassengerTicket" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.PassengerType" Width="1.5" PointX="5.25" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.Plane" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EaseFlightModel.PlaneAirport" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />

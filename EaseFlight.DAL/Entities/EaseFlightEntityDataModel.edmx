@@ -12,13 +12,15 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="250" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+          <Property Name="FullName" Type="varchar" MaxLength="250" />
           <Property Name="Gender" Type="bit" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="Email" Type="varchar" MaxLength="250" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="250" />
-          <Property Name="Identification" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="IDCardOrPassport" Type="varchar" MaxLength="50" />
+          <Property Name="DateIssueOrExpiry" Type="datetime" />
+          <Property Name="PlaceIssue" Type="varchar" MaxLength="250" />
           <Property Name="Photo" Type="varchar" MaxLength="250" />
           <Property Name="ResetPasswordToken" Type="varchar" MaxLength="250" />
           <Property Name="ExpireToken" Type="datetime" />
@@ -38,8 +40,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="City" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="City" Type="varchar" MaxLength="250" />
           <Property Name="CountryID" Type="int" />
         </EntityType>
         <EntityType Name="Country">
@@ -66,8 +68,11 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TicketID" Type="int" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+          <Property Name="FullName" Type="varchar" MaxLength="250" />
           <Property Name="Gender" Type="bit" />
+          <Property Name="IDCardOrPassport" Type="varchar" MaxLength="50" />
+          <Property Name="DateIssueOrExpiry" Type="datetime" />
+          <Property Name="PlaceIssue" Type="varchar" MaxLength="250" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="PassengerTypeID" Type="int" />
         </EntityType>
@@ -133,7 +138,7 @@
           <Property Name="AccountID" Type="int" />
           <Property Name="Price" Type="float" />
           <Property Name="Discount" Type="int" />
-          <Property Name="Description" Type="nvarchar" MaxLength="1250" />
+          <Property Name="Description" Type="varchar" MaxLength="1250" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="PaymentID" Type="varchar" MaxLength="250" />
@@ -386,13 +391,15 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="Boolean" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Identification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IDCardOrPassport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIssueOrExpiry" Type="DateTime" Precision="3" />
+          <Property Name="PlaceIssue" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ResetPasswordToken" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ExpireToken" Type="DateTime" Precision="3" />
@@ -415,8 +422,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CountryID" Type="Int32" />
           <NavigationProperty Name="Country" Relationship="Self.FK_Airport_Country" FromRole="Airport" ToRole="Country" />
           <NavigationProperty Name="PlaneAirports" Relationship="Self.FK_PlaneAirport_Airport" FromRole="Airport" ToRole="PlaneAirport" />
@@ -448,8 +455,11 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TicketID" Type="Int32" />
-          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="Boolean" />
+          <Property Name="IDCardOrPassport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIssueOrExpiry" Type="DateTime" Precision="3" />
+          <Property Name="PlaceIssue" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="PassengerTypeID" Type="Int32" />
           <NavigationProperty Name="PassengerType" Relationship="Self.FK_PassengerTicket_PassengerType" FromRole="PassengerTicket" ToRole="PassengerType" />
@@ -528,7 +538,7 @@
           <Property Name="AccountID" Type="Int32" />
           <Property Name="Price" Type="Double" />
           <Property Name="Discount" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="1250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1250" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="PaymentID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -792,7 +802,9 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Identification" ColumnName="Identification" />
+                <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
+                <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
+                <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ResetPasswordToken" ColumnName="ResetPasswordToken" />
                 <ScalarProperty Name="ExpireToken" ColumnName="ExpireToken" />
@@ -847,6 +859,9 @@
                 <ScalarProperty Name="TicketID" ColumnName="TicketID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
+                <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
+                <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="PassengerTypeID" ColumnName="PassengerTypeID" />
               </MappingFragment>
