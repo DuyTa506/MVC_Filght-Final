@@ -23,7 +23,8 @@ namespace EaseFlight.Web
                         "~/Scripts/user/basejs/quantity-selector.js",
                         "~/Scripts/user/basejs/window-scroll-action.js",
                         "~/Scripts/user/basejs/fitvid.js",
-                        "~/Scripts/user/basejs/custom.js"));
+                        "~/Scripts/user/basejs/custom.js",
+                        "~/Scripts/user/basejs/toastify.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 "~/Scripts/user/pages/home.js"));
@@ -40,7 +41,8 @@ namespace EaseFlight.Web
                       "~/Content/user/css/basecss/bootstrap.css",
                       "~/Content/user/css/basecss/font-awesome.css",
                       "~/Content/user/css/basecss/lineicons.css",
-                      "~/Content/user/css/basecss/styles.css"));
+                      "~/Content/user/css/basecss/styles.css",
+                      "~/Content/user/css/basecss/toastify.css"));
 
             bundles.Add(new StyleBundle("~/Content/home").Include(
                       "~/Content/user/css/pages/home.css"));

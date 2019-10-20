@@ -162,6 +162,7 @@
     <Content Include="Content\user\css\basecss\font-awesome.css" />
     <Content Include="Content\user\css\basecss\lineicons.css" />
     <Content Include="Content\user\css\basecss\styles.css" />
+    <Content Include="Content\user\css\basecss\toastify.css" />
     <Content Include="Content\user\css\fonts\fontawesome-webfont3e6e.svg" />
     <Content Include="Content\user\css\fonts\glyphicons-halflings-regular-2.html" />
     <Content Include="Content\user\css\fonts\glyphicons-halflings-regular-3.html" />
@@ -192,6 +193,7 @@
     <Content Include="Scripts\user\basejs\owl-carousel.js" />
     <Content Include="Scripts\user\basejs\quantity-selector.js" />
     <Content Include="Scripts\user\basejs\sticky-kit.js" />
+    <Content Include="Scripts\user\basejs\toastify.js" />
     <Content Include="Scripts\user\basejs\typeahead.js" />
     <Content Include="Scripts\user\basejs\window-scroll-action.js" />
     <Content Include="Scripts\user\pages\account.js" />
