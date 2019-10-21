@@ -1,4 +1,7 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Models.CustomModel;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace EaseFlight.Web.Controllers
@@ -21,7 +24,22 @@ namespace EaseFlight.Web.Controllers
         #region Actions
         public ActionResult Index()
         {
-            ViewData["airports"] = this.AirportService.FindAll();
+            var airports = this.AirportService.FindAll();
+            var airportRegion = new List<AirportRegionModel>();
+
+            foreach(var airport in airports)
+            {
+                var airportList = airports.Where(a => a.Country.ID == airport.ID);
+                airportRegion.Add(new AirportRegionModel
+                {
+                    Region = ""
+                });
+            }
+
+            ViewData["airports"] = new {
+                Region = "",
+                Airports = this.AirportService.FindAll()
+            };
             ViewData["seatClassList"] = this.SeatClassService.FindAll();
 
             return View();

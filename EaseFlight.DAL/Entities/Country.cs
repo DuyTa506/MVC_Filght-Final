@@ -22,6 +22,7 @@ namespace EaseFlight.DAL.Entities
     
         public int ID { get; set; }
         public string Name { get; set; }
+        public string Region { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Airport> Airports { get; set; }

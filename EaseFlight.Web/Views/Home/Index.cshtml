@@ -32,15 +32,32 @@
                                                 <div class="theme-search-area-section first theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
                                                     <div class="theme-search-area-section-inner dropdown-content">
                                                         <i class="theme-search-area-section-icon lin lin-location-pin"></i>
-                                                        <span class="theme-search-area-section-input dropdown-toggle place-result" id="departure" data-toggle="dropdown" >Departure</span>
+                                                        <input class="theme-search-area-section-input dropdown-toggle place-result" id="departure" data-toggle="dropdown" placeholder="Departure" oninput="oninputPlace()" spellcheck="false" readonly/>
                                                         <ul class="dropdown-menu place-dropdown">
-                                                            @foreach (var airport in airports)
-                                                            {
-                                                                <li class="dropdown-item" onclick="placeSelect()" id="@airport.ID">
-                                                                    <div><span class="city-title">@airport.City</span></div>
-                                                                    <div><span class="airport-title">@airport.Name</span></div>
-                                                                </li>
-                                                            }
+                                                            <li class="country">Viet Nam</li>
+                                                            <li>
+                                                                <ul class="sub-ul">
+                                                                    @foreach (var airport in airports)
+                                                                    {
+                                                                        <li class="dropdown-item" onclick="placeSelect()" id="@airport.ID">
+                                                                            <div class="airport"><span class="city-title">@airport.City</span></div>
+                                                                            <div class="airport"><span class="airport-title">@airport.Name</span></div>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                            <li class="country">Europe</li>
+                                                            <li>
+                                                                <ul class="sub-ul">
+                                                                    @foreach (var airport in airports)
+                                                                    {
+                                                                        <li class="dropdown-item" onclick="placeSelect()" id="@airport.ID">
+                                                                            <div class="airport"><span class="city-title">@airport.City</span></div>
+                                                                            <div class="airport"><span class="airport-title">@airport.Name</span></div>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -54,8 +71,8 @@
                                                             @foreach (var airport in airports)
                                                             {
                                                                 <li class="dropdown-item" onclick="placeSelect()" id="@airport.ID">
-                                                                    <div><span class="city-title">@airport.City</span></div>
-                                                                    <div><span class="airport-title">@airport.Name</span></div>
+                                                                    <div class="airport"><span class="city-title">@airport.City</span></div>
+                                                                    <div class="airport"><span class="airport-title">@airport.Name</span></div>
                                                                 </li>
                                                             }
                                                         </ul>

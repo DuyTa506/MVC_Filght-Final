@@ -1,4 +1,4 @@
-﻿var idAirpotDeparture, idAirportArrival;
+﻿var idAirpotDeparture, idAirportArrival, placeResult = '';
 
 $(document).ready(function () {
     //Remove css in Layout
@@ -15,6 +15,21 @@ $(document).ready(function () {
         openLoginModal();
         $('.error').addClass('alert alert-success').html('Reset password successfully, please login!')
     }
+
+    $('.place-dropdown .country').on('click', function (event) {
+        event.stopPropagation();
+    });
+
+    $('.place-result').focusin(function () {
+        $(this).select();
+    });
+    $('.place-result').keyup(function () {
+        $(this).removeAttr('readonly');
+    });
+    $('.place-result').focusout(function () {
+        $(this).attr('readonly');
+        $(this).val(placeResult);
+    });
 });
 
 //Select Departure and Arrial dropdown
@@ -25,8 +40,9 @@ function placeSelect() {
     var id = $(event.target).closest('li').attr('id');
     var place = $(event.target).parents('.theme-search-area-section-inner').find('.place-result').attr('id')
 
-    place == 'departure'? idAirpotDeparture = id : idAirportArrival = id;
-    $(event.target).parents('.theme-search-area-section-inner').find('.place-result').html(city + ' (' + airportCode + ')');
+    place == 'departure' ? idAirpotDeparture = id : idAirportArrival = id;
+    placeResult = city + ' (' + airportCode + ')';
+    $(event.target).parents('.theme-search-area-section-inner').find('.place-result').val(placeResult);
 }
 
 function findFlight() {
@@ -53,4 +69,34 @@ function findFlight() {
 
         }
     });
+}
+
+function oninputPlace() {
+    var word = event.target.value.toLowerCase();
+
+    $(event.target).parent().find('.airport').each(function () {
+        var span = $(this).find('span').not('.hightline');
+        var airport = span.text();
+        var parent = $(this).parent();
+
+        if (airport.toLowerCase().indexOf(word.toLowerCase()) == -1) {
+            if (span.hasClass('city-title')) {
+                span.addClass('not');
+            } else {
+                if (parent.find('.city-title').hasClass('not'))
+                    parent.addClass('hide');
+            }
+            span.html(airport);
+
+        } else {
+            if (span.hasClass('city-title')) 
+                span.removeClass('not');
+
+            var hightline = airport.replace(new RegExp(word, "gi"), "<span class='hightline'>$&</span>");
+            span.html(hightline);
+            parent.removeClass('hide');
+        }
+    });
+
+    $('.place-dropdown .sub-ul li:not(.hide):last').addClass('border-bottom-none');
 }

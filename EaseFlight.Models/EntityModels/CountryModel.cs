@@ -9,6 +9,7 @@ namespace EaseFlight.Models.EntityModels
         #region Properties
         public int ID { get; set; }
         public string Name { get; set; }
+        public string Region { get; set; }
         public virtual ICollection<Airport> Airports { get; set; }
         #endregion
 
