@@ -70,8 +70,8 @@
     cursor: pointer;
 }
 .place-dropdown .country {
-    color: #434343;
-    background: #eae9e9;
+    color: white;
+    background: #6a7d82;
     font-weight: bold;
     height: 30px;
     line-height: 30px;
@@ -80,9 +80,12 @@
 .sub-ul{
     padding: 0px !important;
 }
-.hightline{
-    color: deepskyblue !important;
+.hightline {
+    color: #62b4ca !important;
 }
 .border-bottom-none {
     border-bottom: 0px !important;
+}
+.color-none{
+    color: unset !important;
 }

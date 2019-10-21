@@ -1,4 +1,4 @@
-﻿var idAirpotDeparture, idAirportArrival, placeResult = '';
+﻿var idAirpotDeparture = -1, idAirportArrival = -1, placeDeparture = '', placeArrival = '', arrival = false;
 
 $(document).ready(function () {
     //Remove css in Layout
@@ -16,19 +16,42 @@ $(document).ready(function () {
         $('.error').addClass('alert alert-success').html('Reset password successfully, please login!')
     }
 
+    //Add event for Departure and Arrival Dropdown select
     $('.place-dropdown .country').on('click', function (event) {
         event.stopPropagation();
     });
 
     $('.place-result').focusin(function () {
         $(this).select();
+        $('.dropdown-menu.place-dropdown').find('.dropdown-item').removeClass('hide');
+        $('span.hightline').addClass('color-none');
+
+        if (idAirportArrival != -1 && idAirpotDeparture != -1 && idAirpotDeparture == idAirportArrival) {
+            if (arrival)
+                $('#arrival').parent().find('.place-dropdown').find('li#arrival').addClass('hide');
+            else $('#arrival').parent().find('.place-dropdown').find('li#departure').addClass('hide');
+        }
     });
+
     $('.place-result').keyup(function () {
         $(this).removeAttr('readonly');
     });
+
     $('.place-result').focusout(function () {
         $(this).attr('readonly');
-        $(this).val(placeResult);
+        var el = $(this);
+        var prev = '';
+
+        if (el.attr('id') == 'arrival')
+            prev = placeArrival
+        else prev = placeDeparture;
+
+        setTimeout(function () {
+            if (el.attr('id') == 'arrival' && prev == placeArrival)
+                el.val(placeArrival);
+            else if (el.attr('id') == 'departure' && prev == placeDeparture)
+                el.val(placeDeparture);
+        }, 500);
     });
 });
 
@@ -40,9 +63,16 @@ function placeSelect() {
     var id = $(event.target).closest('li').attr('id');
     var place = $(event.target).parents('.theme-search-area-section-inner').find('.place-result').attr('id')
 
-    place == 'departure' ? idAirpotDeparture = id : idAirportArrival = id;
-    placeResult = city + ' (' + airportCode + ')';
+    var placeResult = city + ' (' + airportCode + ')';
     $(event.target).parents('.theme-search-area-section-inner').find('.place-result').val(placeResult);
+
+    if (place == 'departure') {
+        placeDeparture = placeResult;
+        idAirpotDeparture = id;
+    } else {
+        placeArrival = placeResult;
+        idAirportArrival = id;
+    }
 }
 
 function findFlight() {

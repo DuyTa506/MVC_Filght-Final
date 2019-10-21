@@ -6,6 +6,6 @@ namespace EaseFlight.Models.CustomModel
     public class AirportRegionModel
     {
         public string Region { get; set; }
-        public List<AirportModel> Airports {get; set;}
+        public IEnumerable<AirportModel> Airports {get; set;}
     }
 }

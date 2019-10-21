@@ -11,13 +11,18 @@ namespace EaseFlight.Web.Controllers
         #region Properties
         private IAirportService AirportService { get; set; }
         private ISeatClassService SeatClassService { get; set; }
+        private ICountryService CountryService { get; set; }
+        private IPassengerTypeService PassengerTypeService { get; set; }
         #endregion
 
         #region Constructors
-        public HomeController(IAirportService airportService, ISeatClassService seatClassService)
+        public HomeController(IAirportService airportService, ISeatClassService seatClassService,
+            ICountryService countryService, IPassengerTypeService passengerTypeService)
         {
             this.AirportService = airportService;
             this.SeatClassService = seatClassService;
+            this.CountryService = countryService;
+            this.PassengerTypeService = passengerTypeService;
         }
         #endregion
 
@@ -25,21 +30,32 @@ namespace EaseFlight.Web.Controllers
         public ActionResult Index()
         {
             var airports = this.AirportService.FindAll();
-            var airportRegion = new List<AirportRegionModel>();
-
-            foreach(var airport in airports)
+            var regions = this.CountryService.FindAll().Select(country => country.Region).Distinct();
+            var passengers = this.PassengerTypeService.FindAll();
+            var airportRegion = new List<AirportRegionModel>
             {
-                var airportList = airports.Where(a => a.Country.ID == airport.ID);
-                airportRegion.Add(new AirportRegionModel
+                new AirportRegionModel
                 {
-                    Region = ""
-                });
+                    Region = "Viet Nam",
+                    Airports = airports.Where(airport => airport.Country.Name.Equals("Viet Nam"))
+                }
+            };
+
+            foreach (var region in regions)
+            {
+                var airportList = airports.Where(airport => airport.Country.Region.Equals(region) 
+                && !airport.Country.Name.Equals("Viet Nam"));
+
+                if(airportList.Count() != 0)
+                    airportRegion.Add(new AirportRegionModel
+                    {
+                        Region = region,
+                        Airports = airportList
+                    });
             }
 
-            ViewData["airports"] = new {
-                Region = "",
-                Airports = this.AirportService.FindAll()
-            };
+            ViewData["airports"] = airportRegion;
+            ViewData["passengers"] = passengers;
             ViewData["seatClassList"] = this.SeatClassService.FindAll();
 
             return View();
