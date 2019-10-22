@@ -6,6 +6,13 @@
         public static string CONST_DB_COLUMN_ID = "ID";
         #endregion
 
+        #region DB Value Names
+        public static string CONST_DB_NAME_VIETNAM = "Viet Nam";
+        public static string CONST_DB_NAME_ADULT = "Adult";
+        public static string CONST_DB_NAME_CHILD = "Child";
+        public static string CONST_DB_NAME_INFANT = "Infant";
+        #endregion
+
         #region Session keys
         public static string CONST_SESSION_KEY_LOGGED_USER = "LoggedUser";
         #endregion

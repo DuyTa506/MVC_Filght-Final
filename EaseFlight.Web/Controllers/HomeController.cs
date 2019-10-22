@@ -1,4 +1,5 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Common.Constants;
 using EaseFlight.Models.CustomModel;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,15 +37,15 @@ namespace EaseFlight.Web.Controllers
             {
                 new AirportRegionModel
                 {
-                    Region = "Viet Nam",
-                    Airports = airports.Where(airport => airport.Country.Name.Equals("Viet Nam"))
+                    Region = Constant.CONST_DB_NAME_VIETNAM,
+                    Airports = airports.Where(airport => airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM))
                 }
             };
 
             foreach (var region in regions)
             {
                 var airportList = airports.Where(airport => airport.Country.Region.Equals(region) 
-                && !airport.Country.Name.Equals("Viet Nam"));
+                && !airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM));
 
                 if(airportList.Count() != 0)
                     airportRegion.Add(new AirportRegionModel

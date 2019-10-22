@@ -20,7 +20,6 @@ $(document).ready(function(){
     BSTabsActions();
     datePickers();
     heroSearchSections();
-    $('.quantity-selector').quantitySelector();
     autocomplete();
     searchResultsCollapse();
 

@@ -89,3 +89,108 @@
 .color-none{
     color: unset !important;
 }
+.no-result {
+    font-weight: bold;
+    color: #434343;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 30px;
+}
+.div-passenger-type {
+    display: block;
+    left: 0;
+    width: 300px;
+    z-index: 999;
+    padding: 10px 25px;
+    outline: none;
+    background: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: default;
+    position: absolute;
+    top: calc(100% + 5px);
+}
+.passenger-element {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.svg-passenger, .passenger-title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.svg-passenger {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.passenger-title {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin: 0 16px 0 8px;
+}
+.svg-passenger-icon{
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    outline: none;
+    border: 1px solid #b4b4b4;
+    border-radius: 4px;
+}
+.passenger-title-name {
+    white-space: normal;
+    font-weight: 600;
+    color: #434343;
+    font-size: 14px;
+    line-height: 24px;
+}
+.passenger-title-des {
+    white-space: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #8f8f8f;
+}
+.svg-passenger-icon .passenger-number{
+    text-align: center;
+    width: 30px;
+    border-radius: 0px !important;
+}
+.span-seat{
+    line-height: 40px;
+}
+.seat-dropdown li {
+    color: #434343;
+    padding: 7px 40px;
+}
+.seat-dropdown li:hover{
+    background-color: #eae9e9;
+}
+.seat-selected{
+    color: orange;
+    font-size: 12px;
+    position: absolute;
+    left: 10px;
+    line-height: 18px;
+}

@@ -191,7 +191,6 @@
     <Content Include="Scripts\user\basejs\magnific-popup.js" />
     <Content Include="Scripts\user\basejs\moment.js" />
     <Content Include="Scripts\user\basejs\owl-carousel.js" />
-    <Content Include="Scripts\user\basejs\quantity-selector.js" />
     <Content Include="Scripts\user\basejs\sticky-kit.js" />
     <Content Include="Scripts\user\basejs\toastify.js" />
     <Content Include="Scripts\user\basejs\typeahead.js" />

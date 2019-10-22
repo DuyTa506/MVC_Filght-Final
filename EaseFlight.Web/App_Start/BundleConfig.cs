@@ -20,7 +20,6 @@ namespace EaseFlight.Web
                         "~/Scripts/user/basejs/fotorama.js",
                         "~/Scripts/user/basejs/bs-datepicker.js",
                         "~/Scripts/user/basejs/typeahead.js",
-                        "~/Scripts/user/basejs/quantity-selector.js",
                         "~/Scripts/user/basejs/window-scroll-action.js",
                         "~/Scripts/user/basejs/fitvid.js",
                         "~/Scripts/user/basejs/custom.js",
