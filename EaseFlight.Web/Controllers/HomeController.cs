@@ -39,6 +39,7 @@ namespace EaseFlight.Web.Controllers
                 {
                     Region = Constant.CONST_DB_NAME_VIETNAM,
                     Airports = airports.Where(airport => airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM))
+                        .OrderBy(airport => airport.Name)
                 }
             };
 

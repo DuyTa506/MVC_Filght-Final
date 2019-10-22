@@ -67,7 +67,7 @@ $(document).ready(function () {
 function placeSelect(idAir) {
     var selText = $(event.target).closest('li').text().trim().split('\n');
     var city = selText[0];
-    var airportCode = selText[1].split('-')[0].trim();
+    var airportCode = selText[2].split('-')[0].trim();
     var place = $(event.target).parents('.theme-search-area-section-inner').find('.place-result').attr('id')
 
     var placeResult = city + ' (' + airportCode + ')';

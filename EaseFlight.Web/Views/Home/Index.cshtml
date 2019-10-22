@@ -46,8 +46,9 @@
                                                                         <ul class="sub-ul">
                                                                             @foreach (var air in airport.Airports)
                                                                             {
-                                                                                <li class="dropdown-item" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
-                                                                                    <div class="airport"><span class="city-title">@air.City</span></div>
+                                                                                <li class="dropdown-item" id="@air.ID" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
+                                                                                    <div class="airport"><span class="city-title">@air.City
+                                                                                        @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM)?"":string.Concat(", ", air.Country.Name))</span></div>
                                                                                     <div class="airport"><span class="airport-title">@air.Name</span></div>
                                                                                 </li>
                                                                             }
@@ -75,8 +76,9 @@
                                                                         <ul class="sub-ul">
                                                                             @foreach (var air in airport.Airports)
                                                                             {
-                                                                                <li class="dropdown-item" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
-                                                                                    <div class="airport"><span class="city-title">@air.City</span></div>
+                                                                                <li class="dropdown-item" id="@air.ID" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
+                                                                                    <div class="airport"><span class="city-title">@air.City
+                                                                                         @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM)?"":string.Concat(", ", air.Country.Name))</span></div>
                                                                                     <div class="airport"><span class="airport-title">@air.Name</span></div>
                                                                                 </li>
                                                                             }
@@ -303,8 +305,8 @@
                         </li>
                     </ul>
                     <p class="theme-footer-abs-copyright">
-                        Copyright &copy; 2018
-                        <a href="#">Bookify</a>. All rights reserved.
+                        Copyright &copy; @DateTime.Now.Year
+                        <a href="#">EaseFlight</a>. All rights reserved.
                     </p>
                 </div>
                 <div class="col-md-6">
