@@ -101,7 +101,7 @@
           </Key>
           <Property Name="PlaneID" Type="int" Nullable="false" />
           <Property Name="AirportID" Type="int" Nullable="false" />
-          <Property Name="DepartureOrArrival" Type="int" />
+          <Property Name="DepartureOrArrival" Type="varchar" MaxLength="2250" />
         </EntityType>
         <EntityType Name="PlaneSeatClass">
           <Key>
@@ -384,6 +384,74 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EaseFlightModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EaseFlightEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="EaseFlightModel.Account" />
+          <EntitySet Name="AccountTypes" EntityType="EaseFlightModel.AccountType" />
+          <EntitySet Name="Airports" EntityType="EaseFlightModel.Airport" />
+          <EntitySet Name="Countries" EntityType="EaseFlightModel.Country" />
+          <EntitySet Name="Flights" EntityType="EaseFlightModel.Flight" />
+          <EntitySet Name="PassengerTickets" EntityType="EaseFlightModel.PassengerTicket" />
+          <EntitySet Name="PassengerTypes" EntityType="EaseFlightModel.PassengerType" />
+          <EntitySet Name="Planes" EntityType="EaseFlightModel.Plane" />
+          <EntitySet Name="PlaneAirports" EntityType="EaseFlightModel.PlaneAirport" />
+          <EntitySet Name="PlaneSeatClasses" EntityType="EaseFlightModel.PlaneSeatClass" />
+          <EntitySet Name="SeatClasses" EntityType="EaseFlightModel.SeatClass" />
+          <EntitySet Name="SeatMaps" EntityType="EaseFlightModel.SeatMap" />
+          <EntitySet Name="Tickets" EntityType="EaseFlightModel.Ticket" />
+          <EntitySet Name="TicketFlights" EntityType="EaseFlightModel.TicketFlight" />
+          <AssociationSet Name="FK_Account_AccountType" Association="EaseFlightModel.FK_Account_AccountType">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Account" Association="EaseFlightModel.FK_Ticket_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Airport_Country" Association="EaseFlightModel.FK_Airport_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Airport" EntitySet="Airports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneAirport_Airport" Association="EaseFlightModel.FK_PlaneAirport_Airport">
+            <End Role="Airport" EntitySet="Airports" />
+            <End Role="PlaneAirport" EntitySet="PlaneAirports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_Plane" Association="EaseFlightModel.FK_Flight_Plane">
+            <End Role="Plane" EntitySet="Planes" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketFlight_Flight" Association="EaseFlightModel.FK_TicketFlight_Flight">
+            <End Role="Flight" EntitySet="Flights" />
+            <End Role="TicketFlight" EntitySet="TicketFlights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassengerTicket_PassengerType" Association="EaseFlightModel.FK_PassengerTicket_PassengerType">
+            <End Role="PassengerType" EntitySet="PassengerTypes" />
+            <End Role="PassengerTicket" EntitySet="PassengerTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PassengerTicket_Ticket" Association="EaseFlightModel.FK_PassengerTicket_Ticket">
+            <End Role="Ticket" EntitySet="Tickets" />
+            <End Role="PassengerTicket" EntitySet="PassengerTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plane_SeatMap" Association="EaseFlightModel.FK_Plane_SeatMap">
+            <End Role="SeatMap" EntitySet="SeatMaps" />
+            <End Role="Plane" EntitySet="Planes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneAirport_Plane" Association="EaseFlightModel.FK_PlaneAirport_Plane">
+            <End Role="Plane" EntitySet="Planes" />
+            <End Role="PlaneAirport" EntitySet="PlaneAirports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneSeatClass_Plane" Association="EaseFlightModel.FK_PlaneSeatClass_Plane">
+            <End Role="Plane" EntitySet="Planes" />
+            <End Role="PlaneSeatClass" EntitySet="PlaneSeatClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaneSeatClass_SeatClass" Association="EaseFlightModel.FK_PlaneSeatClass_SeatClass">
+            <End Role="SeatClass" EntitySet="SeatClasses" />
+            <End Role="PlaneSeatClass" EntitySet="PlaneSeatClasses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TicketFlight_Ticket" Association="EaseFlightModel.FK_TicketFlight_Ticket">
+            <End Role="Ticket" EntitySet="Tickets" />
+            <End Role="TicketFlight" EntitySet="TicketFlights" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
@@ -405,8 +473,8 @@
           <Property Name="ExpireToken" Type="DateTime" Precision="3" />
           <Property Name="AccountTypeID" Type="Int32" />
           <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="AccountType" Relationship="Self.FK_Account_AccountType" FromRole="Account" ToRole="AccountType" />
-          <NavigationProperty Name="Tickets" Relationship="Self.FK_Ticket_Account" FromRole="Account" ToRole="Ticket" />
+          <NavigationProperty Name="AccountType" Relationship="EaseFlightModel.FK_Account_AccountType" FromRole="Account" ToRole="AccountType" />
+          <NavigationProperty Name="Tickets" Relationship="EaseFlightModel.FK_Ticket_Account" FromRole="Account" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="AccountType">
           <Key>
@@ -415,7 +483,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Roles" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_AccountType" FromRole="AccountType" ToRole="Account" />
+          <NavigationProperty Name="Accounts" Relationship="EaseFlightModel.FK_Account_AccountType" FromRole="AccountType" ToRole="Account" />
         </EntityType>
         <EntityType Name="Airport">
           <Key>
@@ -425,8 +493,8 @@
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CountryID" Type="Int32" />
-          <NavigationProperty Name="Country" Relationship="Self.FK_Airport_Country" FromRole="Airport" ToRole="Country" />
-          <NavigationProperty Name="PlaneAirports" Relationship="Self.FK_PlaneAirport_Airport" FromRole="Airport" ToRole="PlaneAirport" />
+          <NavigationProperty Name="Country" Relationship="EaseFlightModel.FK_Airport_Country" FromRole="Airport" ToRole="Country" />
+          <NavigationProperty Name="PlaneAirports" Relationship="EaseFlightModel.FK_PlaneAirport_Airport" FromRole="Airport" ToRole="PlaneAirport" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -434,8 +502,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Airports" Relationship="Self.FK_Airport_Country" FromRole="Country" ToRole="Airport" />
           <Property Name="Region" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Airports" Relationship="EaseFlightModel.FK_Airport_Country" FromRole="Country" ToRole="Airport" />
         </EntityType>
         <EntityType Name="Flight">
           <Key>
@@ -447,8 +515,8 @@
           <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
           <Property Name="Price" Type="Double" />
           <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Plane" Relationship="Self.FK_Flight_Plane" FromRole="Flight" ToRole="Plane" />
-          <NavigationProperty Name="TicketFlights" Relationship="Self.FK_TicketFlight_Flight" FromRole="Flight" ToRole="TicketFlight" />
+          <NavigationProperty Name="Plane" Relationship="EaseFlightModel.FK_Flight_Plane" FromRole="Flight" ToRole="Plane" />
+          <NavigationProperty Name="TicketFlights" Relationship="EaseFlightModel.FK_TicketFlight_Flight" FromRole="Flight" ToRole="TicketFlight" />
         </EntityType>
         <EntityType Name="PassengerTicket">
           <Key>
@@ -463,8 +531,8 @@
           <Property Name="PlaceIssue" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="PassengerTypeID" Type="Int32" />
-          <NavigationProperty Name="PassengerType" Relationship="Self.FK_PassengerTicket_PassengerType" FromRole="PassengerTicket" ToRole="PassengerType" />
-          <NavigationProperty Name="Ticket" Relationship="Self.FK_PassengerTicket_Ticket" FromRole="PassengerTicket" ToRole="Ticket" />
+          <NavigationProperty Name="PassengerType" Relationship="EaseFlightModel.FK_PassengerTicket_PassengerType" FromRole="PassengerTicket" ToRole="PassengerType" />
+          <NavigationProperty Name="Ticket" Relationship="EaseFlightModel.FK_PassengerTicket_Ticket" FromRole="PassengerTicket" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="PassengerType">
           <Key>
@@ -473,7 +541,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Discount" Type="Int32" />
-          <NavigationProperty Name="PassengerTickets" Relationship="Self.FK_PassengerTicket_PassengerType" FromRole="PassengerType" ToRole="PassengerTicket" />
+          <NavigationProperty Name="PassengerTickets" Relationship="EaseFlightModel.FK_PassengerTicket_PassengerType" FromRole="PassengerType" ToRole="PassengerTicket" />
         </EntityType>
         <EntityType Name="Plane">
           <Key>
@@ -483,10 +551,10 @@
           <Property Name="Airline" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="SeatMapID" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Flights" Relationship="Self.FK_Flight_Plane" FromRole="Plane" ToRole="Flight" />
-          <NavigationProperty Name="SeatMap" Relationship="Self.FK_Plane_SeatMap" FromRole="Plane" ToRole="SeatMap" />
-          <NavigationProperty Name="PlaneAirports" Relationship="Self.FK_PlaneAirport_Plane" FromRole="Plane" ToRole="PlaneAirport" />
-          <NavigationProperty Name="PlaneSeatClasses" Relationship="Self.FK_PlaneSeatClass_Plane" FromRole="Plane" ToRole="PlaneSeatClass" />
+          <NavigationProperty Name="Flights" Relationship="EaseFlightModel.FK_Flight_Plane" FromRole="Plane" ToRole="Flight" />
+          <NavigationProperty Name="SeatMap" Relationship="EaseFlightModel.FK_Plane_SeatMap" FromRole="Plane" ToRole="SeatMap" />
+          <NavigationProperty Name="PlaneAirports" Relationship="EaseFlightModel.FK_PlaneAirport_Plane" FromRole="Plane" ToRole="PlaneAirport" />
+          <NavigationProperty Name="PlaneSeatClasses" Relationship="EaseFlightModel.FK_PlaneSeatClass_Plane" FromRole="Plane" ToRole="PlaneSeatClass" />
         </EntityType>
         <EntityType Name="PlaneAirport">
           <Key>
@@ -495,9 +563,9 @@
           </Key>
           <Property Name="PlaneID" Type="Int32" Nullable="false" />
           <Property Name="AirportID" Type="Int32" Nullable="false" />
-          <Property Name="DepartureOrArrival" Type="Int32" />
-          <NavigationProperty Name="Airport" Relationship="Self.FK_PlaneAirport_Airport" FromRole="PlaneAirport" ToRole="Airport" />
-          <NavigationProperty Name="Plane" Relationship="Self.FK_PlaneAirport_Plane" FromRole="PlaneAirport" ToRole="Plane" />
+          <Property Name="DepartureOrArrival" Type="String" MaxLength="2250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Airport" Relationship="EaseFlightModel.FK_PlaneAirport_Airport" FromRole="PlaneAirport" ToRole="Airport" />
+          <NavigationProperty Name="Plane" Relationship="EaseFlightModel.FK_PlaneAirport_Plane" FromRole="PlaneAirport" ToRole="Plane" />
         </EntityType>
         <EntityType Name="PlaneSeatClass">
           <Key>
@@ -509,8 +577,8 @@
           <Property Name="Capacity" Type="Int32" />
           <Property Name="Price" Type="Double" />
           <Property Name="Order" Type="Int32" />
-          <NavigationProperty Name="Plane" Relationship="Self.FK_PlaneSeatClass_Plane" FromRole="PlaneSeatClass" ToRole="Plane" />
-          <NavigationProperty Name="SeatClass" Relationship="Self.FK_PlaneSeatClass_SeatClass" FromRole="PlaneSeatClass" ToRole="SeatClass" />
+          <NavigationProperty Name="Plane" Relationship="EaseFlightModel.FK_PlaneSeatClass_Plane" FromRole="PlaneSeatClass" ToRole="Plane" />
+          <NavigationProperty Name="SeatClass" Relationship="EaseFlightModel.FK_PlaneSeatClass_SeatClass" FromRole="PlaneSeatClass" ToRole="SeatClass" />
         </EntityType>
         <EntityType Name="SeatClass">
           <Key>
@@ -518,7 +586,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PlaneSeatClasses" Relationship="Self.FK_PlaneSeatClass_SeatClass" FromRole="SeatClass" ToRole="PlaneSeatClass" />
+          <NavigationProperty Name="PlaneSeatClasses" Relationship="EaseFlightModel.FK_PlaneSeatClass_SeatClass" FromRole="SeatClass" ToRole="PlaneSeatClass" />
         </EntityType>
         <EntityType Name="SeatMap">
           <Key>
@@ -529,7 +597,7 @@
           <Property Name="Columns" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="RowWithoutSeat" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Capacity" Type="Int32" />
-          <NavigationProperty Name="Planes" Relationship="Self.FK_Plane_SeatMap" FromRole="SeatMap" ToRole="Plane" />
+          <NavigationProperty Name="Planes" Relationship="EaseFlightModel.FK_Plane_SeatMap" FromRole="SeatMap" ToRole="Plane" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -544,9 +612,9 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="PaymentID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Ticket_Account" FromRole="Ticket" ToRole="Account" />
-          <NavigationProperty Name="PassengerTickets" Relationship="Self.FK_PassengerTicket_Ticket" FromRole="Ticket" ToRole="PassengerTicket" />
-          <NavigationProperty Name="TicketFlights" Relationship="Self.FK_TicketFlight_Ticket" FromRole="Ticket" ToRole="TicketFlight" />
+          <NavigationProperty Name="Account" Relationship="EaseFlightModel.FK_Ticket_Account" FromRole="Ticket" ToRole="Account" />
+          <NavigationProperty Name="PassengerTickets" Relationship="EaseFlightModel.FK_PassengerTicket_Ticket" FromRole="Ticket" ToRole="PassengerTicket" />
+          <NavigationProperty Name="TicketFlights" Relationship="EaseFlightModel.FK_TicketFlight_Ticket" FromRole="Ticket" ToRole="TicketFlight" />
         </EntityType>
         <EntityType Name="TicketFlight">
           <Key>
@@ -558,12 +626,12 @@
           <Property Name="SeatCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RoundTrip" Type="Boolean" />
           <Property Name="Order" Type="Int32" />
-          <NavigationProperty Name="Flight" Relationship="Self.FK_TicketFlight_Flight" FromRole="TicketFlight" ToRole="Flight" />
-          <NavigationProperty Name="Ticket" Relationship="Self.FK_TicketFlight_Ticket" FromRole="TicketFlight" ToRole="Ticket" />
+          <NavigationProperty Name="Flight" Relationship="EaseFlightModel.FK_TicketFlight_Flight" FromRole="TicketFlight" ToRole="Flight" />
+          <NavigationProperty Name="Ticket" Relationship="EaseFlightModel.FK_TicketFlight_Ticket" FromRole="TicketFlight" ToRole="Ticket" />
         </EntityType>
         <Association Name="FK_Account_AccountType">
-          <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <End Type="EaseFlightModel.AccountType" Role="AccountType" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.Account" Role="Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AccountType">
               <PropertyRef Name="ID" />
@@ -574,8 +642,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ticket_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <End Type="EaseFlightModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.Ticket" Role="Ticket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="ID" />
@@ -586,8 +654,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Airport_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-          <End Role="Airport" Type="Self.Airport" Multiplicity="*" />
+          <End Type="EaseFlightModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.Airport" Role="Airport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Country">
               <PropertyRef Name="ID" />
@@ -598,8 +666,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PlaneAirport_Airport">
-          <End Role="Airport" Type="Self.Airport" Multiplicity="1" />
-          <End Role="PlaneAirport" Type="Self.PlaneAirport" Multiplicity="*" />
+          <End Type="EaseFlightModel.Airport" Role="Airport" Multiplicity="1" />
+          <End Type="EaseFlightModel.PlaneAirport" Role="PlaneAirport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Airport">
               <PropertyRef Name="ID" />
@@ -610,8 +678,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Flight_Plane">
-          <End Role="Plane" Type="Self.Plane" Multiplicity="0..1" />
-          <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+          <End Type="EaseFlightModel.Plane" Role="Plane" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.Flight" Role="Flight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plane">
               <PropertyRef Name="ID" />
@@ -622,8 +690,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TicketFlight_Flight">
-          <End Role="Flight" Type="Self.Flight" Multiplicity="1" />
-          <End Role="TicketFlight" Type="Self.TicketFlight" Multiplicity="*" />
+          <End Type="EaseFlightModel.Flight" Role="Flight" Multiplicity="1" />
+          <End Type="EaseFlightModel.TicketFlight" Role="TicketFlight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Flight">
               <PropertyRef Name="ID" />
@@ -634,8 +702,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PassengerTicket_PassengerType">
-          <End Role="PassengerType" Type="Self.PassengerType" Multiplicity="0..1" />
-          <End Role="PassengerTicket" Type="Self.PassengerTicket" Multiplicity="*" />
+          <End Type="EaseFlightModel.PassengerType" Role="PassengerType" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.PassengerTicket" Role="PassengerTicket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PassengerType">
               <PropertyRef Name="ID" />
@@ -646,8 +714,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PassengerTicket_Ticket">
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="0..1" />
-          <End Role="PassengerTicket" Type="Self.PassengerTicket" Multiplicity="*" />
+          <End Type="EaseFlightModel.Ticket" Role="Ticket" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.PassengerTicket" Role="PassengerTicket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ticket">
               <PropertyRef Name="ID" />
@@ -658,8 +726,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plane_SeatMap">
-          <End Role="SeatMap" Type="Self.SeatMap" Multiplicity="0..1" />
-          <End Role="Plane" Type="Self.Plane" Multiplicity="*" />
+          <End Type="EaseFlightModel.SeatMap" Role="SeatMap" Multiplicity="0..1" />
+          <End Type="EaseFlightModel.Plane" Role="Plane" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SeatMap">
               <PropertyRef Name="ID" />
@@ -670,8 +738,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PlaneAirport_Plane">
-          <End Role="Plane" Type="Self.Plane" Multiplicity="1" />
-          <End Role="PlaneAirport" Type="Self.PlaneAirport" Multiplicity="*" />
+          <End Type="EaseFlightModel.Plane" Role="Plane" Multiplicity="1" />
+          <End Type="EaseFlightModel.PlaneAirport" Role="PlaneAirport" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plane">
               <PropertyRef Name="ID" />
@@ -682,8 +750,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PlaneSeatClass_Plane">
-          <End Role="Plane" Type="Self.Plane" Multiplicity="1" />
-          <End Role="PlaneSeatClass" Type="Self.PlaneSeatClass" Multiplicity="*" />
+          <End Type="EaseFlightModel.Plane" Role="Plane" Multiplicity="1" />
+          <End Type="EaseFlightModel.PlaneSeatClass" Role="PlaneSeatClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Plane">
               <PropertyRef Name="ID" />
@@ -694,8 +762,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PlaneSeatClass_SeatClass">
-          <End Role="SeatClass" Type="Self.SeatClass" Multiplicity="1" />
-          <End Role="PlaneSeatClass" Type="Self.PlaneSeatClass" Multiplicity="*" />
+          <End Type="EaseFlightModel.SeatClass" Role="SeatClass" Multiplicity="1" />
+          <End Type="EaseFlightModel.PlaneSeatClass" Role="PlaneSeatClass" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SeatClass">
               <PropertyRef Name="ID" />
@@ -706,8 +774,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TicketFlight_Ticket">
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
-          <End Role="TicketFlight" Type="Self.TicketFlight" Multiplicity="*" />
+          <End Type="EaseFlightModel.Ticket" Role="Ticket" Multiplicity="1" />
+          <End Type="EaseFlightModel.TicketFlight" Role="TicketFlight" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ticket">
               <PropertyRef Name="ID" />
@@ -717,74 +785,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EaseFlightEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="AccountTypes" EntityType="Self.AccountType" />
-          <EntitySet Name="Airports" EntityType="Self.Airport" />
-          <EntitySet Name="Countries" EntityType="Self.Country" />
-          <EntitySet Name="Flights" EntityType="Self.Flight" />
-          <EntitySet Name="PassengerTickets" EntityType="Self.PassengerTicket" />
-          <EntitySet Name="PassengerTypes" EntityType="Self.PassengerType" />
-          <EntitySet Name="Planes" EntityType="Self.Plane" />
-          <EntitySet Name="PlaneAirports" EntityType="Self.PlaneAirport" />
-          <EntitySet Name="PlaneSeatClasses" EntityType="Self.PlaneSeatClass" />
-          <EntitySet Name="SeatClasses" EntityType="Self.SeatClass" />
-          <EntitySet Name="SeatMaps" EntityType="Self.SeatMap" />
-          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
-          <EntitySet Name="TicketFlights" EntityType="Self.TicketFlight" />
-          <AssociationSet Name="FK_Account_AccountType" Association="Self.FK_Account_AccountType">
-            <End Role="AccountType" EntitySet="AccountTypes" />
-            <End Role="Account" EntitySet="Accounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ticket_Account" Association="Self.FK_Ticket_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Ticket" EntitySet="Tickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Airport_Country" Association="Self.FK_Airport_Country">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Airport" EntitySet="Airports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlaneAirport_Airport" Association="Self.FK_PlaneAirport_Airport">
-            <End Role="Airport" EntitySet="Airports" />
-            <End Role="PlaneAirport" EntitySet="PlaneAirports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Flight_Plane" Association="Self.FK_Flight_Plane">
-            <End Role="Plane" EntitySet="Planes" />
-            <End Role="Flight" EntitySet="Flights" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TicketFlight_Flight" Association="Self.FK_TicketFlight_Flight">
-            <End Role="Flight" EntitySet="Flights" />
-            <End Role="TicketFlight" EntitySet="TicketFlights" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PassengerTicket_PassengerType" Association="Self.FK_PassengerTicket_PassengerType">
-            <End Role="PassengerType" EntitySet="PassengerTypes" />
-            <End Role="PassengerTicket" EntitySet="PassengerTickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PassengerTicket_Ticket" Association="Self.FK_PassengerTicket_Ticket">
-            <End Role="Ticket" EntitySet="Tickets" />
-            <End Role="PassengerTicket" EntitySet="PassengerTickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Plane_SeatMap" Association="Self.FK_Plane_SeatMap">
-            <End Role="SeatMap" EntitySet="SeatMaps" />
-            <End Role="Plane" EntitySet="Planes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlaneAirport_Plane" Association="Self.FK_PlaneAirport_Plane">
-            <End Role="Plane" EntitySet="Planes" />
-            <End Role="PlaneAirport" EntitySet="PlaneAirports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlaneSeatClass_Plane" Association="Self.FK_PlaneSeatClass_Plane">
-            <End Role="Plane" EntitySet="Planes" />
-            <End Role="PlaneSeatClass" EntitySet="PlaneSeatClasses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PlaneSeatClass_SeatClass" Association="Self.FK_PlaneSeatClass_SeatClass">
-            <End Role="SeatClass" EntitySet="SeatClasses" />
-            <End Role="PlaneSeatClass" EntitySet="PlaneSeatClasses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TicketFlight_Ticket" Association="Self.FK_TicketFlight_Ticket">
-            <End Role="Ticket" EntitySet="Tickets" />
-            <End Role="TicketFlight" EntitySet="TicketFlights" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -794,42 +794,42 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="EaseFlightModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
-                <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
-                <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="ResetPasswordToken" ColumnName="ResetPasswordToken" />
-                <ScalarProperty Name="ExpireToken" ColumnName="ExpireToken" />
-                <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
+                <ScalarProperty Name="ExpireToken" ColumnName="ExpireToken" />
+                <ScalarProperty Name="ResetPasswordToken" ColumnName="ResetPasswordToken" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
+                <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
+                <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AccountTypes">
             <EntityTypeMapping TypeName="EaseFlightModel.AccountType">
               <MappingFragment StoreEntitySet="AccountType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Airports">
             <EntityTypeMapping TypeName="EaseFlightModel.Airport">
               <MappingFragment StoreEntitySet="Airport">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -837,119 +837,119 @@
             <EntityTypeMapping TypeName="EaseFlightModel.Country">
               <MappingFragment StoreEntitySet="Country">
                 <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Flights">
             <EntityTypeMapping TypeName="EaseFlightModel.Flight">
               <MappingFragment StoreEntitySet="Flight">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
-                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
-                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PassengerTickets">
             <EntityTypeMapping TypeName="EaseFlightModel.PassengerTicket">
               <MappingFragment StoreEntitySet="PassengerTicket">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
-                <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
-                <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="PassengerTypeID" ColumnName="PassengerTypeID" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
+                <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
+                <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PassengerTypes">
             <EntityTypeMapping TypeName="EaseFlightModel.PassengerType">
               <MappingFragment StoreEntitySet="PassengerType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Planes">
             <EntityTypeMapping TypeName="EaseFlightModel.Plane">
               <MappingFragment StoreEntitySet="Plane">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Airline" ColumnName="Airline" />
-                <ScalarProperty Name="SeatMapID" ColumnName="SeatMapID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SeatMapID" ColumnName="SeatMapID" />
+                <ScalarProperty Name="Airline" ColumnName="Airline" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PlaneAirports">
             <EntityTypeMapping TypeName="EaseFlightModel.PlaneAirport">
               <MappingFragment StoreEntitySet="PlaneAirport">
-                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
-                <ScalarProperty Name="AirportID" ColumnName="AirportID" />
                 <ScalarProperty Name="DepartureOrArrival" ColumnName="DepartureOrArrival" />
+                <ScalarProperty Name="AirportID" ColumnName="AirportID" />
+                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PlaneSeatClasses">
             <EntityTypeMapping TypeName="EaseFlightModel.PlaneSeatClass">
               <MappingFragment StoreEntitySet="PlaneSeatClass">
-                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
-                <ScalarProperty Name="SeatClassID" ColumnName="SeatClassID" />
-                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="SeatClassID" ColumnName="SeatClassID" />
+                <ScalarProperty Name="PlaneID" ColumnName="PlaneID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SeatClasses">
             <EntityTypeMapping TypeName="EaseFlightModel.SeatClass">
               <MappingFragment StoreEntitySet="SeatClass">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SeatMaps">
             <EntityTypeMapping TypeName="EaseFlightModel.SeatMap">
               <MappingFragment StoreEntitySet="SeatMap">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Columns" ColumnName="Columns" />
-                <ScalarProperty Name="RowWithoutSeat" ColumnName="RowWithoutSeat" />
                 <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="RowWithoutSeat" ColumnName="RowWithoutSeat" />
+                <ScalarProperty Name="Columns" ColumnName="Columns" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tickets">
             <EntityTypeMapping TypeName="EaseFlightModel.Ticket">
               <MappingFragment StoreEntitySet="Ticket">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TicketFlights">
             <EntityTypeMapping TypeName="EaseFlightModel.TicketFlight">
               <MappingFragment StoreEntitySet="TicketFlight">
-                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
-                <ScalarProperty Name="FlightID" ColumnName="FlightID" />
-                <ScalarProperty Name="SeatCode" ColumnName="SeatCode" />
-                <ScalarProperty Name="RoundTrip" ColumnName="RoundTrip" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RoundTrip" ColumnName="RoundTrip" />
+                <ScalarProperty Name="SeatCode" ColumnName="SeatCode" />
+                <ScalarProperty Name="FlightID" ColumnName="FlightID" />
+                <ScalarProperty Name="TicketID" ColumnName="TicketID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

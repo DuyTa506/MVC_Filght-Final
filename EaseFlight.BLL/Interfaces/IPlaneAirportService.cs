@@ -6,5 +6,6 @@ namespace EaseFlight.BLL.Interfaces
     public interface IPlaneAirportService
     {
         IEnumerable<PlaneAirportModel> FindAll();
+        int Insert(PlaneAirportModel planeAirportModel);
     }
 }

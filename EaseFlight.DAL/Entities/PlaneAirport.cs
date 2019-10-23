@@ -16,7 +16,7 @@ namespace EaseFlight.DAL.Entities
     {
         public int PlaneID { get; set; }
         public int AirportID { get; set; }
-        public Nullable<int> DepartureOrArrival { get; set; }
+        public string DepartureOrArrival { get; set; }
     
         public virtual Airport Airport { get; set; }
         public virtual Plane Plane { get; set; }

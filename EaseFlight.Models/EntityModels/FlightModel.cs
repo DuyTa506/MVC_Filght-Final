@@ -16,6 +16,8 @@ namespace EaseFlight.Models.EntityModels
         public string Status { get; set; }
         public virtual Plane Plane { get; set; }
         public virtual ICollection<TicketFlight> TicketFlights { get; set; }
+        public Airport Departure { get; set; }
+        public Airport Arrival { get; set; }
         #endregion
 
         #region Functions

@@ -20,6 +20,11 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public void Insert(PlaneAirport planeAirport)
+        {
+            this.UnitOfWork.DBContext.PlaneAirports.Add(planeAirport);
+        }
         #endregion
     }
 }

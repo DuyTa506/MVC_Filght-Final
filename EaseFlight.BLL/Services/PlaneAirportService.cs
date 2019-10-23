@@ -31,6 +31,14 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(PlaneAirportModel planeAirportModel)
+        {
+            this.PlaneAirportRepository.Insert(planeAirportModel.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

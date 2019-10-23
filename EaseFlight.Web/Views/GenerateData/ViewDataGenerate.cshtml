@@ -1,0 +1,10 @@
+﻿@using EaseFlight.Models.EntityModels;
+@{
+    ViewBag.Title = "ViewData";
+    var planeAirportList = (IEnumerable<PlaneAirportModel>)ViewData["planeAirportList"];
+}
+
+@foreach(var planeAirport in planeAirportList)
+{
+    <p>@planeAirport.Plane.Airline @planeAirport.Plane.ID.ToString("D3") : @planeAirport.Airport.Name</p>
+}
