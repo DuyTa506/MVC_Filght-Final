@@ -2,9 +2,17 @@
 @{
     ViewBag.Title = "ViewData";
     var planeAirportList = (IEnumerable<PlaneAirportModel>)ViewData["planeAirportList"];
+    var flightList = (IEnumerable<FlightModel>)ViewData["flightList"];
 }
 
-@foreach(var planeAirport in planeAirportList)
+<!--View Data For PlaneAirport-->
+@*@foreach(var planeAirport in planeAirportList)
 {
-    <p>@planeAirport.Plane.Airline @planeAirport.Plane.ID.ToString("D3") : @planeAirport.Airport.Name</p>
+    <p>@planeAirport.Plane.Airline@planeAirport.Plane.ID.ToString("D3") : @planeAirport.Airport.Name</p>
+}*@
+
+<!--View Data For Flight-->
+@foreach(var flight in flightList)
+{
+    <p>@flight.Plane.Airline@flight.Plane.ID.ToString("D3"): <b>Departure: </b></p>
 }

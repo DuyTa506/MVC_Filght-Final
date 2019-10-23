@@ -42,6 +42,7 @@ namespace EaseFlight.BLL.Services
             {
                 viewModel = new PlaneModel();
                 CommonMethods.CopyObjectProperties(model, viewModel);
+                viewModel.Name = viewModel.Airline + viewModel.ID.ToString("D3");
             }
 
             return viewModel;

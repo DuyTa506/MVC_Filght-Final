@@ -20,6 +20,13 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public int Insert(Flight flight)
+        {
+            this.UnitOfWork.DBContext.Flights.Add(flight);
+
+            return flight.ID;
+        }
         #endregion
     }
 }

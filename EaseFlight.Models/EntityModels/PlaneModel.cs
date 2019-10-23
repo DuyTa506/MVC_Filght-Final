@@ -9,6 +9,7 @@ namespace EaseFlight.Models.EntityModels
     {
         #region Properties
         public int ID { get; set; }
+        public string Name { get; set; }
         public string Airline { get; set; }
         public Nullable<int> SeatMapID { get; set; }
         public string Status { get; set; }

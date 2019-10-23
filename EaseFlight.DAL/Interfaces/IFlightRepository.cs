@@ -6,5 +6,6 @@ namespace EaseFlight.DAL.Interfaces
     public interface IFlightRepository
     {
         IEnumerable<Flight> FindAll();
+        int Insert(Flight flight);
     }
 }

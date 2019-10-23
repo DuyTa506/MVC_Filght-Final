@@ -6,5 +6,6 @@ namespace EaseFlight.DAL.Interfaces
     public interface IAirportRepository
     {
         IEnumerable<Airport> FindAll();
+        Airport Find(int id);
     }
 }

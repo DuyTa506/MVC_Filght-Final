@@ -31,6 +31,14 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(FlightModel flight)
+        {
+            this.FlightRepository.Insert(flight.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

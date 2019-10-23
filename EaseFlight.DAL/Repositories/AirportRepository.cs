@@ -20,6 +20,13 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public Airport Find(int id)
+        {
+            var result = this.UnitOfWork.DBContext.Airports.Find(id);
+
+            return result;
+        }
         #endregion
     }
 }
