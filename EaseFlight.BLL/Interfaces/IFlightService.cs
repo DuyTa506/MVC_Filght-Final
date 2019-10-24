@@ -1,4 +1,6 @@
-﻿using EaseFlight.Models.EntityModels;
+﻿using EaseFlight.Models.CustomModel;
+using EaseFlight.Models.EntityModels;
+using System;
 using System.Collections.Generic;
 
 namespace EaseFlight.BLL.Interfaces
@@ -7,5 +9,7 @@ namespace EaseFlight.BLL.Interfaces
     {
         IEnumerable<FlightModel> FindAll();
         int Insert(FlightModel flight);
+        FlightModel Find(int id);
+        IEnumerable<FlightModel> FindFlight(AirportModel departure, AirportModel arrival, DateTime departureDate);
     }
 }

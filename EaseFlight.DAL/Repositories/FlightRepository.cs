@@ -27,6 +27,13 @@ namespace EaseFlight.DAL.Repositories
 
             return flight.ID;
         }
+
+        public Flight Find(int id)
+        {
+            var result = this.UnitOfWork.DBContext.Flights.Find(id);
+
+            return result;
+        }
         #endregion
     }
 }

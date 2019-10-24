@@ -6,5 +6,6 @@ namespace EaseFlight.DAL.Interfaces
     public interface ISeatClassRepository
     {
         IEnumerable<SeatClass> FindAll();
+        SeatClass Find(int id);
     }
 }

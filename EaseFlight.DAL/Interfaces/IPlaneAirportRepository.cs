@@ -9,5 +9,6 @@ namespace EaseFlight.DAL.Interfaces
         void Insert(PlaneAirport planeAirport);
         PlaneAirport Find(int planeId, int airportId);
         void Update(PlaneAirport planeAirport);
+        IEnumerable<PlaneAirport> FindByPlane(int planeId);
     }
 }

@@ -18,7 +18,10 @@ $(document).ready(function () {
 
     //Add event for Departure and Arrival Dropdown select
     $('.place-dropdown .country').on('click', function (event) {
-        //event.stopPropagation();
+        event.stopPropagation();
+        var id = $(event.target).attr('data-target');
+        $(id).collapse('toggle');
+        $(event.target).find('.caret-dropdown').toggleClass('active');
     });
 
     $('.place-result').focusin(function () {
@@ -61,13 +64,15 @@ $(document).ready(function () {
     });
 
     $('li.collapse').collapse('show');
+    $('.ul-departure li.country').last().addClass('border-bottom-none');
+    $('.ul-arrival li.country').last().addClass('border-bottom-none');
 });
 
 //Select Departure and Arrial dropdown
 function placeSelect(idAir) {
     var selText = $(event.target).closest('li').text().trim().split('\n');
     var city = selText[0];
-    var airportCode = selText[2].split('-')[0].trim();
+    var airportCode = selText[selText.length - 1].split('-')[0].trim();
     var place = $(event.target).parents('.theme-search-area-section-inner').find('.place-result').attr('id')
 
     var placeResult = city + ' (' + airportCode + ')';
@@ -85,20 +90,41 @@ function placeSelect(idAir) {
 function findFlight() {
     var formData = new FormData();
     var option = $('.theme-search-area-options-list').find('label.active').find('input').attr('id');
-    var inputValue = $('.passenger-type').val().split(', ')
+    var inputValue = $('.passenger-type').val().split(', ');
+    var departureDate = "", returnDate = "";
+
+    if ($('.datePickerStart._mob-h').val() == "") {
+        departureDate = $('.datePickerStart._desk-h').val();
+    } else departureDate = $('.datePickerStart._mob-h').val();
+
+    if ($('.datePickerEnd._mob-h').val() == "") {
+        returnDate = $('.datePickerEnd._desk-h').val();
+    } else returnDate = $('.datePickerEnd._mob-h').val();
+
+    if (idAirportArrival == -1 || idAirpotDeparture == -1 || departureDate == ""
+        || $('.span-seat').attr('data-seat') == "") {
+        ToastError("Please enter full search information!");
+        return;
+    }
+
+    if (option == 'flight-option-1') //One Way
+        formData.append('roundTrip', false);
+    else { //Round Trip
+        if (returnDate == "") {
+            ToastError("Please enter full search information!");
+            return;
+        }
+        formData.append('roundTrip', true);
+    }
 
     formData.append('idAirportDeparture', idAirpotDeparture);
     formData.append('idAirportArrival', idAirportArrival);
-    formData.append('departureDate', $('#departureDate').val());
-    formData.append('returnDate', $('#returnDate').val());
+    formData.append('departureDate', departureDate);
+    formData.append('returnDate', returnDate);
     formData.append('idSeatClass', $('.span-seat').attr('data-seat'));
     formData.append('adult', inputValue[0].split(' ')[0]);
     formData.append('child', inputValue[1].split(' ')[0]);
     formData.append('infant', inputValue[2].split(' ')[0]);
-
-    if (option == 'flight-option-1')
-        formData.append('roundTrip', false);
-    else formData.append('roundTrip', true);
 
     $.ajax({
         url: '/Flight/Find',

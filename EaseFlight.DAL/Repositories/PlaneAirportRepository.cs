@@ -3,6 +3,7 @@ using EaseFlight.DAL.Entities;
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EaseFlight.DAL.Repositories
 {
@@ -40,6 +41,13 @@ namespace EaseFlight.DAL.Repositories
 
             if (currentPlaneAirport != null)
                 CommonMethods.CopyObjectProperties(planeAirport, currentPlaneAirport);
+        }
+
+        public IEnumerable<PlaneAirport> FindByPlane(int planeId)
+        {
+            var result = this.UnitOfWork.DBContext.PlaneAirports.Where(planeAirport => planeAirport.PlaneID == planeId);
+
+            return result;
         }
         #endregion
     }

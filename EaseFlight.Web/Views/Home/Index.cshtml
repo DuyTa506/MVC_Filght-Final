@@ -1,11 +1,12 @@
 ﻿@using EaseFlight.Models.CustomModel;
 @using EaseFlight.Models.EntityModels;
 @using EaseFlight.Common.Constants;
+@using System.Text.RegularExpressions;
 @{
     ViewBag.Title = "Home";
-    var airports = (IEnumerable<AirportRegionModel>)ViewData["airports"];
-    var passengers = (IEnumerable<PassengerTypeModel>)ViewData["passengers"];
-    var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
+var airports = (IEnumerable<AirportRegionModel>)ViewData["airports"];
+var passengers = (IEnumerable<PassengerTypeModel>)ViewData["passengers"];
+var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
 }
 @Styles.Render("~/Content/home")
 @Scripts.Render("~/bundles/home")
@@ -41,17 +42,25 @@
                                                             {
                                                                 if (airport.Airports.Count() > 0)
                                                                 {
-                                                                    <li class="country" id="@airport.Region" data-toggle="collapse" data-target="#li@(airport.Region.Replace(" ", ""))">@airport.Region</li>
-                                                                    <li id="li@(airport.Region.Replace(" ", ""))" class="collapse">
+                                                                    var id = Regex.Replace(airport.Region, @"\s+", string.Empty);
+                                                                    <li class="country noselect" id="@airport.Region" data-toggle="collapse" data-target="#li@(id)">
+                                                                        <span class="caret-dropdown"></span>
+                                                                        @airport.Region
+                                                                    </li>
+                                                                    <li id="li@(id)" class="collapse">
                                                                         <ul class="sub-ul">
                                                                             @foreach (var air in airport.Airports)
                                                                             {
                                                                                 <li class="dropdown-item" id="@air.ID" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
-                                                                                    <div class="airport"><span class="city-title">@air.City
-                                                                                        @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM)?"":string.Concat(", ", air.Country.Name))</span></div>
-                                                                                    <div class="airport"><span class="airport-title">@air.Name</span></div>
-                                                                                </li>
-                                                                            }
+                                                                                    <div class="airport">
+                                                                                        <span class="city-title">
+                                                                                            @air.City
+                                                                                        @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM) ? "" : string.Concat(", ", air.Country.Name))
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="airport"><span class="airport-title">@air.Name</span></div>
+                                                                            </li>
+                                                                        }
                                                                         </ul>
                                                                     </li>
                                                                 }
@@ -77,11 +86,15 @@
                                                                             @foreach (var air in airport.Airports)
                                                                             {
                                                                                 <li class="dropdown-item" id="@air.ID" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
-                                                                                    <div class="airport"><span class="city-title">@air.City
-                                                                                         @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM)?"":string.Concat(", ", air.Country.Name))</span></div>
-                                                                                    <div class="airport"><span class="airport-title">@air.Name</span></div>
-                                                                                </li>
-                                                                            }
+                                                                                    <div class="airport">
+                                                                                        <span class="city-title">
+                                                                                            @air.City
+                                                                                        @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM) ? "" : string.Concat(", ", air.Country.Name))
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="airport"><span class="airport-title">@air.Name</span></div>
+                                                                            </li>
+                                                                        }
                                                                         </ul>
                                                                     </li>
                                                                 }
@@ -99,8 +112,8 @@
                                                 <div class="theme-search-area-section first theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
                                                     <div class="theme-search-area-section-inner">
                                                         <i class="theme-search-area-section-icon lin lin-calendar"></i>
-                                                        <input class="theme-search-area-section-input datePickerStart _mob-h cursor-pointer" value="" type="text" placeholder="Departure Date" />
-                                                        <input id="departureDate" class="theme-search-area-section-input _desk-h datePickerStart cursor-pointer" value="" type="text" placeholder="Departure Date" />
+                                                        <input id="departureDate" class="theme-search-area-section-input datePickerStart _mob-h cursor-pointer" value="" type="text" placeholder="Departure Date" />
+                                                        <input class="theme-search-area-section-input _desk-h datePickerStart cursor-pointer" value="" type="text" placeholder="Departure Date" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,8 +121,8 @@
                                                 <div class="theme-search-area-section theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved">
                                                     <div class="theme-search-area-section-inner">
                                                         <i class="theme-search-area-section-icon lin lin-calendar"></i>
-                                                        <input class="theme-search-area-section-input datePickerEnd _mob-h cursor-pointer" value="" type="text" placeholder="Return Date" />
-                                                        <input id="returnDate" class="theme-search-area-section-input _desk-h datePickerEnd cursor-pointer" value="" type="text" placeholder="Return Date" />
+                                                        <input id="returnDate" class="theme-search-area-section-input datePickerEnd _mob-h cursor-pointer" value="" type="text" placeholder="Return Date" />
+                                                        <input class="theme-search-area-section-input _desk-h datePickerEnd cursor-pointer" value="" type="text" placeholder="Return Date" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +144,7 @@
                                                 <div class="theme-search-area-section theme-search-area-section-fade-white theme-search-area-section-mr theme-search-area-section-no-border theme-search-area-section-curved quantity-selector" data-increment="Passengers">
                                                     <div class="theme-search-area-section-inner">
                                                         <i class="theme-search-area-section-icon lin lin-people"></i>
-                                                        <input class="theme-search-area-section-input cursor-pointer passenger-type" value="1 Adult, 0 Child, 0 Infant" type="text" readonly onclick="showPassenger()"/>
+                                                        <input class="theme-search-area-section-input cursor-pointer passenger-type" value="1 Adult, 0 Child, 0 Infant" type="text" readonly onclick="showPassenger()" />
                                                         <div class="div-passenger-type noselect hide" id="FlySearchPassengers">
                                                             @foreach (var passenger in passengers)
                                                             {
@@ -196,7 +209,7 @@
                                                                                 </g>
                                                                             </svg>
                                                                         </div>
-                                                                        <div class="svg-passenger-icon"><span class="passenger-number passenger-title-name">@(passenger.Name.Equals(Constant.CONST_DB_NAME_ADULT)?"1":"0")</span></div>
+                                                                        <div class="svg-passenger-icon"><span class="passenger-number passenger-title-name">@(passenger.Name.Equals(Constant.CONST_DB_NAME_ADULT) ? "1" : "0")</span></div>
                                                                         <div class="svg-passenger cursor-pointer" onclick="addPassenger()">
                                                                             <svg stroke-width="0" viewBox="0 0 16 16" fill="#00A651" height="16" stroke="currentColor" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                                                 <g>
@@ -207,7 +220,7 @@
                                                                     </div>
                                                                 </div>
                                                             }
-                                                        </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

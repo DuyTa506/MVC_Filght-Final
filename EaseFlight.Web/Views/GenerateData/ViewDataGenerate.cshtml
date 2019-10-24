@@ -1,7 +1,7 @@
 ﻿@using EaseFlight.Models.EntityModels;
 @{
     ViewBag.Title = "ViewData";
-    var planeAirportList = (IEnumerable<PlaneAirportModel>)ViewData["planeAirportList"];
+    //var planeAirportList = (IEnumerable<PlaneAirportModel>)ViewData["planeAirportList"];
     var flightList = (IEnumerable<FlightModel>)ViewData["flightList"];
 }
 
@@ -12,7 +12,11 @@
 }*@
 
 <!--View Data For Flight-->
+<h3>@flightList.Count()</h3>
+
 @foreach(var flight in flightList)
 {
-    <p>@flight.Plane.Airline@flight.Plane.ID.ToString("D3"): <b>Departure: </b></p>
+    <p>@flight.Plane.Airline@flight.Plane.ID.ToString("D3"): <b>Departure: </b>@flight.Departure.Name ,<b>Arrival: </b>@flight.Arrival.Name ,
+    <b>Date: </b>@flight.DepartureDate.Value.ToString("dd/MM/yyyy HH:mm")
+    </p>
 }

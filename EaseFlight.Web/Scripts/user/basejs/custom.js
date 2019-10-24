@@ -300,13 +300,15 @@ function datePickers() {
 
     $('.datePickerEnd').datetimepicker({
         format: 'DD/MM/YYYY',
-        useCurrent: false
+        useCurrent: false,
+        minDate: moment()
     }).on('dp.change', function(e){
         var parent = $($(this).parents('.row')[0]),
             startDate = parent.find('.datePickerStart');
         startDate.data("DateTimePicker").maxDate(e.date);
     });
 
+    $('.datePickerStart').data("DateTimePicker").maxDate(false);
 }
 
 

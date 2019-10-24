@@ -20,6 +20,13 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public SeatClass Find(int id)
+        {
+            var result = this.UnitOfWork.DBContext.SeatClasses.Find(id);
+
+            return result;
+        }
         #endregion
     }
 }

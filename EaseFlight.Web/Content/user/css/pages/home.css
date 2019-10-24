@@ -26,6 +26,7 @@
     max-height: 300px;
     overflow: auto;
     padding-top: 0px !important;
+    padding-bottom: 0px !important;
 }
 .place-dropdown .sub-ul li{
     padding: 7px 30px;
@@ -76,6 +77,9 @@
     height: 30px;
     line-height: 30px;
     padding-left: 30px;
+}
+.place-dropdown .country.collapsed{
+    border-bottom: 1px solid #62b4ca;
 }
 .sub-ul{
     padding: 0px !important;
@@ -193,4 +197,7 @@
     position: absolute;
     left: 10px;
     line-height: 18px;
+}
+.caret-dropdown{
+    left: 435px;
 }

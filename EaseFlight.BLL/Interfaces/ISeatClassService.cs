@@ -6,5 +6,6 @@ namespace EaseFlight.BLL.Interfaces
     public interface ISeatClassService
     {
         IEnumerable<SeatClassModel> FindAll();
+        SeatClassModel Find(int id);
     }
 }

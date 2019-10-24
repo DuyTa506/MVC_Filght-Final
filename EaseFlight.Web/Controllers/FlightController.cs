@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using EaseFlight.BLL.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -6,6 +9,23 @@ namespace EaseFlight.Web.Controllers
 {
     public class FlightController : Controller
     {
+        #region Properties
+        private IAirportService AirportService { get; set; }
+        private ISeatClassService SeatClassService { get; set; }
+        private IFlightService FlightService { get; set; }
+        #endregion
+
+        #region Constructors
+        public FlightController(IAirportService airportService, ISeatClassService seatClassService,
+            IFlightService flightService)
+        {
+            this.AirportService = airportService;
+            this.SeatClassService = seatClassService;
+            this.FlightService = flightService;
+        }
+        #endregion
+
+        #region Actions
         [HttpGet]
         public ActionResult Find()
         {
@@ -15,6 +35,22 @@ namespace EaseFlight.Web.Controllers
         [HttpPost]
         public ActionResult Find(FormCollection collection)
         {
+            var departure = this.AirportService.Find(int.Parse(collection.Get("idAirportDeparture")));
+            var arrival = this.AirportService.Find(int.Parse(collection.Get("idAirportArrival")));
+            var departureDate = DateTime.ParseExact(collection.Get("departureDate"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var returnDate = string.IsNullOrEmpty(collection.Get("returnDate")) ? new DateTime()
+                : DateTime.ParseExact(collection.Get("returnDate"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var seatClass = this.SeatClassService.Find(int.Parse(collection.Get("idSeatClass")));
+            var adult = int.Parse(collection.Get("adult"));
+            var child = int.Parse(collection.Get("child"));
+            var infant = int.Parse(collection.Get("infant"));
+            var roundTrip = bool.Parse(collection.Get("roundTrip"));
+
+            if (departure == null || arrival == null)
+                return View();
+
+            this.FlightService.FindFlight(departure, arrival, departureDate);
+
             return View();
         }
 
@@ -137,5 +173,6 @@ namespace EaseFlight.Web.Controllers
 
             return new SeatClass();
         }
+        #endregion
     }
 }

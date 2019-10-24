@@ -14827,3 +14827,43 @@ body {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
 }
+.caret-dropdown {
+    cursor: pointer;
+    transform: translateY(-50%);
+    display: inline-block;
+    height: 10px;
+    margin-top: 2px;
+    position: relative;
+    transition: .4s ease;
+    transform: rotate(0);
+    width: 13px;
+}
+.caret-dropdown:after, .caret-dropdown:before {
+    background-color: transparent;
+    border-bottom: 9px solid white;
+    box-sizing: content-box;
+    content: '';
+    display: inline-block;
+    height: 8px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: .4s ease;
+    width: 1px;
+}
+.caret-dropdown:before {
+    transform: rotate(-135deg);
+}
+.caret-dropdown:after {
+    transform: rotate(135deg);
+}
+.caret-dropdown.active {
+    transform: rotate(0);
+    transform: translate(0,-6px);
+}
+.caret-dropdown.active:before {
+    transform:rotate(-45deg);
+}
+.caret-dropdown.active:after {
+    transform: rotate(45deg);
+}

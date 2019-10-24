@@ -1,4 +1,5 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Common.Constants;
 using EaseFlight.DAL.Entities;
 using EaseFlight.Models.EntityModels;
 using System;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace EaseFlight.Web.Controllers
 {
-    //Each Action will only run 1 time
+    //Each Action must only run 1 time
     public class GenerateDataController : Controller
     {
         #region Properties
@@ -35,34 +36,42 @@ namespace EaseFlight.Web.Controllers
         #endregion
 
         #region Actions
-        public ActionResult GeneratePlaneAirport(int number)
+
+        //Plane 1 -> 7 : Flight in Viet Nam
+        //Plane 8 -> 14 : Flight from Viet Nam to other region
+        //Plane 15 -> 20: Flight in other region
+        public ActionResult GeneratePlaneAirport()
         {
             var planeList = this.PlaneService.FindAll().ToList();
             var airportList = this.AirportService.FindAll().ToList();
+            var airportVietNam = airportList.Where(airport => airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM)).ToList();
+            var airportRegion = airportList.Where(airport => !airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM)).ToList();
+            var planeIndex = 1;
 
-            foreach(var plane in planeList)
+            foreach (var plane in planeList)
             {
                 var result = new List<AirportModel>();
-                var random = new Random();
 
-                for (var i = 0; i < number; ++i)
+                if (planeIndex >= 1 && planeIndex <= 7)
+                    result = RandomAirport(airportVietNam, 10);
+                else if (planeIndex >= 8 && planeIndex <= 14)
                 {
-                    var index = random.Next(airportList.Count());
-
-                    if (result.IndexOf(airportList[index]) != -1)
-                        --i;
-                    else result.Add(airportList[index]);
+                    var result1 = RandomAirport(airportVietNam, 10);
+                    result = result1.Concat(RandomAirport(airportRegion, 10)).OrderByDescending(airport => airport.Name).ToList();
                 }
+                else
+                    result = RandomAirport(airportRegion, 20);
 
-                for(var i = 0; i < number; ++i)
+                foreach(var aiport in result)
                 {
                     var planeAirport = new PlaneAirportModel {
-                        AirportID = result[i].ID,
+                        AirportID = aiport.ID,
                         PlaneID = plane.ID
                     };
 
                     this.PlaneAirportService.Insert(planeAirport);
                 }
+                ++planeIndex;
             }
 
             return View("Done");
@@ -85,7 +94,7 @@ namespace EaseFlight.Web.Controllers
                     var flight = new FlightModel
                     {
                         PlaneID = plane.ID,
-                        DepartureDate = departureDate.AddHours(new Random().Next(0, 13))
+                        DepartureDate = departureDate.AddHours(new Random().Next(1, 3))
                         .AddMinutes(minutes[new Random().Next(minutes.Count())]),
                         Status = "Ready"
                     };
@@ -98,7 +107,12 @@ namespace EaseFlight.Web.Controllers
                     {
                         index1 = randomAirport.Next(airports.Count());
                         index2 = randomAirport.Next(airports.Count());
-                        if (arrival != null && arrival.ID != airports[index2].AirportID) break;
+
+                        if (arrival != null) {
+                            if (arrival.ID != airports[index2].AirportID) break;
+                            else continue;
+                        }
+
                         if (index1 != index2) break;
 
                     } while (true);
@@ -112,18 +126,18 @@ namespace EaseFlight.Web.Controllers
 
                     if (departure.Country.Name.Equals(arrival.Country.Name)) //In country
                     {
-                        arrivalDate = arrivalDate.AddHours(new Random().Next(1, 4));
+                        arrivalDate = arrivalDate.AddHours(new Random().Next(1, 3));
                         flight.Price = new Random().Next(20, 51);
                     }
                     else if (departure.Country.Region.Equals(arrival.Country.Region)) //In Region
                     {
-                        arrivalDate = arrivalDate.AddHours(new Random().Next(3, 8));
-                        flight.Price = new Random().Next(30, 2000);
+                        arrivalDate = arrivalDate.AddHours(new Random().Next(2, 6));
+                        flight.Price = new Random().Next(30, 1000);
                     }
                     else //Diff Region
                     {
-                        arrivalDate = arrivalDate.AddHours(new Random().Next(5, 12));
-                        flight.Price = new Random().Next(200, 5000);
+                        arrivalDate = arrivalDate.AddHours(new Random().Next(4, 8));
+                        flight.Price = new Random().Next(200, 3000);
                     }
 
                     arrivalDate = arrivalDate.AddMinutes(minutes[new Random().Next(minutes.Count())]);
@@ -134,8 +148,8 @@ namespace EaseFlight.Web.Controllers
                     this.FlightService.Insert(flight);
                     var flightId = this.FlightService.FindAll().Last().ID;
 
-                    UpdateDepartureOrArrival(plane.ID, departure.ID, flightId, true);
-                    UpdateDepartureOrArrival(plane.ID, arrival.ID, flightId, false);
+                    this.PlaneAirportService.UpdateDepartureOrArrival(plane.ID, departure.ID, flightId, true);
+                    this.PlaneAirportService.UpdateDepartureOrArrival(plane.ID, arrival.ID, flightId, false);
 
                     //Reset value
                     departureDate = arrivalDate;
@@ -156,24 +170,34 @@ namespace EaseFlight.Web.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult ViewDataDuplicate()
+        {
+            var flightList = this.FlightService.FindAll().Where(flight => flight.Departure.ID == flight.Arrival.ID);
+
+            ViewData["flightList"] = flightList;
+
+            return View("ViewDataGenerate");
+        }
         #endregion
 
-        #region Private Funtions
-        private void UpdateDepartureOrArrival(int planeId, int airportId, int flightId, bool departure)
+        #region Private Functions
+        private List<AirportModel> RandomAirport(List<AirportModel> list, int range)
         {
-            var result = new List<string>();
-            var planeAirport = this.PlaneAirportService.Find(planeId, airportId);
-            var departureOrArrival = planeAirport.DepartureOrArrival;
+            var random = new Random();
+            var result = new List<AirportModel>();
 
-            if (departureOrArrival != null)
-                result = departureOrArrival.Split('-').ToList();
-            if(departure)
-                result.Add(flightId + ".d");
-            else result.Add(flightId + ".a");
+            for (var i = 0; i < range; ++i)
+            {
+                var index = random.Next(list.Count());
 
-            planeAirport.DepartureOrArrival = string.Join("-", result);
+                if (result.IndexOf(list[index]) != -1)
+                    --i;
+                else result.Add(list[index]);
+            }
 
-            this.PlaneAirportService.Update(planeAirport);
+            return result;
         }
         #endregion
     }

@@ -31,6 +31,14 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public SeatClassModel Find(int id)
+        {
+            var model = this.SeatClassRepository.Find(id);
+            var result = this.CreateViewModel(model);
+
+            return result;
+        }
         #endregion
 
         #region Model Functions
