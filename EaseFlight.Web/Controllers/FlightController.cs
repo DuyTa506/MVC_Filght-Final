@@ -1,7 +1,10 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Models.CustomModel;
+using EaseFlight.Web.WebUtilities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -33,145 +36,77 @@ namespace EaseFlight.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Find(FormCollection collection)
-        {
-            var departure = this.AirportService.Find(int.Parse(collection.Get("idAirportDeparture")));
-            var arrival = this.AirportService.Find(int.Parse(collection.Get("idAirportArrival")));
-            var departureDate = DateTime.ParseExact(collection.Get("departureDate"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            var returnDate = string.IsNullOrEmpty(collection.Get("returnDate")) ? new DateTime()
-                : DateTime.ParseExact(collection.Get("returnDate"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            var seatClass = this.SeatClassService.Find(int.Parse(collection.Get("idSeatClass")));
-            var adult = int.Parse(collection.Get("adult"));
-            var child = int.Parse(collection.Get("child"));
-            var infant = int.Parse(collection.Get("infant"));
-            var roundTrip = bool.Parse(collection.Get("roundTrip"));
-
-            if (departure == null || arrival == null)
-                return View();
-
-            this.FlightService.FindFlight(departure, arrival, departureDate);
-
-            return View();
-        }
-
-        public JsonResult GetMap()
+        public JsonResult Find(FormCollection collection)
         {
             var result = new JsonResult { ContentType = "text" };
 
-            //seatClassOrder 1: Business. seatClassOrder 2: Economy. seatClassOrder -1: Get all
-            var data = SeatCode(-1);
-            var seatClass = FindBySeatCode("17F", data);
+            try
+            {
+                var departure = this.AirportService.Find(int.Parse(collection.Get("departure")));
+                var arrival = this.AirportService.Find(int.Parse(collection.Get("arrival")));
+                var departureDate = DateTime.ParseExact(collection.Get("date"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                var returnDate = string.IsNullOrEmpty(collection.Get("return")) ? new DateTime()
+                    : DateTime.ParseExact(collection.Get("return"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                var seatClass = this.SeatClassService.Find(int.Parse(collection.Get("seat")));
+                var adult = int.Parse(collection.Get("adult"));
+                var child = int.Parse(collection.Get("child"));
+                var infant = int.Parse(collection.Get("infant"));
+                var roundTrip = bool.Parse(collection.Get("roundtrip"));
+
+                if (departure == null || arrival == null || seatClass == null || (roundTrip && returnDate.Year == 1)
+                    || (roundTrip && returnDate.Date < departureDate.Date) || adult < 1 || (adult + child + infant) > 10 || adult < (child + infant))
+                    result.Data = new { type = "error" };
+                else
+                {
+                    var searchList = this.FlightService.FindFlight(departure, arrival, departureDate);
+                    var data = new List<SearchFlightModel>();
+                    var totalSeat = adult + child;
+
+                    foreach(var search in searchList)
+                    {
+                        var check = true;
+                        foreach(var flight in search.FlightList)
+                        {
+                            var totalSeatClass = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
+                                .Select(planeSeat => planeSeat.Capacity).FirstOrDefault();
+                            var totalTicket = flight.TicketFlights.Where(ticketflight => 
+                                SeatMapUtility.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
+
+                            if(totalSeat > (totalSeatClass - totalTicket))
+                            {
+                                check = false; break;
+                            }
+                        }
+
+                        if (check) data.Add(search);
+                    }
+                    
+                    result.Data = new { type = "success", result = RenderViewToString(this.ControllerContext , "_FlightResultPartial", data) };
+                }
+            }
+            catch
+            {
+                result.Data = new { type = "error" };
+            }
 
             return result;
         }
 
-        private class SeatClass
+        private static string RenderViewToString(ControllerContext context, string viewName, object model)
         {
-            public string name { get; set; }
-            public int capacity { get; set; }
-            public int order { get; set; }
-        }
+            if (string.IsNullOrEmpty(viewName))
+                viewName = context.RouteData.GetRequiredString("action");
 
-        private List<string> SeatCode(int seatClassOrder)
-        {
-            var data = new List<string>();
-            var rowWithoutChair = new List<string>();
+            var viewData = new ViewDataDictionary(model);
 
-            //Data Seat Code VietName Airline Airbus 330 type 1
-            var characterColumnDB = "A-C-D-E-F-G-H-K";
-            var rowWithoutChairDB = "1.E.F-2.E.F-3.E.F-4-23.D.E.F.G-33.E-34.E-35.E-36.E-37.A.C.E.H.K"; //Row 1 without chair 1C 1D 1E, row 5 and 6 dont have any chair
-            var capacity = 269;
-            var listSeatClass = new List<SeatClass> {
-                new SeatClass
-                {
-                    name = "business", capacity = 18, order = 1
-                },
-                new SeatClass
-                {
-                    name = "economy", capacity = 251, order = 2
-                }
-            };
-            //listSeatClass sort by order (1- 2 -3)
-
-            //End Data
-
-            var characterColumn = characterColumnDB.Split('-');
-            var x = rowWithoutChairDB.Split('-').ToList();
-            foreach (var t in x)
+            using (var sw = new StringWriter())
             {
-                var u = t.Split('.'); var i = 0;
+                var viewResult = ViewEngines.Engines.FindPartialView(context, viewName);
+                var viewContext = new ViewContext(context, viewResult.View, viewData, new TempDataDictionary(), sw);
+                viewResult.View.Render(viewContext, sw);
 
-                if (u.Length == 1)
-                {
-                    characterColumn.ToList().ForEach(column => rowWithoutChair.Add(u[0] + column));
-                }
-                else while (++i < u.Length)
-                        rowWithoutChair.Add(u[0] + u[i]);
+                return sw.GetStringBuilder().ToString();
             }
-
-            var rows = (capacity + rowWithoutChair.Count) / characterColumn.Length;
-            var index = 0;
-
-            //Get Seat Code
-            for (var i = 1; i <= rows; ++i)
-            {
-                foreach (var column in characterColumn)
-                {
-                    var seat = string.Concat(i, column);
-                    if (rowWithoutChair.IndexOf(seat) == -1)
-                        data.Add(seat);
-                    if (data.Count == listSeatClass[index].capacity && seatClassOrder != -1)
-                    {
-                        if (listSeatClass[index].order == seatClassOrder)
-                        {
-                            i = rows + 1; break;
-                        }
-                        else
-                        {
-                            data.Clear();
-                            ++index;
-                        }
-
-                    }
-                }
-            }
-
-            return data;
-        }
-
-        private SeatClass FindBySeatCode(string seatCode, List<string> data)
-        {
-            //Data
-            var listSeatClass = new List<SeatClass> {
-                new SeatClass
-                {
-                    name = "business", capacity = 18, order = 1
-                },
-                new SeatClass
-                {
-                    name = "economy", capacity = 251, order = 2
-                }
-            };
-            //listSeatClass sort by order (1- 2 -3)
-
-            //End Data
-
-            var index = data.IndexOf(seatCode);
-
-            if (index == -1) return new SeatClass();
-
-            var first = 0;
-
-            for (var i = 0; i < listSeatClass.Count; ++i)
-            {
-                var last = first + listSeatClass[i].capacity - 1;
-
-                if (index >= first && index <= last)
-                    return listSeatClass[i];
-                else first = listSeatClass[i].capacity;
-            }
-
-            return new SeatClass();
         }
         #endregion
     }

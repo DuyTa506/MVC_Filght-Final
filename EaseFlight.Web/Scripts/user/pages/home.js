@@ -88,10 +88,10 @@ function placeSelect(idAir) {
 }
 
 function findFlight() {
-    var formData = new FormData();
     var option = $('.theme-search-area-options-list').find('label.active').find('input').attr('id');
     var inputValue = $('.passenger-type').val().split(', ');
     var departureDate = "", returnDate = "";
+    var roundtrip = false;
 
     if ($('.datePickerStart._mob-h').val() == "") {
         departureDate = $('.datePickerStart._desk-h').val();
@@ -107,36 +107,18 @@ function findFlight() {
         return;
     }
 
-    if (option == 'flight-option-1') //One Way
-        formData.append('roundTrip', false);
-    else { //Round Trip
+    if (option == 'flight-option-2') { //Round Trip
         if (returnDate == "") {
             ToastError("Please enter full search information!");
             return;
         }
-        formData.append('roundTrip', true);
+        roundtrip = true;
     }
 
-    formData.append('idAirportDeparture', idAirpotDeparture);
-    formData.append('idAirportArrival', idAirportArrival);
-    formData.append('departureDate', departureDate);
-    formData.append('returnDate', returnDate);
-    formData.append('idSeatClass', $('.span-seat').attr('data-seat'));
-    formData.append('adult', inputValue[0].split(' ')[0]);
-    formData.append('child', inputValue[1].split(' ')[0]);
-    formData.append('infant', inputValue[2].split(' ')[0]);
-
-    $.ajax({
-        url: '/Flight/Find',
-        type: 'post',
-        data: formData,
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function () {
-
-        }
-    });
+    //Redirect to Find page
+    window.location.href = '/Flight/Find?departure=' + idAirpotDeparture + '&arrival=' + idAirportArrival + '&date=' + departureDate
+        + '&return=' + returnDate + '&seat=' + $('.span-seat').attr('data-seat') + '&adult=' + inputValue[0].split(' ')[0]
+        + '&child=' + inputValue[1].split(' ')[0] + '&infant=' + inputValue[2].split(' ')[0] + '&roundtrip=' + roundtrip;
 }
 
 function oninputPlace() {

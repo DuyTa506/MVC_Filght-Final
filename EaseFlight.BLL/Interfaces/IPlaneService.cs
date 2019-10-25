@@ -6,5 +6,6 @@ namespace EaseFlight.BLL.Interfaces
     public interface IPlaneService
     {
         IEnumerable<PlaneModel> FindAll();
+        PlaneModel Find(int id);
     }
 }

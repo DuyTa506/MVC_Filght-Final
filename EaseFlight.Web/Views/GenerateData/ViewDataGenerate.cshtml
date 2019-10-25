@@ -17,6 +17,6 @@
 @foreach(var flight in flightList)
 {
     <p>@flight.Plane.Airline@flight.Plane.ID.ToString("D3"): <b>Departure: </b>@flight.Departure.Name ,<b>Arrival: </b>@flight.Arrival.Name ,
-    <b>Date: </b>@flight.DepartureDate.Value.ToString("dd/MM/yyyy HH:mm")
+    <b>Date: </b>@flight.DepartureDate.Value.ToString("dd/MM/yyyy HH:mm"), <b>ArrivalDate: </b>@flight.ArrivalDate.Value.ToString("dd/MM/yyyy HH:mm")
     </p>
 }

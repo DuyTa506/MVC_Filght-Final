@@ -1,0 +1,537 @@
+﻿@using EaseFlight.Models.CustomModel;
+@model List<SearchFlightModel>
+
+<h3>@Model.Count()</h3>
+
+<!--One Way-->
+<div class="col-md-8 div-oneway" onclick="onewayTab()">
+    <div class="resutl-title">
+        <div class="clearfix content">
+            <div class="content-1"></div>
+            <div class="content-2">1</div>
+            <div class="content-3">
+                <div class="content-title">Choose departure flight</div>
+                <div class="content-time">Sat, 12 Oct 2019</div>
+                <div class="content-time">Hanoi → Ho Chi Minh City</div>
+            </div>
+        </div>
+    </div>
+    <div class="theme-search-results-sort _mob-h clearfix sort-result">
+        <h5 class="theme-search-results-sort-title">Sort by:</h5>
+        <ul class="theme-search-results-sort-list">
+            <li>
+                <a href="#">
+                    Price
+                    <span>Low &rarr; High</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    Duration
+                    <span>Long &rarr; Short</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Recommended
+                    <span>High &rarr; Low</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Airline Name
+                    <span>Name &nbsp; A &rarr; Z</span>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown theme-search-results-sort-alt">
+            <a id="dropdownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">
+                More
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <li>
+                    <a href="#">Departure take-off</a>
+                </li>
+                <li>
+                    <a href="#">Departure landing</a>
+                </li>
+                <li>
+                    <a href="#">Return take-off</a>
+                </li>
+                <li>
+                    <a href="#">Return landing</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="theme-search-results-sort-select _desk-h sort-result">
+        <select>
+            <option>Price</option>
+            <option>Duration</option>
+            <option>Recommended</option>
+            <option>Airline Name</option>
+            <option>Departure take-off</option>
+            <option>Departure landing</option>
+            <option>Return take-off</option>
+            <option>Return landing</option>
+        </select>
+    </div>
+    <div class="theme-search-results result-oneway">
+        <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
+            <div class="theme-search-results-item-preview">
+                <a class="theme-search-results-item-mask-link" href="#searchResultsItem-1" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="searchResultsItem-1"></a>
+                <div class="row" data-gutter="20">
+                    <div class="col-md-10 ">
+                        <div class="theme-search-results-item-flight-sections">
+                            <div class="theme-search-results-item-flight-section">
+                                <div class="row row-no-gutter row-eq-height">
+                                    <div class="col-md-2 ">
+                                        <div class="theme-search-results-item-flight-section-airline-logo-wrap">
+                                            <img class="theme-search-results-item-flight-section-airline-logo" src="/Content/images/airline-logo/wow.jpg" alt="Image Alternative text" title="Image Title" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        <div class="theme-search-results-item-flight-section-item">
+                                            <div class="row">
+                                                <div class="col-md-3 ">
+                                                    <div class="theme-search-results-item-flight-section-meta">
+                                                        <p class="theme-search-results-item-flight-section-meta-time">
+                                                            11:30
+                                                            <span>pm</span>
+                                                        </p>
+                                                        <p class="theme-search-results-item-flight-section-meta-city">London</p>
+                                                        <p class="theme-search-results-item-flight-section-meta-date">May 17, 2018</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="theme-search-results-item-flight-section-path">
+                                                        <div class="theme-search-results-item-flight-section-path-fly-time">
+                                                            <p>24h 20m</p>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-section-path-line"></div>
+                                                        <div class="theme-search-results-item-flight-section-path-line-start">
+                                                            <i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
+                                                            <div class="theme-search-results-item-flight-section-path-line-dot"></div>
+                                                            <div class="theme-search-results-item-flight-section-path-line-title">SEN</div>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-section-path-line-middle-1">
+                                                            <i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
+                                                            <div class="theme-search-results-item-flight-section-path-line-dot"></div>
+                                                            <div class="theme-search-results-item-flight-section-path-line-title">CDG</div>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-section-path-line-middle-2">
+                                                            <i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
+                                                            <div class="theme-search-results-item-flight-section-path-line-dot"></div>
+                                                            <div class="theme-search-results-item-flight-section-path-line-title">WAW</div>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-section-path-line-end">
+                                                            <i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
+                                                            <div class="theme-search-results-item-flight-section-path-line-dot"></div>
+                                                            <div class="theme-search-results-item-flight-section-path-line-title">LGA</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 ">
+                                                    <div class="theme-search-results-item-flight-section-meta">
+                                                        <p class="theme-search-results-item-flight-section-meta-time">
+                                                            11:50
+                                                            <span>pm</span>
+                                                        </p>
+                                                        <p class="theme-search-results-item-flight-section-meta-city">New York</p>
+                                                        <p class="theme-search-results-item-flight-section-meta-date">May 18, 2018</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="theme-search-results-item-flight-section-airline-title">Operated by Wow Airlines</h5>
+                            </div>
+                            <div class="theme-search-results-item-flight-section">
+                                <div class="row row-no-gutter row-eq-height">
+                                    <div class="col-md-2 ">
+                                        <div class="theme-search-results-item-flight-section-airline-logo-wrap">
+                                            <img class="theme-search-results-item-flight-section-airline-logo" src="/Content/images/airline-logo/virgin.jpg" alt="Image Alternative text" title="Image Title" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        <div class="theme-search-results-item-flight-section-item">
+                                            <div class="row">
+                                                <div class="col-md-3 ">
+                                                    <div class="theme-search-results-item-flight-section-meta">
+                                                        <p class="theme-search-results-item-flight-section-meta-time">
+                                                            06:20
+                                                            <span>pm</span>
+                                                        </p>
+                                                        <p class="theme-search-results-item-flight-section-meta-city">New York</p>
+                                                        <p class="theme-search-results-item-flight-section-meta-date">May 23, 2018</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="theme-search-results-item-flight-section-path">
+                                                        <div class="theme-search-results-item-flight-section-path-fly-time">
+                                                            <p>24h 10m</p>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-section-path-line"></div>
+                                                        <div class="theme-search-results-item-flight-section-path-line-start">
+                                                            <i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
+                                                            <div class="theme-search-results-item-flight-section-path-line-dot"></div>
+                                                            <div class="theme-search-results-item-flight-section-path-line-title">LTN</div>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-section-path-line-end">
+                                                            <i class="fa fa-plane theme-search-results-item-flight-section-path-icon"></i>
+                                                            <div class="theme-search-results-item-flight-section-path-line-dot"></div>
+                                                            <div class="theme-search-results-item-flight-section-path-line-title">EWR</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 ">
+                                                    <div class="theme-search-results-item-flight-section-meta">
+                                                        <p class="theme-search-results-item-flight-section-meta-time">
+                                                            06:30
+                                                            <span>pm</span>
+                                                        </p>
+                                                        <p class="theme-search-results-item-flight-section-meta-city">London</p>
+                                                        <p class="theme-search-results-item-flight-section-meta-date">May 24, 2018</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="theme-search-results-item-flight-section-airline-title">Operated by Virgin Atlantic Airways</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ">
+                        <div class="theme-search-results-item-book">
+                            <div class="theme-search-results-item-price">
+                                <p class="theme-search-results-item-price-tag">$319</p>
+                                <p class="theme-search-results-item-price-sign">economy</p>
+                            </div>
+                            <a class="btn btn-primary-inverse btn-block theme-search-results-item-price-btn" href="#">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse theme-search-results-item-collapse" id="searchResultsItem-1">
+                <div class="theme-search-results-item-extend">
+                    <a class="theme-search-results-item-extend-close" href="#searchResultsItem-1" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="searchResultsItem-1">&#10005;</a>
+                    <div class="theme-search-results-item-extend-inner">
+                        <div class="theme-search-results-item-flight-detail-items">
+                            <div class="theme-search-results-item-flight-details">
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <div class="theme-search-results-item-flight-details-info">
+                                            <h5 class="theme-search-results-item-flight-details-info-title">Depart</h5>
+                                            <p class="theme-search-results-item-flight-details-info-date">Tue, May 17</p>
+                                            <p class="theme-search-results-item-flight-details-info-cities">London &rarr; New York</p>
+                                            <p class="theme-search-results-item-flight-details-info-fly-time">24h 20m</p>
+                                            <p class="theme-search-results-item-flight-details-info-stops">2 stops</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 ">
+                                        <div class="theme-search-results-item-flight-details-schedule">
+                                            <ul class="theme-search-results-item-flight-details-schedule-list">
+                                                <li>
+                                                    <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                    <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-date">Tue, May 17</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-time">
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            11:30
+                                                            <span>pm</span>
+                                                        </span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            08:10
+                                                            <span>am</span>
+                                                        </span>
+                                                    </div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-fly-time">8h 40m</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>SEN</b>Southend
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">London</p>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                            <span>&rarr;</span>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>CDG</b>Charles de Gaulle
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">Paris</p>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                        <li>7957 Wow</li>
+                                                        <li>Wide-body jet</li>
+                                                        <li>Boeing 777</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-exchange theme-search-results-item-flight-details-schedule-icon"></i>
+                                                    <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-date">Tue, May 17</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-time">
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            08:10
+                                                            <span>am</span>
+                                                        </span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            12:50
+                                                            <span>am</span>
+                                                        </span>
+                                                    </div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-fly-time">4h 40m</p>
+                                                    <p class="theme-search-results-item-flight-details-schedule-transfer">Change planes in Paris(CDG)</p>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                    <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-date">Tue, May 17</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-time">
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            12:50
+                                                            <span>am</span>
+                                                        </span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            03:10
+                                                            <span>pm</span>
+                                                        </span>
+                                                    </div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-fly-time">2h 20m</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>CDG</b>Charles de Gaulle
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">Paris</p>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                            <span>&rarr;</span>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>WAW</b>Warsaw Chopin
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">Warszawa</p>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                        <li>1165 Wow</li>
+                                                        <li>Wide-body jet</li>
+                                                        <li>Boeing 777-300ER</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-exchange theme-search-results-item-flight-details-schedule-icon"></i>
+                                                    <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-date">Tue, May 17</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-time">
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            03:10
+                                                            <span>pm</span>
+                                                        </span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            05:50
+                                                            <span>pm</span>
+                                                        </span>
+                                                    </div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-fly-time">2h 40m</p>
+                                                    <p class="theme-search-results-item-flight-details-schedule-transfer">Change planes in Warszawa(WAW)</p>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                    <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-date">Tue, May 17</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-time">
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            05:50
+                                                            <span>pm</span>
+                                                        </span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            11:50
+                                                            <span>pm</span>
+                                                        </span>
+                                                    </div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-fly-time">6h 0m</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>WAW</b>Warsaw Chopin
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">Warszawa</p>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                            <span>&rarr;</span>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>LGA</b>LaGuardia
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">New York</p>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                        <li>7572 Wow</li>
+                                                        <li>Narrow-body jet</li>
+                                                        <li>Boeing 777-300ER</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="theme-search-results-item-flight-details">
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <div class="theme-search-results-item-flight-details-info">
+                                            <h5 class="theme-search-results-item-flight-details-info-title">Return</h5>
+                                            <p class="theme-search-results-item-flight-details-info-date">Tue, May 23</p>
+                                            <p class="theme-search-results-item-flight-details-info-cities">New York &rarr; London</p>
+                                            <p class="theme-search-results-item-flight-details-info-fly-time">24h 10m</p>
+                                            <p class="theme-search-results-item-flight-details-info-stops">non-stop</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 ">
+                                        <div class="theme-search-results-item-flight-details-schedule">
+                                            <ul class="theme-search-results-item-flight-details-schedule-list">
+                                                <li>
+                                                    <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                    <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-date">Tue, May 23</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-time">
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            06:20
+                                                            <span>pm</span>
+                                                        </span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                        <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                            06:30
+                                                            <span>pm</span>
+                                                        </span>
+                                                    </div>
+                                                    <p class="theme-search-results-item-flight-details-schedule-fly-time">24h 10m</p>
+                                                    <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>LTN</b>Luton
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">London</p>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                            <span>&rarr;</span>
+                                                        </div>
+                                                        <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                <b>EWR</b>Newark Liberty
+                                                            </p>
+                                                            <p class="theme-search-results-item-flight-details-schedule-destination-city">New York</p>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                        <li>5908 Virgin</li>
+                                                        <li>Wide-body jet</li>
+                                                        <li>Boeing 777-200</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="load-more btn _tt-uc _fs-sm btn-dark btn-block btn-lg" href="#">Load More Results</a>
+</div>
+<!--Return-->
+<div class="col-md-4 div-return disabled-tab cursor-pointer" onclick="returnTab()">
+    <div class="resutl-title">
+        <div class="clearfix content">
+            <div class="content-1"></div>
+            <div class="content-2">2</div>
+            <div class="content-3">
+                <div class="content-title">Choose return flight</div>
+                <div class="content-time">Sat, 13 Oct 2019</div>
+                <div class="content-time">Ho Chi Minh City → HaNoi</div>
+            </div>
+        </div>
+    </div>
+    <div class="hide theme-search-results-sort _mob-h clearfix sort-result">
+        <h5 class="theme-search-results-sort-title">Sort by:</h5>
+        <ul class="theme-search-results-sort-list">
+            <li>
+                <a href="#">
+                    Price
+                    <span>Low &rarr; High</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    Duration
+                    <span>Long &rarr; Short</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Recommended
+                    <span>High &rarr; Low</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Airline Name
+                    <span>Name &nbsp; A &rarr; Z</span>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown theme-search-results-sort-alt">
+            <a id="dropdownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">
+                More
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <li>
+                    <a href="#">Departure take-off</a>
+                </li>
+                <li>
+                    <a href="#">Departure landing</a>
+                </li>
+                <li>
+                    <a href="#">Return take-off</a>
+                </li>
+                <li>
+                    <a href="#">Return landing</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="hide theme-search-results-sort-select _desk-h sort-result">
+        <select>
+            <option>Price</option>
+            <option>Duration</option>
+            <option>Recommended</option>
+            <option>Airline Name</option>
+            <option>Departure take-off</option>
+            <option>Departure landing</option>
+            <option>Return take-off</option>
+            <option>Return landing</option>
+        </select>
+    </div>
+    <div class="theme-search-results result-return"></div>
+    <a class="hide load-more btn _tt-uc _fs-sm btn-dark btn-block btn-lg" href="#">Load More Results</a>
+</div>

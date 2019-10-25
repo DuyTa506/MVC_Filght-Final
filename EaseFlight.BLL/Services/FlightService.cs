@@ -52,24 +52,26 @@ namespace EaseFlight.BLL.Services
             return result;
         }
 
-        public IEnumerable<FlightModel> FindFlight(AirportModel departure, AirportModel arrival, DateTime departureDate)
+        public IEnumerable<SearchFlightModel> FindFlight(AirportModel departure, AirportModel arrival, DateTime departureDate)
         {
             //Direct
-            var direct = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate
-                        && flight.Departure.ID == departure.ID && flight.Arrival.ID == arrival.ID).ToList();
+            var result = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate
+                        && flight.Departure.ID == departure.ID && flight.Arrival.ID == arrival.ID)
+                        .Select(flight => new SearchFlightModel { FlightList = new List<FlightModel> { flight }, Price = flight.Price.Value }).ToList();
+                        
             // 1 Transit
             var resutlDeparture = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate && flight.Departure.ID == departure.ID);
             var resultArrival = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate && flight.Arrival.ID == arrival.ID);
 
-            var query = from departures in resutlDeparture
+            var flightTransit = from departures in resutlDeparture
                         join arrivals in resultArrival on departures.Arrival.ID equals arrivals.Departure.ID
-                        let s = "From " + departures.Departure.Name + " to " + arrivals.Departure.Name + " and From " 
-                        + arrivals.Departure.Name + " to " + arrivals.Arrival.Name
-                        select s;
+                        let flight = new List<FlightModel> { departures, arrivals}
+                        select flight;
 
-            var result = query.ToList();   
+            foreach(var flightList in flightTransit)
+                result.Add(new SearchFlightModel { FlightList = flightList, Price = flightList.Select(flight => flight.Price.Value).Sum() });
 
-            return direct;
+            return result;
         }
         #endregion
 

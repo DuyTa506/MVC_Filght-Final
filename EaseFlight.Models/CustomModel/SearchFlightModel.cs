@@ -5,6 +5,7 @@ namespace EaseFlight.Models.CustomModel
 {
     public class SearchFlightModel
     {
-        public IEnumerable<FlightModel> FlightList { get; set; }
+        public List<FlightModel> FlightList { get; set; }
+        public double Price { get; set; }
     }
 }

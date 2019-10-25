@@ -159,6 +159,91 @@ namespace EaseFlight.Web.Controllers
             return View("Done");
         }
 
+        public ActionResult GenerateFlight2()
+        {
+            var planeList = this.PlaneService.FindAll().ToList();
+            var minutes = new List<int> { 40, 45, 50, 55, 60 };
+            var minutes2 = new List<int> { 30, 35, 40, 45, 50, 55, 60 };
+            var count = 0;
+
+            foreach (var plane in planeList)
+            {
+                if (++count == 5) break;
+                var departureDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1); //Day 1 next month
+                var arrivalDate = new DateTime();
+                var departure = new AirportModel();
+                var arrival = new AirportModel();
+
+                while (departureDate.Day <= 3) //Generate one month
+                {
+                    var flight = new FlightModel
+                    {
+                        PlaneID = plane.ID,
+                        DepartureDate = departureDate.AddMinutes(minutes2[new Random().Next(minutes2.Count())]),
+                        Status = "Ready"
+                    };
+
+                    var airports = plane.PlaneAirports.ToList();
+                    var randomAirport = new Random();
+                    var index1 = 0;
+                    var index2 = 0;
+                    do
+                    {
+                        index1 = randomAirport.Next(airports.Count());
+                        index2 = randomAirport.Next(airports.Count());
+
+                        if (arrival != null)
+                        {
+                            if (arrival.ID != airports[index2].AirportID) break;
+                            else continue;
+                        }
+
+                        if (index1 != index2) break;
+
+                    } while (true);
+
+                    if (arrival.ID == 0)
+                        departure = this.AirportService.Find(airports[index1].AirportID);
+                    else departure = arrival;
+
+                    arrival = this.AirportService.Find(airports[index2].AirportID);
+                    if (departure.ID == arrival.ID) continue;
+                    arrivalDate = flight.DepartureDate.Value;
+
+                    if (departure.Country.Name.Equals(arrival.Country.Name)) //In country
+                    {
+                        flight.Price = new Random().Next(20, 51);
+                    }
+                    else if (departure.Country.Region.Equals(arrival.Country.Region)) //In Region
+                    {
+                        arrivalDate = arrivalDate.AddHours(new Random().Next(2, 6));
+                        flight.Price = new Random().Next(30, 1000);
+                    }
+                    else //Diff Region
+                    {
+                        arrivalDate = arrivalDate.AddHours(new Random().Next(4, 8));
+                        flight.Price = new Random().Next(200, 3000);
+                    }
+
+                    arrivalDate = arrivalDate.AddMinutes(minutes[new Random().Next(minutes.Count())]);
+
+                    flight.ArrivalDate = arrivalDate;
+
+                    //insert flight get ID
+                    this.FlightService.Insert(flight);
+                    var flightId = this.FlightService.FindAll().Last().ID;
+
+                    this.PlaneAirportService.UpdateDepartureOrArrival(plane.ID, departure.ID, flightId, true);
+                    this.PlaneAirportService.UpdateDepartureOrArrival(plane.ID, arrival.ID, flightId, false);
+
+                    //Reset value
+                    departureDate = arrivalDate;
+                }
+            }
+
+            return View("Done");
+        }
+
         [HttpGet]
         public ActionResult ViewDataGenerate()
         {

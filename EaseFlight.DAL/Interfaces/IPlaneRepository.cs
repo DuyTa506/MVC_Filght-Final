@@ -6,5 +6,6 @@ namespace EaseFlight.DAL.Interfaces
     public interface IPlaneRepository
     {
         IEnumerable<Plane> FindAll();
+        Plane Find(int id);
     }
 }

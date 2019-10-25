@@ -4,9 +4,9 @@
 @using System.Text.RegularExpressions;
 @{
     ViewBag.Title = "Home";
-var airports = (IEnumerable<AirportRegionModel>)ViewData["airports"];
-var passengers = (IEnumerable<PassengerTypeModel>)ViewData["passengers"];
-var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
+    var airports = (IEnumerable<AirportRegionModel>)ViewData["airports"];
+    var passengers = (IEnumerable<PassengerTypeModel>)ViewData["passengers"];
+    var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
 }
 @Styles.Render("~/Content/home")
 @Scripts.Render("~/bundles/home")
@@ -77,11 +77,15 @@ var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
                                                         <input class="theme-search-area-section-input dropdown-toggle place-result" id="arrival" data-toggle="dropdown" placeholder="Arrival" oninput="oninputPlace()" spellcheck="false" readonly />
                                                         <ul class="dropdown-menu place-dropdown ul-arrival">
                                                             @foreach (var airport in airports)
-                                                            {
+                                                             {
                                                                 if (airport.Airports.Count() > 0)
                                                                 {
-                                                                    <li class="country" id="@airport.Region" data-toggle="collapse" data-target="#li2@(airport.Region.Replace(" ", ""))">@airport.Region</li>
-                                                                    <li id="li2@(airport.Region.Replace(" ", ""))" class="collapse">
+                                                                    var id = Regex.Replace(airport.Region, @"\s+", string.Empty);
+                                                                    <li class="country" id="@airport.Region" data-toggle="collapse" data-target="#li2@(id)">
+                                                                        <span class="caret-dropdown"></span>
+                                                                        @airport.Region
+                                                                    </li>
+                                                                    <li id="li2@(id)" class="collapse">
                                                                         <ul class="sub-ul">
                                                                             @foreach (var air in airport.Airports)
                                                                             {
@@ -98,7 +102,7 @@ var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
                                                                         </ul>
                                                                     </li>
                                                                 }
-                                                            }
+                                                             }
                                                             <li class="no-result hide"></li>
                                                         </ul>
                                                     </div>

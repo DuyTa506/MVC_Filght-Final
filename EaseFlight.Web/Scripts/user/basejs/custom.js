@@ -308,7 +308,8 @@ function datePickers() {
         startDate.data("DateTimePicker").maxDate(e.date);
     });
 
-    $('.datePickerStart').data("DateTimePicker").maxDate(false);
+    if ($('.datePickerStart').length != 0)
+        $('.datePickerStart').data("DateTimePicker").maxDate(false);
 }
 
 
