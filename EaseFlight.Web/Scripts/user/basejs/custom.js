@@ -291,7 +291,7 @@ function datePickers() {
 
     $('.datePickerStart').datetimepicker({
         format: 'DD/MM/YYYY',
-        minDate: moment()
+        minDate: moment().add(1, 'd')
     }).on('dp.change', function(e){
         var parent = $($(this).parents('.row')[0]),
             endDate = parent.find('.datePickerEnd');
@@ -301,7 +301,7 @@ function datePickers() {
     $('.datePickerEnd').datetimepicker({
         format: 'DD/MM/YYYY',
         useCurrent: false,
-        minDate: moment()
+        minDate: moment().add(1, 'd')
     }).on('dp.change', function(e){
         var parent = $($(this).parents('.row')[0]),
             startDate = parent.find('.datePickerStart');

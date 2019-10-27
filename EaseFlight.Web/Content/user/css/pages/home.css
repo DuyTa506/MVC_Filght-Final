@@ -13,6 +13,7 @@
 .theme-search-area-submit{
     height: 40px !important;
     line-height: 40px !important;
+    outline: none;
 }
 .place, .time-place, .checkin, .checkout, .passenger, .seatclass{
     padding-left: 0 !important;
@@ -200,4 +201,15 @@
 }
 .caret-dropdown{
     left: 435px;
+}
+.svg-number {
+    border-radius: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+.find-button {
+    transition: all .25s ease-in;
+}
+.find-button:hover{
+    background-color: #ab542f;
 }

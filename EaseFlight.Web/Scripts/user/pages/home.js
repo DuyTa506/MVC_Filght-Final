@@ -2,7 +2,8 @@
 
 $(document).ready(function () {
     //Remove css in Layout
-    $('#mainFooter').remove();
+    if (window.location.pathname != "/Flight/Find")
+        $('#mainFooter').remove();
     $('#main-nav').addClass('navbar-theme-abs navbar-theme-transparent navbar-theme-border');
     $('.theme-copyright').remove();
 
@@ -25,6 +26,7 @@ $(document).ready(function () {
     });
 
     $('.place-result').focusin(function () {
+        $(this).removeAttr('readonly');
         $(this).select();
         $('.dropdown-menu.place-dropdown').find('.dropdown-item').removeClass('hide');
         $('span.hightline').addClass('color-none');
@@ -32,10 +34,6 @@ $(document).ready(function () {
         $('.ul-arrival').find('li#' + idAirpotDeparture).addClass('hide');
         $('.country').removeClass('hide');
         $('.no-result').addClass('hide');
-    });
-
-    $('.place-result').keyup(function () {
-        $(this).removeAttr('readonly');
     });
 
     $('.place-result').focusout(function () {
@@ -73,7 +71,7 @@ function placeSelect(idAir) {
     var selText = $(event.target).closest('li').text().trim().split('\n');
     var city = selText[0];
     var airportCode = selText[selText.length - 1].split('-')[0].trim();
-    var place = $(event.target).parents('.theme-search-area-section-inner').find('.place-result').attr('id')
+    var place = $(event.target).parents('.theme-search-area-section-inner').find('.place-result').attr('id');
 
     var placeResult = city + ' (' + airportCode + ')';
     $(event.target).parents('.theme-search-area-section-inner').find('.place-result').val(placeResult);
@@ -114,7 +112,7 @@ function findFlight() {
         }
         roundtrip = true;
     }
-
+    
     //Redirect to Find page
     window.location.href = '/Flight/Find?departure=' + idAirpotDeparture + '&arrival=' + idAirportArrival + '&date=' + departureDate
         + '&return=' + returnDate + '&seat=' + $('.span-seat').attr('data-seat') + '&adult=' + inputValue[0].split(' ')[0]

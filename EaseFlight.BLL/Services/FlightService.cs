@@ -65,6 +65,7 @@ namespace EaseFlight.BLL.Services
 
             var flightTransit = from departures in resutlDeparture
                         join arrivals in resultArrival on departures.Arrival.ID equals arrivals.Departure.ID
+                        where arrivals.ArrivalDate > departures.DepartureDate
                         let flight = new List<FlightModel> { departures, arrivals}
                         select flight;
 

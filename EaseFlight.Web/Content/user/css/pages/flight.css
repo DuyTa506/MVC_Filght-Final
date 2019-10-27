@@ -53,3 +53,10 @@
 .resutl-title .content-time:last-of-type {
     margin-bottom: 0;
 }
+.transit{
+    margin-bottom: 20px !important;
+}
+.transit-title {
+    height: 50px;
+    padding: 21px 0;
+}

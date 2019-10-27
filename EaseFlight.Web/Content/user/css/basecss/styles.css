@@ -6790,7 +6790,7 @@ body {
   appearance: none;
 }
 .theme-search-results-sign-in {
-  padding: 25px 20px;
+  padding: 20px 20px;
   position: relative;
   background: #0093d2;
   border: none;
@@ -6808,10 +6808,10 @@ body {
 .theme-search-results-sign-in-btn {
   position: absolute;
   display: block;
-  top: 14px;
+  top: 11px;
   right: 20px;
   font-size: 11px;
-  padding: 7px 10px;
+  padding: 5px 10px;
   text-transform: uppercase;
 }
 .theme-search-results-sign-in-icon {
@@ -6825,7 +6825,7 @@ body {
   border-radius: 50%;
   font-size: 12px;
   position: absolute;
-  top: 18px;
+  top: 13px;
   left: 20px;
 }
 .theme-search-results-item {
@@ -6845,15 +6845,15 @@ body {
 }
 .theme-search-results-item.active,
 .theme-search-results-item:hover {
-  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.07);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
 }
 .theme-search-results-item.active {
   border-color: #bababa;
   z-index: 2;
 }
 .theme-search-results-item-rounded {
-  border-radius: 3px;
+  border-radius: 5px;
 }
 .theme-search-results-item-rounded .theme-search-results-item-img-wrap {
   border-radius: 3px;
@@ -7274,7 +7274,7 @@ body {
 }
 .theme-search-results-item-price-sign {
   font-size: 10px;
-  color: #b3b3b3;
+  color: #827e7e;
   margin-bottom: 0;
   margin-top: 2px;
 }
@@ -7763,7 +7763,7 @@ body {
 }
 .theme-search-results-item-flight-section-airline-logo {
   display: block;
-  max-width: 67%;
+  max-width: 40%;
   max-height: 50px;
   top: 50%;
   left: 50%;
@@ -7843,7 +7843,6 @@ body {
 }
 .theme-search-results-item-flight-section-meta-city {
   font-size: 13px;
-  opacity: 0.65;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
   filter: alpha(opacity=65);
   margin-bottom: 2px;
@@ -14872,8 +14871,9 @@ body {
     background: #fff;
     border-radius: 0;
     box-shadow: none;
-    margin-top: 70px;
+    margin-top: 40px;
     overflow: visible;
+    margin-bottom: 100%;
 }
 .progress .progress-bar{
     box-shadow: none;
@@ -14923,4 +14923,65 @@ body {
 }
 @keyframes animate-positive{
     0%{ width: 0; }
+}
+.top75percent{
+    top: 75% !important;
+}
+.top25percent {
+    top: 25% !important;
+}
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 15px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
 }

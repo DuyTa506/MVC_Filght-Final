@@ -147,15 +147,9 @@
     <Compile Include="WebUtilities\SessionUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\images\airline-logo\aa.jpg" />
-    <Content Include="Content\images\airline-logo\delta.jpg" />
-    <Content Include="Content\images\airline-logo\fem.jpg" />
-    <Content Include="Content\images\airline-logo\klm.jpg" />
-    <Content Include="Content\images\airline-logo\lot.jpg" />
-    <Content Include="Content\images\airline-logo\luft.jpg" />
-    <Content Include="Content\images\airline-logo\swiss.jpg" />
-    <Content Include="Content\images\airline-logo\virgin.jpg" />
-    <Content Include="Content\images\airline-logo\wow.jpg" />
+    <Content Include="Content\images\airline-logo\Jetstar.png" />
+    <Content Include="Content\images\airline-logo\Vietjet Air.png" />
+    <Content Include="Content\images\airline-logo\VietNam Airline.png" />
     <Content Include="Content\images\big-ben-bridge-castle-city-460672_1500x800.jpg" />
     <Content Include="Content\images\icons\facebook.png" />
     <Content Include="Content\images\icons\google.png" />

@@ -1,5 +1,12 @@
-﻿@{
-    ViewBag.Title = "Find";
+﻿@using EaseFlight.Models.CustomModel;
+@using EaseFlight.Models.EntityModels;
+@using EaseFlight.Common.Constants;
+@using System.Text.RegularExpressions;
+@{
+    ViewBag.Title = "Find Flights";
+    var airports = (IEnumerable<AirportRegionModel>)ViewData["airports"];
+    var passengers = (IEnumerable<PassengerTypeModel>)ViewData["passengers"];
+    var seatClassList = (IEnumerable<SeatClassModel>)ViewData["seatClassList"];
 }
 @Styles.Render("~/Content/home")
 @Styles.Render("~/Content/flight")
@@ -16,7 +23,7 @@
             <div class="_pb-50 _pt-100 _pv-mob-50">
                 <div class="theme-search-area _mob-h theme-search-area-white">
                     <div class="theme-search-area-header _mb-20">
-                        <h1 class="theme-search-area-title theme-search-area-title-sm">282 Flights to Lodon</h1>
+                        <h1 class="theme-search-area-title theme-search-area-title-sm flight-to"></h1>
                     </div>
                     <div class="theme-search-area-form" id="hero-search-form">
                         <div class="row" data-gutter="0">
@@ -27,13 +34,37 @@
                                             <label class="theme-search-area-section-label _op-06">From</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-location-pin"></i>
-                                                <select class="theme-search-area-section-input">
-                                                    <option class="select-menu">Tan Son Nhat</option>
-                                                    <option class="select-menu">2</option>
-                                                    <option class="select-menu">3</option>
-                                                    <option class="select-menu">4</option>
-                                                    <option class="select-menu">5</option>
-                                                </select>
+                                                <input class="theme-search-area-section-input dropdown-toggle place-result" id="departure" data-toggle="dropdown" placeholder="Departure" oninput="oninputPlace()" spellcheck="false" readonly/>
+                                                <ul class="dropdown-menu place-dropdown ul-departure">
+                                                    @foreach (var airport in airports)
+                                                    {
+                                                        if (airport.Airports.Count() > 0)
+                                                        {
+                                                            var id = Regex.Replace(airport.Region, @"\s+", string.Empty);
+                                                            <li class="country noselect" id="@airport.Region" data-toggle="collapse" data-target="#li@(id)">
+                                                                <span class="caret-dropdown"></span>
+                                                                @airport.Region
+                                                            </li>
+                                                            <li id="li@(id)" class="collapse">
+                                                                <ul class="sub-ul">
+                                                                    @foreach (var air in airport.Airports)
+                                                                    {
+                                                                        <li class="dropdown-item" id="@air.ID" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
+                                                                            <div class="airport">
+                                                                                <span class="city-title">
+                                                                                    @air.City
+                                                                                    @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM) ? "" : string.Concat(", ", air.Country.Name))
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="airport"><span class="airport-title">@air.Name</span></div>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                    <li class="no-result hide"></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -42,13 +73,37 @@
                                             <label class="theme-search-area-section-label _op-06">To</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-location-pin"></i>
-                                                <select class="theme-search-area-section-input">
-                                                    <option class="select-menu">Noi Bai</option>
-                                                    <option class="select-menu">2</option>
-                                                    <option class="select-menu">3</option>
-                                                    <option class="select-menu">4</option>
-                                                    <option class="select-menu">5</option>
-                                                </select>
+                                                <input class="theme-search-area-section-input dropdown-toggle place-result" id="arrival" data-toggle="dropdown" placeholder="Arrival" oninput="oninputPlace()" spellcheck="false" readonly/>
+                                                <ul class="dropdown-menu place-dropdown ul-arrival">
+                                                    @foreach (var airport in airports)
+                                                    {
+                                                        if (airport.Airports.Count() > 0)
+                                                        {
+                                                            var id = Regex.Replace(airport.Region, @"\s+", string.Empty);
+                                                            <li class="country" id="@airport.Region" data-toggle="collapse" data-target="#li2@(id)">
+                                                                <span class="caret-dropdown"></span>
+                                                                @airport.Region
+                                                            </li>
+                                                            <li id="li2@(id)" class="collapse">
+                                                                <ul class="sub-ul">
+                                                                    @foreach (var air in airport.Airports)
+                                                                    {
+                                                                        <li class="dropdown-item" id="@air.ID" onclick="placeSelect(@air.ID)" lifor="@airport.Region">
+                                                                            <div class="airport">
+                                                                                <span class="city-title">
+                                                                                    @air.City
+                                                                                    @(air.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM) ? "" : string.Concat(", ", air.Country.Name))
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="airport"><span class="airport-title">@air.Name</span></div>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                    <li class="no-result hide"></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -61,8 +116,8 @@
                                             <label class="theme-search-area-section-label _op-06">Departure Date</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-calendar"></i>
-                                                <input class="theme-search-area-section-input datePickerStart _mob-h" value="" type="text" placeholder="Departure Date" />
-                                                <input class="theme-search-area-section-input _desk-h datePickerStart" value="" type="text" placeholder="Departure Date" />
+                                                <input id="departureDate" class="theme-search-area-section-input datePickerStart _mob-h cursor-pointer" value="" type="text" placeholder="Departure Date"/>
+                                                <input class="theme-search-area-section-input _desk-h datePickerStart cursor-pointer" value="" type="text" placeholder="Departure Date"/>
                                             </div>
                                         </div>
                                     </div>
@@ -71,8 +126,8 @@
                                             <label class="theme-search-area-section-label _op-06">Return Date</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-calendar"></i>
-                                                <input class="theme-search-area-section-input datePickerEnd _mob-h" value="" type="text" placeholder="Return Date" />
-                                                <input class="theme-search-area-section-input _desk-h datePickerEnd" value="" type="text" placeholder="Return Date" />
+                                                <input id="returnDate" class="theme-search-area-section-input datePickerEnd _mob-h cursor-pointer" value="" type="text" placeholder="Return Date"/>
+                                                <input class="theme-search-area-section-input _desk-h datePickerEnd cursor-pointer" value="" type="text" placeholder="Return Date"/>
                                             </div>
                                         </div>
                                     </div>
@@ -81,13 +136,13 @@
                                             <label class="theme-search-area-section-label _op-06">Seat Class</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-graph"></i>
-                                                <select class="theme-search-area-section-input">
-                                                    <option class="select-menu">Economy</option>
-                                                    <option class="select-menu">2</option>
-                                                    <option class="select-menu">3</option>
-                                                    <option class="select-menu">4</option>
-                                                    <option class="select-menu">5</option>
-                                                </select>
+                                                <span class="theme-search-area-section-input dropdown-toggle span-seat" data-toggle="" data-seat="">Seat Class</span>
+                                                <ul class="dropdown-menu seat-dropdown">
+                                                    @foreach (var seat in seatClassList)
+                                                    {
+                                                        <li class="dropdown-item @seat.Name.Replace(" ","")" onclick="seatSelect(@seat.ID)"><i class="seat-selected lin lin-like hide"></i>@seat.Name</li>
+                                                    }
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -96,20 +151,82 @@
                                             <label class="theme-search-area-section-label _op-06">Passengers</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-people"></i>
-                                                <input class="theme-search-area-section-input" value="1 Passenger" type="text" />
-                                                <div class="quantity-selector-box" id="FlySearchPassengers">
-                                                    <div class="quantity-selector-inner">
-                                                        <p class="quantity-selector-title">Passengers</p>
-                                                        <ul class="quantity-selector-controls">
-                                                            <li class="quantity-selector-decrement">
-                                                                <a href="#">&#45;</a>
-                                                            </li>
-                                                            <li class="quantity-selector-current">1</li>
-                                                            <li class="quantity-selector-increment">
-                                                                <a href="#">&#43;</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                <input class="theme-search-area-section-input cursor-pointer passenger-type" value="1 Adult, 0 Child, 0 Infant" type="text" readonly onclick="showPassenger()"/>
+                                                <div class="div-passenger-type noselect hide" id="FlySearchPassengers">
+                                                    @foreach (var passenger in passengers)
+                                                    {
+                                                        <div class="passenger-element">
+                                                            @if (passenger.Name.Equals(Constant.CONST_DB_NAME_ADULT))
+                                                            {
+                                                                <div class="svg-passenger">
+                                                                    <svg fill="#696969" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                        <g>
+                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                <g fill="#696969">
+                                                                                    <g>
+                                                                                        <path d="M8.5,8 L15.5,8 C16.8819379,8 18,9.11396016 18,10.498576 L18,13.501424 C18,14.8829644 16,16 16,16 L16,21.0014977 C16,22.102094 15.1044506,23 14.009222,23 L9.99077797,23 C8.88963864,23 8,22.1031497 8,21.0014977 L8,16 C8,16 6,14.8860398 6,13.501424 L6,10.498576 C6,9.11703562 7.1151233,8 8.5,8 Z M13,21.0010825 C13.5615315,20.9964051 14,20.552664 14,20.0057846 L14,10 L10,10 L10,20.0044225 C10,20.5520744 10.4468553,20.9951746 11,21.0003325 L11,14.9975446 C11,14.446616 11.4438648,14 12,14 C12.5522847,14 13,14.4463114 13,14.9975446 L13,21.0010872 L13,21.0010825 Z M9,4.0048815 L9,4.9951185 C9,6.65684272 10.3416047,8 12,8 C13.6630405,8 15,6.65620333 15,4.9951185 L15,4.0048815 C15,2.34315728 13.6583953,1 12,1 C10.3369595,1 9,2.34379667 9,4.0048815 Z M11,4.0048815 C11,3.44608885 11.4438192,3 12,3 C12.5533077,3 13,3.44720928 13,4.0048815 L13,4.9951185 C13,5.55391115 12.5561808,6 12,6 C11.4466923,6 11,5.55279072 11,4.9951185 L11,4.0048815 Z"></path>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="passenger-title"><span class="passenger-title-name passenger-name">@passenger.Name</span><span class="passenger-title-des" id="description-Adult">(age 12 and over)</span></div>
+                                                            }
+                                                            else if (passenger.Name.Equals(Constant.CONST_DB_NAME_CHILD))
+                                                            {
+                                                                <div class="svg-passenger">
+                                                                    <svg fill="#696969" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                        <g transform="translate(4, 1)">
+                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                <g fill="#696969">
+                                                                                    <g>
+                                                                                        <path d="M2.5,9 L9.5,9 C10.8819379,9 12,10.1139602 12,11.498576 L12,13.501424 C12,14.8829644 10,16 10,16 L10,20.0014977 C10,21.102094 9.10445059,22 8.00922203,22 L3.99077797,22 C2.88963864,22 2,21.1031497 2,20.0014977 L2,16 C2,16 0,14.8860398 0,13.501424 L0,11.498576 C0,10.1170356 1.1151233,9 2.5,9 Z M3,6.0048815 C3,7.65684272 4.34160468,9 6,9 C7.66304055,9 9,7.65620333 9,5.9951185 C9,4.34315728 7.65839532,3 6,3 C4.33695945,3 3,4.34379667 3,6.0048815 Z M7,20.0010825 C7.56153155,19.9964051 8,19.552664 8,19.0057846 L8,11 L4,11 L4,19.0044225 C4,19.5520744 4.44685532,19.9951746 5,20.0003325 L5,15.9975446 C5,15.446616 5.44386482,15 6,15 C6.55228475,15 7,15.4463114 7,15.9975446 L7,20.0010825 Z M5,6.0048815 C5,5.44608885 5.44381916,5 6,5 C6.55330767,5 7,5.44720928 7,6.0048815 L7,5.9951185 C7,6.55391115 6.55618084,7 6,7 C5.44669233,7 5,6.55279072 5,5.9951185 L5,6.0048815 Z"></path>
+                                                                                        <path d="M11,8.99703014 C11,8.4463856 11.4438648,8 12,8 C12.5522847,8 13,8.45303631 13,8.99703014 L13,15.0029699 C13,15.5536144 12.5561352,16 12,16 C11.4477153,16 11,15.5469637 11,15.0029699 L11,8.99703014 Z M9,3.17832241 L9,3.9327887 C9,6.12224474 10.7689823,8 12,8 C13.230867,8 15,6.12186698 15,3.9327887 L15,3.17832241 C15,1.42729462 13.6638914,0 12,0 C10.3338533,0 9,1.42662132 9,3.17832241 Z M10.7142857,3.17832241 C10.7142857,2.39638973 11.2926716,1.77777778 12,1.77777778 C12.7055555,1.77777778 13.2857143,2.39753089 13.2857143,3.17832241 L13.2857143,3.9327887 C13.2857143,4.6445593 13.0253372,5.2370989 12.5810662,5.70874228 C12.4981556,5.79676122 12.2392133,5.99703147 12,6 C11.7442595,6.00317363 11.5075265,5.80296517 11.418899,5.70888812 C10.9746532,5.23732607 10.7142857,4.6447744 10.7142857,3.9327887 L10.7142857,3.17832241 Z"></path>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="passenger-title"><span class="passenger-title-name passenger-name">@passenger.Name</span><span class="passenger-title-des" id="description-Adult">(age 2 - 11)</span></div>
+                                                            }
+                                                            else if (passenger.Name.Equals(Constant.CONST_DB_NAME_INFANT))
+                                                            {
+                                                                <div class="svg-passenger">
+                                                                    <svg fill="#696969" height="24" stroke="currentColor" stroke-linecap="round" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                        <g transform="translate(0, -1)">
+                                                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                <g fill="#696969">
+                                                                                    <g>
+                                                                                        <path d="M13.9048381,18.3190517 L14.5857864,19 L13.2928932,20.2928932 C12.9023689,20.6834175 12.9023689,21.3165825 13.2928932,21.7071068 C13.6834175,22.0976311 14.3165825,22.0976311 14.7071068,21.7071068 L16.7071068,19.7071068 C17.0976311,19.3165825 17.0976311,18.6834175 16.7071068,18.2928932 L14.9514316,16.537218 C14.983342,16.361077 15,16.1795551 15,15.9940809 L15,14 L16.2,15.6 C16.5313708,16.0418278 17.1581722,16.1313708 17.6,15.8 C18.0418278,15.4686292 18.1313708,14.8418278 17.8,14.4 L14.8069828,10.4093103 C14.6250157,10.1611331 14.3313252,10 14,10 L10,10 C9.66867483,10 9.3749843,10.1611331 9.19301725,10.4093103 L6.2,14.4 C5.86862915,14.8418278 5.9581722,15.4686292 6.4,15.8 C6.8418278,16.1313708 7.46862915,16.0418278 7.8,15.6 L9,14 L9,15.9940809 C9,16.1797393 9.01659576,16.3613102 9.048383,16.5374034 L7.29289322,18.2928932 C6.90236893,18.6834175 6.90236893,19.3165825 7.29289322,19.7071068 L9.29289322,21.7071068 C9.68341751,22.0976311 10.3165825,22.0976311 10.7071068,21.7071068 C11.0976311,21.3165825 11.0976311,20.6834175 10.7071068,20.2928932 L9.41421356,19 L10.0945188,18.3196947 C10.6121744,18.7453265 11.2755173,19 12,19 C12.7247983,19 13.3876235,18.744678 13.9048381,18.3190517 Z M11,12 L13,12 L13,15.9940809 C13,16.5535631 12.5560643,17 12,17 C11.4435019,17 11,16.5569509 11,15.9940809 L11,12 Z M9,7.0048815 C9,8.65684272 10.3416047,10 12,10 C13.6630405,10 15,8.65620333 15,6.9951185 C15,5.34315728 13.6583953,4 12,4 C10.3369595,4 9,5.34379667 9,7.0048815 Z M11,7.0048815 C11,6.44608885 11.4438192,6 12,6 C12.5533077,6 13,6.44720928 13,7.0048815 L13,6.9951185 C13,7.55391115 12.5561808,8 12,8 C11.4466923,8 11,7.55279072 11,6.9951185 L11,7.0048815 Z"></path>
+                                                                                    </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="passenger-title"><span class="passenger-title-name passenger-name">@passenger.Name</span><span class="passenger-title-des" id="description-Adult">(below age 2)</span></div>
+                                                            }
+                                                            <div class="svg-passenger-icon">
+                                                                <div class="svg-passenger cursor-pointer" onclick="minusPassenger()">
+                                                                    <svg stroke-width="0" viewBox="0 0 16 16" fill="#F34646" height="16" stroke="currentColor" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                        <g>
+                                                                            <rect width="12" height="2" x="2" y="7" rx="1"></rect>
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="svg-passenger-icon svg-number"><span class="passenger-number passenger-title-name">@(passenger.Name.Equals(Constant.CONST_DB_NAME_ADULT) ? "1" : "0")</span></div>
+                                                                <div class="svg-passenger cursor-pointer" onclick="addPassenger()">
+                                                                    <svg stroke-width="0" viewBox="0 0 16 16" fill="#00A651" height="16" stroke="currentColor" stroke-linecap="round" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                        <g>
+                                                                            <path d="M9,7 L9,3.00247329 C9,2.45576096 8.55228475,2 8,2 C7.44386482,2 7,2.44882258 7,3.00247329 L7,7 L3.00247329,7 C2.45576096,7 2,7.44771525 2,8 C2,8.55613518 2.44882258,9 3.00247329,9 L7,9 L7,12.9975267 C7,13.544239 7.44771525,14 8,14 C8.55613518,14 9,13.5511774 9,12.9975267 L9,9 L12.9975267,9 C13.544239,9 14,8.55228475 14,8 C14,7.44386482 13.5511774,7 12.9975267,7 L9,7 Z"></path>
+                                                                        </g>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -117,17 +234,19 @@
                                 </div>
                             </div>
                             <div class="col-md-1 ">
-                                <button class="theme-search-area-submit _tt-uc theme-search-area-submit-curved theme-search-area-submit-sm theme-search-area-submit-no-border theme-search-area-submit-primary">Edit</button>
+                                <button class="theme-search-area-submit _tt-uc theme-search-area-submit-curved theme-search-area-submit-sm theme-search-area-submit-no-border find-button" onclick="findFlight()" title="Find Flight">
+                                    <i class="theme-search-area-submit-icon fa fa-paper-plane"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                     <div class="theme-search-area-options theme-search-area-options-center theme-search-area-options-dot-primary clearfix">
                         <div class="btn-group theme-search-area-options-list" data-toggle="buttons">
                             <label class="btn btn-primary active">
-                                <input type="radio" name="flight-options" id="flight-option-1" checked />One Way
+                                <input type="radio" name="flight-options" id="flight-option-1" checked/>One Way
                             </label>
                             <label class="btn btn-primary">
-                                <input type="radio" name="flight-options" id="flight-option-2" />Round Trip
+                                <input type="radio" name="flight-options" id="flight-option-2"/>Round Trip
                             </label>
                         </div>
                     </div>
@@ -254,9 +373,9 @@
             <div class="row loadingbar">
                 <div class="col-md-12">
                     <div class="progress blue">
-                        <div class="progress-bar" style="width: 88%;">
+                        <div class="progress-bar" style="width: 0%;">
                             <h3 class="progress-title">Searching</h3>
-                            <div class="progress-value">88%</div>
+                            <div class="progress-value">0%</div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,7 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Common.Constants;
 using EaseFlight.Models.CustomModel;
+using EaseFlight.Models.EntityModels;
 using EaseFlight.Web.WebUtilities;
 using System;
 using System.Collections.Generic;
@@ -16,15 +18,19 @@ namespace EaseFlight.Web.Controllers
         private IAirportService AirportService { get; set; }
         private ISeatClassService SeatClassService { get; set; }
         private IFlightService FlightService { get; set; }
+        private ICountryService CountryService { get; set; }
+        private IPassengerTypeService PassengerTypeService { get; set; }
         #endregion
 
         #region Constructors
         public FlightController(IAirportService airportService, ISeatClassService seatClassService,
-            IFlightService flightService)
+            IFlightService flightService, ICountryService countryService, IPassengerTypeService passengerTypeService)
         {
             this.AirportService = airportService;
             this.SeatClassService = seatClassService;
             this.FlightService = flightService;
+            this.CountryService = countryService;
+            this.PassengerTypeService = passengerTypeService;
         }
         #endregion
 
@@ -32,7 +38,76 @@ namespace EaseFlight.Web.Controllers
         [HttpGet]
         public ActionResult Find()
         {
+            var airports = this.AirportService.FindAll();
+            var regions = this.CountryService.FindAll().Select(country => country.Region).Distinct();
+            var passengers = this.PassengerTypeService.FindAll();
+            var airportRegion = new List<AirportRegionModel>
+            {
+                new AirportRegionModel
+                {
+                    Region = Constant.CONST_DB_NAME_VIETNAM,
+                    Airports = airports.Where(airport => airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM))
+                        .OrderBy(airport => airport.Name)
+                }
+            };
+
+            foreach (var region in regions)
+            {
+                var airportList = airports.Where(airport => airport.Country.Region.Equals(region)
+                && !airport.Country.Name.Equals(Constant.CONST_DB_NAME_VIETNAM));
+
+                if (airportList.Count() != 0)
+                    airportRegion.Add(new AirportRegionModel
+                    {
+                        Region = region,
+                        Airports = airportList
+                    });
+            }
+
+            ViewData["airports"] = airportRegion;
+            ViewData["passengers"] = passengers;
+            ViewData["seatClassList"] = this.SeatClassService.FindAll();
+
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetSearchValue(FormCollection collection)
+        {
+            var result = new JsonResult { ContentType = "text" };
+
+            try
+            {
+                var departure = this.AirportService.Find(int.Parse(collection.Get("departure")));
+                var arrival = this.AirportService.Find(int.Parse(collection.Get("arrival")));
+                var departureDate = DateTime.ParseExact(collection.Get("date"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                var returnDate = string.IsNullOrEmpty(collection.Get("return")) ? new DateTime()
+                    : DateTime.ParseExact(collection.Get("return"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                var seatClass = this.SeatClassService.Find(int.Parse(collection.Get("seat")));
+                var adult = int.Parse(collection.Get("adult"));
+                var child = int.Parse(collection.Get("child"));
+                var infant = int.Parse(collection.Get("infant"));
+                var roundTrip = bool.Parse(collection.Get("roundtrip"));
+
+                result.Data = new 
+                {
+                    departure = departure.ID,
+                    arrival = arrival.ID,
+                    date = departureDate.ToString("yyyy-MM-dd"),
+                    returnDate = returnDate.ToString("yyyy-MM-dd"),
+                    seat = seatClass.Name.Replace(" ",""),
+                    adult = adult,
+                    child = child,
+                    infant = infant,
+                    roundTrip = roundTrip
+                };
+            }
+            catch
+            {
+
+            }
+
+            return result;
         }
 
         [HttpPost]
@@ -52,36 +127,36 @@ namespace EaseFlight.Web.Controllers
                 var child = int.Parse(collection.Get("child"));
                 var infant = int.Parse(collection.Get("infant"));
                 var roundTrip = bool.Parse(collection.Get("roundtrip"));
+                var pageDepart = int.Parse(collection.Get("pageDepart"));
+                var pageReturn = int.Parse(collection.Get("pageReturn"));
 
                 if (departure == null || arrival == null || seatClass == null || (roundTrip && returnDate.Year == 1)
                     || (roundTrip && returnDate.Date < departureDate.Date) || adult < 1 || (adult + child + infant) > 10 || adult < (child + infant))
                     result.Data = new { type = "error" };
                 else
                 {
-                    var searchList = this.FlightService.FindFlight(departure, arrival, departureDate);
-                    var data = new List<SearchFlightModel>();
+                    var searchDepartureList = this.FlightService.FindFlight(departure, arrival, departureDate);
                     var totalSeat = adult + child;
+                    var returnData = new List<SearchFlightModel>();
+                    var departureData = SearchFlight(searchDepartureList, totalSeat, seatClass).OrderBy(flight => flight.Price);
 
-                    foreach(var search in searchList)
+                    if (roundTrip)
                     {
-                        var check = true;
-                        foreach(var flight in search.FlightList)
-                        {
-                            var totalSeatClass = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
-                                .Select(planeSeat => planeSeat.Capacity).FirstOrDefault();
-                            var totalTicket = flight.TicketFlights.Where(ticketflight => 
-                                SeatMapUtility.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
-
-                            if(totalSeat > (totalSeatClass - totalTicket))
-                            {
-                                check = false; break;
-                            }
-                        }
-
-                        if (check) data.Add(search);
+                        var searchReturnList = this.FlightService.FindFlight(arrival, departure, returnDate);
+                        returnData = SearchFlight(searchReturnList, totalSeat, seatClass).OrderBy(flight => flight.Price).ToList();
                     }
-                    
-                    result.Data = new { type = "success", result = RenderViewToString(this.ControllerContext , "_FlightResultPartial", data) };
+
+                    var model = new ResultFlightModel
+                    {
+                        DepartureData = departureData.Take(pageDepart).ToList(),
+                        ReturnData = returnData.Take(pageReturn).ToList(),
+                        From = departure,
+                        To = arrival,
+                        SeatClass = seatClass,
+                        PageSize = new List<int> { departureData.Count(), returnData.Count()}
+                    };
+
+                    result.Data = new { type = "success", result = RenderViewToString(this.ControllerContext , "_FlightResultPartial", model) };
                 }
             }
             catch
@@ -91,8 +166,55 @@ namespace EaseFlight.Web.Controllers
 
             return result;
         }
+        #endregion
 
-        private static string RenderViewToString(ControllerContext context, string viewName, object model)
+        #region Private Funtions
+        private List<SearchFlightModel> SearchFlight(IEnumerable<SearchFlightModel> searchList, int totalSeat, SeatClassModel seatClass)
+        {
+            var data = new List<SearchFlightModel>();
+
+            foreach (var search in searchList)
+            {
+                var check = true;
+                var priceSeat = 0.0;
+
+                foreach (var flight in search.FlightList)
+                {
+                    var totalSeatClass = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
+                        .Select(planeSeat => planeSeat.Capacity).FirstOrDefault();
+                    var totalTicket = flight.TicketFlights.Where(ticketflight =>
+                        SeatMapUtility.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
+                    priceSeat = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
+                        .Select(planeSeat => planeSeat.Price.Value).FirstOrDefault();
+
+                    if (totalSeatClass == null)
+                    {
+                        check = false; break;
+                    }
+
+                    if (totalSeat > (totalSeatClass - totalTicket))
+                    {
+                        check = false; break;
+                    }
+                }
+
+                if (check)
+                {
+                    var airportCode = new List<string>();
+                    
+                    for (var i = 1; i < search.FlightList.Count(); ++i)
+                        airportCode.Add(search.FlightList[i].Departure.Name.Split('-').First());
+
+                    search.Price += priceSeat;
+                    search.AirportCode = airportCode;
+                    data.Add(search);
+                }
+            }
+
+            return data;
+        }
+
+        private string RenderViewToString(ControllerContext context, string viewName, object model)
         {
             if (string.IsNullOrEmpty(viewName))
                 viewName = context.RouteData.GetRequiredString("action");
