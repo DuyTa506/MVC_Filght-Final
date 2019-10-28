@@ -71,3 +71,7 @@
     -webkit-box-shadow: unset !important;
     box-shadow: unset !important;
 }
+.cofirm-title {
+    font-size: 18px;
+    font-weight: bold;
+}

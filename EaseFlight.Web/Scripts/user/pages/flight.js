@@ -1,4 +1,5 @@
-﻿var pageDepart = 10, pageReturn = 10, loadMoreDepart = true, flightDepart = null, flightReturn = null, viewDepart = false, viewReturn = false, isViewDepart = false;
+﻿var pageDepart = 10, pageReturn = 10, loadMoreDepart = true, flightDepart = null, flightReturn = null, viewDepart = false, viewReturn = false, isViewDepart = false,
+    firstTimeDepart = 0, firstTimeReturn = 0;
 
 $(document).ready(function () {
     $('#main-nav').addClass('navbar-theme-abs navbar-theme-transparent navbar-theme-border');
@@ -21,45 +22,59 @@ $(document).ready(function () {
 })
 
 function returnTab() {
-    $('.div-return').removeClass('col-md-4 disabled-tab cursor-pointer');
-    $('.div-return').addClass('col-md-8');
-    $('.div-oneway').removeClass('col-md-8');
-    $('.div-oneway').addClass('col-md-4 disabled-tab cursor-pointer');
-    $('.div-return .sort-result').removeClass('hide');
-    $('.div-oneway .sort-result').addClass('hide');
-    $('.div-return .load-more').removeClass('hide');
-    $('.div-oneway .load-more').addClass('hide');
+    if (($('.return-ticket.hide').length > 0 && $('.departure-ticket.hide').length > 0) || firstTimeReturn < 1) {
+        $('.div-return').removeClass('col-md-4 disabled-tab cursor-pointer');
+        $('.div-return').addClass('col-md-8');
+        $('.div-oneway').removeClass('col-md-8');
+        $('.div-oneway').addClass('col-md-4 disabled-tab cursor-pointer');
+        $('.div-return .sort-result').removeClass('hide');
+        $('.div-oneway .sort-result').addClass('hide');
+        $('.div-return .load-more').removeClass('hide');
+        $('.div-oneway .load-more').addClass('hide');
+        $('.div-return').attr("style", "");
 
-    $('.div-return').attr("style", "");
-    var interval = setInterval(function () {
-        $('.div-oneway').css({ "height": $('.div-return').height(), "overflow": "hidden" });
-    }, 1);
+        if ($('.return-ticket.hide').length == 0 || $('.departure-ticket.hide').length == 0) 
+            ++firstTimeReturn;
+    }
+    
+    if (!viewReturn) {
+        var interval = setInterval(function () {
+            $('.div-oneway').css({ "height": $('.div-return').height(), "overflow": "hidden" });
+        }, 1);
 
-    setTimeout(function () {
-        clearInterval(interval);
-    }, 300);
+        setTimeout(function () {
+            clearInterval(interval);
+        }, 300);
+    }
 }
 
 function onewayTab() {
     if ($('.div-return').hasClass('hide')) return;
 
-    $('.div-return').addClass('col-md-4 disabled-tab cursor-pointer');
-    $('.div-return').removeClass('col-md-8');
-    $('.div-oneway').addClass('col-md-8');
-    $('.div-oneway').removeClass('col-md-4 disabled-tab cursor-pointer');
-    $('.div-return .sort-result').addClass('hide');
-    $('.div-oneway .sort-result').removeClass('hide');
-    $('.div-return .load-more').addClass('hide');
-    $('.div-oneway .load-more').removeClass('hide');
+    if (($('.return-ticket.hide').length > 0 && $('.departure-ticket.hide').length > 0 ) || firstTimeDepart < 1) {
+        $('.div-return').addClass('col-md-4 disabled-tab cursor-pointer');
+        $('.div-return').removeClass('col-md-8');
+        $('.div-oneway').addClass('col-md-8');
+        $('.div-oneway').removeClass('col-md-4 disabled-tab cursor-pointer');
+        $('.div-return .sort-result').addClass('hide');
+        $('.div-oneway .sort-result').removeClass('hide');
+        $('.div-return .load-more').addClass('hide');
+        $('.div-oneway .load-more').removeClass('hide');
+        $('.div-oneway').attr("style", "");
 
-    $('.div-oneway').attr("style", "");
-    var interval = setInterval(function () {
-        $('.div-return').css({ "height": $('.div-oneway').height(), "overflow": "hidden" });
-    }, 1);
+        if ($('.departure-ticket.hide').length == 0 || $('.return-ticket.hide').length == 0)
+            ++firstTimeDepart;
+    }
 
-    setTimeout(function () {
-        clearInterval(interval);
-    }, 300);
+    if (!viewDepart) {
+        var interval = setInterval(function () {
+            $('.div-return').css({ "height": $('.div-oneway').height(), "overflow": "hidden" });
+        }, 1);
+
+        setTimeout(function () {
+            clearInterval(interval);
+        }, 300);
+    }
 }
 
 function getSearchValue() {
@@ -284,4 +299,19 @@ function reviewReturn() {
         onewayTab();
         $('.div-return').removeClass('disabled-tab cursor-pointer');
     }, 50);
+}
+
+function changeFlight() {
+    if ($(event.target).parents('div.col-md-4').hasClass('div-oneway')) { //Change departure
+        $('.div-oneway div.theme-search-results-sort, .div-oneway div.theme-search-results-sort-select, div.result-oneway, .load-depart').removeClass('hide');
+        $('.div-oneway .resutl-title').removeClass('_mb-0');
+        $('.departure-ticket').addClass('hide');
+    } else {// Change return
+        $('.div-return div.theme-search-results-sort, .div-return div.theme-search-results-sort-select, div.result-return, .load-return').removeClass('hide');
+        $('.div-return .resutl-title').removeClass('_mb-0');
+        $('.return-ticket').addClass('hide');
+    }
+
+    firstTimeDepart = 0; viewDepart = false; firstTimeReturn = 0; viewReturn = false;
+
 }

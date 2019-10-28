@@ -38,8 +38,8 @@
                                                 <div class="_1PDJJ"><img class="_3JCi8" src="https://tvlk.imgix.net/imageResource/2019/09/16/1568609997285-658c304aa2757dc5ecc27248c9f66bb4.png?auto=compress%2Cformat&amp;cs=srgb&amp;fm=png&amp;ixlib=java-1.1.12&amp;q=75"></div>
                                             </div>
                                             <label class="yqTrt _3d6Dz">
-                                                <span class="_1KrnW jjGhl _2i_vU">Jetstar </span>
-                                                <span class="_1KrnW _1EnnQ Edww1">@Model.SeatClass.Name</span>
+                                                <div><span class="_1KrnW jjGhl _2i_vU">Jetstar</span></div>
+                                                <div><span class="_1KrnW _1EnnQ Edww1">@Model.SeatClass.Name</span></div>
                                             </label>
                                         </div>
                                     </div>
@@ -57,71 +57,27 @@
                                 <div class="_1HfUl _4SAxd">
                                     <div class="_3ZbIu GjGlL">
                                         <label class="_3d6Dz">Total Duration:</label>
-                                        <div><span class="_1KrnW jjGhl _2HSse LNYpr"> 2h 15m, direct</span></div>
-                                    </div>
-                                    <div class="_3ZbIu _3mv8U wEBDl">
-                                        <label class="_3d6Dz"><span class="_1KrnW jjGhl box20">Details</span></label>
-                                        <div class="pzRKx">
-                                            <div class="_3tBNt eglwm LKTRB _2A27N" aria-live="off" style="background: rgb(245, 245, 245); min-width: 600px;">
-                                                <div class="_1xh05 _4SAxd">
-                                                    <div class="fjJNd _4SAxd">
-                                                        <div class="_3_XyS _18BlW">
-                                                            <div class="_2o5Sa _4SAxd">
-                                                                <div class="_2Wlby">
-                                                                    <label class="_3FGbu">
-                                                                        <span class="_1KrnW jjGhl _2HSse">06:00</span>
-                                                                    </label><span class="_1KrnW _1EnnQ _2ixlz">29 Oct 2019</span>
-                                                                </div>
-                                                                <div class="vbAle">
-                                                                    <label class="_3FGbu">
-                                                                        <span class="_1KrnW jjGhl _2HSse">Hanoi (HAN)</span>
-                                                                    </label><span class="_1KrnW _1EnnQ _2ixlz">Noibai International Airport</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="_2o5Sa _4SAxd">
-                                                                <div class="_2Wlby">
-                                                                    <label class="_3FGbu">
-                                                                        <span class="_1KrnW jjGhl _2HSse">08:15</span>
-                                                                    </label><span class="_1KrnW _1EnnQ _2ixlz">29 Oct 2019</span>
-                                                                </div>
-                                                                <div class="vbAle">
-                                                                    <label class="_3FGbu">
-                                                                        <span class="_1KrnW jjGhl _2HSse">Ho Chi Minh City (SGN)</span>
-                                                                    </label><span class="_1KrnW _1EnnQ _2ixlz">Tansonnhat Intl</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="_18BlW _3_XyS _3Eewe">
-                                                            <div>
-                                                                <label class="_3FGbu"><span class="_1KrnW jjGhl _2HSse">Jetstar  </span></label><span class="_1KrnW _1EnnQ _2ixlz">BL-747</span>
-                                                            </div>
-                                                            <div>
-                                                                <ul class="_3Pr6R"></ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <span class="_1KrnW jjGhl _2HSse LNYpr"> 2h 15m, direct</span>
                                     </div>
                                 </div>
                                 <div class="_1HfUl _4SAxd">
                                     <div class="_2BA9l">
                                         <label class="_3d6Dz">
                                             <span class="_1KrnW jjGhl _2HSse">Departure flight price</span>
-                                        </label><span class="PuRp7">(<span class="_1KrnW jjGhl _2HSse">Inclusive of all taxes and surcharges</span>)</span>
+                                        </label>
                                     </div>
                                     <div class="_1LmLU">
                                         <div class="_2fwVg">
                                             <div class="_2y7PX"></div>
-                                            <div data-id="priceNow" class="_27kIL OIe3D">944.275 VND</div>
+                                            <div data-id="priceNow" class="_27kIL OIe3D">$1234</div>
                                             <p class="_2Uin5"></p>
                                         </div>
                                     </div>
+                                    <span class="PuRp7">(<span class="_1KrnW jjGhl _2HSse">Inclusive of all taxes and surcharges</span>)</span>
                                 </div>
                             </div>
                             <div class="_2mP4E">
-                                <label class="_3d6Dz"><span class="_1KrnW jjGhl box20">Change departure flight</span></label>
+                                <label class="_3d6Dz"><span class="_1KrnW jjGhl box20" onclick="changeFlight()">Change departure flight</span></label>
                             </div>
                         </div>
                     </div>
@@ -420,8 +376,8 @@
                                             <div class="_1PDJJ"><img class="_3JCi8" src="https://tvlk.imgix.net/imageResource/2019/09/16/1568609997285-658c304aa2757dc5ecc27248c9f66bb4.png?auto=compress%2Cformat&amp;cs=srgb&amp;fm=png&amp;ixlib=java-1.1.12&amp;q=75"></div>
                                         </div>
                                         <label class="yqTrt _3d6Dz">
-                                            <span class="_1KrnW jjGhl _2i_vU">Jetstar </span>
-                                            <span class="_1KrnW _1EnnQ Edww1">Economy</span>
+                                            <div><span class="_1KrnW jjGhl _2i_vU">Jetstar </span></div>
+                                            <div><span class="_1KrnW _1EnnQ Edww1">Economy</span></div>
                                         </label>
                                     </div>
                                 </div>
@@ -439,71 +395,27 @@
                             <div class="_1HfUl _4SAxd">
                                 <div class="_3ZbIu GjGlL">
                                     <label class="_3d6Dz">Total Duration:</label>
-                                    <div><span class="_1KrnW jjGhl _2HSse LNYpr"> 2h 15m, direct</span></div>
-                                </div>
-                                <div class="_3ZbIu _3mv8U wEBDl">
-                                    <label class="_3d6Dz"><span class="_1KrnW jjGhl box20">Details</span></label>
-                                    <div class="pzRKx">
-                                        <div class="_3tBNt eglwm LKTRB _2A27N" aria-live="off" style="background: rgb(245, 245, 245); min-width: 600px;">
-                                            <div class="_1xh05 _4SAxd">
-                                                <div class="fjJNd _4SAxd">
-                                                    <div class="_3_XyS _18BlW">
-                                                        <div class="_2o5Sa _4SAxd">
-                                                            <div class="_2Wlby">
-                                                                <label class="_3FGbu">
-                                                                    <span class="_1KrnW jjGhl _2HSse">06:00</span>
-                                                                </label><span class="_1KrnW _1EnnQ _2ixlz">29 Oct 2019</span>
-                                                            </div>
-                                                            <div class="vbAle">
-                                                                <label class="_3FGbu">
-                                                                    <span class="_1KrnW jjGhl _2HSse">Hanoi (HAN)</span>
-                                                                </label><span class="_1KrnW _1EnnQ _2ixlz">Noibai International Airport</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="_2o5Sa _4SAxd">
-                                                            <div class="_2Wlby">
-                                                                <label class="_3FGbu">
-                                                                    <span class="_1KrnW jjGhl _2HSse">08:15</span>
-                                                                </label><span class="_1KrnW _1EnnQ _2ixlz">29 Oct 2019</span>
-                                                            </div>
-                                                            <div class="vbAle">
-                                                                <label class="_3FGbu">
-                                                                    <span class="_1KrnW jjGhl _2HSse">Ho Chi Minh City (SGN)</span>
-                                                                </label><span class="_1KrnW _1EnnQ _2ixlz">Tansonnhat Intl</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="_18BlW _3_XyS _3Eewe">
-                                                        <div>
-                                                            <label class="_3FGbu"><span class="_1KrnW jjGhl _2HSse">Jetstar  </span></label><span class="_1KrnW _1EnnQ _2ixlz">BL-747</span>
-                                                        </div>
-                                                        <div>
-                                                            <ul class="_3Pr6R"></ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <span class="_1KrnW jjGhl _2HSse LNYpr"> 2h 15m, direct</span>
                                 </div>
                             </div>
                             <div class="_1HfUl _4SAxd">
                                 <div class="_2BA9l">
                                     <label class="_3d6Dz">
                                         <span class="_1KrnW jjGhl _2HSse">Departure flight price</span>
-                                    </label><span class="PuRp7">(<span class="_1KrnW jjGhl _2HSse">Inclusive of all taxes and surcharges</span>)</span>
+                                    </label>
                                 </div>
                                 <div class="_1LmLU">
                                     <div class="_2fwVg">
                                         <div class="_2y7PX"></div>
-                                        <div data-id="priceNow" class="_27kIL OIe3D">944.275 VND</div>
+                                        <div data-id="priceNow" class="_27kIL OIe3D">$4321</div>
                                         <p class="_2Uin5"></p>
                                     </div>
                                 </div>
+                                <span class="PuRp7">(<span class="_1KrnW jjGhl _2HSse">Inclusive of all taxes and surcharges</span>)</span>
                             </div>
                         </div>
                         <div class="_2mP4E">
-                            <label class="_3d6Dz"><span class="_1KrnW jjGhl box20">Change departure flight</span></label>
+                            <label class="_3d6Dz"><span class="_1KrnW jjGhl box20" onclick="changeFlight()">Change return flight</span></label>
                         </div>
                     </div>
                 </div>
