@@ -1,4 +1,4 @@
-﻿var pageDepart = 10, pageReturn = 10, loadMoreDepart = true;
+﻿var pageDepart = 10, pageReturn = 10, loadMoreDepart = true, flightDepart = null, flightReturn = null, viewDepart = false, viewReturn = false, isViewDepart = false;
 
 $(document).ready(function () {
     $('#main-nav').addClass('navbar-theme-abs navbar-theme-transparent navbar-theme-border');
@@ -9,6 +9,15 @@ $(document).ready(function () {
     //Add result flight search
     getSearchValue();
     getFlightSearch();
+
+    //Confirm modal on hide
+    $('#confirmbook').on('hidden.bs.modal', function () {
+        $('.confirmbook-modal .theme-search-results-item-flight-sections').empty();
+
+        if (isViewDepart)
+            flightDepart = null;
+        else flightReturn = null;
+    });
 })
 
 function returnTab() {
@@ -199,6 +208,9 @@ function getFlightSearch() {
                 if (loadMoreDepart)
                     onewayTab();
                 else returnTab();
+
+                if (viewDepart) reviewDepart();
+                if (viewReturn) reviewReturn();
             }, 1000);
         }
     });
@@ -217,4 +229,59 @@ function loadMore(event) {
     }
 
     getFlightSearch();
+}
+function chooseFlight(flights, price, seat) {
+    var flightsId = flights.split('.');
+    var divReturn = $(event.target).parents('.div-return');
+    var divOneway = $(event.target).parents('.div-oneway');
+
+    if ($('.div-return.hide').length > 0) return;
+
+    if (divOneway.length == 0) { //Return
+        flightReturn = $(event.target).parents('.theme-search-results-item-preview').find('.theme-search-results-item-flight-section').clone();
+
+        if ($('.result-oneway.hide').length == 0) {
+            viewReturn = true;
+            reviewReturn();
+        } else {
+            isViewDepart = false;
+            $('.confirmbook-modal .theme-search-results-item-flight-sections').append(flightDepart);
+            $('.confirmbook-modal .theme-search-results-item-flight-sections').append(flightReturn);
+            $('#confirmbook').modal('show');
+        }
+    } else { //Oneway
+        flightDepart = $(event.target).parents('.theme-search-results-item-preview').find('.theme-search-results-item-flight-section').clone();
+
+        if ($('.result-return.hide').length == 0) {
+            viewDepart = true;
+            reviewDepart();
+        } else {
+            isViewDepart = true;
+            $('.confirmbook-modal .theme-search-results-item-flight-sections').append($(flightDepart));
+            $('.confirmbook-modal .theme-search-results-item-flight-sections').append($(flightReturn));
+            $('#confirmbook').modal('show');
+        }
+    }
+}
+
+function reviewDepart() {
+    $('.div-oneway div.theme-search-results-sort, .div-oneway div.theme-search-results-sort-select, div.result-oneway, .load-depart').addClass('hide');
+    $('.div-oneway .resutl-title').addClass('_mb-0');
+    $('.departure-ticket').removeClass('hide');
+
+    setTimeout(function () {
+        returnTab();
+        $('.div-oneway').removeClass('disabled-tab cursor-pointer');
+    }, 50);
+}
+
+function reviewReturn() {
+    $('.div-return div.theme-search-results-sort, .div-return div.theme-search-results-sort-select, div.result-return, .load-return').addClass('hide');
+    $('.div-return .resutl-title').addClass('_mb-0');
+    $('.return-ticket').removeClass('hide');
+
+    setTimeout(function () {
+        onewayTab();
+        $('.div-return').removeClass('disabled-tab cursor-pointer');
+    }, 50);
 }

@@ -60,3 +60,14 @@
     height: 50px;
     padding: 21px 0;
 }
+.confirmbook-modal{
+    width: 800px;
+}
+.div-confirmbook{
+    border: 0px !important;
+}
+.theme-search-results-item.div-confirmbook.active,
+.theme-search-results-item.div-confirmbook:hover {
+    -webkit-box-shadow: unset !important;
+    box-shadow: unset !important;
+}

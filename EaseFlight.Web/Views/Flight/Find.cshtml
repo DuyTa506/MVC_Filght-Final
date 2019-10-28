@@ -34,7 +34,7 @@
                                             <label class="theme-search-area-section-label _op-06">From</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-location-pin"></i>
-                                                <input class="theme-search-area-section-input dropdown-toggle place-result" id="departure" data-toggle="dropdown" placeholder="Departure" oninput="oninputPlace()" spellcheck="false" readonly/>
+                                                <input class="theme-search-area-section-input dropdown-toggle place-result" id="departure" data-toggle="dropdown" placeholder="Departure" oninput="oninputPlace()" spellcheck="false" readonly />
                                                 <ul class="dropdown-menu place-dropdown ul-departure">
                                                     @foreach (var airport in airports)
                                                     {
@@ -73,7 +73,7 @@
                                             <label class="theme-search-area-section-label _op-06">To</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-location-pin"></i>
-                                                <input class="theme-search-area-section-input dropdown-toggle place-result" id="arrival" data-toggle="dropdown" placeholder="Arrival" oninput="oninputPlace()" spellcheck="false" readonly/>
+                                                <input class="theme-search-area-section-input dropdown-toggle place-result" id="arrival" data-toggle="dropdown" placeholder="Arrival" oninput="oninputPlace()" spellcheck="false" readonly />
                                                 <ul class="dropdown-menu place-dropdown ul-arrival">
                                                     @foreach (var airport in airports)
                                                     {
@@ -116,8 +116,8 @@
                                             <label class="theme-search-area-section-label _op-06">Departure Date</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-calendar"></i>
-                                                <input id="departureDate" class="theme-search-area-section-input datePickerStart _mob-h cursor-pointer" value="" type="text" placeholder="Departure Date"/>
-                                                <input class="theme-search-area-section-input _desk-h datePickerStart cursor-pointer" value="" type="text" placeholder="Departure Date"/>
+                                                <input id="departureDate" class="theme-search-area-section-input datePickerStart _mob-h cursor-pointer" value="" type="text" placeholder="Departure Date" />
+                                                <input class="theme-search-area-section-input _desk-h datePickerStart cursor-pointer" value="" type="text" placeholder="Departure Date" />
                                             </div>
                                         </div>
                                     </div>
@@ -126,8 +126,8 @@
                                             <label class="theme-search-area-section-label _op-06">Return Date</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-calendar"></i>
-                                                <input id="returnDate" class="theme-search-area-section-input datePickerEnd _mob-h cursor-pointer" value="" type="text" placeholder="Return Date"/>
-                                                <input class="theme-search-area-section-input _desk-h datePickerEnd cursor-pointer" value="" type="text" placeholder="Return Date"/>
+                                                <input id="returnDate" class="theme-search-area-section-input datePickerEnd _mob-h cursor-pointer" value="" type="text" placeholder="Return Date" />
+                                                <input class="theme-search-area-section-input _desk-h datePickerEnd cursor-pointer" value="" type="text" placeholder="Return Date" />
                                             </div>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@
                                             <label class="theme-search-area-section-label _op-06">Passengers</label>
                                             <div class="theme-search-area-section-inner">
                                                 <i class="theme-search-area-section-icon lin lin-people"></i>
-                                                <input class="theme-search-area-section-input cursor-pointer passenger-type" value="1 Adult, 0 Child, 0 Infant" type="text" readonly onclick="showPassenger()"/>
+                                                <input class="theme-search-area-section-input cursor-pointer passenger-type" value="1 Adult, 0 Child, 0 Infant" type="text" readonly onclick="showPassenger()" />
                                                 <div class="div-passenger-type noselect hide" id="FlySearchPassengers">
                                                     @foreach (var passenger in passengers)
                                                     {
@@ -243,10 +243,10 @@
                     <div class="theme-search-area-options theme-search-area-options-center theme-search-area-options-dot-primary clearfix">
                         <div class="btn-group theme-search-area-options-list" data-toggle="buttons">
                             <label class="btn btn-primary active">
-                                <input type="radio" name="flight-options" id="flight-option-1" checked/>One Way
+                                <input type="radio" name="flight-options" id="flight-option-1" checked />One Way
                             </label>
                             <label class="btn btn-primary">
-                                <input type="radio" name="flight-options" id="flight-option-2"/>Round Trip
+                                <input type="radio" name="flight-options" id="flight-option-2" />Round Trip
                             </label>
                         </div>
                     </div>
@@ -376,6 +376,177 @@
                         <div class="progress-bar" style="width: 0%;">
                             <h3 class="progress-title">Searching</h3>
                             <div class="progress-value">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal confirm book for round trip-->
+<div class="modal fade" id="confirmbook" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog confirmbook-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Round-trip flight details</p>
+                <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item- div-confirmbook">
+                    <div class="theme-search-results-item-preview">
+                        <a class="theme-search-results-item-mask-link" href="#itemconfirm" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="itemconfirm"></a>
+                        <div class="row" data-gutter="20">
+                            <div class="col-md-10 ">
+                                <div class="theme-search-results-item-flight-sections">
+                                </div>
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="theme-search-results-item-book">
+                                    <div class="theme-search-results-item-price">
+                                        <p class="theme-search-results-item-price-tag">$20/pax (Economy)</p>
+                                        <p class="theme-search-results-item-price-sign">Inclusive of all taxes and surcharges</p>
+                                    </div>
+                                    <a class="btn btn-primary-inverse btn-block theme-search-results-item-price-btn">Book</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse theme-search-results-item-collapse" id="itemconfirm">
+                        <div class="theme-search-results-item-extend">
+                            <a class="theme-search-results-item-extend-close" href="#itemconfirm" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="itemconfirm">&#10005;</a>
+                            <div class="theme-search-results-item-extend-inner">
+                                <div class="theme-search-results-item-flight-detail-items">
+                                    <div class="theme-search-results-item-flight-details">
+                                        <div class="row">
+                                            <div class="col-md-3 ">
+                                                <div class="theme-search-results-item-flight-details-info">
+                                                    <h5 class="theme-search-results-item-flight-details-info-title">Depart</h5>
+                                                    <p class="theme-search-results-item-flight-details-info-date">May, 20 2019</p>
+                                                    <p class="theme-search-results-item-flight-details-info-cities"></p>
+                                                    <p class="theme-search-results-item-flight-details-info-fly-time">20h 30m</p>
+                                                    <p class="theme-search-results-item-flight-details-info-stops">Direct</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 ">
+                                                <div class="theme-search-results-item-flight-details-schedule">
+                                                    <ul class="theme-search-results-item-flight-details-schedule-list">
+                                                        <li class="transit">
+                                                            <i class="fa fa-exchange theme-search-results-item-flight-details-schedule-icon"></i>
+                                                            <p class="theme-search-results-item-flight-details-schedule-transfer transit-title">
+                                                                Transit for
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                            <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                            <p class="theme-search-results-item-flight-details-schedule-date">May, 20 2019</p>
+                                                            <div class="theme-search-results-item-flight-details-schedule-time">
+                                                                <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                                    20h:30
+                                                                    <span>am</span>
+                                                                </span>
+                                                                <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                                <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                                    20h30
+                                                                    <span>pm</span>
+                                                                </span>
+                                                            </div>
+                                                            <p class="theme-search-results-item-flight-details-schedule-fly-time">
+                                                                20h30m
+                                                            </p>
+                                                            <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                                <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                        <b>(SGN)</b>Noi Bai Airport
+                                                                    </p>
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-city">Ha Noi, vie nam</p>
+                                                                </div>
+                                                                <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                                    <span>&rarr;</span>
+                                                                </div>
+                                                                <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                        <b>(123)</b>Tan son nhat Airport
+                                                                    </p>
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-city">ho chi minh, bivetn nam</p>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                                <li>nothing</li>
+                                                                <li>airbus 330</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="theme-search-results-item-flight-detail-items">
+                                    <div class="theme-search-results-item-flight-details">
+                                        <div class="row">
+                                            <div class="col-md-3 ">
+                                                <div class="theme-search-results-item-flight-details-info">
+                                                    <h5 class="theme-search-results-item-flight-details-info-title">Return</h5>
+                                                    <p class="theme-search-results-item-flight-details-info-date">May, 20 2019</p>
+                                                    <p class="theme-search-results-item-flight-details-info-cities"></p>
+                                                    <p class="theme-search-results-item-flight-details-info-fly-time">20h 30m</p>
+                                                    <p class="theme-search-results-item-flight-details-info-stops">Direct</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 ">
+                                                <div class="theme-search-results-item-flight-details-schedule">
+                                                    <ul class="theme-search-results-item-flight-details-schedule-list">
+                                                        <li class="transit">
+                                                            <i class="fa fa-exchange theme-search-results-item-flight-details-schedule-icon"></i>
+                                                            <p class="theme-search-results-item-flight-details-schedule-transfer transit-title">
+                                                                Transit for
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                            <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                            <p class="theme-search-results-item-flight-details-schedule-date">May, 20 2019</p>
+                                                            <div class="theme-search-results-item-flight-details-schedule-time">
+                                                                <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                                    20h:30
+                                                                    <span>am</span>
+                                                                </span>
+                                                                <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                                <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                                    20h30
+                                                                    <span>pm</span>
+                                                                </span>
+                                                            </div>
+                                                            <p class="theme-search-results-item-flight-details-schedule-fly-time">
+                                                                20h30m
+                                                            </p>
+                                                            <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                                <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                        <b>(SGN)</b>Noi Bai Airport
+                                                                    </p>
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-city">Ha Noi, vie nam</p>
+                                                                </div>
+                                                                <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                                    <span>&rarr;</span>
+                                                                </div>
+                                                                <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                        <b>(123)</b>Tan son nhat Airport
+                                                                    </p>
+                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-city">ho chi minh, bivetn nam</p>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                                <li>nothing</li>
+                                                                <li>airbus 330</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
