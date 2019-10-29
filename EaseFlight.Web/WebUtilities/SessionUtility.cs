@@ -1,4 +1,5 @@
 ﻿using EaseFlight.Common.Constants;
+using EaseFlight.Models.CustomModel;
 using EaseFlight.Models.EntityModels;
 using System.Web;
 
@@ -64,6 +65,25 @@ namespace EaseFlight.Web.WebUtilities
         public static bool IsSessionAlive()
         {
             return HttpContext.Current.Session[Constant.CONST_SESSION_KEY_LOGGED_USER] != null;
+        }
+        #endregion
+
+        #region Booking flight
+        public static void SetBookingSession(BookingModel booking)
+        {
+            SetSessionKey(Constant.CONST_SESSION_KEY_BOOKING, booking, 10);
+        }
+
+        public static BookingModel GetBookingSession()
+        {
+            var booking = GetSessionValue<BookingModel>(Constant.CONST_SESSION_KEY_BOOKING);
+
+            return booking;
+        }
+
+        public static void RemoveBookingSession()
+        {
+            RemoveSessionKey(Constant.CONST_SESSION_KEY_BOOKING);
         }
         #endregion
     }

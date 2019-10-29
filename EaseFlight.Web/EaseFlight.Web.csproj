@@ -192,6 +192,7 @@
     <Content Include="Scripts\user\basejs\typeahead.js" />
     <Content Include="Scripts\user\basejs\window-scroll-action.js" />
     <Content Include="Scripts\user\pages\account.js" />
+    <Content Include="Scripts\user\pages\booking.js" />
     <Content Include="Scripts\user\pages\flight.js" />
     <Content Include="Scripts\user\pages\home.js" />
     <Content Include="Web.config" />
@@ -238,6 +239,7 @@
     <Content Include="Views\GenerateData\Done.cshtml" />
     <Content Include="Views\GenerateData\ViewDataGenerate.cshtml" />
     <Content Include="Views\Flight\_FlightResultPartial.cshtml" />
+    <Content Include="Views\Flight\Booking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

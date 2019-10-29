@@ -67,6 +67,7 @@ namespace EaseFlight.Web.Controllers
             ViewData["airports"] = airportRegion;
             ViewData["passengers"] = passengers;
             ViewData["seatClassList"] = this.SeatClassService.FindAll();
+            SessionUtility.RemoveBookingSession();
 
             return View();
         }
@@ -163,6 +164,57 @@ namespace EaseFlight.Web.Controllers
             {
                 result.Data = new { type = "error" };
             }
+
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult Booking()
+        {
+            if (SessionUtility.GetBookingSession() == null)
+                return RedirectToAction("Index", "Home");
+
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Booking(FormCollection collection)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var departure = this.AirportService.Find(int.Parse(collection.Get("departure")));
+            var arrival = this.AirportService.Find(int.Parse(collection.Get("arrival")));
+            var seatClass = this.SeatClassService.Find(int.Parse(collection.Get("seat")));
+            var adult = int.Parse(collection.Get("adult"));
+            var child = int.Parse(collection.Get("child"));
+            var infant = int.Parse(collection.Get("infant"));
+            var price = double.Parse(collection.Get("price"));
+            var roundTrip = bool.Parse(collection.Get("roundtrip"));
+            var flightDepart = collection.Get("flightDepart").Split('.').ToList();
+            var flightReturn = collection.Get("flightReturn").Split('.').ToList();
+            var departList = new List<FlightModel>();
+            var returnList = new List<FlightModel>();
+            var passengerType = this.PassengerTypeService.FindAll().ToList();
+
+            flightDepart.ForEach(id => departList.Add(this.FlightService.Find(int.Parse(id))));
+
+            if(roundTrip)
+                flightReturn.ForEach(id => returnList.Add(this.FlightService.Find(int.Parse(id))));
+
+            var booking = new BookingModel
+            {
+                DepartFlight = departList,
+                ReturnFlight = returnList,
+                Departure = departure,
+                Arrival = arrival,
+                SeatClass = seatClass,
+                PassengerType = passengerType,
+                Adult = adult,
+                Child = child,
+                Infant = infant,
+                Price = price
+            };
+
+            SessionUtility.SetBookingSession(booking);
 
             return result;
         }

@@ -1,5 +1,6 @@
 ﻿var pageDepart = 10, pageReturn = 10, loadMoreDepart = true, flightDepart = null, flightReturn = null, viewDepart = false, viewReturn = false, isViewDepart = false,
-    firstTimeDepart = 0, firstTimeReturn = 0;
+    firstTimeDepart = 0, firstTimeReturn = 0, ticketDepart = null, ticketReturn = null, priceDepart = 0, priceReturn = 0, detailDepart = null, detailReturn = null,
+    flightIdDepart = '', flightIdReturn = '';
 
 $(document).ready(function () {
     $('#main-nav').addClass('navbar-theme-abs navbar-theme-transparent navbar-theme-border');
@@ -14,6 +15,7 @@ $(document).ready(function () {
     //Confirm modal on hide
     $('#confirmbook').on('hidden.bs.modal', function () {
         $('.confirmbook-modal .theme-search-results-item-flight-sections').empty();
+        $('.confirmbook-modal .theme-search-results-item-flight-detail-items').empty();
 
         if (isViewDepart)
             flightDepart = null;
@@ -226,6 +228,12 @@ function getFlightSearch() {
 
                 if (viewDepart) reviewDepart();
                 if (viewReturn) reviewReturn();
+
+                if (ticketDepart != null)
+                    $('.departure-ticket').html(ticketDepart);
+
+                if (ticketReturn != null)
+                    $('.return-ticket').html(ticketReturn);
             }, 1000);
         }
     });
@@ -246,34 +254,94 @@ function loadMore(event) {
     getFlightSearch();
 }
 function chooseFlight(flights, price, seat) {
-    var flightsId = flights.split('.');
     var divReturn = $(event.target).parents('.div-return');
     var divOneway = $(event.target).parents('.div-oneway');
+    var parent = $(event.target).parents('.theme-search-results-item-preview');
+    var img = parent.find('img').clone();
 
-    if ($('.div-return.hide').length > 0) return;
+    if ($('.div-return.hide').length > 0) {
+        getBooking(flights, price, false);
+        return;
+    }
 
     if (divOneway.length == 0) { //Return
-        flightReturn = $(event.target).parents('.theme-search-results-item-preview').find('.theme-search-results-item-flight-section').clone();
+        flightReturn = parent.find('.theme-search-results-item-flight-section').clone();
+        detailReturn = parent.parent().find('.theme-search-results-item-flight-details').clone();
+        priceReturn = parseInt(price);
+        flightIdReturn = flights;
 
         if ($('.result-oneway.hide').length == 0) {
+            //Set airline name and photo
+            var airline = parent.find('.theme-search-results-item-flight-section-airline-title').text().split('by')[1];
+            $('.return-ticket .airline-ticket').text(airline);
+            $('.return-ticket .airline-ticket-photo').empty();
+            $('.return-ticket .airline-ticket-photo').append($(img));
+            $('.return-ticket .airline-ticket-photo img').removeClass('theme-search-results-item-flight-section-airline-logo');
+            $('.return-ticket .airline-ticket-photo img').removeClass('top25percent');
+            $('.return-ticket .airline-ticket-photo img').removeClass('top75percent');
+            $('.return-ticket .airline-ticket-photo img').addClass('_3JCi8');
+
+            //Set Time depart and arrival
+            $('.return-ticket .time-depart').html($(parent.find('.time-from').clone()));
+            $('.return-ticket .time-arrival').html($(parent.find('.time-to').clone()));
+
+            //Set price
+            $('.return-ticket .price-ticket').text(parent.find('.theme-search-results-item-price-tag').text());
+
+            //Set time
+            $('.return-ticket .time-flight-ticket').text(parent.find('.time-flight').text() + ', ' + parent.parent().find('.theme-search-results-item-flight-details-info-stops').text());
+
+            ticketReturn = $('.return-ticket').html();
+
             viewReturn = true;
             reviewReturn();
         } else {
             isViewDepart = false;
             $('.confirmbook-modal .theme-search-results-item-flight-sections').append(flightDepart);
             $('.confirmbook-modal .theme-search-results-item-flight-sections').append(flightReturn);
+            $('.confirmbook-modal .theme-search-results-item-flight-detail-items').append($(detailDepart));
+            $('.confirmbook-modal .theme-search-results-item-flight-detail-items').append($(detailReturn));
+            $('.confirmbook-modal .theme-search-results-item-price-tag').text('$' + (priceDepart + priceReturn) + '/pax (' + $('.span-seat').text() + ')');
             $('#confirmbook').modal('show');
         }
     } else { //Oneway
-        flightDepart = $(event.target).parents('.theme-search-results-item-preview').find('.theme-search-results-item-flight-section').clone();
+        flightDepart = parent.find('.theme-search-results-item-flight-section').clone();
+        detailDepart = parent.parent().find('.theme-search-results-item-flight-details').clone();
+        priceDepart = parseInt(price);
+        flightIdDepart = flights;
 
         if ($('.result-return.hide').length == 0) {
+            //Set airline name and photo
+            var airline = parent.find('.theme-search-results-item-flight-section-airline-title').text().split('by')[1];
+            $('.departure-ticket .airline-ticket').text(airline);
+            $('.departure-ticket .airline-ticket-photo').empty();
+            $('.departure-ticket .airline-ticket-photo').append($(img));
+            $('.departure-ticket .airline-ticket-photo img').removeClass('theme-search-results-item-flight-section-airline-logo');
+            $('.departure-ticket .airline-ticket-photo img').removeClass('top25percent');
+            $('.departure-ticket .airline-ticket-photo img').removeClass('top75percent');
+            $('.departure-ticket .airline-ticket-photo img').addClass('_3JCi8');
+                
+            //Set Time depart and arrival
+            $('.departure-ticket .time-depart').html($(parent.find('.time-from').clone()));
+            $('.departure-ticket .time-arrival').html($(parent.find('.time-to').clone()));
+
+            //Set price
+            $('.departure-ticket .price-ticket').text(parent.find('.theme-search-results-item-price-tag').text());
+
+            //Set time
+            $('.departure-ticket .time-flight-ticket').text(parent.find('.time-flight').text() + ', ' + parent.parent().find('.theme-search-results-item-flight-details-info-stops').text());
+
+            ticketDepart = $('.departure-ticket').html();
+
             viewDepart = true;
             reviewDepart();
         } else {
             isViewDepart = true;
             $('.confirmbook-modal .theme-search-results-item-flight-sections').append($(flightDepart));
             $('.confirmbook-modal .theme-search-results-item-flight-sections').append($(flightReturn));
+            $('.confirmbook-modal .theme-search-results-item-flight-detail-items').append($(detailDepart));
+            $('.confirmbook-modal .theme-search-results-item-flight-detail-items').append($(detailReturn));
+            $('.confirmbook-modal .theme-search-results-item-price-tag').text('$' + (priceDepart + priceReturn) + '/pax (' + $('.span-seat').text() + ')');
             $('#confirmbook').modal('show');
         }
     }
@@ -313,5 +381,37 @@ function changeFlight() {
     }
 
     firstTimeDepart = 0; viewDepart = false; firstTimeReturn = 0; viewReturn = false;
+}
 
+function getBooking(flights, price, rountrip) {
+    var formData = new FormData();
+    var parameters = window.location.search.slice(1).split('&');
+    var flightDepart = flightIdDepart;
+    var flightReturn = flightIdReturn;
+
+    for (var i = 0; i < parameters.length; ++i) {
+        var param = parameters[i].split('=');
+        formData.append(param[0], param[1]);
+    }
+
+    if (rountrip) //Round trip
+        price = priceDepart + priceReturn;
+    else //One way
+        flightDepart = flights;
+
+    formData.append('price', price);
+    formData.append('flightDepart', flightDepart);
+    formData.append('flightReturn', flightReturn);
+
+    $.ajax({
+        url: '/Flight/Booking',
+        type: 'post',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            window.location.href = '/Flight/Booking';
+        }
+    });
 }

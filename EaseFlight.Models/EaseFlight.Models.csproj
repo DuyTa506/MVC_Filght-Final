@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomModel\AirportRegionModel.cs" />
+    <Compile Include="CustomModel\BookingModel.cs" />
     <Compile Include="CustomModel\ResultFlightModel.cs" />
     <Compile Include="CustomModel\SearchFlightModel.cs" />
     <Compile Include="EntityModels\AccountModel.cs" />

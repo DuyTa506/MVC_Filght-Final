@@ -35,29 +35,30 @@
                                     <div class="_4SAxd">
                                         <div>
                                             <div class="_3rXGU">
-                                                <div class="_1PDJJ"><img class="_3JCi8" src="https://tvlk.imgix.net/imageResource/2019/09/16/1568609997285-658c304aa2757dc5ecc27248c9f66bb4.png?auto=compress%2Cformat&amp;cs=srgb&amp;fm=png&amp;ixlib=java-1.1.12&amp;q=75"></div>
+                                                <div class="_1PDJJ airline-ticket-photo">
+                                                </div>
                                             </div>
                                             <label class="yqTrt _3d6Dz">
-                                                <div><span class="_1KrnW jjGhl _2i_vU">Jetstar</span></div>
+                                                <div><span class="_1KrnW jjGhl _2i_vU airline-ticket"></span></div>
                                                 <div><span class="_1KrnW _1EnnQ Edww1">@Model.SeatClass.Name</span></div>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="_1aalx">
                                         <div class="qk3nX">
-                                            <div class="_1vxSr">06:00</div>
-                                            <div class="_4r7rv" title="Hanoi (HAN)">Hanoi (HAN)</div>
+                                            <div class="_1vxSr time-depart"></div>
+                                            <div class="_4r7rv" title="@Model.From.Name.Split('-')[1] (@Model.From.Name.Split('-')[0].Trim())">@Model.From.Name.Split('-')[1] (@Model.From.Name.Split('-')[0].Trim())</div>
                                         </div>
                                         <div class="qk3nX">
-                                            <div class="_1vxSr">08:15 </div>
-                                            <div class="_4r7rv" title="Ho Chi Minh City (SGN)">Ho Chi Minh City (SGN)</div>
+                                            <div class="_1vxSr time-arrival"></div>
+                                            <div class="_4r7rv" title="@Model.To.Name.Split('-')[1] (@Model.To.Name.Split('-')[0].Trim())">@Model.To.Name.Split('-')[1] (@Model.To.Name.Split('-')[0].Trim())</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="_1HfUl _4SAxd">
                                     <div class="_3ZbIu GjGlL">
                                         <label class="_3d6Dz">Total Duration:</label>
-                                        <span class="_1KrnW jjGhl _2HSse LNYpr"> 2h 15m, direct</span>
+                                        <span class="_1KrnW jjGhl _2HSse LNYpr time-flight-ticket"></span>
                                     </div>
                                 </div>
                                 <div class="_1HfUl _4SAxd">
@@ -69,7 +70,7 @@
                                     <div class="_1LmLU">
                                         <div class="_2fwVg">
                                             <div class="_2y7PX"></div>
-                                            <div data-id="priceNow" class="_27kIL OIe3D">$1234</div>
+                                            <div data-id="priceNow" class="_27kIL OIe3D price-ticket"></div>
                                             <p class="_2Uin5"></p>
                                         </div>
                                     </div>
@@ -185,7 +186,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3 ">
                                                         <div class="theme-search-results-item-flight-section-meta">
-                                                            <p class="theme-search-results-item-flight-section-meta-time">
+                                                            <p class="theme-search-results-item-flight-section-meta-time time-from">
                                                                 @result.FlightList.First().DepartureDate.Value.ToString("hh:mm")
                                                                 <span>@result.FlightList.First().DepartureDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
                                                             </p>
@@ -196,7 +197,7 @@
                                                     <div class="col-md-6 ">
                                                         <div class="theme-search-results-item-flight-section-path">
                                                             <div class="theme-search-results-item-flight-section-path-fly-time">
-                                                                <p>
+                                                                <p class="time-flight">
                                                                     @{
                                                                         var span = result.FlightList.Last().ArrivalDate.Value.Subtract(result.FlightList.First().DepartureDate.Value);
                                                                     }
@@ -226,7 +227,7 @@
                                                     </div>
                                                     <div class="col-md-3 ">
                                                         <div class="theme-search-results-item-flight-section-meta">
-                                                            <p class="theme-search-results-item-flight-section-meta-time">
+                                                            <p class="theme-search-results-item-flight-section-meta-time time-to">
                                                                 @result.FlightList.Last().ArrivalDate.Value.ToString("hh:mm")
                                                                 <span>@result.FlightList.Last().ArrivalDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
                                                             </p>
@@ -373,29 +374,30 @@
                                 <div class="_4SAxd">
                                     <div>
                                         <div class="_3rXGU">
-                                            <div class="_1PDJJ"><img class="_3JCi8" src="https://tvlk.imgix.net/imageResource/2019/09/16/1568609997285-658c304aa2757dc5ecc27248c9f66bb4.png?auto=compress%2Cformat&amp;cs=srgb&amp;fm=png&amp;ixlib=java-1.1.12&amp;q=75"></div>
+                                            <div class="_1PDJJ airline-ticket-photo">
+                                            </div>
                                         </div>
                                         <label class="yqTrt _3d6Dz">
-                                            <div><span class="_1KrnW jjGhl _2i_vU">Jetstar </span></div>
+                                            <div><span class="_1KrnW jjGhl _2i_vU airline-ticket"></span></div>
                                             <div><span class="_1KrnW _1EnnQ Edww1">Economy</span></div>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="_1aalx">
                                     <div class="qk3nX">
-                                        <div class="_1vxSr">06:00</div>
-                                        <div class="_4r7rv" title="Hanoi (HAN)">Hanoi (HAN)</div>
+                                        <div class="_1vxSr time-depart"></div>
+                                        <div class="_4r7rv" title="@Model.To.Name.Split('-')[1] (@Model.To.Name.Split('-')[0].Trim())">@Model.To.Name.Split('-')[1] (@Model.To.Name.Split('-')[0].Trim())</div>
                                     </div>
                                     <div class="qk3nX">
-                                        <div class="_1vxSr">08:15 </div>
-                                        <div class="_4r7rv" title="Ho Chi Minh City (SGN)">Ho Chi Minh City (SGN)</div>
+                                        <div class="_1vxSr time-arrival"></div>
+                                        <div class="_4r7rv" title="@Model.From.Name.Split('-')[1] (@Model.From.Name.Split('-')[0].Trim())">@Model.From.Name.Split('-')[1] (@Model.From.Name.Split('-')[0].Trim())</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="_1HfUl _4SAxd">
                                 <div class="_3ZbIu GjGlL">
                                     <label class="_3d6Dz">Total Duration:</label>
-                                    <span class="_1KrnW jjGhl _2HSse LNYpr"> 2h 15m, direct</span>
+                                    <span class="_1KrnW jjGhl _2HSse LNYpr time-flight-ticket"></span>
                                 </div>
                             </div>
                             <div class="_1HfUl _4SAxd">
@@ -407,7 +409,7 @@
                                 <div class="_1LmLU">
                                     <div class="_2fwVg">
                                         <div class="_2y7PX"></div>
-                                        <div data-id="priceNow" class="_27kIL OIe3D">$4321</div>
+                                        <div data-id="priceNow" class="_27kIL OIe3D price-ticket"></div>
                                         <p class="_2Uin5"></p>
                                     </div>
                                 </div>
@@ -512,7 +514,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3 ">
                                                         <div class="theme-search-results-item-flight-section-meta">
-                                                            <p class="theme-search-results-item-flight-section-meta-time">
+                                                            <p class="theme-search-results-item-flight-section-meta-time time-from">
                                                                 @result.FlightList.First().DepartureDate.Value.ToString("hh:mm")
                                                                 <span>@result.FlightList.First().DepartureDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
                                                             </p>
@@ -523,7 +525,7 @@
                                                     <div class="col-md-6 ">
                                                         <div class="theme-search-results-item-flight-section-path">
                                                             <div class="theme-search-results-item-flight-section-path-fly-time">
-                                                                <p>
+                                                                <p class="time-flight">
                                                                     @{
                                                                         var span = result.FlightList.Last().ArrivalDate.Value.Subtract(result.FlightList.First().DepartureDate.Value);
                                                                     }
@@ -553,7 +555,7 @@
                                                     </div>
                                                     <div class="col-md-3 ">
                                                         <div class="theme-search-results-item-flight-section-meta">
-                                                            <p class="theme-search-results-item-flight-section-meta-time">
+                                                            <p class="theme-search-results-item-flight-section-meta-time time-to">
                                                                 @result.FlightList.Last().ArrivalDate.Value.ToString("hh:mm")
                                                                 <span>@result.FlightList.Last().ArrivalDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
                                                             </p>

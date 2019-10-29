@@ -15,6 +15,7 @@
 
         #region Session keys
         public static string CONST_SESSION_KEY_LOGGED_USER = "LoggedUser";
+        public static string CONST_SESSION_KEY_BOOKING = "Booking";
         #endregion
 
         #region Roles
