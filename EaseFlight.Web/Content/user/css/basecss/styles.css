@@ -5748,6 +5748,9 @@ img.mfp-img {
     filter: alpha(opacity=50);
   }
 }
+.is_stuck{
+    top: 52px !important;
+}
 .theme-about-us-section-body {
   margin-bottom: -10px;
 }
@@ -8814,7 +8817,7 @@ body {
 }
 .theme-sidebar-section {
   background: #fff;
-  padding: 25px 30px;
+  padding: 20px 30px;
   border: 1px solid #e6e6e6;
   border-radius: 2px;
 }
@@ -9582,8 +9585,7 @@ body {
   box-shadow: none !important;
 }
 .theme-payment-page-item-thumb .theme-search-results-item-img {
-  max-height: 100px;
-  max-width: 100%;
+  max-width: 40%;
   float: right;
   display: block;
   width: auto;
@@ -9693,7 +9695,7 @@ body {
 }
 .theme-payment-page-sections-item {
   margin-bottom: 30px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #e6e6e6;
 }
 .theme-payment-page-sections-item-title {
@@ -14795,6 +14797,8 @@ body {
 .fixed {
     position: fixed !important;
     transition: all 0.6s ease;
+    width: 100%;
+    z-index: 999;
 }
 .cursor-pointer{
     cursor: pointer !important;
@@ -15213,4 +15217,7 @@ body {
     margin: 0 -16px -16px;
     padding: 5px 20px;
     text-align: center
+}
+.theme-page-section-xxl{
+    padding-bottom: 45px !important;
 }

@@ -1,0 +1,8 @@
+﻿.book-button{
+    float: right;
+}
+.passenger-price {
+    padding-left: 5px;
+    font-size: 11px;
+    opacity: 0.65;
+}

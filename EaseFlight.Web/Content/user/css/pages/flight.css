@@ -75,3 +75,7 @@
     font-size: 18px;
     font-weight: bold;
 }
+.ticket-review {
+    max-width: 320px;
+    min-width: 320px;
+}

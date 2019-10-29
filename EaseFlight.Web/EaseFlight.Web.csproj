@@ -171,6 +171,7 @@
     <Content Include="Content\images\logo-black.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\user\css\pages\accessDenied.css" />
+    <Content Include="Content\user\css\pages\booking.css" />
     <Content Include="Content\user\css\pages\flight.css" />
     <Content Include="Content\user\css\pages\home.css" />
     <Content Include="favicon.ico" />

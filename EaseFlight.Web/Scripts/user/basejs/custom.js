@@ -41,13 +41,16 @@ $(document).ready(function(){
     });
 
     $(window).bind('scroll', function () {
-        var headerHeight = $('.theme-hero-area-body').height();
-        if ($(window).scrollTop() > headerHeight) {
-            $('#main-nav').addClass('fixed');
-            $('#main-nav').removeClass('navbar-theme-transparent');
-        } else {
-            $('#main-nav').removeClass('fixed');
-            $('#main-nav').addClass('navbar-theme-transparent');
+        if (window.location.pathname == '/Flight/Find') {
+            var headerHeight = $('.theme-hero-area-body').height();
+
+            if ($(window).scrollTop() > headerHeight) {
+                $('#main-nav').addClass('fixed');
+                $('#main-nav').removeClass('navbar-theme-transparent');
+            } else {
+                $('#main-nav').removeClass('fixed');
+                $('#main-nav').addClass('navbar-theme-transparent');
+            }
         }
     });
 

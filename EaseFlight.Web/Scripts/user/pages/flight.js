@@ -34,6 +34,7 @@ function returnTab() {
         $('.div-return .load-more').removeClass('hide');
         $('.div-oneway .load-more').addClass('hide');
         $('.div-return').attr("style", "");
+        $('.div-return').removeClass('ticket-review');
 
         if ($('.return-ticket.hide').length == 0 || $('.departure-ticket.hide').length == 0) 
             ++firstTimeReturn;
@@ -63,6 +64,7 @@ function onewayTab() {
         $('.div-return .load-more').addClass('hide');
         $('.div-oneway .load-more').removeClass('hide');
         $('.div-oneway').attr("style", "");
+        $('.div-oneway').removeClass('ticket-review');
 
         if ($('.departure-ticket.hide').length == 0 || $('.return-ticket.hide').length == 0)
             ++firstTimeDepart;
@@ -355,6 +357,7 @@ function reviewDepart() {
     setTimeout(function () {
         returnTab();
         $('.div-oneway').removeClass('disabled-tab cursor-pointer');
+        $('.div-oneway').addClass('ticket-review');
     }, 50);
 }
 
@@ -366,6 +369,7 @@ function reviewReturn() {
     setTimeout(function () {
         onewayTab();
         $('.div-return').removeClass('disabled-tab cursor-pointer');
+        $('.div-return').addClass('ticket-review');
     }, 50);
 }
 

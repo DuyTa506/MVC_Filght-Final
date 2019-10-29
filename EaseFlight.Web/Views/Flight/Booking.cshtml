@@ -1,14 +1,22 @@
 ﻿@using System.Globalization;
 @using EaseFlight.Web.WebUtilities;
+@using EaseFlight.Common.Constants;
 @{
     ViewBag.Title = "Booking";
     var booking = SessionUtility.GetBookingSession();
     var airlineDepart = booking.DepartFlight.Select(flight => flight.Plane.Airline).Distinct().ToList();
     var roundTrip = booking.ReturnFlight.Count() > 0;
+    var percent = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Select(type => type.Discount.Value).FirstOrDefault();
+    var priceInfant = Math.Round(booking.Price - (booking.Price / 100) * percent, 2);
+    var percent2 = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Select(type => type.Discount.Value).FirstOrDefault();
+    var priceChild = Math.Round(booking.Price - (booking.Price / 100) * percent2, 2);
+
+    var totalPrice = booking.Price + (booking.Child > 0 ? priceChild : 0) + (booking.Infant > 0 ? priceInfant : 0);
 }
 @Scripts.Render("~/bundles/booking")
+@Styles.Render("~/Content/booking")
 
-<div class="theme-page-section theme-page-section-lg">
+<div class="theme-page-section theme-page-section-xxl">
     <div class="container">
         <div class="row row-col-static row-col-mob-gap" id="sticky-parent" data-gutter="60">
             <div class="col-md-8 ">
@@ -715,9 +723,9 @@
                             <div class="theme-payment-page-booking-header">
                                 <h3 class="theme-payment-page-booking-title">Total</h3>
                                 <p class="theme-payment-page-booking-subtitle">By clicking book now button you agree with terms and conditionals and money back gurantee. Thank you for trusting our service.</p>
-                                <p class="theme-payment-page-booking-price">$670.00</p>
+                                <p class="theme-payment-page-booking-price">$@totalPrice</p>
                             </div>
-                            <a class="btn _tt-uc btn-primary-inverse btn-lg btn-block" href="#">Booking With Paypal</a>
+                            <a class="btn _tt-uc btn-primary-inverse btn-sm book-button" href="#">Booking With Paypal</a>
                         </div>
                     </div>
                 </div>
@@ -740,14 +748,40 @@
                         <div class="theme-sidebar-section-charges">
                             <ul class="theme-sidebar-section-charges-list">
                                 <li class="theme-sidebar-section-charges-item">
-                                    <h5 class="theme-sidebar-section-charges-item-title">1 adult</h5>
-                                    <p class="theme-sidebar-section-charges-item-subtitle">Economy</p>
-                                    <p class="theme-sidebar-section-charges-item-price">$615.00</p>
+                                    <h5 class="theme-sidebar-section-charges-item-title">1 Adult 
+                                        <span class="passenger-price">x@(booking.Adult)</span>
+                                    </h5>
+                                    <p class="theme-sidebar-section-charges-item-subtitle">@booking.SeatClass.Name</p>
+                                    <p class="theme-sidebar-section-charges-item-price">$@booking.Price</p>
                                 </li>
+                                @if (booking.Child > 0)
+                                {
+                                    <li class="theme-sidebar-section-charges-item">
+                                        <h5 class="theme-sidebar-section-charges-item-title">1 Child
+                                            <span class="passenger-price">x@(booking.Child)</span>
+                                        </h5>
+                                        <p class="theme-sidebar-section-charges-item-subtitle">@booking.SeatClass.Name</p>
+                                        <p class="theme-sidebar-section-charges-item-price">
+                                            $@priceChild
+                                        </p>
+                                    </li>
+                                }
+                                @if (booking.Infant > 0)
+                                {
+                                    <li class="theme-sidebar-section-charges-item">
+                                        <h5 class="theme-sidebar-section-charges-item-title">1 Infant
+                                            <span class="passenger-price">x@(booking.Infant)</span>
+                                        </h5>
+                                        <p class="theme-sidebar-section-charges-item-subtitle">@booking.SeatClass.Name</p>
+                                        <p class="theme-sidebar-section-charges-item-price">
+                                            $@priceInfant
+                                        </p>
+                                    </li>
+                                }
                             </ul>
                             <p class="theme-sidebar-section-charges-total">
                                 Total
-                                <span>$670.00</span>
+                                <span>$@totalPrice</span>
                             </p>
                         </div>
                     </div>

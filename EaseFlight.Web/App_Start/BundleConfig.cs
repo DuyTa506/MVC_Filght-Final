@@ -54,6 +54,9 @@ namespace EaseFlight.Web
 
             bundles.Add(new StyleBundle("~/Content/accessDenied").Include(
                      "~/Content/user/css/pages/accessDenied.css"));
+
+            bundles.Add(new StyleBundle("~/Content/booking").Include(
+                     "~/Content/user/css/pages/booking.css"));
             #endregion
         }
     }

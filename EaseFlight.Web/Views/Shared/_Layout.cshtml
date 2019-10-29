@@ -29,7 +29,7 @@
     @Scripts.Render("~/bundles/basejs")
 </head>
 <body class="bg-gray">
-    <nav class="navbar navbar-default navbar-inverse navbar-theme" id="main-nav">
+    <nav class="navbar navbar-default navbar-inverse navbar-theme fixed" id="main-nav">
         <div class="container">
             <div class="navbar-inner nav">
                 <div class="navbar-header">
@@ -46,7 +46,7 @@
                 <div class="collapse navbar-collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li class="active dropdown">
-                            <a class="dropdown-toggle" href="#">Flights</a>
+                            <a class="dropdown-toggle" href="@Url.Action("Index","Home")">Flights</a>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" href="#">Experiences</a>
