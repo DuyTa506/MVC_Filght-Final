@@ -62,7 +62,8 @@ namespace EaseFlight.Web.Controllers
             var userModel = new AccountModel
             {
                 Username = collection.Get("username"),
-                FullName = collection.Get("fullname"),
+                LastName = collection.Get("lastname"),
+                FirstName = collection.Get("firstname"),
                 Email = collection.Get("email"),
                 Password = EncryptionUtility.BcryptHashPassword(collection.Get("password")),
                 AccountTypeID = this.AccountTypeService.FindByName(Constant.CONST_ROLE_USER).ID,
@@ -177,7 +178,7 @@ namespace EaseFlight.Web.Controllers
                 var user = new AccountModel
                 {
                     Username = id,
-                    FullName = name,
+                    LastName = name,
                     Email = email,
                     Photo = picture,
                     AccountTypeID = this.AccountTypeService.FindByName(Constant.CONST_ROLE_USER).ID,

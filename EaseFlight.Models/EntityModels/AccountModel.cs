@@ -11,7 +11,8 @@ namespace EaseFlight.Models.EntityModels
         public int ID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Email { get; set; }

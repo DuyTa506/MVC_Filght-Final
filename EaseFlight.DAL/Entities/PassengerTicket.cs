@@ -16,7 +16,8 @@ namespace EaseFlight.DAL.Entities
     {
         public int ID { get; set; }
         public Nullable<int> TicketID { get; set; }
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public Nullable<bool> Gender { get; set; }
         public string IDCardOrPassport { get; set; }
         public Nullable<System.DateTime> DateIssueOrExpiry { get; set; }

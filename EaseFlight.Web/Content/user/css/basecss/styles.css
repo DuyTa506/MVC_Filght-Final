@@ -15221,3 +15221,11 @@ body {
 .theme-page-section-xxl{
     padding-bottom: 45px !important;
 }
+.required {
+    padding-right: 3px !important;
+}
+.required:after {
+    content: "*";
+    color: red;
+    margin-left: 3px;
+}

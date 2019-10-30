@@ -138,6 +138,7 @@
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\GenerateDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,6 +183,8 @@
     <Content Include="Scripts\user\basejs\custom.js" />
     <Content Include="Scripts\user\basejs\fitvid.js" />
     <Content Include="Scripts\user\basejs\fotorama.js" />
+    <Content Include="Scripts\user\basejs\geodatasource-cr.js" />
+    <Content Include="Scripts\user\basejs\Gettext.js" />
     <Content Include="Scripts\user\basejs\icheck.js" />
     <Content Include="Scripts\user\basejs\ion-range-slider.js" />
     <Content Include="Scripts\user\basejs\jquery-3.4.1.min.js" />
@@ -210,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Ticket\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\web.config" />

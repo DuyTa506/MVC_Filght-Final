@@ -1,6 +1,8 @@
-﻿using PayPal.Api;
+﻿using EaseFlight.Common.Constants;
+using PayPal.Api;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EaseFlight.Web.WebUtilities
 {
@@ -61,12 +63,20 @@ namespace EaseFlight.Web.WebUtilities
         public static Payment CreatePayment(APIContext apiContext, string redirectUrl)
         {
             var itemList = new ItemList() { items = new List<Item>() };
+            var booking = SessionUtility.GetBookingSession();
+            var depart = "(" + booking.Departure.Name.Split('-')[0].Trim() + ") " + booking.Departure.City;
+            var arrival = "(" + booking.Arrival.Name.Split('-')[0].Trim() + ") " + booking.Arrival.City;
+            var percent = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Select(type => type.Discount.Value).FirstOrDefault();
+            var priceInfant = Math.Round(booking.Price - (booking.Price / 100) * percent, 2);
+            var percent2 = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Select(type => type.Discount.Value).FirstOrDefault();
+            var priceChild = Math.Round(booking.Price - (booking.Price / 100) * percent2, 2);
+            var totalPrice = booking.Price + (booking.Child > 0 ? priceChild : 0) + (booking.Infant > 0 ? priceInfant : 0);
 
             itemList.items.Add(new Item()
             {
-                name = "Item Name comes here",
+                name = "Flight: " + depart + " to " + arrival + (booking.ReturnFlight.Count > 0? " (Round trip)":""),
                 currency = "USD",
-                price = "10",
+                price = totalPrice.ToString(),
                 quantity = "1",
                 sku = "sku"
             });
@@ -82,14 +92,14 @@ namespace EaseFlight.Web.WebUtilities
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "10"
+                total = totalPrice.ToString()
             };
 
             var transactionList = new List<Transaction>
             {
                 new Transaction()
                 {
-                    description = "Transaction description",
+                    description = "Booking Flight from EaseFlight",
                     invoice_number = Convert.ToString((new Random()).Next(100000)),
                     amount = amount,
                     item_list = itemList

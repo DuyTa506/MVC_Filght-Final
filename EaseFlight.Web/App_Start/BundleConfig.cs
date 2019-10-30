@@ -36,6 +36,10 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/booking").Include(
                 "~/Scripts/user/pages/booking.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/geodata").Include(
+               "~/Scripts/user/basejs/geodatasource-cr.js",
+               "~/Scripts/user/basejs/Gettext.js"));
             #endregion
 
             #region Styles

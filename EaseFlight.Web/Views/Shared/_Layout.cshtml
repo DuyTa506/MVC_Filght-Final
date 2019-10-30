@@ -1,20 +1,6 @@
 ﻿@using EaseFlight.Web.WebUtilities;
 @{
     var loggedUser = SessionUtility.GetLoggedUser();
-    var shortName = string.Empty;
-
-    //Get short name for logged user fullname
-    if (loggedUser != null)
-    {
-        var fullName = loggedUser.FullName.Split(' ');
-        var lenght = fullName.Count();
-        shortName = fullName[0];
-
-        if (lenght != 1)
-        {
-            shortName = string.Format("{0} {1}", fullName[lenght - 2], fullName[lenght - 1]);
-        }
-    }
 }
 
 <!DOCTYPE HTML>
@@ -71,7 +57,7 @@
                                     {
                                         <img class="user-avatar" src="@loggedUser.Photo" width="20" height="20" />
                                     }
-                                    @shortName
+                                    @loggedUser.LastName
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>

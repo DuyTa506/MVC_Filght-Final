@@ -12,7 +12,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="250" />
-          <Property Name="FullName" Type="varchar" MaxLength="250" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="150" />
           <Property Name="Gender" Type="bit" />
           <Property Name="Birthday" Type="datetime" />
           <Property Name="Email" Type="varchar" MaxLength="250" />
@@ -69,7 +70,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TicketID" Type="int" />
-          <Property Name="FullName" Type="varchar" MaxLength="250" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="150" />
           <Property Name="Gender" Type="bit" />
           <Property Name="IDCardOrPassport" Type="varchar" MaxLength="50" />
           <Property Name="DateIssueOrExpiry" Type="datetime" />
@@ -458,8 +460,9 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="Boolean" />
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -524,7 +527,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TicketID" Type="Int32" />
-          <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" />
           <Property Name="IDCardOrPassport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateIssueOrExpiry" Type="DateTime" Precision="3" />
@@ -794,6 +798,8 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="EaseFlightModel.Account">
               <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
                 <ScalarProperty Name="ExpireToken" ColumnName="ExpireToken" />
@@ -807,7 +813,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -857,13 +862,14 @@
           <EntitySetMapping Name="PassengerTickets">
             <EntityTypeMapping TypeName="EaseFlightModel.PassengerTicket">
               <MappingFragment StoreEntitySet="PassengerTicket">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="PassengerTypeID" ColumnName="PassengerTypeID" />
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="PlaceIssue" ColumnName="PlaceIssue" />
                 <ScalarProperty Name="DateIssueOrExpiry" ColumnName="DateIssueOrExpiry" />
                 <ScalarProperty Name="IDCardOrPassport" ColumnName="IDCardOrPassport" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="TicketID" ColumnName="TicketID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

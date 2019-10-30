@@ -13,6 +13,7 @@
 
     var totalPrice = booking.Price + (booking.Child > 0 ? priceChild : 0) + (booking.Infant > 0 ? priceInfant : 0);
 }
+@Scripts.Render("~/bundles/geodata")
 @Scripts.Render("~/bundles/booking")
 @Styles.Render("~/Content/booking")
 
@@ -245,479 +246,135 @@
                             </div>
                         </div>
                     </div>
-                    <div class="theme-payment-page-sections-item">
-                        <h3 class="theme-payment-page-sections-item-title">Enter Passenger Details</h3>
-                        <div class="theme-payment-page-form">
-                            <h3 class="theme-payment-page-form-title">Passenger 1</h3>
-                            <div class="row row-col-gap" data-gutter="20">
-                                <div class="col-md-6 ">
-                                    <div class="row row-col-gap" data-gutter="10">
-                                        <div class="col-md-6 ">
-                                            <div class="theme-payment-page-form-item form-group">
-                                                <i class="fa fa-angle-down"></i>
-                                                <select class="form-control">
-                                                    <option>Month</option>
-                                                    <option>January</option>
-                                                    <option>February</option>
-                                                    <option>March</option>
-                                                    <option>April</option>
-                                                    <option>May</option>
-                                                    <option>June</option>
-                                                    <option>July</option>
-                                                    <option>August</option>
-                                                    <option>September</option>
-                                                    <option>October</option>
-                                                    <option>November</option>
-                                                    <option>December</option>
+                    @{ 
+                        var index = 1;
+                        var title = "Adult";
+                        var classYear = "year-adult";
+                    }
+                    @for (var i = 0; i < (booking.Adult + booking.Child + booking.Infant); ++i)
+                    {
+                        if (i == booking.Adult)
+                        {
+                            title = "Child"; classYear = "year-child"; index = 1;
+                        }
+                        else if (i == (booking.Adult + booking.Child))
+                        {
+                            title = "Infant"; classYear = "year-infant"; index = 1;
+                        }
+                        <div class="theme-payment-page-sections-item">
+                            <h3 class="theme-payment-page-sections-item-title">@title @(index++)</h3>
+                            <div class="theme-payment-page-form">
+                                <div class="row row-col-gap" data-gutter="20">
+                                    <form class="passenger-form-@title.ToLower()">
+                                        <div class="row">
+                                            <div class="item col-md-2">
+                                                <label class="required" for="">Title</label>
+                                                <select class="form-control" name="title">
+                                                    <option>Mr</option>
+                                                    <option>Ms/Mrs</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 ">
-                                            <div class="theme-payment-page-form-item form-group">
-                                                <i class="fa fa-angle-down"></i>
-                                                <select class="form-control">
-                                                    <option>Day</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
-                                                    <option>13</option>
-                                                    <option>14</option>
-                                                    <option>15</option>
-                                                    <option>16</option>
-                                                    <option>17</option>
-                                                    <option>18</option>
-                                                    <option>19</option>
-                                                    <option>20</option>
-                                                    <option>21</option>
-                                                    <option>22</option>
-                                                    <option>23</option>
-                                                    <option>24</option>
-                                                    <option>25</option>
-                                                    <option>26</option>
-                                                    <option>27</option>
-                                                    <option>28</option>
-                                                    <option>29</option>
-                                                    <option>30</option>
-                                                    <option>31</option>
-                                                </select>
+                                        <div class="row">
+                                            <div class="item col-md-6">
+                                                <label class="required" for="firstname">First Name</label>
+                                                <input type="text" name="firstname" required />
+                                                <span class="invalid-msg">First Name is required</span>
+                                            </div>
+                                            <div class="item col-md-6">
+                                                <label class="required" for="lastname">Middle & Last Name</label>
+                                                <input type="text" name="lastname" required />
+                                                <span class="valid-msg">Middle & Last Name is required</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 ">
-                                            <div class="theme-payment-page-form-item form-group">
-                                                <i class="fa fa-angle-down"></i>
-                                                <select class="form-control">
-                                                    <option>Year</option>
-                                                    <option>2018</option>
-                                                    <option>2017</option>
-                                                    <option>2016</option>
-                                                    <option>2015</option>
-                                                    <option>2014</option>
-                                                    <option>2013</option>
-                                                    <option>2012</option>
-                                                    <option>2011</option>
-                                                    <option>2010</option>
-                                                    <option>2009</option>
-                                                    <option>2008</option>
-                                                    <option>2007</option>
-                                                    <option>2006</option>
-                                                    <option>2005</option>
-                                                    <option>2004</option>
-                                                    <option>2003</option>
-                                                    <option>2002</option>
-                                                    <option>2001</option>
-                                                    <option>2000</option>
-                                                    <option>1999</option>
-                                                    <option>1998</option>
-                                                    <option>1997</option>
-                                                    <option>1996</option>
-                                                    <option>1995</option>
-                                                    <option>1994</option>
-                                                    <option>1993</option>
-                                                    <option>1992</option>
-                                                    <option>1991</option>
-                                                    <option>1990</option>
-                                                    <option>1989</option>
-                                                    <option>1988</option>
-                                                    <option>1987</option>
-                                                    <option>1986</option>
-                                                    <option>1985</option>
-                                                    <option>1984</option>
-                                                    <option>1983</option>
-                                                    <option>1982</option>
-                                                    <option>1981</option>
-                                                    <option>1980</option>
-                                                    <option>1979</option>
-                                                    <option>1978</option>
-                                                    <option>1977</option>
-                                                    <option>1976</option>
-                                                    <option>1975</option>
-                                                    <option>1974</option>
-                                                    <option>1973</option>
-                                                    <option>1972</option>
-                                                    <option>1971</option>
-                                                    <option>1970</option>
-                                                    <option>1969</option>
-                                                    <option>1968</option>
-                                                    <option>1967</option>
-                                                    <option>1966</option>
-                                                    <option>1965</option>
-                                                    <option>1964</option>
-                                                    <option>1963</option>
-                                                    <option>1962</option>
-                                                    <option>1961</option>
-                                                    <option>1960</option>
-                                                    <option>1959</option>
-                                                    <option>1958</option>
-                                                    <option>1957</option>
-                                                    <option>1956</option>
-                                                    <option>1955</option>
-                                                    <option>1954</option>
-                                                    <option>1953</option>
-                                                    <option>1952</option>
-                                                    <option>1951</option>
-                                                    <option>1950</option>
-                                                    <option>1949</option>
-                                                    <option>1948</option>
-                                                    <option>1947</option>
-                                                    <option>1946</option>
-                                                    <option>1945</option>
-                                                    <option>1944</option>
-                                                    <option>1943</option>
-                                                    <option>1942</option>
-                                                    <option>1941</option>
-                                                    <option>1940</option>
-                                                    <option>1939</option>
-                                                    <option>1938</option>
-                                                    <option>1937</option>
-                                                    <option>1936</option>
-                                                    <option>1935</option>
-                                                    <option>1934</option>
-                                                    <option>1933</option>
-                                                    <option>1932</option>
-                                                    <option>1931</option>
-                                                    <option>1930</option>
-                                                    <option>1929</option>
-                                                    <option>1928</option>
-                                                    <option>1927</option>
-                                                    <option>1926</option>
-                                                    <option>1925</option>
-                                                    <option>1924</option>
-                                                    <option>1923</option>
-                                                    <option>1922</option>
-                                                    <option>1921</option>
-                                                    <option>1920</option>
-                                                    <option>1919</option>
-                                                    <option>1918</option>
-                                                    <option>1917</option>
-                                                    <option>1916</option>
-                                                    <option>1915</option>
-                                                    <option>1914</option>
-                                                    <option>1913</option>
-                                                    <option>1912</option>
-                                                    <option>1911</option>
-                                                    <option>1910</option>
-                                                    <option>1909</option>
-                                                    <option>1908</option>
-                                                    <option>1907</option>
-                                                    <option>1906</option>
-                                                    <option>1905</option>
-                                                    <option>1904</option>
-                                                    <option>1903</option>
-                                                    <option>1902</option>
-                                                    <option>1901</option>
-                                                    <option>1900</option>
-                                                </select>
+                                        <div class="row">
+                                            <div class="item col-md-10">
+                                                <label class="required" for="">Date Of Birth</label>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control monthform" onchange="onchangeMonth()">
+                                                            <option value="1">January</option>
+                                                            <option value="2">February</option>
+                                                            <option value="3">March</option>
+                                                            <option value="4">April</option>
+                                                            <option value="5">May</option>
+                                                            <option value="6">June</option>
+                                                            <option value="7">July</option>
+                                                            <option value="8">August</option>
+                                                            <option value="9">September</option>
+                                                            <option value="10">October</option>
+                                                            <option value="11">November</option>
+                                                            <option value="12">December</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <select class="form-control">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                            <option>7</option>
+                                                            <option>8</option>
+                                                            <option>9</option>
+                                                            <option>10</option>
+                                                            <option>11</option>
+                                                            <option>12</option>
+                                                            <option>13</option>
+                                                            <option>14</option>
+                                                            <option>15</option>
+                                                            <option>16</option>
+                                                            <option>17</option>
+                                                            <option>18</option>
+                                                            <option>19</option>
+                                                            <option>20</option>
+                                                            <option>21</option>
+                                                            <option>22</option>
+                                                            <option>23</option>
+                                                            <option>24</option>
+                                                            <option>25</option>
+                                                            <option>26</option>
+                                                            <option>27</option>
+                                                            <option>28</option>
+                                                            <option class="febmonth leapyear">29</option>
+                                                            <option class="febmonth">30</option>
+                                                            <option class="febmonth daymonth">31</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <select class="form-control year-form @classYear" onchange="onchangeYear()"></select>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="dob" />
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <div class="theme-payment-page-form-item form-group">
-                                        <i class="fa fa-angle-down"></i>
-                                        <select class="form-control">
-                                            <option>Gender</option>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <div class="theme-payment-page-form-item form-group">
-                                        <input class="form-control" type="text" placeholder="First Name" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <div class="theme-payment-page-form-item form-group">
-                                        <input class="form-control" type="text" placeholder="Last Name" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <div class="theme-payment-page-form-item form-group">
-                                        <input class="form-control" type="text" placeholder="Passport Serial" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <div class="theme-payment-page-form-item form-group">
-                                        <i class="fa fa-angle-down"></i>
-                                        <select class="form-control">
-                                            <option>Citizenship</option>
-                                            <option>Afghanistan</option>
-                                            <option>Albania</option>
-                                            <option>Algeria</option>
-                                            <option>American Samoa</option>
-                                            <option>AndorrA</option>
-                                            <option>Angola</option>
-                                            <option>Anguilla</option>
-                                            <option>Antarctica</option>
-                                            <option>Antigua and Barbuda</option>
-                                            <option>Argentina</option>
-                                            <option>Armenia</option>
-                                            <option>Aruba</option>
-                                            <option>Australia</option>
-                                            <option>Austria</option>
-                                            <option>Azerbaijan</option>
-                                            <option>Bahamas</option>
-                                            <option>Bahrain</option>
-                                            <option>Bangladesh</option>
-                                            <option>Barbados</option>
-                                            <option>Belarus</option>
-                                            <option>Belgium</option>
-                                            <option>Belize</option>
-                                            <option>Benin</option>
-                                            <option>Bermuda</option>
-                                            <option>Bhutan</option>
-                                            <option>Bolivia</option>
-                                            <option>Bosnia and Herzegovina</option>
-                                            <option>Botswana</option>
-                                            <option>Bouvet Island</option>
-                                            <option>Brazil</option>
-                                            <option>British Indian Ocean Territory</option>
-                                            <option>Brunei Darussalam</option>
-                                            <option>Bulgaria</option>
-                                            <option>Burkina Faso</option>
-                                            <option>Burundi</option>
-                                            <option>Cambodia</option>
-                                            <option>Cameroon</option>
-                                            <option>Canada</option>
-                                            <option>Cape Verde</option>
-                                            <option>Cayman Islands</option>
-                                            <option>Central African Republic</option>
-                                            <option>Chad</option>
-                                            <option>Chile</option>
-                                            <option>China</option>
-                                            <option>Christmas Island</option>
-                                            <option>Cocos (Keeling) Islands</option>
-                                            <option>Colombia</option>
-                                            <option>Comoros</option>
-                                            <option>Congo</option>
-                                            <option>Congo, The Democratic Republic of the</option>
-                                            <option>Cook Islands</option>
-                                            <option>Costa Rica</option>
-                                            <option>Cote D"Ivoire</option>
-                                            <option>Croatia</option>
-                                            <option>Cuba</option>
-                                            <option>Cyprus</option>
-                                            <option>Czech Republic</option>
-                                            <option>Denmark</option>
-                                            <option>Djibouti</option>
-                                            <option>Dominica</option>
-                                            <option>Dominican Republic</option>
-                                            <option>Ecuador</option>
-                                            <option>Egypt</option>
-                                            <option>El Salvador</option>
-                                            <option>Equatorial Guinea</option>
-                                            <option>Eritrea</option>
-                                            <option>Estonia</option>
-                                            <option>Ethiopia</option>
-                                            <option>Falkland Islands (Malvinas)</option>
-                                            <option>Faroe Islands</option>
-                                            <option>Fiji</option>
-                                            <option>Finland</option>
-                                            <option>France</option>
-                                            <option>French Guiana</option>
-                                            <option>French Polynesia</option>
-                                            <option>French Southern Territories</option>
-                                            <option>Gabon</option>
-                                            <option>Gambia</option>
-                                            <option>Georgia</option>
-                                            <option>Germany</option>
-                                            <option>Ghana</option>
-                                            <option>Gibraltar</option>
-                                            <option>Greece</option>
-                                            <option>Greenland</option>
-                                            <option>Grenada</option>
-                                            <option>Guadeloupe</option>
-                                            <option>Guam</option>
-                                            <option>Guatemala</option>
-                                            <option>Guernsey</option>
-                                            <option>Guinea</option>
-                                            <option>Guinea-Bissau</option>
-                                            <option>Guyana</option>
-                                            <option>Haiti</option>
-                                            <option>Heard Island and Mcdonald Islands</option>
-                                            <option>Holy See (Vatican City State)</option>
-                                            <option>Honduras</option>
-                                            <option>Hong Kong</option>
-                                            <option>Hungary</option>
-                                            <option>Iceland</option>
-                                            <option>India</option>
-                                            <option>Indonesia</option>
-                                            <option>Iran, Islamic Republic Of</option>
-                                            <option>Iraq</option>
-                                            <option>Ireland</option>
-                                            <option>Isle of Man</option>
-                                            <option>Israel</option>
-                                            <option>Italy</option>
-                                            <option>Jamaica</option>
-                                            <option>Japan</option>
-                                            <option>Jersey</option>
-                                            <option>Jordan</option>
-                                            <option>Kazakhstan</option>
-                                            <option>Kenya</option>
-                                            <option>Kiribati</option>
-                                            <option>Korea, Democratic People"S Republic of</option>
-                                            <option>Korea, Republic of</option>
-                                            <option>Kuwait</option>
-                                            <option>Kyrgyzstan</option>
-                                            <option>Lao People"S Democratic Republic</option>
-                                            <option>Latvia</option>
-                                            <option>Lebanon</option>
-                                            <option>Lesotho</option>
-                                            <option>Liberia</option>
-                                            <option>Libyan Arab Jamahiriya</option>
-                                            <option>Liechtenstein</option>
-                                            <option>Lithuania</option>
-                                            <option>Luxembourg</option>
-                                            <option>Macao</option>
-                                            <option>Macedonia, The Former Yugoslav Republic of</option>
-                                            <option>Madagascar</option>
-                                            <option>Malawi</option>
-                                            <option>Malaysia</option>
-                                            <option>Maldives</option>
-                                            <option>Mali</option>
-                                            <option>Malta</option>
-                                            <option>Marshall Islands</option>
-                                            <option>Martinique</option>
-                                            <option>Mauritania</option>
-                                            <option>Mauritius</option>
-                                            <option>Mayotte</option>
-                                            <option>Mexico</option>
-                                            <option>Micronesia, Federated States of</option>
-                                            <option>Moldova, Republic of</option>
-                                            <option>Monaco</option>
-                                            <option>Mongolia</option>
-                                            <option>Montserrat</option>
-                                            <option>Morocco</option>
-                                            <option>Mozambique</option>
-                                            <option>Myanmar</option>
-                                            <option>Namibia</option>
-                                            <option>Nauru</option>
-                                            <option>Nepal</option>
-                                            <option>Netherlands</option>
-                                            <option>Netherlands Antilles</option>
-                                            <option>New Caledonia</option>
-                                            <option>New Zealand</option>
-                                            <option>Nicaragua</option>
-                                            <option>Niger</option>
-                                            <option>Nigeria</option>
-                                            <option>Niue</option>
-                                            <option>Norfolk Island</option>
-                                            <option>Northern Mariana Islands</option>
-                                            <option>Norway</option>
-                                            <option>Oman</option>
-                                            <option>Pakistan</option>
-                                            <option>Palau</option>
-                                            <option>Palestinian Territory, Occupied</option>
-                                            <option>Panama</option>
-                                            <option>Papua New Guinea</option>
-                                            <option>Paraguay</option>
-                                            <option>Peru</option>
-                                            <option>Philippines</option>
-                                            <option>Pitcairn</option>
-                                            <option>Poland</option>
-                                            <option>Portugal</option>
-                                            <option>Puerto Rico</option>
-                                            <option>Qatar</option>
-                                            <option>Reunion</option>
-                                            <option>Romania</option>
-                                            <option>Russian Federation</option>
-                                            <option>RWANDA</option>
-                                            <option>Saint Helena</option>
-                                            <option>Saint Kitts and Nevis</option>
-                                            <option>Saint Lucia</option>
-                                            <option>Saint Pierre and Miquelon</option>
-                                            <option>Saint Vincent and the Grenadines</option>
-                                            <option>Samoa</option>
-                                            <option>San Marino</option>
-                                            <option>Sao Tome and Principe</option>
-                                            <option>Saudi Arabia</option>
-                                            <option>Senegal</option>
-                                            <option>Serbia and Montenegro</option>
-                                            <option>Seychelles</option>
-                                            <option>Sierra Leone</option>
-                                            <option>Singapore</option>
-                                            <option>Slovakia</option>
-                                            <option>Slovenia</option>
-                                            <option>Solomon Islands</option>
-                                            <option>Somalia</option>
-                                            <option>South Africa</option>
-                                            <option>South Georgia and the South Sandwich Islands</option>
-                                            <option>Spain</option>
-                                            <option>Sri Lanka</option>
-                                            <option>Sudan</option>
-                                            <option>Suriname</option>
-                                            <option>Svalbard and Jan Mayen</option>
-                                            <option>Swaziland</option>
-                                            <option>Sweden</option>
-                                            <option>Switzerland</option>
-                                            <option>Syrian Arab Republic</option>
-                                            <option>Taiwan, Province of China</option>
-                                            <option>Tajikistan</option>
-                                            <option>Tanzania, United Republic of</option>
-                                            <option>Thailand</option>
-                                            <option>Timor-Leste</option>
-                                            <option>Togo</option>
-                                            <option>Tokelau</option>
-                                            <option>Tonga</option>
-                                            <option>Trinidad and Tobago</option>
-                                            <option>Tunisia</option>
-                                            <option>Turkey</option>
-                                            <option>Turkmenistan</option>
-                                            <option>Turks and Caicos Islands</option>
-                                            <option>Tuvalu</option>
-                                            <option>Uganda</option>
-                                            <option>Ukraine</option>
-                                            <option>United Arab Emirates</option>
-                                            <option>United Kingdom</option>
-                                            <option>United States</option>
-                                            <option>United States Minor Outlying Islands</option>
-                                            <option>Uruguay</option>
-                                            <option>Uzbekistan</option>
-                                            <option>Vanuatu</option>
-                                            <option>Venezuela</option>
-                                            <option>Viet Nam</option>
-                                            <option>Virgin Islands, British</option>
-                                            <option>Virgin Islands, U.S.</option>
-                                            <option>Wallis and Futuna</option>
-                                            <option>Western Sahara</option>
-                                            <option>Yemen</option>
-                                            <option>Zambia</option>
-                                            <option>Zimbabwe</option>
-                                        </select>
-                                    </div>
+                                        <div class="row">
+                                            <div class="item col-md-6">
+                                                <label for="passport">Passport/ID Card Number</label>
+                                                <input type="text" name="passport" required />
+                                            </div>
+                                            <div class="item col-md-6">
+                                                <label for="expiry">Passport Expiry/Date Issue</label>
+                                                <input class="passport-expiry" type="text" name="expiry" required />
+                                                <i class="lin lin-calendar calendar-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="item col-md-6">
+                                                <label for="nationality">Nationality</label>
+                                                <select name="nationality" class="form-control gds-cr" country-data-region-id="geo-data-adult-@i" data-language="en"></select>
+                                            </div>
+                                            <div class="item col-md-6">
+                                                <label for="city">Provice/City</label>
+                                                <select name="city" class="form-control" id="geo-data-adult-@i"></select>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                     <div class="theme-payment-page-sections-item">
                         <div class="theme-payment-page-booking">
                             <div class="theme-payment-page-booking-header">
@@ -725,7 +382,7 @@
                                 <p class="theme-payment-page-booking-subtitle">By clicking book now button you agree with terms and conditionals and money back gurantee. Thank you for trusting our service.</p>
                                 <p class="theme-payment-page-booking-price">$@totalPrice</p>
                             </div>
-                            <a class="btn _tt-uc btn-primary-inverse btn-sm book-button" href="#">Booking With Paypal</a>
+                            <a class="btn _tt-uc btn-primary-inverse btn-sm book-button" onclick="submitBooking()">Booking With Paypal</a>
                         </div>
                     </div>
                 </div>
@@ -748,7 +405,8 @@
                         <div class="theme-sidebar-section-charges">
                             <ul class="theme-sidebar-section-charges-list">
                                 <li class="theme-sidebar-section-charges-item">
-                                    <h5 class="theme-sidebar-section-charges-item-title">1 Adult 
+                                    <h5 class="theme-sidebar-section-charges-item-title">
+                                        1 Adult
                                         <span class="passenger-price">x@(booking.Adult)</span>
                                     </h5>
                                     <p class="theme-sidebar-section-charges-item-subtitle">@booking.SeatClass.Name</p>
@@ -757,7 +415,8 @@
                                 @if (booking.Child > 0)
                                 {
                                     <li class="theme-sidebar-section-charges-item">
-                                        <h5 class="theme-sidebar-section-charges-item-title">1 Child
+                                        <h5 class="theme-sidebar-section-charges-item-title">
+                                            1 Child
                                             <span class="passenger-price">x@(booking.Child)</span>
                                         </h5>
                                         <p class="theme-sidebar-section-charges-item-subtitle">@booking.SeatClass.Name</p>
@@ -769,7 +428,8 @@
                                 @if (booking.Infant > 0)
                                 {
                                     <li class="theme-sidebar-section-charges-item">
-                                        <h5 class="theme-sidebar-section-charges-item-title">1 Infant
+                                        <h5 class="theme-sidebar-section-charges-item-title">
+                                            1 Infant
                                             <span class="passenger-price">x@(booking.Infant)</span>
                                         </h5>
                                         <p class="theme-sidebar-section-charges-item-subtitle">@booking.SeatClass.Name</p>
