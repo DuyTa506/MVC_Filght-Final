@@ -25,6 +25,14 @@ namespace EaseFlight.Web
                         "~/Scripts/user/basejs/custom.js",
                         "~/Scripts/user/basejs/toastify.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/adminbasejs").Include(
+                         "~/Scripts/admin/basejs/jquery.min.js",
+                         "~/Scripts/admin/basejs/bootstrap.bundle.min.js",
+                          "~/Scripts/admin/basejs/adminlte.js",
+                          "~/Scripts/admin/basejs/demo.js",
+                           "~/Scripts/admin/basejs/select2.full.min.js",
+                          "~/Scripts/admin/pages/home.js" ));
+
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                 "~/Scripts/user/pages/home.js"));
 
@@ -61,6 +69,12 @@ namespace EaseFlight.Web
 
             bundles.Add(new StyleBundle("~/Content/booking").Include(
                      "~/Content/user/css/pages/booking.css"));
+
+            bundles.Add(new StyleBundle("~/Content/adminbasecss").Include(
+                    "~/Content/admin/basecss/adminlte.min.css",
+                     "~/Content/admin/plugins/fontawesome-free/css/all.min.css",
+                     "~/Content/admin/plugins/select2/select2.min.css"
+                     , "~/Content/admin/plugins/select2/select2-bootstrap4.min.css"));
             #endregion
         }
     }

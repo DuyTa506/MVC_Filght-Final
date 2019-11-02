@@ -31,6 +31,34 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(CountryModel country)
+        {
+            this.CountryRepository.Insert(country.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+            return result;
+        }
+
+        public int Update(CountryModel country)
+        {
+            this.CountryRepository.Update(country.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+            return result;
+        }
+
+        public void Delete(int countryId)
+        {
+            this.CountryRepository.Delete(countryId);
+        }
+
+        public CountryModel Find(int id)
+        {
+            var model = this.CountryRepository.Find(id);
+            var result = this.CreateViewModel(model);
+
+            return result;
+        }
+
         #endregion
 
         #region Model Functions
