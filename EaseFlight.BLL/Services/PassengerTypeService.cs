@@ -31,6 +31,14 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public PassengerTypeModel FindByName(string name)
+        {
+            var model = this.PassengerTypeRepository.FindByName(name);
+            var result = this.CreateViewModel(model);
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

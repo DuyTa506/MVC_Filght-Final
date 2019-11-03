@@ -70,7 +70,7 @@ namespace EaseFlight.Web.WebUtilities
             var priceInfant = Math.Round(booking.Price - (booking.Price / 100) * percent, 2);
             var percent2 = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Select(type => type.Discount.Value).FirstOrDefault();
             var priceChild = Math.Round(booking.Price - (booking.Price / 100) * percent2, 2);
-            var totalPrice = booking.Price + (booking.Child > 0 ? priceChild : 0) + (booking.Infant > 0 ? priceInfant : 0);
+            var totalPrice = (booking.Price * booking.Adult) + (booking.Child > 0 ? priceChild * booking.Child : 0) + (booking.Infant > 0 ? priceInfant * booking.Infant : 0);
 
             itemList.items.Add(new Item()
             {

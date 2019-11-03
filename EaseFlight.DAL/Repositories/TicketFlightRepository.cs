@@ -2,6 +2,7 @@
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EaseFlight.DAL.Repositories
 {
@@ -17,6 +18,20 @@ namespace EaseFlight.DAL.Repositories
         public IEnumerable<TicketFlight> FindAll()
         {
             var result = this.UnitOfWork.DBContext.TicketFlights;
+
+            return result;
+        }
+
+        public int Insert(TicketFlight ticketFlight)
+        {
+            this.UnitOfWork.DBContext.TicketFlights.Add(ticketFlight);
+
+            return ticketFlight.TicketID;
+        }
+
+        public IEnumerable<TicketFlight> FindByFlight(int flightId)
+        {
+            var result = this.UnitOfWork.DBContext.TicketFlights.Where(ticketFlight => ticketFlight.FlightID == flightId);
 
             return result;
         }

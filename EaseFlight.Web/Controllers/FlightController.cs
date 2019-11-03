@@ -20,17 +20,20 @@ namespace EaseFlight.Web.Controllers
         private IFlightService FlightService { get; set; }
         private ICountryService CountryService { get; set; }
         private IPassengerTypeService PassengerTypeService { get; set; }
+        private ISeatMapService SeatMapService { get; set; }
         #endregion
 
         #region Constructors
         public FlightController(IAirportService airportService, ISeatClassService seatClassService,
-            IFlightService flightService, ICountryService countryService, IPassengerTypeService passengerTypeService)
+            IFlightService flightService, ICountryService countryService, IPassengerTypeService passengerTypeService,
+            ISeatMapService seatMapService)
         {
             this.AirportService = airportService;
             this.SeatClassService = seatClassService;
             this.FlightService = flightService;
             this.CountryService = countryService;
             this.PassengerTypeService = passengerTypeService;
+            this.SeatMapService = seatMapService;
         }
         #endregion
 
@@ -171,7 +174,7 @@ namespace EaseFlight.Web.Controllers
         [HttpGet]
         public ActionResult Booking()
         {
-            if (SessionUtility.GetBookingSession() == null)
+            if (SessionUtility.GetBookingSession() == null || !SessionUtility.IsSessionAlive())
                 return RedirectToAction("Index", "Home");
 
             return View();
@@ -235,7 +238,7 @@ namespace EaseFlight.Web.Controllers
                     var totalSeatClass = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
                         .Select(planeSeat => planeSeat.Capacity).FirstOrDefault();
                     var totalTicket = flight.TicketFlights.Where(ticketflight =>
-                        SeatMapUtility.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
+                        this.SeatMapService.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
                     priceSeat = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
                         .Select(planeSeat => planeSeat.Price.Value).FirstOrDefault();
 

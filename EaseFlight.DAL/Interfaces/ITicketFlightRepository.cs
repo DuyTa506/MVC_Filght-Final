@@ -6,5 +6,7 @@ namespace EaseFlight.DAL.Interfaces
     public interface ITicketFlightRepository
     {
         IEnumerable<TicketFlight> FindAll();
+        int Insert(TicketFlight ticketFlight);
+        IEnumerable<TicketFlight> FindByFlight(int flightId);
     }
 }

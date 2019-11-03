@@ -1,6 +1,7 @@
 ﻿var pageDepart = 10, pageReturn = 10, loadMoreDepart = true, flightDepart = null, flightReturn = null, viewDepart = false, viewReturn = false, isViewDepart = false,
     firstTimeDepart = 0, firstTimeReturn = 0, ticketDepart = null, ticketReturn = null, priceDepart = 0, priceReturn = 0, detailDepart = null, detailReturn = null,
     flightIdDepart = '', flightIdReturn = '';
+var formDataBook = new FormData();
 
 $(document).ready(function () {
     $('#main-nav').addClass('navbar-theme-abs navbar-theme-transparent navbar-theme-border');
@@ -20,6 +21,10 @@ $(document).ready(function () {
         if (isViewDepart)
             flightDepart = null;
         else flightReturn = null;
+    });
+
+    $('#loginModal').on('hidden.bs.modal', function () {
+        $('#confirmbook').css('opacity', '1');
     });
 })
 
@@ -388,14 +393,14 @@ function changeFlight() {
 }
 
 function getBooking(flights, price, rountrip) {
-    var formData = new FormData();
+    
     var parameters = window.location.search.slice(1).split('&');
     var flightDepart = flightIdDepart;
     var flightReturn = flightIdReturn;
 
     for (var i = 0; i < parameters.length; ++i) {
         var param = parameters[i].split('=');
-        formData.append(param[0], param[1]);
+        formDataBook.append(param[0], param[1]);
     }
 
     if (rountrip) //Round trip
@@ -403,14 +408,35 @@ function getBooking(flights, price, rountrip) {
     else //One way
         flightDepart = flights;
 
-    formData.append('price', price);
-    formData.append('flightDepart', flightDepart);
-    formData.append('flightReturn', flightReturn);
+    formDataBook.append('price', price);
+    formDataBook.append('flightDepart', flightDepart);
+    formDataBook.append('flightReturn', flightReturn);
 
+    $.ajax({
+        url: '/Account/AnyUserLogged',
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if (data.msg == 'true')
+                goBooking()
+            else {
+                $('#confirmbook').css('opacity', '0.8');
+                openLoginModal();
+                $('#redirectUrl').val('bookflag');
+                setTimeout(function () {
+                    ToastError('You must sign in first')
+                }, 400);
+            }
+        }
+    });
+}
+
+function goBooking() {
     $.ajax({
         url: '/Flight/Booking',
         type: 'post',
-        data: formData,
+        data: formDataBook,
         cache: false,
         processData: false,
         contentType: false,

@@ -11,7 +11,7 @@
     var percent2 = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Select(type => type.Discount.Value).FirstOrDefault();
     var priceChild = Math.Round(booking.Price - (booking.Price / 100) * percent2, 2);
 
-    var totalPrice = booking.Price + (booking.Child > 0 ? priceChild : 0) + (booking.Infant > 0 ? priceInfant : 0);
+    var totalPrice = (booking.Price * booking.Adult) + (booking.Child > 0 ? priceChild*booking.Child : 0) + (booking.Infant > 0 ? priceInfant * booking.Infant : 0);
 }
 @Scripts.Render("~/bundles/geodata")
 @Scripts.Render("~/bundles/booking")
@@ -22,14 +22,16 @@
         <div class="row row-col-static row-col-mob-gap" id="sticky-parent" data-gutter="60">
             <div class="col-md-8 ">
                 <div class="theme-payment-page-sections">
-                    <div class="theme-payment-page-sections-item">
+                    <div class="theme-payment-page-sections-item missing-info hide">
                         <div class="theme-payment-page-signin">
                             <i class="theme-payment-page-signin-icon fa fa-user-circle-o"></i>
                             <div class="theme-payment-page-signin-body">
-                                <h4 class="theme-payment-page-signin-title">Sign in if you have an account</h4>
-                                <p class="theme-payment-page-signin-subtitle">We will retrieve saved travelers and credit cards for faster checkout</p>
+                                <h4 class="theme-payment-page-signin-title">Update your account information</h4>
+                                <p class="theme-payment-page-signin-subtitle">
+                                    Some thing of your account information is incomplete, please update!
+                                </p>
                             </div>
-                            <a class="btn theme-payment-page-signin-btn btn-primary" href="#">Sign in</a>
+                            <a class="btn theme-payment-page-signin-btn btn-primary" onclick="openUpdateAccountModal()">Update</a>
                         </div>
                     </div>
                     <div class="theme-payment-page-sections-item">
@@ -246,135 +248,56 @@
                             </div>
                         </div>
                     </div>
-                    @{ 
+                    @{
                         var index = 1;
                         var title = "Adult";
-                        var classYear = "year-adult";
                     }
-                    @for (var i = 0; i < (booking.Adult + booking.Child + booking.Infant); ++i)
-                    {
-                        if (i == booking.Adult)
-                        {
-                            title = "Child"; classYear = "year-child"; index = 1;
-                        }
-                        else if (i == (booking.Adult + booking.Child))
-                        {
-                            title = "Infant"; classYear = "year-infant"; index = 1;
-                        }
-                        <div class="theme-payment-page-sections-item">
-                            <h3 class="theme-payment-page-sections-item-title">@title @(index++)</h3>
-                            <div class="theme-payment-page-form">
-                                <div class="row row-col-gap" data-gutter="20">
-                                    <form class="passenger-form-@title.ToLower()">
-                                        <div class="row">
-                                            <div class="item col-md-2">
-                                                <label class="required" for="">Title</label>
-                                                <select class="form-control" name="title">
-                                                    <option>Mr</option>
-                                                    <option>Ms/Mrs</option>
-                                                </select>
-                                            </div>
+                    <div class="theme-payment-page-sections-item passenger-section">
+                        <h5 class="theme-search-results-item-title infor-title">Passenger Information</h5>
+                        <div class="row row-col-gap" data-gutter="20">
+                            @for (var i = 0; i < (booking.Adult + booking.Child + booking.Infant); ++i)
+                            {
+                                if (i == booking.Adult)
+                                {
+                                    title = "Child"; index = 1;
+                                }
+                                else if (i == (booking.Adult + booking.Child))
+                                {
+                                    title = "Infant"; index = 1;
+                                }
+                                <div class="col-md-4 ">
+                                    <div class="theme-account-card account-cart">
+                                        <div class="theme-account-card-mask">
+                                            <ul class="theme-account-card-actions">
+                                                @if (i == 0)
+                                                {
+                                                    <li class="it-you" title="Get your information">
+                                                        <a onclick="itsYou()">
+                                                            <i class="fa fa-user"></i>It's you
+                                                        </a>
+                                                    </li>
+                                                    <li class="not-you hide" title="Remove your information">
+                                                        <a onclick="notYou()">
+                                                            <i class="fa fa-user-times"></i>Not you
+                                                        </a>
+                                                    </li>
+                                                }
+                                                <li title="Edit Passenger">
+                                                    <a onclick="openPassengerModal()" data-complete="false" data-passenger="@title@(index)">
+                                                        <i class="fa fa-pencil"></i>Edit
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <div class="row">
-                                            <div class="item col-md-6">
-                                                <label class="required" for="firstname">First Name</label>
-                                                <input type="text" name="firstname" required />
-                                                <span class="invalid-msg">First Name is required</span>
-                                            </div>
-                                            <div class="item col-md-6">
-                                                <label class="required" for="lastname">Middle & Last Name</label>
-                                                <input type="text" name="lastname" required />
-                                                <span class="valid-msg">Middle & Last Name is required</span>
-                                            </div>
+                                        <p class="theme-account-card-number" data-type="@title">@title @(index++)</p>
+                                        <div class="theme-account-card-name">
+                                            <p>Passenger Name</p>
                                         </div>
-                                        <div class="row">
-                                            <div class="item col-md-10">
-                                                <label class="required" for="">Date Of Birth</label>
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <select class="form-control monthform" onchange="onchangeMonth()">
-                                                            <option value="1">January</option>
-                                                            <option value="2">February</option>
-                                                            <option value="3">March</option>
-                                                            <option value="4">April</option>
-                                                            <option value="5">May</option>
-                                                            <option value="6">June</option>
-                                                            <option value="7">July</option>
-                                                            <option value="8">August</option>
-                                                            <option value="9">September</option>
-                                                            <option value="10">October</option>
-                                                            <option value="11">November</option>
-                                                            <option value="12">December</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <select class="form-control">
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
-                                                            <option>6</option>
-                                                            <option>7</option>
-                                                            <option>8</option>
-                                                            <option>9</option>
-                                                            <option>10</option>
-                                                            <option>11</option>
-                                                            <option>12</option>
-                                                            <option>13</option>
-                                                            <option>14</option>
-                                                            <option>15</option>
-                                                            <option>16</option>
-                                                            <option>17</option>
-                                                            <option>18</option>
-                                                            <option>19</option>
-                                                            <option>20</option>
-                                                            <option>21</option>
-                                                            <option>22</option>
-                                                            <option>23</option>
-                                                            <option>24</option>
-                                                            <option>25</option>
-                                                            <option>26</option>
-                                                            <option>27</option>
-                                                            <option>28</option>
-                                                            <option class="febmonth leapyear">29</option>
-                                                            <option class="febmonth">30</option>
-                                                            <option class="febmonth daymonth">31</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <select class="form-control year-form @classYear" onchange="onchangeYear()"></select>
-                                                    </div>
-                                                </div>
-                                                <input type="hidden" name="dob" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="item col-md-6">
-                                                <label for="passport">Passport/ID Card Number</label>
-                                                <input type="text" name="passport" required />
-                                            </div>
-                                            <div class="item col-md-6">
-                                                <label for="expiry">Passport Expiry/Date Issue</label>
-                                                <input class="passport-expiry" type="text" name="expiry" required />
-                                                <i class="lin lin-calendar calendar-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="item col-md-6">
-                                                <label for="nationality">Nationality</label>
-                                                <select name="nationality" class="form-control gds-cr" country-data-region-id="geo-data-adult-@i" data-language="en"></select>
-                                            </div>
-                                            <div class="item col-md-6">
-                                                <label for="city">Provice/City</label>
-                                                <select name="city" class="form-control" id="geo-data-adult-@i"></select>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
-                    }
+                    </div>
                     <div class="theme-payment-page-sections-item">
                         <div class="theme-payment-page-booking">
                             <div class="theme-payment-page-booking-header">
@@ -458,6 +381,150 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Add/Edit passenger-->
+<div class="modal fade" id="editPassenger" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-col-gap passenger-modal-content" data-gutter="20">
+                    <form class="passenger-form">
+                        <input type="hidden" class="passenger-id" name="id" />
+                        <div class="row">
+                            <div class="item col-md-12">
+                                <label class="required" for="">Title</label>
+                                <select class="form-control title cursor-pointer" name="Gender">
+                                    <option value="-1">Choose...</option>
+                                    <option value="0">Mr</option>
+                                    <option value="1">Ms/Mrs</option>
+                                </select>
+                                <span class="valid-msg">Title is required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item col-md-6">
+                                <label class="required" for="FirstName">First Name</label>
+                                <input class="" type="text" name="FirstName" required />
+                                <span class="valid-msg">First Name is required</span>
+                            </div>
+                            <div class="item col-md-6">
+                                <label class="required" for="LastName">Middle & Last Name</label>
+                                <input type="text" name="LastName" required />
+                                <span class="valid-msg">Middle & Last Name is required</span>
+                            </div>
+                        </div>
+                        <div class="row update-account hide">
+                            <div class="item col-md-6">
+                                <label class="required" for="Address">Address</label>
+                                <input class="" type="text" name="Address" required />
+                                <span class="valid-msg">Address is required</span>
+                            </div>
+                            <div class="item col-md-6">
+                                <label class="required" for="Phone">Phone</label>
+                                <input type="text" name="Phone" required />
+                                <span class="valid-msg">Phone is required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item col-md-10">
+                                <label class="required" for="">Date Of Birth</label>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 form-date">
+                                        <select class="form-control day-form cursor-pointer">
+                                            <option value="01">1</option>
+                                            <option value="02">2</option>
+                                            <option value="03">3</option>
+                                            <option value="04">4</option>
+                                            <option value="05">5</option>
+                                            <option value="06">6</option>
+                                            <option value="07">7</option>
+                                            <option value="08">8</option>
+                                            <option value="09">9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                            <option>13</option>
+                                            <option>14</option>
+                                            <option>15</option>
+                                            <option>16</option>
+                                            <option>17</option>
+                                            <option>18</option>
+                                            <option>19</option>
+                                            <option>20</option>
+                                            <option>21</option>
+                                            <option>22</option>
+                                            <option>23</option>
+                                            <option>24</option>
+                                            <option>25</option>
+                                            <option>26</option>
+                                            <option>27</option>
+                                            <option>28</option>
+                                            <option class="febmonth leapyear">29</option>
+                                            <option class="febmonth">30</option>
+                                            <option class="febmonth daymonth">31</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 form-date">
+                                        <select class="form-control month-form cursor-pointer" onchange="onchangeMonth()">
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 form-date-year">
+                                        <select class="form-control year-form cursor-pointer" onchange="onchangeYear()"></select>
+                                    </div>
+                                </div>
+                                <span class="valid-msg">Date of birth is required</span>
+                                <input type="hidden" class="dob" name="Birthday" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item col-md-6">
+                                <label for="IDCardOrPassport">Passport/ID Card Number</label>
+                                <input type="text" name="IDCardOrPassport" />
+                            </div>
+                            <div class="item col-md-6">
+                                <label for="DateIssueOrExpiry">Passport Expiry/Date Issue</label>
+                                <input class="passport-expiry" type="text" name="DateIssueOrExpiry" placeholder="dd/mm/yyyy" />
+                                <i class="lin lin-calendar calendar-icon" title="Choose Date"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item col-md-6">
+                                <label for="Nationality">Nationality</label>
+                                <select name="Nationality" class="form-control gds-cr cursor-pointer" country-data-region-id="geo-data-adult" data-language="en"></select>
+                            </div>
+                            <div class="item col-md-6">
+                                <label for="City">Provice/City</label>
+                                <select name="City" class="form-control cursor-pointer" id="geo-data-adult"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save-button" onclick="savePassenger()">Save changes</button>
             </div>
         </div>
     </div>

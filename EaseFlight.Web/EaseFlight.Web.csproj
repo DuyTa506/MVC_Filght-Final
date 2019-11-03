@@ -145,7 +145,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebUtilities\PaypalUtility.cs" />
-    <Compile Include="WebUtilities\SeatMapUtility.cs" />
     <Compile Include="WebUtilities\SessionUtility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ticket\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\web.config" />
@@ -279,6 +277,7 @@
     <Content Include="Views\GenerateData\ViewDataGenerate.cshtml" />
     <Content Include="Views\Flight\_FlightResultPartial.cshtml" />
     <Content Include="Views\Flight\Booking.cshtml" />
+    <Content Include="Views\Ticket\BookingSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

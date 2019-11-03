@@ -15,5 +15,6 @@ namespace EaseFlight.Models.CustomModel
         public int Child { get; set; }
         public int Infant { get; set; }
         public double Price { get; set; }
+        public string PaymentID { get; set; }
     }
 }

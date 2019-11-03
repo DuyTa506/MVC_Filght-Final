@@ -6,5 +6,7 @@ namespace EaseFlight.BLL.Interfaces
     public interface ITicketFlightService
     {
         IEnumerable<TicketFlightModel> FindAll();
+        int Insert(TicketFlightModel ticketFlight);
+        IEnumerable<TicketFlightModel> FindByFlight(int flightId);
     }
 }

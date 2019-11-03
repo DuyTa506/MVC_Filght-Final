@@ -31,6 +31,22 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(TicketFlightModel ticketFlight)
+        {
+            this.TicketFlightRepository.Insert(ticketFlight.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+
+            return result;
+        }
+
+        public IEnumerable<TicketFlightModel> FindByFlight(int flightId)
+        {
+            var modelList = this.TicketFlightRepository.FindByFlight(flightId);
+            var result = modelList.Select(model => this.CreateViewModel(model));
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

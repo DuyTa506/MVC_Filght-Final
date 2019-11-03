@@ -11,11 +11,15 @@
         public static string CONST_DB_NAME_ADULT = "Adult";
         public static string CONST_DB_NAME_CHILD = "Child";
         public static string CONST_DB_NAME_INFANT = "Infant";
+        public static string CONST_DB_TICKET_STATUS_SUCCESS = "Success";
+        public static string CONST_DB_TICKET_STATUS_FAILD = "Faild";
+        public static string CONST_DB_TICKET_STATUS_CANCEL = "Cancel";
         #endregion
 
         #region Session keys
         public static string CONST_SESSION_KEY_LOGGED_USER = "LoggedUser";
         public static string CONST_SESSION_KEY_BOOKING = "Booking";
+        public static string CONST_SESSION_KEY_PASSENGER = "Passenger";
         #endregion
 
         #region Roles

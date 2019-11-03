@@ -6,5 +6,6 @@ namespace EaseFlight.BLL.Interfaces
     public interface IPassengerTicketService
     {
         IEnumerable<PassengerTicketModel> FindAll();
+        int Insert(PassengerTicketModel passengerTicket);
     }
 }

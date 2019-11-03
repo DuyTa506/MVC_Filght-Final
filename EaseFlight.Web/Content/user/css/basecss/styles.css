@@ -9694,7 +9694,7 @@ body {
   border-bottom: none;
 }
 .theme-payment-page-sections-item {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e6e6e6;
 }
@@ -9758,7 +9758,7 @@ body {
   margin-top: 0;
   margin-bottom: 3px;
   font-size: 16px;
-  color: #595959;
+  color: red;
 }
 .theme-payment-page-signin-subtitle {
   margin-bottom: 0;
@@ -9766,6 +9766,7 @@ body {
   opacity: 0.65;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
   filter: alpha(opacity=65);
+  color: red;
 }
 @media (max-width: 992px) {
   .theme-payment-page-signin-subtitle {
@@ -10021,7 +10022,7 @@ body {
   position: relative;
   border-radius: 4px;
   padding: 20px;
-  height: 175px;
+  height: 120px;
   background: #f5f5f5;
   -webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.15);
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
@@ -10044,8 +10045,7 @@ body {
   color: #595959;
 }
 .theme-account-card-number {
-  margin-top: 25px;
-  font-size: 22px;
+  font-size: 17px;
   line-height: 1em;
   margin-bottom: 10px;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -10087,6 +10087,7 @@ body {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
   filter: alpha(opacity=90);
   letter-spacing: 1px;
+  font-size: 14px;
 }
 .theme-account-card-logo {
   position: absolute;
@@ -10135,6 +10136,7 @@ body {
 .theme-account-card-actions > li {
   display: inline-block;
   margin: 0 10px;
+  cursor: pointer;
 }
 .theme-account-card-actions > li > a {
   display: block;

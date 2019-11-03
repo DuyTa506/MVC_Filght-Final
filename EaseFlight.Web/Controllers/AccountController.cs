@@ -4,7 +4,9 @@ using EaseFlight.Common.EmailSenders;
 using EaseFlight.Common.Utilities;
 using EaseFlight.Models.EntityModels;
 using EaseFlight.Web.WebUtilities;
+using Newtonsoft.Json;
 using System;
+using System.Globalization;
 using System.Web.Mvc;
 
 namespace EaseFlight.Web.Controllers
@@ -206,6 +208,59 @@ namespace EaseFlight.Web.Controllers
 
             if (SessionUtility.IsSessionAlive())
                 result.Data = new { msg = "true" };
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult GetInformation()
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var loggedUser = SessionUtility.GetLoggedUser();
+
+            if(loggedUser != null)
+            {
+                var test = JsonConvert.SerializeObject(new { 
+                    loggedUser.LastName,
+                    loggedUser.FirstName,
+                    loggedUser.Email,
+                    loggedUser.Address,
+                    loggedUser.IDCardOrPassport,
+                    loggedUser.Phone,
+                    loggedUser.PlaceIssue,
+                    Gender =  loggedUser.Gender != null? loggedUser.Gender.Value?"1":"0":"",
+                    Birthday = loggedUser.Birthday != null? loggedUser.Birthday.Value.ToString("dd/MM/yyyy"): "",
+                    Expire = loggedUser.DateIssueOrExpiry != null? loggedUser.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy"):""
+                });
+
+                result.Data = new { msg = "success", info = test };
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult Update(FormCollection collection)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var loggedUser = SessionUtility.GetLoggedUser();
+
+            loggedUser.FirstName = collection.Get("FirstName");
+            loggedUser.LastName = collection.Get("LastName");
+            loggedUser.Address = collection.Get("Address");
+            loggedUser.Phone = collection.Get("Phone");
+            loggedUser.Gender = collection.Get("Gender").Equals("1") ? true : false;
+            loggedUser.Birthday = DateTime.ParseExact(collection.Get("Birthday"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            loggedUser.IDCardOrPassport = collection.Get("IDCardOrPassport");
+            loggedUser.PlaceIssue = string.Concat(collection.Get("Nationality"), string.IsNullOrEmpty(collection.Get("City")) ? "" : ", " + collection.Get("City"));
+
+            if (string.IsNullOrEmpty(collection.Get("DateIssueOrExpiry")))
+                loggedUser.DateIssueOrExpiry = null;
+            else loggedUser.DateIssueOrExpiry = DateTime.ParseExact(collection.Get("DateIssueOrExpiry"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            loggedUser.AccountType = null;
+            this.AccountService.Update(loggedUser);
+            SessionUtility.SetAuthenticationToken(loggedUser, 60);
 
             return result;
         }

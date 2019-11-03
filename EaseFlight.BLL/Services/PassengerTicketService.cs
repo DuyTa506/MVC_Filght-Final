@@ -31,6 +31,14 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(PassengerTicketModel passengerTicket)
+        {
+            this.PassengerTicketRepository.Insert(passengerTicket.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

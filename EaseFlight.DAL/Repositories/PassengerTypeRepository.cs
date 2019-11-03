@@ -2,6 +2,7 @@
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EaseFlight.DAL.Repositories
 {
@@ -17,6 +18,14 @@ namespace EaseFlight.DAL.Repositories
         public IEnumerable<PassengerType> FindAll()
         {
             var result = this.UnitOfWork.DBContext.PassengerTypes;
+
+            return result;
+        }
+
+        public PassengerType FindByName(string name)
+        {
+            var result = this.UnitOfWork.DBContext.PassengerTypes
+                .Where(passengerType => passengerType.Name.Equals(name)).FirstOrDefault();
 
             return result;
         }

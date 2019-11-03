@@ -6,5 +6,6 @@ namespace EaseFlight.DAL.Interfaces
     public interface IPassengerTicketRepository
     {
         IEnumerable<PassengerTicket> FindAll();
+        int Insert(PassengerTicket passenger);
     }
 }

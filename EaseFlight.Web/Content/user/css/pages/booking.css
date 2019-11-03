@@ -6,11 +6,6 @@
     font-size: 11px;
     opacity: 0.65;
 }
-.passenger-form {
-    width: 100%;
-    padding: 20px;
-    background: #fff;
-}
 input, select{
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -18,7 +13,8 @@ input, select{
 }
 input {
     width: calc(100% - 10px);
-    padding: 5px;
+    padding: 2px 5px;
+    height: 27px;
 }
 .item:hover p, .item:hover i,  input:hover::placeholder {
     color: #669999;
@@ -31,6 +27,7 @@ input {
 .item {
     position: relative;
     margin: 10px 0;
+    margin-top: 0px;
 }
 .item span {
     color: red;
@@ -74,5 +71,75 @@ input {
 .calendar-icon {
     position: absolute;
     padding-right: 27px;
-    padding-top: 3px;
+    padding-top: 2px;
+    cursor: pointer;
+}
+.theme-payment-page-sections-item{
+    padding: 10px 20px;
+}
+.infor-title{
+    margin-bottom: 20px !important;
+}
+.passenger-section{
+    padding-bottom: 25px !important;
+}
+.modal-title{
+    float: left;
+}
+.modal-header {
+    padding: 6px 25px !important;
+    background-color: #787b7f;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.passenger-modal-content {
+    padding: 0px 25px;
+}
+.form-control{
+    padding: 2px 5px;
+    height: 27px;
+}
+input.invalid, select.invalid {
+    margin-bottom: 0 !important;
+    border: solid red 1px;
+}
+.passenger-modal-content .title{
+    width: 80px;
+}
+.item input.invalid:hover, select.invalid:hover {
+    border: 0px;
+    box-shadow: unset;
+    border: solid red 1px;
+    outline: none;
+}
+.item input.invalid:focus, select.invalid:focus {
+    border: 0px;
+    box-shadow: unset;
+    border: solid red 1px;
+    outline: none;
+}
+.month-form {
+    width: 103px;
+}
+.form-date{
+    margin-right: -9px;
+}
+.year-form{
+    width: 66px;
+}
+.modal-content{
+    max-width: 500px;
+}
+.day-form{
+    width: 50px;
+}
+.form-date-year{
+    margin-left: 21px;
+}
+.modal-dialog {
+    padding: 0 50px;
+}
+.account-cart.invalid{
+    border: 1px solid red;
 }

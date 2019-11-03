@@ -6,5 +6,6 @@ namespace EaseFlight.BLL.Interfaces
     public interface IPassengerTypeService
     {
         IEnumerable<PassengerTypeModel> FindAll();
+        PassengerTypeModel FindByName(string name);
     }
 }

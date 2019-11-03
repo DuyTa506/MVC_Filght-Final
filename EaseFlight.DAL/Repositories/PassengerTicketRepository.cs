@@ -20,6 +20,13 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public int Insert(PassengerTicket passenger)
+        {
+            this.UnitOfWork.DBContext.PassengerTickets.Add(passenger);
+
+            return passenger.ID;
+        }
         #endregion
     }
 }

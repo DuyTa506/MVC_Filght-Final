@@ -1,6 +1,7 @@
 ﻿using EaseFlight.Common.Constants;
 using EaseFlight.Models.CustomModel;
 using EaseFlight.Models.EntityModels;
+using System.Collections.Generic;
 using System.Web;
 
 namespace EaseFlight.Web.WebUtilities
@@ -60,6 +61,8 @@ namespace EaseFlight.Web.WebUtilities
         public static void Logout()
         {
             RemoveSessionKey(Constant.CONST_SESSION_KEY_LOGGED_USER);
+            RemoveBookingSession();
+            RemovePassengerSession();
         }
 
         public static bool IsSessionAlive()
@@ -84,6 +87,25 @@ namespace EaseFlight.Web.WebUtilities
         public static void RemoveBookingSession()
         {
             RemoveSessionKey(Constant.CONST_SESSION_KEY_BOOKING);
+        }
+        #endregion
+
+        #region Passenger
+        public static void SetPassengerSession(List<PassengerTicketModel> passengers)
+        {
+            SetSessionKey(Constant.CONST_SESSION_KEY_PASSENGER, passengers, 10);
+        }
+
+        public static List<PassengerTicketModel> GetPassengerSession()
+        {
+            var passengers = GetSessionValue<List<PassengerTicketModel>>(Constant.CONST_SESSION_KEY_PASSENGER);
+
+            return passengers;
+        }
+
+        public static void RemovePassengerSession()
+        {
+            RemoveSessionKey(Constant.CONST_SESSION_KEY_PASSENGER);
         }
         #endregion
     }

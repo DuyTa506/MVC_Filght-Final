@@ -130,7 +130,8 @@ function login() {
                     if (href[1] == "login")
                         window.location.href = "/";
                     else window.location.reload();
-                }
+                } else if (url == 'bookflag')
+                    goBooking();
                 else window.location.href = url;
             }
         }
@@ -211,6 +212,8 @@ function getUserInfo() {
                     var url = document.getElementById('redirectUrl').value;
                     if (url == '')
                         window.location.reload();
+                    else if (url == 'bookflag')
+                        goBooking();
                     else window.location.href = url;
                 }
             });
@@ -264,6 +267,8 @@ function getFbUserData() {
                     var url = document.getElementById('redirectUrl').value;
                     if (url == '')
                         window.location.reload();
+                    else if (url == 'bookflag')
+                        goBooking();
                     else window.location.href = url;
                 }
             });

@@ -31,6 +31,13 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(TicketModel ticket)
+        {
+            var id = this.TicketRepository.Insert(ticket.GetModel());
+
+            return id;
+        }
         #endregion
 
         #region Model Functions
