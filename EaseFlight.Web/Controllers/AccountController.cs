@@ -80,6 +80,9 @@ namespace EaseFlight.Web.Controllers
         [HttpGet]
         public ActionResult ForgotPassword()
         {
+            if (SessionUtility.GetLoggedUser() != null)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 

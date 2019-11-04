@@ -10329,10 +10329,11 @@ body {
   margin-bottom: 0;
 }
 .theme-account-preferences-item {
-  padding: 20px;
+  padding: 10px 20px;
   background: #fff;
-  margin-bottom: 20px;
-  border-radius: 3px;
+  margin-bottom: 7px;
+  border-radius: 5px;
+  line-height: 15px;
 }
 .theme-account-preferences-item-title {
   margin-top: 0;
@@ -10381,7 +10382,7 @@ body {
   filter: none;
 }
 .theme-account-preferences-item-change {
-  margin-top: 15px;
+  margin-top: 10px;
   padding-top: 15px;
   border-top: 1px solid #e6e6e6;
   margin-bottom: 10px;
@@ -10399,6 +10400,8 @@ body {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   -webkit-appearance: none;
+  height: 30px;
+  line-height: 18px;
 }
 .theme-account-preferences-item-change-form .form-control:focus {
   border-color: #0093d2;

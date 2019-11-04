@@ -4,7 +4,7 @@
 function register() {
     var formData = $('#registerForm').serialize();
     var formDataArr = $('#registerForm').serializeArray();
-    if (formDataArr[3].value != formDataArr[4].value) {
+    if (formDataArr[4].value != formDataArr[5].value) {
         $('.error').addClass('alert alert-danger').html('Confirm password not correct!');
         return;
     }
