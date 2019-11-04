@@ -1,5 +1,60 @@
 ﻿@{
-    ViewBag.Title = "Booking Success";
+    ViewBag.Title = "Booking Successfully";
 }
+@model EaseFlight.Models.CustomModel.BookingSuccessModel
 
-<h2>Booking Success</h2>
+<div class="theme-page-section theme-page-section-xl theme-page-section-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="theme-payment-success">
+                    <div class="theme-payment-success-header">
+                        <i class="fa fa-check-circle theme-payment-success-header-icon"></i>
+                        <h1 class="theme-payment-success-title">Payment Successful</h1>
+                        <p class="theme-payment-success-subtitle">Thank you for booking flight from Ease Flight</p>
+                    </div>
+                    <div class="theme-payment-success-box">
+                        <ul class="theme-payment-success-summary">
+                            <li>
+                                Payment ID
+                                <span>#@Model.PaymentId</span>
+                            </li>
+                            <li>
+                                Depart Date
+                                <span>@Model.DepartDate.ToString("dd/MM/yyyy hh:mm tt")</span>
+                            </li>
+                            <li>
+                                Customer
+                                <span>@Model.Customer</span>
+                            </li>
+                            <li>
+                                Flight
+                                <span>@Model.Flight</span>
+                            </li>
+                            <li>
+                                Passengers
+                                <span>@Model.Passenger</span>
+                            </li>
+                            <li>
+                                Seat
+                                <span>@Model.SeatCode</span>
+                            </li>
+                            <li>
+                                Payment method
+                                <span>Paypal</span>
+                            </li>
+                            <li>
+                                Amount paid
+                                <span>$@Model.Price</span>
+                            </li>
+                        </ul>
+                        <p class="theme-payment-success-check-order">
+                            You can check your order details in your
+                            <a href="@Url.Action("Index","Ticket")">ticket page</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

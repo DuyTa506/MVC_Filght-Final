@@ -156,15 +156,6 @@
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-brands-400.svg" />
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
-    <Content Include="Content\images\airline-logo\aa.jpg" />
-    <Content Include="Content\images\airline-logo\delta.jpg" />
-    <Content Include="Content\images\airline-logo\fem.jpg" />
-    <Content Include="Content\images\airline-logo\klm.jpg" />
-    <Content Include="Content\images\airline-logo\lot.jpg" />
-    <Content Include="Content\images\airline-logo\luft.jpg" />
-    <Content Include="Content\images\airline-logo\swiss.jpg" />
-    <Content Include="Content\images\airline-logo\virgin.jpg" />
-    <Content Include="Content\images\airline-logo\wow.jpg" />
     <Content Include="Content\images\big-ben-bridge-castle-city-460672_1500x800.jpg" />
     <Content Include="Content\images\icons\facebook.png" />
     <Content Include="Content\images\icons\google.png" />
@@ -278,6 +269,7 @@
     <Content Include="Views\Flight\_FlightResultPartial.cshtml" />
     <Content Include="Views\Flight\Booking.cshtml" />
     <Content Include="Views\Ticket\BookingSuccess.cshtml" />
+    <Content Include="Views\Account\MyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

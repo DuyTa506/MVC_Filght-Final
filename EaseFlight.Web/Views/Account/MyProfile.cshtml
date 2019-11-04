@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "My Profile";
+}
+@model EaseFlight.Models.EntityModels.AccountModel
+
+<div class="theme-page-section theme-page-section-gray theme-page-section-xl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2-5 ">
+                <div class="theme-account-sidebar">
+                    <div class="theme-account-avatar">
+                        @if (string.IsNullOrEmpty(Model.Photo))
+                        {
+                            <i class="fa fa-user-circle-o navbar-nav-item-user-icon"></i>
+                        }
+                        else
+                        {
+                            <img class="theme-account-avatar-img" src="@Model.Photo" alt="Image Alternative text" title="@Model.LastName" />
+                        }
+                        <p class="theme-account-avatar-name">
+                            Welcome,
+                            <br />@Model.FirstName @Model.LastName
+                        </p>
+                    </div>
+                    <nav class="theme-account-nav">
+                        <ul class="theme-account-nav-list">
+                            <li class="active">
+                                <a href="account.html">
+                                    <i class="fa fa-cog"></i>Preferences
+                                </a>
+                            </li>
+                            <li>
+                                <a href="account-notifications.html">
+                                    <i class="fa fa-ticket"></i>Tickets
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-9-5 ">
+                <h1 class="theme-account-page-title">Prefrences</h1>
+                <div class="row">
+                    <div class="col-md-9 ">
+                        <div class="theme-account-preferences">
+                            @if (!string.IsNullOrEmpty(Model.Password))
+                            {
+                                <!--Username-->
+                                <div class="theme-account-preferences-item">
+                                    <div class="row">
+                                        <div class="col-md-3 ">
+                                            <h5 class="theme-account-preferences-item-title">Username</h5>
+                                        </div>
+                                        <div class="col-md-7 ">
+                                            <p class="theme-account-preferences-item-value">@Model.Username</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!--Fullname and Gender-->
+                            <div class="theme-account-preferences-item">
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <h5 class="theme-account-preferences-item-title">Full Name</h5>
+                                    </div>
+                                    <div class="col-md-7 ">
+                                        <p class="theme-account-preferences-item-value">@(Model.Gender != null && Model.Gender.Value?"Ms/Mrs. ":"Mr. ")@Model.FirstName @Model.LastName</p>
+                                        <div class="collapse" id="ChangeFullName">
+                                            <div class="theme-account-preferences-item-change">
+                                                <p class="theme-account-preferences-item-change-description">Please enter your name on your Passport or ID Card</p>
+                                                <div class="form-group theme-account-preferences-item-change-form">
+                                                    <label>Title</label>
+                                                    <select class="form-control">
+                                                        <option>Mr</option>
+                                                        <option>Ms/Mrs</option>
+                                                    </select>
+                                                    <label>First Name</label>
+                                                    <input class="form-control" type="text" value="@Model.FirstName" />
+                                                    <label>Last Name</label>
+                                                    <input class="form-control" type="text" value="@Model.LastName" />
+                                                </div>
+                                                <div class="theme-account-preferences-item-change-actions">
+                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-default" href="#ChangeFullName" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeFullName">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 ">
+                                        <a class="theme-account-preferences-item-change-link" href="#ChangeFullName" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeFullName">
+                                            <i class="fa fa-pencil"></i>Edit
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Password-->
+                            <div class="theme-account-preferences-item">
+                                <div class="row">
+                                    <div class="col-md-3 ">
+                                        <h5 class="theme-account-preferences-item-title">Password</h5>
+                                    </div>
+                                    <div class="col-md-7 ">
+                                        <p class="theme-account-preferences-item-value">***************</p>
+                                        <div class="collapse" id="ChangePassword">
+                                            <div class="theme-account-preferences-item-change">
+                                                <p class="theme-account-preferences-item-change-description">
+                                                    It's a good idea to use a strong password
+                                                    <br />that you're not using elsewhere
+                                                </p>
+                                                <div class="form-group theme-account-preferences-item-change-form">
+                                                    <label>Current Password</label>
+                                                    <input class="form-control" type="password" />
+                                                    <label>New Password</label>
+                                                    <input class="form-control" type="password" />
+                                                    <label>Re-type New Password</label>
+                                                    <input class="form-control" type="password" />
+                                                </div>
+                                                <div class="theme-account-preferences-item-change-actions">
+                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-default" href="#ChangePassword" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassword">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 ">
+                                        <a class="theme-account-preferences-item-change-link" href="#ChangePassword" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassword">
+                                            <i class="fa fa-pencil"></i>Edit
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

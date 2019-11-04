@@ -1,5 +1,6 @@
 ﻿using EaseFlight.BLL.Interfaces;
 using EaseFlight.Common.Constants;
+using EaseFlight.Models.CustomModel;
 using EaseFlight.Models.EntityModels;
 using EaseFlight.Web.WebUtilities;
 using Newtonsoft.Json;
@@ -167,6 +168,11 @@ namespace EaseFlight.Web.Controllers
             var loggedUser = SessionUtility.GetLoggedUser();
             var booking = SessionUtility.GetBookingSession();
             var passengerList = SessionUtility.GetPassengerSession();
+            var seatCodeSuccess = new List<string>();
+
+            if (booking == null || passengerList == null)
+                return RedirectToAction("Index", "Home");
+
             var percent = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Select(type => type.Discount.Value).FirstOrDefault();
             var priceInfant = Math.Round(booking.Price - (booking.Price / 100) * percent, 2);
             var percent2 = booking.PassengerType.Where(type => type.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Select(type => type.Discount.Value).FirstOrDefault();
@@ -199,6 +205,9 @@ namespace EaseFlight.Web.Controllers
             {
                 var seatCode = this.SeatMapService.GenerateSeatCodeTicket(flight.PlaneID.Value, booking.SeatClass.ID
                     , flight.ID, booking.Adult + booking.Child);
+
+                if (order == 1) seatCodeSuccess = seatCode;
+
                 var ticketFlight = new TicketFlightModel
                 {
                     TicketID = ticketId,
@@ -235,7 +244,19 @@ namespace EaseFlight.Web.Controllers
             SessionUtility.RemoveBookingSession();
             SessionUtility.RemovePassengerSession();
 
-            return View();
+            var model = new BookingSuccessModel
+            {
+                PaymentId = ticket.PaymentID.Split('-')[1],
+                Customer = loggedUser.FirstName + " " + loggedUser.LastName,
+                DepartDate = booking.DepartFlight.First().DepartureDate.Value,
+                Flight = booking.Departure.City + " to " + booking.Arrival.City
+                    + (booking.ReturnFlight.Count() > 0 ? " (Round trip)" : string.Empty),
+                Passenger = booking.Adult + " Adult, " + booking.Child + " Child, " + booking.Infant + " Infant",
+                SeatCode = string.Join(", ", seatCodeSuccess),
+                Price = totalPrice
+            };
+
+            return View(model);
         }
         #endregion
 

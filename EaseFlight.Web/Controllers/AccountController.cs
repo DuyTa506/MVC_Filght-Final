@@ -198,7 +198,12 @@ namespace EaseFlight.Web.Controllers
         [HttpGet]
         public ActionResult MyProfile()
         {
-            return View();
+            var loggedUser = SessionUtility.GetLoggedUser();
+
+            if (loggedUser == null)
+                return RedirectToAction("Index", "Home");
+
+            return View(loggedUser);
         }
 
         [HttpPost]

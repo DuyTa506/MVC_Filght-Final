@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 var mobileViewport = 992;
 var isSafari = navigator.userAgent.indexOf("Safari") > -1;
@@ -56,6 +56,10 @@ $(document).ready(function(){
 
     if (window.location.hostname == 'easeflight.somee.com')
         setInterval(function () { removeAds() }, 0);
+
+    $('input[type="text"]').change(function () {
+        $(this).val(convertVNToEN($(this).val()));
+    });
 });
 
 googleMaps();
@@ -532,4 +536,8 @@ function ToastError(message) {
 
 function leapYear(year) {
     return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+}
+
+function convertVNToEN(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 }

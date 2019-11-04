@@ -204,7 +204,7 @@ function getUserInfo() {
                 type: 'post',
                 data: {
                     id: user.id,
-                    name: user.name,
+                    name: convertVNToEN(user.name),
                     email: user.email,
                     picture: user.picture
                 },
@@ -259,7 +259,7 @@ function getFbUserData() {
                 type: 'post',
                 data: {
                     id: user.id,
-                    name: user.name,
+                    name: convertVNToEN(user.name),
                     email: user.email,
                     picture: 'https://graph.facebook.com/' + user.id + '/picture?type=large'
                 },
