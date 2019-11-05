@@ -253,22 +253,59 @@ namespace EaseFlight.Web.Controllers
             var result = new JsonResult { ContentType = "text" };
             var loggedUser = SessionUtility.GetLoggedUser();
 
-            loggedUser.FirstName = collection.Get("FirstName");
-            loggedUser.LastName = collection.Get("LastName");
-            loggedUser.Address = collection.Get("Address");
-            loggedUser.Phone = collection.Get("Phone");
-            loggedUser.Gender = collection.Get("Gender").Equals("1") ? true : false;
-            loggedUser.Birthday = DateTime.ParseExact(collection.Get("Birthday"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            loggedUser.IDCardOrPassport = collection.Get("IDCardOrPassport");
-            loggedUser.PlaceIssue = string.Concat(collection.Get("Nationality"), string.IsNullOrEmpty(collection.Get("City")) ? "" : ", " + collection.Get("City"));
+            foreach(var key in collection.AllKeys)
+            {
+                switch (key)
+                {
+                    case "FirstName":
+                        loggedUser.FirstName = collection.Get("FirstName"); break;
+                    case "LastName":
+                        loggedUser.LastName = collection.Get("LastName"); break;
+                    case "Address":
+                        loggedUser.Address = collection.Get("Address"); break;
+                    case "Phone":
+                        loggedUser.Phone = collection.Get("Phone"); break;
+                    case "Gender":
+                        loggedUser.Gender = collection.Get("Gender").Equals("1") ? true : false; break;
+                    case "Birthday":
+                        loggedUser.Birthday = DateTime.ParseExact(collection.Get("Birthday"), "dd/MM/yyyy", CultureInfo.InvariantCulture); break;
+                    case "IDCardOrPassport":
+                        loggedUser.IDCardOrPassport = collection.Get("IDCardOrPassport"); break;
+                    case "Nationality": case "City":
+                        loggedUser.PlaceIssue = string.Concat(collection.Get("Nationality"), string.IsNullOrEmpty(collection.Get("City")) ? "" : ", " + collection.Get("City"));
+                        break;
+                    case "DateIssueOrExpiry":
+                        if (string.IsNullOrEmpty(collection.Get("DateIssueOrExpiry")))
+                            loggedUser.DateIssueOrExpiry = null;
+                        else loggedUser.DateIssueOrExpiry = DateTime.ParseExact(collection.Get("DateIssueOrExpiry"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        break;
+                }
 
-            if (string.IsNullOrEmpty(collection.Get("DateIssueOrExpiry")))
-                loggedUser.DateIssueOrExpiry = null;
-            else loggedUser.DateIssueOrExpiry = DateTime.ParseExact(collection.Get("DateIssueOrExpiry"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
 
             loggedUser.AccountType = null;
             this.AccountService.Update(loggedUser);
             SessionUtility.SetAuthenticationToken(loggedUser, 60);
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult ChangePassword(FormCollection collection)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var loggedUser = SessionUtility.GetLoggedUser();
+
+            if(EncryptionUtility.BcryptCheckPassword(collection.Get("CurrentPassword"), loggedUser.Password))
+            {
+                loggedUser.Password = EncryptionUtility.BcryptHashPassword(collection.Get("NewPassword"));
+                loggedUser.AccountType = null;
+                this.AccountService.Update(loggedUser);
+                SessionUtility.SetAuthenticationToken(loggedUser, 60);
+
+                result.Data = new { type = "success" };
+            }
+            else result.Data = new {type = "error" };
 
             return result;
         }

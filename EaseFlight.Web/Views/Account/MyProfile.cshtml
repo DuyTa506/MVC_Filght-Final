@@ -3,8 +3,23 @@
 }
 @model EaseFlight.Models.EntityModels.AccountModel
 
-@Scripts.Render("~/bundles/myprofile")
+@if (string.IsNullOrEmpty(Model.PlaceIssue))
+{
+    <script>
+        var country = '';
+        var city = '';
+    </script>
+} else
+{
+    <script>
+        var country = '@Model.PlaceIssue.Split(',')[0].Trim()';
+        var city ='@Model.PlaceIssue.Split(',')[1].Trim()';
+    </script>
+}
+    
+@Styles.Render("~/Content/myprofile")
 @Scripts.Render("~/bundles/geodata")
+@Scripts.Render("~/bundles/myprofile")
 
 <div class="theme-page-section theme-page-section-gray theme-page-section-xxl">
     <div class="container">
@@ -61,7 +76,7 @@
                                 </div>
                             }
                             <!--Fullname and Gender-->
-                            <div class="theme-account-preferences-item">
+                            <div class="theme-account-preferences-item fullname-div">
                                 <div class="row">
                                     <div class="col-md-3 ">
                                         <h5 class="theme-account-preferences-item-title">Full Name</h5>
@@ -72,25 +87,30 @@
                                             <div class="theme-account-preferences-item-change">
                                                 <p class="theme-account-preferences-item-change-description">Please enter your name on your Passport or ID Card</p>
                                                 <div class="form-group theme-account-preferences-item-change-form">
-                                                    <label>Title</label>
-                                                    <select name="Title" class="form-control">
-                                                        <option>Mr</option>
-                                                        <option>Ms/Mrs</option>
-                                                    </select>
-                                                    <label>First Name</label>
-                                                    <input name="Firstname" class="form-control" type="text" value="@Model.FirstName" placeholder="Enter your First Name" />
-                                                    <label>Last Name</label>
-                                                    <input name="Lastname" class="form-control" type="text" value="@Model.LastName" placeholder="Enter your Last Name" />
+                                                    <form class="fullname-form" action="">
+                                                        <label class="required">Title</label>
+                                                        <select name="Gender" class="form-control">
+                                                            <option value="0" @(Model.Gender != null ? Model.Gender.Value ? "" : "selected" : "")>Mr</option>
+                                                            <option value="1" @(Model.Gender != null ? Model.Gender.Value ? "selected" : "" : "")>Ms/Mrs</option>
+                                                        </select>
+                                                        <span class="valid-msg">Title is required</span>
+                                                        <label class="required">First Name</label>
+                                                        <input name="FirstName" class="form-control" type="text" value="@Model.FirstName" placeholder="Enter your First Name" />
+                                                        <span class="valid-msg">First Name is required</span>
+                                                        <label class="required">Last Name</label>
+                                                        <input name="LastName" class="form-control" type="text" value="@Model.LastName" placeholder="Enter your Last Name" />
+                                                        <span class="valid-msg">Last Name is required</span>
+                                                    </form>
                                                 </div>
                                                 <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
                                                     <a class="btn btn-sm btn-default" href="#ChangeFullName" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeFullName">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangeFullName" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeFullName">
+                                        <a class="theme-account-preferences-item-change-link" onclick="resetForm()" href="#ChangeFullName" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeFullName">
                                             <i class="fa fa-pencil"></i>Edit
                                         </a>
                                     </div>
@@ -106,19 +126,22 @@
                                         <p class="theme-account-preferences-item-value">@(Model.Birthday != null ? Model.Birthday.Value.ToString("dd/MM/yyyy") : "")</p>
                                         <div class="collapse" id="ChangeBirthday">
                                             <div class="theme-account-preferences-item-change">
-                                                <p class="theme-account-preferences-item-change-description">Please enter your day of birth</p>
+                                                <p class="theme-account-preferences-item-change-description required">Please enter your day of birth</p>
                                                 <div class="form-group theme-account-preferences-item-change-form">
-                                                    <input name="Dob" class="form-control dob" type="text" value="@(Model.Birthday != null?Model.Birthday.Value.ToString("dd/MM/yyyy"):"")" placeholder="dd/mm/yyyy" />
+                                                    <form class="birthday-form" action="">
+                                                        <input name="Birthday" class="form-control dob" type="text" value="@(Model.Birthday != null?Model.Birthday.Value.ToString("dd/MM/yyyy"):"")" placeholder="dd/mm/yyyy" />
+                                                        <span class="valid-msg">Birthday is required</span>
+                                                    </form>
                                                 </div>
                                                 <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
                                                     <a class="btn btn-sm btn-default" href="#ChangeBirthday" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeBirthday">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangeBirthday" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeBirthday">
+                                        <a onclick="resetForm()" class="theme-account-preferences-item-change-link" href="#ChangeBirthday" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeBirthday">
                                             <i class="fa fa-pencil"></i>Edit
                                         </a>
                                     </div>
@@ -134,19 +157,22 @@
                                         <p class="theme-account-preferences-item-value">@Model.Email</p>
                                         <div class="collapse" id="ChangeEmail">
                                             <div class="theme-account-preferences-item-change">
-                                                <p class="theme-account-preferences-item-change-description">Please enter your email</p>
+                                                <p class="theme-account-preferences-item-change-description required">Please enter your email</p>
                                                 <div class="form-group theme-account-preferences-item-change-form">
-                                                    <input name="Email" class="form-control" type="text" value="@Model.Email" placeholder="Enter your Email" />
+                                                    <form class="email-form" action="">
+                                                        <input name="Email" class="form-control" type="text" value="@Model.Email" placeholder="Enter your Email" />
+                                                        <span class="valid-msg">Email is required</span>
+                                                    </form>
                                                 </div>
                                                 <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
                                                     <a class="btn btn-sm btn-default" href="#ChangeEmail" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeEmail">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangeEmail" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeEmail">
+                                        <a onclick="resetForm()" class="theme-account-preferences-item-change-link" href="#ChangeEmail" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeEmail">
                                             <i class="fa fa-pencil"></i>Edit
                                         </a>
                                     </div>
@@ -162,19 +188,22 @@
                                         <p class="theme-account-preferences-item-value">@Model.Phone</p>
                                         <div class="collapse" id="ChangePhone">
                                             <div class="theme-account-preferences-item-change">
-                                                <p class="theme-account-preferences-item-change-description">Please enter your phone number</p>
+                                                <p class="theme-account-preferences-item-change-description required">Please enter your phone number</p>
                                                 <div class="form-group theme-account-preferences-item-change-form">
-                                                    <input name="Phone" class="form-control" type="text" value="@Model.Phone" placeholder="Enter your Phone number" />
+                                                    <form class="phone-form" action="">
+                                                        <input name="Phone" class="form-control" type="text" value="@Model.Phone" placeholder="Enter your Phone number" />
+                                                        <span class="valid-msg">Phone is required</span>
+                                                    </form>
                                                 </div>
                                                 <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
                                                     <a class="btn btn-sm btn-default" href="#ChangePhone" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePhone">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangePhone" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePhone">
+                                        <a onclick="resetForm()" class="theme-account-preferences-item-change-link" href="#ChangePhone" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePhone">
                                             <i class="fa fa-pencil"></i>Edit
                                         </a>
                                     </div>
@@ -190,19 +219,22 @@
                                         <p class="theme-account-preferences-item-value">@Model.Address</p>
                                         <div class="collapse" id="ChangeAddress">
                                             <div class="theme-account-preferences-item-change">
-                                                <p class="theme-account-preferences-item-change-description">Please enter your phone number</p>
+                                                <p class="theme-account-preferences-item-change-description required">Please enter your address</p>
                                                 <div class="form-group theme-account-preferences-item-change-form">
-                                                    <input name="Address" class="form-control" type="text" value="@Model.Address" placeholder="Enter your Phone number" />
+                                                    <form class="address-form" action="">
+                                                        <input name="Address" class="form-control" type="text" value="@Model.Address" placeholder="Enter your Phone number" />
+                                                        <span class="valid-msg">Address is required</span>
+                                                    </form>
                                                 </div>
                                                 <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
                                                     <a class="btn btn-sm btn-default" href="#ChangeAddress" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeAddress">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangeAddress" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeAddress">
+                                        <a onclick="resetForm()" class="theme-account-preferences-item-change-link" href="#ChangeAddress" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeAddress">
                                             <i class="fa fa-pencil"></i>Edit
                                         </a>
                                     </div>
@@ -220,65 +252,79 @@
                                             <div class="theme-account-preferences-item-change">
                                                 <p class="theme-account-preferences-item-change-description">Please enter your Passport/ID Card number</p>
                                                 <div class="form-group theme-account-preferences-item-change-form">
-                                                    <label>Passport/ID Card</label>
-                                                    <input name="Passport" class="form-control" type="text" value="@Model.IDCardOrPassport" placeholder="Enter your Passport/ID Card number" />
-                                                    <label>Nationality</label>
-                                                    <select name="Region" class="form-control gds-cr cursor-pointer" country-data-region-id="geo-data-adult" data-language="en"></select>
-                                                    <label>Provice/City</label>
-                                                    <select name="City" class="form-control cursor-pointer" id="geo-data-adult"></select>
-                                                    <label>Passport Expiry/Date Issue</label>
-                                                    <input class="form-control passport-expiry" type="text" name="DateIssueOrExpiry" placeholder="dd/mm/yyyy" value="@(Model.DateIssueOrExpiry != null?Model.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy"):"")" />
+                                                    <form class="passport-form" action="">
+                                                        <label class="required">Passport/ID Card</label>
+                                                        <input name="IDCardOrPassport" class="form-control" type="text" value="@Model.IDCardOrPassport" placeholder="Enter your Passport/ID Card number" />
+                                                        <span class="valid-msg">Passport/ID Card number is required</span>
+                                                        <label class="required">Nationality</label>
+                                                        <select name="Nationality" class="form-control gds-cr cursor-pointer" country-data-region-id="geo-data-adult" data-language="en"></select>
+                                                        <span class="valid-msg">Nationality is required</span>
+                                                        <label class="required">Provice/City</label>
+                                                        <select name="City" class="form-control cursor-pointer" id="geo-data-adult"></select>
+                                                        <span class="valid-msg">Provice/City is required</span>
+                                                        <label class="required">Passport Expiry/Date Issue</label>
+                                                        <input class="form-control passport-expiry" type="text" name="DateIssueOrExpiry" placeholder="dd/mm/yyyy" value="@(Model.DateIssueOrExpiry != null?Model.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy"):"")" />
+                                                        <span class="valid-msg">Passport Expiry/Date Issue is required</span>
+                                                    </form>
                                                 </div>
                                                 <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
+                                                    <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
                                                     <a class="btn btn-sm btn-default" href="#ChangePassport" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassport">Cancel</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangePassport" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassport">
+                                        <a onclick="resetForm()" class="theme-account-preferences-item-change-link" href="#ChangePassport" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassport">
                                             <i class="fa fa-pencil"></i>Edit
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <!--Password-->
-                            <div class="theme-account-preferences-item">
-                                <div class="row">
-                                    <div class="col-md-3 ">
-                                        <h5 class="theme-account-preferences-item-title">Password</h5>
-                                    </div>
-                                    <div class="col-md-7 ">
-                                        <p class="theme-account-preferences-item-value">***************</p>
-                                        <div class="collapse" id="ChangePassword">
-                                            <div class="theme-account-preferences-item-change">
-                                                <p class="theme-account-preferences-item-change-description">
-                                                    It's a good idea to use a strong password
-                                                    <br />that you're not using elsewhere
-                                                </p>
-                                                <div class="form-group theme-account-preferences-item-change-form">
-                                                    <label>Current Password</label>
-                                                    <input name="CurrentPassword" class="form-control" type="password" />
-                                                    <label>New Password</label>
-                                                    <input name="NewPassword" class="form-control" type="password" />
-                                                    <label>Re-type New Password</label>
-                                                    <input name="RePassword" class="form-control" type="password" />
-                                                </div>
-                                                <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
-                                                    <a class="btn btn-sm btn-default" href="#ChangePassword" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassword">Cancel</a>
+                            @if (!string.IsNullOrEmpty(Model.Password))
+                            {
+                                <div class="theme-account-preferences-item">
+                                    <div class="row">
+                                        <div class="col-md-3 ">
+                                            <h5 class="theme-account-preferences-item-title">Password</h5>
+                                        </div>
+                                        <div class="col-md-7 ">
+                                            <p class="theme-account-preferences-item-value">***************</p>
+                                            <div class="collapse" id="ChangePassword">
+                                                <div class="theme-account-preferences-item-change">
+                                                    <p class="theme-account-preferences-item-change-description">
+                                                        It's a good idea to use a strong password
+                                                        <br />that you're not using elsewhere
+                                                    </p>
+                                                    <div class="form-group theme-account-preferences-item-change-form">
+                                                        <form class="password-form" action="">
+                                                            <label class="required">Current Password</label>
+                                                            <input name="CurrentPassword" class="form-control" type="password" />
+                                                            <span class="valid-msg">Current password is required</span>
+                                                            <label class="required">New Password</label>
+                                                            <input name="NewPassword" class="form-control" type="password" />
+                                                            <span class="valid-msg">New password is required</span>
+                                                            <label class="required">Re-type New Password</label>
+                                                            <input name="RePassword" class="form-control" type="password" />
+                                                            <span class="valid-msg">Re-type new password is required</span>
+                                                        </form>
+                                                    </div>
+                                                    <div class="theme-account-preferences-item-change-actions">
+                                                        <a class="btn btn-sm btn-primary" onclick="updateAccount()">Save changes</a>
+                                                        <a class="btn btn-sm btn-default" href="#ChangePassword" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassword">Cancel</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangePassword" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassword">
-                                            <i class="fa fa-pencil"></i>Edit
-                                        </a>
+                                        <div class="col-md-2 ">
+                                            <a onclick="resetForm()" class="theme-account-preferences-item-change-link" href="#ChangePassword" data-toggle="collapse" aria-expanded="false" aria-controls="ChangePassword">
+                                                <i class="fa fa-pencil"></i>Edit
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                             <!--Photo-->
                             <div class="theme-account-preferences-item">
                                 <div class="row">

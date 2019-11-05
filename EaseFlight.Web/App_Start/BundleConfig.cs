@@ -73,6 +73,9 @@ namespace EaseFlight.Web
             bundles.Add(new StyleBundle("~/Content/booking").Include(
                      "~/Content/user/css/pages/booking.css"));
 
+            bundles.Add(new StyleBundle("~/Content/myprofile").Include(
+                    "~/Content/user/css/pages/myprofile.css"));
+
             bundles.Add(new StyleBundle("~/Content/adminbasecss").Include(
                     "~/Content/admin/basecss/adminlte.min.css",
                      "~/Content/admin/plugins/fontawesome-free/css/all.min.css",

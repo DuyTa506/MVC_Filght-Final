@@ -187,7 +187,7 @@ function validatePassenger(update) {
 
     if (update == 'update') {
         $('.passenger-form input[type="text"]').not('input[name="IDCardOrPassport"], input[name="DateIssueOrExpiry"]').each(function () {
-            if ($(this).val() == "") {
+            if ($(this).val().trim() == "") {
                 if (index++ == 0)
                     $(this).focus();
 
@@ -203,7 +203,7 @@ function validatePassenger(update) {
         });
     } else {
         $('.passenger-form input[type="text"]').not('input[name="IDCardOrPassport"], input[name="DateIssueOrExpiry"], input[name="Address"], input[name="Phone"]').each(function () {
-            if ($(this).val() == "") {
+            if ($(this).val().trim() == "") {
                 if (index++ == 0)
                     $(this).focus();
 

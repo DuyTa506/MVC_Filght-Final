@@ -1,0 +1,21 @@
+﻿.invalid-msg {
+    color: red;
+    font-size: 12px;
+    opacity: 0.8;
+    display: block;
+}
+.valid-msg {
+    display: none;
+}
+input.invalid, select.invalid {
+    margin-bottom: 5px !important;
+    border: solid red 1px;
+}
+input.invalid:hover, select.invalid:hover {
+    border-color: red !important;
+    outline: none;
+}
+input.invalid:focus, select.invalid:focus {
+    border-color: red !important;
+    outline: none;
+}
