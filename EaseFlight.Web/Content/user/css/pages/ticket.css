@@ -145,7 +145,7 @@ th, td {
 }
 
 .column1 {
-  width: 10%;
+  width: 8%;
   padding-left: 40px;
 }
 
@@ -168,7 +168,7 @@ th, td {
     width: 12%;
 }
 .column7 {
-    width: 10%;
+    width: 12%;
 }
 .column8 {
     width: 10%;
@@ -189,7 +189,7 @@ th, td {
 
 .table100 {
   position: relative;
-  padding-top: 60px;
+  padding-top: 33px;
 }
 
 .table100-head {
@@ -206,18 +206,18 @@ th, td {
 
 .table100.ver1 th {
   font-family: Lato-Bold;
-  font-size: 18px;
+  font-size: 14px;
   color: #fff;
-  line-height: 1.4;
-
-  background-color: #6c7ae0;
+  line-height: 1px;
+  background-color: #333;
+  font-weight: bold;
 }
 
 .table100.ver1 td {
   font-family: Lato-Regular;
-  font-size: 15px;
+  font-size: 14px;
   color: #808080;
-  line-height: 1.4;
+  line-height: 5px;
 }
 
 .table100.ver1 .table100-body tr:nth-child(even) {
@@ -225,7 +225,7 @@ th, td {
 }
 
 .table100.ver1 {
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
@@ -248,6 +248,10 @@ th, td {
 
 .td-refund {
     display: none;
+    width: 165px;
+}
+.td-status-width {
+    width: 165px;
 }
 .ticket-history tr:hover .td-refund {
     display: block;
@@ -256,4 +260,27 @@ th, td {
 }
 .ticket-history tr:hover .td-status {
     display: none;
+}
+.passenger-modal{
+    width: 1000px;
+}
+.passenger-modal .modal-body{
+    padding: 0px !important;
+}
+.passenger-modal .modal-footer{
+    padding: 4px !important;
+}
+.status-success{
+    color: green;
+}
+.status-return{
+    color: chocolate;
+}
+.lds-ellipsis div{
+    background: black !important;
+    width: 7px !important;
+    height: 7px !important;
+}
+.theme-account-history table > thead > tr > th{
+    padding: 12px !important;
 }

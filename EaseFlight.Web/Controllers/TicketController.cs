@@ -74,7 +74,7 @@ namespace EaseFlight.Web.Controllers
                 });
             }
 
-            return View(model);
+            return View(model.OrderByDescending(m => m.Ticket.ID).ToList());
         }
 
         [HttpPost]

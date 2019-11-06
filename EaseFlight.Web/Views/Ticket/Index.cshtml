@@ -82,14 +82,14 @@
                                     <td>
                                         <p class="">@history.SeatClass.Name</p>
                                     </td>
-                                    <td class="theme-account-history-tr-date">
-                                        <p class="theme-account-history-date">@history.Ticket.CreateDate.Value.ToString("MMM dd, yyyy")</p>
+                                    <td class="">
+                                        <p class="">@history.Ticket.CreateDate.Value.ToString("MMM dd, yyyy")</p>
                                     </td>
                                     <td>
                                         <p class="theme-account-history-item-price">$@history.Ticket.Price</p>
                                     </td>
-                                    <td class="@(isReturn?"td-status":"")">
-                                        <p class="">@history.Ticket.Status</p>
+                                    <td class="td-status-width @(isReturn?"td-status":"")">
+                                        <p class="@(history.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_SUCCESS)?"status-success":"status-return")">@history.Ticket.Status @(string.IsNullOrEmpty(history.Ticket.Description)?"":"(" + history.Ticket.Description.Split(' ').Last() + ")")</p>
                                     </td>
                                     @if(isReturn)
                                     {
@@ -106,47 +106,45 @@
                     {
                         <!-- Passenger Modal -->
                         <div class="modal fade" id="passengerModal@(history.Ticket.ID)" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog passenger-modal" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="table100 ver1 m-b-110">
-                                            <div class="table100-head">
-                                                <table>
-                                                    <thead>
-                                                        <tr class="row100 head">
-                                                            <th class="cell100 column1">Title</th>
-                                                            <th class="cell100 column2">First Name</th>
-                                                            <th class="cell100 column3">Last Name</th>
-                                                            <th class="cell100 column4">Birthday</th>
-                                                            <th class="cell100 column5">Passport/ID Card</th>
-                                                            <th class="cell100 column6">Passport Expiry/Date Issue</th>
-                                                            <th class="cell100 column7">Nationality</th>
-                                                            <th class="cell100 column8">Provice/City</th>
-                                                            <th class="cell100 column9">Type</th>
+                                    <div class="table100 ver1 m-b-110">
+                                        <div class="table100-head">
+                                            <table>
+                                                <thead>
+                                                    <tr class="row100 head">
+                                                        <th class="cell100 column1">Title</th>
+                                                        <th class="cell100 column2">First Name</th>
+                                                        <th class="cell100 column3">Last Name</th>
+                                                        <th class="cell100 column4">Birthday</th>
+                                                        <th class="cell100 column5">Passport/ID Card</th>
+                                                        <th class="cell100 column6">Date</th>
+                                                        <th class="cell100 column7">Nationality</th>
+                                                        <th class="cell100 column8">Provice/City</th>
+                                                        <th class="cell100 column9">Type</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="table100-body js-pscroll">
+                                            <table>
+                                                <tbody>
+                                                    @foreach (var passenger in history.Passengers)
+                                                    {
+                                                        <tr class="row100 body">
+                                                            <td class="cell100 column1">@(passenger.Gender.Value ? "Ms/Mrs" : "Mr")</td>
+                                                            <td class="cell100 column2">@passenger.FirstName</td>
+                                                            <td class="cell100 column3">@passenger.LastName</td>
+                                                            <td class="cell100 column4">@passenger.Birthday.Value.ToString("dd/MM/yyyy")</td>
+                                                            <td class="cell100 column5">@passenger.IDCardOrPassport</td>
+                                                            <td class="cell100 column6">@(passenger.DateIssueOrExpiry != null ? passenger.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy") : "")</td>
+                                                            <td class="cell100 column7">@(string.IsNullOrEmpty(passenger.PlaceIssue) ? "" : passenger.PlaceIssue.Split(',').First().Trim())</td>
+                                                            <td class="cell100 column8">@(string.IsNullOrEmpty(passenger.PlaceIssue) ? "" : passenger.PlaceIssue.Split(',').Last().Trim())</td>
+                                                            <td class="cell100 column9">@passenger.PassengerType.Name</td>
                                                         </tr>
-                                                    </thead>
-                                                </table>
-                                            </div>
-                                            <div class="table100-body js-pscroll">
-                                                <table>
-                                                    <tbody>
-                                                        @foreach (var passenger in history.Passengers)
-                                                        {
-                                                            <tr class="row100 body">
-                                                                <td class="cell100 column1">@(passenger.Gender.Value?"Ms/Mrs":"Mr")</td>
-                                                                <td class="cell100 column2">@passenger.FirstName</td>
-                                                                <td class="cell100 column3">@passenger.LastName</td>
-                                                                <td class="cell100 column4">@passenger.Birthday.Value.ToString("dd/MM/yyyy")</td>
-                                                                <td class="cell100 column5">@passenger.IDCardOrPassport</td>
-                                                                <td class="cell100 column6">@(passenger.DateIssueOrExpiry != null?passenger.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy"):"")</td>
-                                                                <td class="cell100 column7">@(string.IsNullOrEmpty(passenger.PlaceIssue)?"":passenger.PlaceIssue.Split(',').First().Trim())</td>
-                                                                <td class="cell100 column8">@(string.IsNullOrEmpty(passenger.PlaceIssue) ? "" : passenger.PlaceIssue.Split(',').Last().Trim())</td>
-                                                                <td class="cell100 column9">@passenger.PassengerType.Name</td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    }
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

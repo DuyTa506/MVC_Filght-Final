@@ -237,8 +237,8 @@ namespace EaseFlight.Web.Controllers
                 {
                     var totalSeatClass = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
                         .Select(planeSeat => planeSeat.Capacity).FirstOrDefault();
-                    var totalTicket = flight.TicketFlights.Where(ticketflight =>
-                        this.SeatMapService.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
+                    var totalTicket = flight.TicketFlights.Where(ticketflight => !ticketflight.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN)
+                        && this.SeatMapService.FindBySeatCode(ticketflight.SeatCode, flight.PlaneID.Value).ID == seatClass.ID).Count();
                     priceSeat = seatClass.PlaneSeatClasses.Where(planeSeat => planeSeat.PlaneID == flight.PlaneID)
                         .Select(planeSeat => planeSeat.Price.Value).FirstOrDefault();
 

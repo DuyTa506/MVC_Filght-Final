@@ -1,4 +1,5 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Common.Constants;
 using EaseFlight.Common.Utilities;
 using EaseFlight.DAL.Entities;
 using EaseFlight.DAL.Interfaces;
@@ -144,7 +145,8 @@ namespace EaseFlight.BLL.Services
         public List<string> GetAllSeatCodeFlight(int flightId)
         {
             var result = new List<string>();
-            var seatCodeList = this.TicketFlightService.FindByFlight(flightId).Select(ticketFlight => ticketFlight.SeatCode);
+            var seatCodeList = this.TicketFlightService.FindByFlight(flightId).Where(ticketFlight => 
+                !ticketFlight.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN)).Select(ticketFlight => ticketFlight.SeatCode);
 
             foreach (var seatCode in seatCodeList)
                 seatCode.Split(',').ToList().ForEach(seat => result.Add(seat));

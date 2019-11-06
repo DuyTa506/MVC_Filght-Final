@@ -257,7 +257,7 @@
                         <div class="row row-col-gap" data-gutter="20">
                             @for (var i = 0; i < (booking.Adult + booking.Child + booking.Infant); ++i)
                             {
-                                if (i == booking.Adult)
+                                if (i == booking.Adult && booking.Child > 0)
                                 {
                                     title = "Child"; index = 1;
                                 }

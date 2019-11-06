@@ -302,7 +302,7 @@ function chooseFlight(flights, price, seat) {
 
             viewReturn = true;
             reviewReturn();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 52, behavior: 'smooth' });
         } else {
             isViewDepart = false;
             $('.confirmbook-modal .theme-search-results-item-flight-sections').append(flightDepart);
@@ -343,7 +343,7 @@ function chooseFlight(flights, price, seat) {
 
             viewDepart = true;
             reviewDepart();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 52, behavior: 'smooth' });
         } else {
             isViewDepart = true;
             $('.confirmbook-modal .theme-search-results-item-flight-sections').append($(flightDepart));
