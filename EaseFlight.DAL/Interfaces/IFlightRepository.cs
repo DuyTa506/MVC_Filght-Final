@@ -8,5 +8,6 @@ namespace EaseFlight.DAL.Interfaces
         IEnumerable<Flight> FindAll();
         int Insert(Flight flight);
         Flight Find(int id);
+        IEnumerable<Flight> FindByTicket(int ticketId ,bool roundTrip);
     }
 }

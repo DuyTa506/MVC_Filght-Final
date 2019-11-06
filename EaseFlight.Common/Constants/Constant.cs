@@ -13,7 +13,7 @@
         public static string CONST_DB_NAME_INFANT = "Infant";
         public static string CONST_DB_TICKET_STATUS_SUCCESS = "Success";
         public static string CONST_DB_TICKET_STATUS_FAILD = "Faild";
-        public static string CONST_DB_TICKET_STATUS_CANCEL = "Cancel";
+        public static string CONST_DB_TICKET_STATUS_RETURN = "Return";
         #endregion
 
         #region Session keys

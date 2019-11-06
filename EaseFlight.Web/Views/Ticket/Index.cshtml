@@ -1,0 +1,163 @@
+﻿@using EaseFlight.Web.WebUtilities;
+@using EaseFlight.Common.Constants;
+@{
+    ViewBag.Title = "Tickets";
+    var loggedUser = SessionUtility.GetLoggedUser();
+}
+@model List<EaseFlight.Models.CustomModel.TicketHistoryModel>
+@Styles.Render("~/Content/ticket")
+@Scripts.Render("~/bundles/ticket")
+
+<div class="theme-page-section theme-page-section-gray theme-page-section-xxl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2-5 ">
+                <div class="theme-account-sidebar">
+                    <div class="theme-account-avatar">
+                        @if (string.IsNullOrEmpty(loggedUser.Photo))
+                        {
+                            <img class="theme-account-avatar-img" src="~/Content/images/user.png" alt="Image Alternative text" title="@loggedUser.LastName" />
+                        }
+                        else
+                        {
+                            <img class="theme-account-avatar-img" src="@loggedUser.Photo" alt="Image Alternative text" title="@loggedUser.LastName" />
+                        }
+                        <p class="theme-account-avatar-name">
+                            Welcome,
+                            <br />@loggedUser.FirstName @loggedUser.LastName
+                        </p>
+                    </div>
+                    <nav class="theme-account-nav">
+                        <ul class="theme-account-nav-list">
+                            <li>
+                                <a href="@Url.Action("MyProfile","Account")">
+                                    <i class="fa fa-cog"></i>Preferences
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="@Url.Action("Index","Ticket")">
+                                    <i class="fa fa-ticket"></i>Tickets
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-9-5 ">
+                <h1 class="theme-account-page-title">Booking History</h1>
+                <div class="theme-account-history">
+                    <table class="table ticket-history">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Flight</th>
+                                <th>Passengers</th>
+                                <th>Seat Class</th>
+                                <th>Booking Date</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var history in Model)
+                            {
+                                var adult = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_ADULT)).Count();
+                                var child = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Count();
+                                var infant = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Count();
+                                var isReturn = (history.DepartFlight.First().DepartureDate.Value - DateTime.Now).TotalDays > 30 && !history.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN);
+                                <tr>
+                                    <td class="theme-account-history-type">
+                                        <i class="fa fa-plane theme-account-history-type-icon"></i>
+                                    </td>
+                                    <td>
+                                        <p class="theme-account-history-type-title">
+                                            @history.From.City (@history.From.Name.Split('-').First().Trim()) &rarr; @history.To.City (@history.To.Name.Split('-').First().Trim()) @(history.ReturnFlight.Count > 0 ? "(Round trip)" : "")
+                                        </p>
+                                        <a class="theme-account-history-item-name cursor-pointer" href="#">Flight detail</a>
+                                    </td>
+                                    <td>
+                                        <p class="theme-account-history-type-title">@adult Adult, @child Child, @infant Infant</p>
+                                        <a data-toggle="modal" data-target="#passengerModal@(history.Ticket.ID)" class="theme-account-history-item-name cursor-pointer">Passenger detail</a>
+                                    </td>
+                                    <td>
+                                        <p class="">@history.SeatClass.Name</p>
+                                    </td>
+                                    <td class="theme-account-history-tr-date">
+                                        <p class="theme-account-history-date">@history.Ticket.CreateDate.Value.ToString("MMM dd, yyyy")</p>
+                                    </td>
+                                    <td>
+                                        <p class="theme-account-history-item-price">$@history.Ticket.Price</p>
+                                    </td>
+                                    <td class="@(isReturn?"td-status":"")">
+                                        <p class="">@history.Ticket.Status</p>
+                                    </td>
+                                    @if(isReturn)
+                                    {
+                                        <td class="td-refund">
+                                            <span onclick="returnTicket('@history.Ticket.ID')" class="action-refund" title="Return your ticket"><i class="fa fa-credit-card"></i> Return ticket</span>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    @foreach (var history in Model)
+                    {
+                        <!-- Passenger Modal -->
+                        <div class="modal fade" id="passengerModal@(history.Ticket.ID)" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="table100 ver1 m-b-110">
+                                            <div class="table100-head">
+                                                <table>
+                                                    <thead>
+                                                        <tr class="row100 head">
+                                                            <th class="cell100 column1">Title</th>
+                                                            <th class="cell100 column2">First Name</th>
+                                                            <th class="cell100 column3">Last Name</th>
+                                                            <th class="cell100 column4">Birthday</th>
+                                                            <th class="cell100 column5">Passport/ID Card</th>
+                                                            <th class="cell100 column6">Passport Expiry/Date Issue</th>
+                                                            <th class="cell100 column7">Nationality</th>
+                                                            <th class="cell100 column8">Provice/City</th>
+                                                            <th class="cell100 column9">Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                            <div class="table100-body js-pscroll">
+                                                <table>
+                                                    <tbody>
+                                                        @foreach (var passenger in history.Passengers)
+                                                        {
+                                                            <tr class="row100 body">
+                                                                <td class="cell100 column1">@(passenger.Gender.Value?"Ms/Mrs":"Mr")</td>
+                                                                <td class="cell100 column2">@passenger.FirstName</td>
+                                                                <td class="cell100 column3">@passenger.LastName</td>
+                                                                <td class="cell100 column4">@passenger.Birthday.Value.ToString("dd/MM/yyyy")</td>
+                                                                <td class="cell100 column5">@passenger.IDCardOrPassport</td>
+                                                                <td class="cell100 column6">@(passenger.DateIssueOrExpiry != null?passenger.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy"):"")</td>
+                                                                <td class="cell100 column7">@(string.IsNullOrEmpty(passenger.PlaceIssue)?"":passenger.PlaceIssue.Split(',').First().Trim())</td>
+                                                                <td class="cell100 column8">@(string.IsNullOrEmpty(passenger.PlaceIssue) ? "" : passenger.PlaceIssue.Split(',').Last().Trim())</td>
+                                                                <td class="cell100 column9">@passenger.PassengerType.Name</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

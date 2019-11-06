@@ -117,7 +117,7 @@ namespace EaseFlight.Web.WebUtilities
             return payment.Create(apiContext);
         }
 
-        public static bool RefundPayment(APIContext apiContext, string paymentId)
+        public static bool RefundPayment(APIContext apiContext, string paymentId, double price)
         {
             try
             {
@@ -126,16 +126,17 @@ namespace EaseFlight.Web.WebUtilities
 
                 var refund = new Refund()  //create new refund to be sent to paypal
                 {
-                    sale_id = sale.id,
                     amount = new Amount()
                     {
                         currency = "USD",
-                        total = "10"
+                        total = string.Format("{0:0.00}", price)
                     }
                 };
 
+                apiContext.ResetRequestId();
+
                 #pragma warning disable CS0618
-                sale.Refund(apiContext, refund);
+                var response = sale.Refund(apiContext, refund);
                 #pragma warning restore CS0618
 
                 return true;

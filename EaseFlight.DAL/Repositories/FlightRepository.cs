@@ -2,6 +2,7 @@
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EaseFlight.DAL.Repositories
 {
@@ -31,6 +32,14 @@ namespace EaseFlight.DAL.Repositories
         public Flight Find(int id)
         {
             var result = this.UnitOfWork.DBContext.Flights.Find(id);
+
+            return result;
+        }
+
+        public IEnumerable<Flight> FindByTicket(int ticketId, bool roundTrip)
+        {
+            var result = this.UnitOfWork.DBContext.TicketFlights.Where(ticketFlight => 
+                ticketFlight.TicketID == ticketId && ticketFlight.RoundTrip == roundTrip).Select(ticketFlight => ticketFlight.Flight);
 
             return result;
         }

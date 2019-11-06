@@ -35,6 +35,13 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public IEnumerable<TicketFlight> FindByTicket(int ticketId)
+        {
+            var result = this.UnitOfWork.DBContext.TicketFlights.Where(ticketFlight => ticketFlight.TicketID == ticketId);
+
+            return result;
+        }
         #endregion
     }
 }

@@ -8,5 +8,6 @@ namespace EaseFlight.DAL.Interfaces
         IEnumerable<TicketFlight> FindAll();
         int Insert(TicketFlight ticketFlight);
         IEnumerable<TicketFlight> FindByFlight(int flightId);
+        IEnumerable<TicketFlight> FindByTicket(int ticketId);
     }
 }

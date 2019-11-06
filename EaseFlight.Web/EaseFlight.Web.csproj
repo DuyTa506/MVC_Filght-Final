@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AirportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FlightController.cs" />
@@ -156,6 +157,7 @@
     <Content Include="Content\images\user.png" />
     <Content Include="Content\user\css\basecss\toastify.css" />
     <Content Include="Content\user\css\pages\myprofile.css" />
+    <Content Include="Content\user\css\pages\ticket.css" />
     <Content Include="Scripts\admin\basejs\select2.full.min.js" />
     <Content Include="Content\admin\plugins\select2\select2.min.css" />
     <Content Include="Content\admin\plugins\fontawesome-free\css\all.min.css" />
@@ -194,6 +196,7 @@
     <Content Include="Scripts\user\basejs\bootstrap.js" />
     <Content Include="Scripts\user\basejs\bs-datepicker.js" />
     <Content Include="Scripts\user\basejs\custom.js" />
+    <Content Include="Scripts\user\basejs\toastify.js" />
     <Content Include="Scripts\user\basejs\fitvid.js" />
     <Content Include="Scripts\user\basejs\fotorama.js" />
     <Content Include="Scripts\user\basejs\geodatasource-cr.js" />
@@ -212,6 +215,7 @@
     <Content Include="Scripts\user\pages\flight.js" />
     <Content Include="Scripts\user\pages\home.js" />
     <Content Include="Scripts\user\pages\myprofile.js" />
+    <Content Include="Scripts\user\pages\ticket.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -273,10 +277,10 @@
     <Content Include="Views\Flight\_FlightResultPartial.cshtml" />
     <Content Include="Views\GenerateData\Done.cshtml" />
     <Content Include="Views\GenerateData\ViewDataGenerate.cshtml" />
-    <Content Include="Views\Flight\_FlightResultPartial.cshtml" />
     <Content Include="Views\Flight\Booking.cshtml" />
     <Content Include="Views\Ticket\BookingSuccess.cshtml" />
     <Content Include="Views\Account\MyProfile.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

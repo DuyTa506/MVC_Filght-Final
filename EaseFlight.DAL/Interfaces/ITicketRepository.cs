@@ -7,5 +7,8 @@ namespace EaseFlight.DAL.Interfaces
     {
         IEnumerable<Ticket> FindAll();
         int Insert(Ticket ticket);
+        Ticket Find(int id);
+        IEnumerable<Ticket> FindByAccount(int accountId);
+        void Update(Ticket ticket);
     }
 }

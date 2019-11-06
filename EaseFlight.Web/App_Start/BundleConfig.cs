@@ -51,6 +51,9 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/myprofile").Include(
                 "~/Scripts/user/pages/myprofile.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ticket").Include(
+                "~/Scripts/user/pages/ticket.js"));
             #endregion
 
             #region Styles
@@ -75,6 +78,8 @@ namespace EaseFlight.Web
 
             bundles.Add(new StyleBundle("~/Content/myprofile").Include(
                     "~/Content/user/css/pages/myprofile.css"));
+            bundles.Add(new StyleBundle("~/Content/ticket").Include(
+                    "~/Content/user/css/pages/ticket.css"));
 
             bundles.Add(new StyleBundle("~/Content/adminbasecss").Include(
                     "~/Content/admin/basecss/adminlte.min.css",

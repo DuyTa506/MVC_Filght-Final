@@ -22,25 +22,59 @@ namespace EaseFlight.Web.Controllers
         private IPassengerTicketService PassengerTicketService { get; set; }
         private ITicketFlightService TicketFlightService { get; set; }
         private ISeatMapService SeatMapService { get; set; }
+        private IAccountService AccountService { get; set; }
+        private IFlightService FlightService { get; set; }
+        private IAirportService AirportService { get; set; }
         #endregion
 
         #region Constructors
         public TicketController(IPassengerTypeService passengerTypeService, ITicketService ticketService,
             IPassengerTicketService passengerTicketService, ITicketFlightService ticketFlightService,
-            ISeatMapService seatMapService)
+            ISeatMapService seatMapService, IAccountService accountService, IFlightService flightService,
+            IAirportService airportService)
         {
             this.PassengerTypeService = passengerTypeService;
             this.TicketService = ticketService;
             this.PassengerTicketService = passengerTicketService;
             this.TicketFlightService = ticketFlightService;
             this.SeatMapService = seatMapService;
+            this.AccountService = accountService;
+            this.FlightService = flightService;
+            this.AirportService = airportService;
         }
         #endregion
 
         #region Actions
         public ActionResult Index()
         {
-            return View();
+            var loggedUser = SessionUtility.GetLoggedUser();
+
+            if (loggedUser == null)
+                return RedirectToAction("Index", "Home");
+
+            var ticketList = this.TicketService.FindByAccount(loggedUser.ID);
+            var model = new List<TicketHistoryModel>();
+
+            foreach(var ticket in ticketList)
+            {
+                var departFlight = this.FlightService.FindByTicket(ticket.ID).ToList();
+                var returnFlight = this.FlightService.FindByTicket(ticket.ID, true).ToList();
+                var passengers = this.PassengerTicketService.FindByTicket(ticket.ID).ToList();
+                var firstTicketFlight = this.TicketFlightService.FindByTicket(ticket.ID).First();
+
+                model.Add(new TicketHistoryModel
+                {
+                    Ticket = ticket,
+                    From = this.AirportService.Find(departFlight.First().Departure.ID),
+                    To = this.AirportService.Find(departFlight.Last().Arrival.ID),
+                    SeatClass = this.SeatMapService.FindBySeatCode(firstTicketFlight.SeatCode.Split(',').First(), firstTicketFlight.Flight.PlaneID.Value),
+                    DepartFlight = departFlight,
+                    ReturnFlight = returnFlight,
+                    Passengers = passengers
+                });
+            }
+
+            return View(model);
         }
 
         [HttpPost]
@@ -256,7 +290,42 @@ namespace EaseFlight.Web.Controllers
                 Price = totalPrice
             };
 
+            var currentUser = this.AccountService.Find(loggedUser.ID);
+            SessionUtility.SetAuthenticationToken(currentUser, 60);
+
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult RefundTicket(string ticketId)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var currentTicket = this.TicketService.Find(int.Parse(ticketId));
+
+            if(currentTicket == null)
+            {
+                result.Data = new { type = "error" };
+                return result;
+            }
+
+            var firstFlight = this.FlightService.FindByTicket(currentTicket.ID).First();
+            var refundPrice = currentTicket.Price.Value / 2;
+            APIContext apiContext = PaypalUtility.GetAPIContext();
+
+            if ((firstFlight.DepartureDate.Value - DateTime.Now).TotalDays > 30 && !currentTicket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN))
+                if (PaypalUtility.RefundPayment(apiContext, currentTicket.PaymentID, refundPrice))
+                {
+                    result.Data = new { type = "success", refund = string.Format("{0:0.00}", refundPrice) };
+                    currentTicket.Status = Constant.CONST_DB_TICKET_STATUS_RETURN;
+                    currentTicket.UpdateDate = DateTime.Now;
+                    currentTicket.Description = "Refund $" + string.Format("{0:0.00}", refundPrice);
+
+                    this.TicketService.Update(currentTicket);
+                }
+                else result.Data = new { type = "error" };
+            else result.Data = new { type = "error" };
+
+            return result;
         }
         #endregion
 

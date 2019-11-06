@@ -39,6 +39,14 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public IEnumerable<PassengerTicketModel> FindByTicket(int ticketId)
+        {
+            var modelList = this.PassengerTicketRepository.FindByTicket(ticketId);
+            var result = modelList.Select(model => this.CreateViewModel(model));
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

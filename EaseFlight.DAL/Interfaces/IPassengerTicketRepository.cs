@@ -7,5 +7,6 @@ namespace EaseFlight.DAL.Interfaces
     {
         IEnumerable<PassengerTicket> FindAll();
         int Insert(PassengerTicket passenger);
+        IEnumerable<PassengerTicket> FindByTicket(int ticketId);
     }
 }

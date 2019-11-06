@@ -11,5 +11,6 @@ namespace EaseFlight.BLL.Interfaces
         int Insert(FlightModel flight);
         FlightModel Find(int id);
         IEnumerable<SearchFlightModel> FindFlight(AirportModel departure, AirportModel arrival, DateTime departureDate);
+        IEnumerable<FlightModel> FindByTicket(int ticketId, bool roundTrip = false);
     }
 }

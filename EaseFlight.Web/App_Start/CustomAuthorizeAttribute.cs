@@ -30,8 +30,12 @@ namespace EaseFlight.Web.App_Start
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             //Redirect to error page if user Unauthorized
-            filterContext.Result = new RedirectToRouteResult(new
-            RouteValueDictionary(new { controller = "Account", action = "AccessDenied" }));
+            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
+            {
+                { "action", "AccessDenied" },
+                { "controller", "Account" },
+                { "Area", string.Empty }
+            });
         }
     }
 }
