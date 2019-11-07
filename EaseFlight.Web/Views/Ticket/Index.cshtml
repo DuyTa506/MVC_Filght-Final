@@ -159,8 +159,10 @@
                         <div class="modal fade in" id="flightModal@(history.Ticket.ID)" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog flight-modal" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-body">
+                                    <div class="modal-header">
                                         <p class="cofirm-title">Flight details</p>
+                                    </div>
+                                    <div class="modal-body">
                                         <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">
                                             <div class="theme-search-results-item-preview">
                                                 <a class="theme-search-results-item-mask-link" href="#flight@(history.Ticket.ID)" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="flight@(history.Ticket.ID)"></a>
@@ -430,93 +432,96 @@
                                                             <!--Return flight-->
                                                             @if (history.ReturnFlight.Count > 0)
                                                             {
-                                                            <div class="theme-search-results-item-flight-details">
-                                                                <div class="row">
-                                                                    <div class="col-md-3 ">
-                                                                        <div class="theme-search-results-item-flight-details-info">
-                                                                            <h5 class="theme-search-results-item-flight-details-info-title">Return</h5>
-                                                                            <p class="theme-search-results-item-flight-details-info-date">@history.ReturnFlight.First().DepartureDate.Value.ToString("MMM dd, yyyy")</p>
-                                                                            <p class="theme-search-results-item-flight-details-info-cities">@history.To.City &rarr; @history.From.City</p>
-                                                                            <p class="theme-search-results-item-flight-details-info-fly-time">@(span.Hours)h @(span.Minutes)m</p>
-                                                                            <p class="theme-search-results-item-flight-details-info-stops">@(history.ReturnFlight.Count() > 1 ? history.ReturnFlight.Count() - 1 + " transits" : "Direct")</p>
+                                                                <div class="theme-search-results-item-flight-details">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3 ">
+                                                                            <div class="theme-search-results-item-flight-details-info">
+                                                                                <h5 class="theme-search-results-item-flight-details-info-title">Return</h5>
+                                                                                <p class="theme-search-results-item-flight-details-info-date">@history.ReturnFlight.First().DepartureDate.Value.ToString("MMM dd, yyyy")</p>
+                                                                                <p class="theme-search-results-item-flight-details-info-cities">@history.To.City &rarr; @history.From.City</p>
+                                                                                <p class="theme-search-results-item-flight-details-info-fly-time">@(span.Hours)h @(span.Minutes)m</p>
+                                                                                <p class="theme-search-results-item-flight-details-info-stops">@(history.ReturnFlight.Count() > 1 ? history.ReturnFlight.Count() - 1 + " transits" : "Direct")</p>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-md-9 ">
-                                                                        <div class="theme-search-results-item-flight-details-schedule">
-                                                                            <ul class="theme-search-results-item-flight-details-schedule-list">
-                                                                                @for (var i = 0; i < history.ReturnFlight.Count(); ++i)
-                                                                                {
-                                                                                    if (i > 0)
+                                                                        <div class="col-md-9 ">
+                                                                            <div class="theme-search-results-item-flight-details-schedule">
+                                                                                <ul class="theme-search-results-item-flight-details-schedule-list">
+                                                                                    @for (var i = 0; i < history.ReturnFlight.Count(); ++i)
                                                                                     {
+                                                                                        if (i > 0)
+                                                                                        {
 
-                                                                                        var trasitTime = history.ReturnFlight[i].DepartureDate.Value.Subtract(history.ReturnFlight[i - 1].ArrivalDate.Value);
+                                                                                            var trasitTime = history.ReturnFlight[i].DepartureDate.Value.Subtract(history.ReturnFlight[i - 1].ArrivalDate.Value);
 
-                                                                                        <li class="transit">
-                                                                                            <i class="fa fa-exchange theme-search-results-item-flight-details-schedule-icon"></i>
-                                                                                            <p class="theme-search-results-item-flight-details-schedule-transfer transit-title">
-                                                                                                Transit for @(trasitTime.Hours)h @(trasitTime.Minutes)m in @history.ReturnFlight[i - 1].Arrival.Name.Split('-')[1].Trim() Airport (@history.ReturnFlight[i - 1].Arrival.Name.Split('-')[0].Trim())
+                                                                                            <li class="transit">
+                                                                                                <i class="fa fa-exchange theme-search-results-item-flight-details-schedule-icon"></i>
+                                                                                                <p class="theme-search-results-item-flight-details-schedule-transfer transit-title">
+                                                                                                    Transit for @(trasitTime.Hours)h @(trasitTime.Minutes)m in @history.ReturnFlight[i - 1].Arrival.Name.Split('-')[1].Trim() Airport (@history.ReturnFlight[i - 1].Arrival.Name.Split('-')[0].Trim())
+                                                                                                </p>
+                                                                                            </li>
+                                                                                        }
+                                                                                        <li>
+                                                                                            <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
+                                                                                            <div class="theme-search-results-item-flight-details-schedule-dots"></div>
+                                                                                            <p class="theme-search-results-item-flight-details-schedule-date">@history.ReturnFlight[i].DepartureDate.Value.ToString("MMM dd, yyyy")</p>
+                                                                                            <div class="theme-search-results-item-flight-details-schedule-time">
+                                                                                                <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                                                                    @history.ReturnFlight[i].DepartureDate.Value.ToString("hh:mm")
+                                                                                                    <span>@history.ReturnFlight[i].DepartureDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
+                                                                                                </span>
+                                                                                                <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
+                                                                                                <span class="theme-search-results-item-flight-details-schedule-time-item">
+                                                                                                    @history.ReturnFlight[i].ArrivalDate.Value.ToString("hh:mm")
+                                                                                                    <span>@history.ReturnFlight[i].ArrivalDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <p class="theme-search-results-item-flight-details-schedule-fly-time">
+                                                                                                @{
+                                                                                                    var flightTime = history.ReturnFlight[i].ArrivalDate.Value.Subtract(history.ReturnFlight[i].DepartureDate.Value);
+                                                                                                }
+                                                                                                @(flightTime.Hours)h @(flightTime.Minutes)m
                                                                                             </p>
+                                                                                            <div class="theme-search-results-item-flight-details-schedule-destination">
+                                                                                                <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                                                        <b>(@history.ReturnFlight[i].Departure.Name.Split('-')[0].Trim())</b>@history.ReturnFlight[i].Departure.Name.Split('-')[1] Airport
+                                                                                                    </p>
+                                                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-city">@history.ReturnFlight[i].Departure.City, @history.ReturnFlight[i].Departure.Country.Name</p>
+                                                                                                </div>
+                                                                                                <div class="theme-search-results-item-flight-details-schedule-destination-separator">
+                                                                                                    <span>&rarr;</span>
+                                                                                                </div>
+                                                                                                <div class="theme-search-results-item-flight-details-schedule-destination-item">
+                                                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-title">
+                                                                                                        <b>(@history.ReturnFlight[i].Arrival.Name.Split('-')[0].Trim())</b>@history.ReturnFlight[i].Arrival.Name.Split('-')[1] Airport
+                                                                                                    </p>
+                                                                                                    <p class="theme-search-results-item-flight-details-schedule-destination-city">@history.ReturnFlight[i].Arrival.City, @history.ReturnFlight[i].Arrival.Country.Name</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <ul class="theme-search-results-item-flight-details-schedule-features">
+                                                                                                <li>@history.ReturnFlight[i].Plane.Airline.Replace(" ", "")@history.ReturnFlight[i].PlaneID.Value.ToString("D3")</li>
+                                                                                                <li>@history.ReturnFlight[i].Plane.SeatMap.Name</li>
+                                                                                                @{
+                                                                                                    var seatCodeList = history.TicketFlightList.Where(f => f.TicketID == history.Ticket.ID && f.FlightID == history.ReturnFlight[i].ID).Select(f => f.SeatCode).FirstOrDefault().Split(',');
+                                                                                                }
+                                                                                                <li>Seat: @string.Join(" ", seatCodeList)</li>
+                                                                                            </ul>
                                                                                         </li>
                                                                                     }
-                                                                                    <li>
-                                                                                        <i class="fa fa-plane theme-search-results-item-flight-details-schedule-icon"></i>
-                                                                                        <div class="theme-search-results-item-flight-details-schedule-dots"></div>
-                                                                                        <p class="theme-search-results-item-flight-details-schedule-date">@history.ReturnFlight[i].DepartureDate.Value.ToString("MMM dd, yyyy")</p>
-                                                                                        <div class="theme-search-results-item-flight-details-schedule-time">
-                                                                                            <span class="theme-search-results-item-flight-details-schedule-time-item">
-                                                                                                @history.ReturnFlight[i].DepartureDate.Value.ToString("hh:mm")
-                                                                                                <span>@history.ReturnFlight[i].DepartureDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
-                                                                                            </span>
-                                                                                            <span class="theme-search-results-item-flight-details-schedule-time-separator">&mdash;</span>
-                                                                                            <span class="theme-search-results-item-flight-details-schedule-time-item">
-                                                                                                @history.ReturnFlight[i].ArrivalDate.Value.ToString("hh:mm")
-                                                                                                <span>@history.ReturnFlight[i].ArrivalDate.Value.ToString("tt", CultureInfo.InvariantCulture)</span>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                        <p class="theme-search-results-item-flight-details-schedule-fly-time">
-                                                                                            @{
-                                                                                                var flightTime = history.ReturnFlight[i].ArrivalDate.Value.Subtract(history.ReturnFlight[i].DepartureDate.Value);
-                                                                                            }
-                                                                                            @(flightTime.Hours)h @(flightTime.Minutes)m
-                                                                                        </p>
-                                                                                        <div class="theme-search-results-item-flight-details-schedule-destination">
-                                                                                            <div class="theme-search-results-item-flight-details-schedule-destination-item">
-                                                                                                <p class="theme-search-results-item-flight-details-schedule-destination-title">
-                                                                                                    <b>(@history.ReturnFlight[i].Departure.Name.Split('-')[0].Trim())</b>@history.ReturnFlight[i].Departure.Name.Split('-')[1] Airport
-                                                                                                </p>
-                                                                                                <p class="theme-search-results-item-flight-details-schedule-destination-city">@history.ReturnFlight[i].Departure.City, @history.ReturnFlight[i].Departure.Country.Name</p>
-                                                                                            </div>
-                                                                                            <div class="theme-search-results-item-flight-details-schedule-destination-separator">
-                                                                                                <span>&rarr;</span>
-                                                                                            </div>
-                                                                                            <div class="theme-search-results-item-flight-details-schedule-destination-item">
-                                                                                                <p class="theme-search-results-item-flight-details-schedule-destination-title">
-                                                                                                    <b>(@history.ReturnFlight[i].Arrival.Name.Split('-')[0].Trim())</b>@history.ReturnFlight[i].Arrival.Name.Split('-')[1] Airport
-                                                                                                </p>
-                                                                                                <p class="theme-search-results-item-flight-details-schedule-destination-city">@history.ReturnFlight[i].Arrival.City, @history.ReturnFlight[i].Arrival.Country.Name</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <ul class="theme-search-results-item-flight-details-schedule-features">
-                                                                                            <li>@history.ReturnFlight[i].Plane.Airline.Replace(" ", "")@history.ReturnFlight[i].PlaneID.Value.ToString("D3")</li>
-                                                                                            <li>@history.ReturnFlight[i].Plane.SeatMap.Name</li>
-                                                                                            @{
-                                                                                                var seatCodeList = history.TicketFlightList.Where(f => f.TicketID == history.Ticket.ID && f.FlightID == history.ReturnFlight[i].ID).Select(f => f.SeatCode).FirstOrDefault().Split(',');
-                                                                                            }
-                                                                                            <li>Seat: @string.Join(" ", seatCodeList)</li>
-                                                                                        </ul>
-                                                                                    </li>
-                                                                                }
-                                                                            </ul>
+                                                                                </ul>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                             }
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>

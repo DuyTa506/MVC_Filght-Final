@@ -284,3 +284,19 @@ th, td {
 .theme-account-history table > thead > tr > th{
     padding: 12px !important;
 }
+.theme-search-results-item{
+    border: 0px !important;
+}
+.flight-modal{
+    width: 800px;
+}
+.cofirm-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.flight-modal .modal-header{
+    padding: 7px 15px !important;
+}
+.flight-modal .modal-footer {
+    padding: 0px 15px !important;
+}

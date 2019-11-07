@@ -81,7 +81,7 @@
 }
 .review-fixed {
     position: fixed;
-    max-width: 320px;
-    min-width: 320px;
+    max-width: 290px;
+    min-width: 290px;
     top: 60px;
 }
