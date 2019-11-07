@@ -1,0 +1,12 @@
+﻿.msg-valid{
+    display: none;
+}
+.msg-invalid{
+    display: block;
+    color: red;
+    font-size: 14px;
+    margin-left: 2px;
+}
+.msg-error-login{
+    color: red;
+}

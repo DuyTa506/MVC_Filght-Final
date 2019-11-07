@@ -153,7 +153,10 @@ namespace EaseFlight.Web.Controllers
             userModel.ExpireToken = null;
             this.AccountService.Update(userModel);
 
-            return new JsonResult { ContentType = "text" };
+            if (userModel.AccountType.Name.Equals(Constant.CONST_ROLE_ADMIN) || userModel.AccountType.Name.Equals(Constant.CONST_ROLE_SUPERADMIN))
+                return new JsonResult { ContentType = "text", Data = new { type = "admin"} };
+
+            return new JsonResult { ContentType = "text", Data = new { type = "user" } };
         }
 
         [HttpPost]

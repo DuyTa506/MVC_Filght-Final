@@ -132,7 +132,9 @@
     <Compile Include="App_Start\CustomAuthorizeAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionCheckActionFilterAttribute.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirportController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -150,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\admin\basecss\adminlte.min.css" />
+    <Content Include="Content\admin\pages\login.css" />
     <Content Include="Content\admin\plugins\select2\select2-bootstrap4.min.css" />
     <Content Include="Content\images\airline-logo\Jetstar.png" />
     <Content Include="Content\images\airline-logo\Vietjet Air.png" />
@@ -192,6 +195,7 @@
     <Content Include="Scripts\admin\basejs\adminlte.js" />
     <Content Include="Scripts\admin\basejs\demo.js" />
     <Content Include="Scripts\admin\pages\home.js" />
+    <Content Include="Scripts\admin\pages\login.js" />
     <Content Include="Scripts\user\basejs\blur-area.js" />
     <Content Include="Scripts\user\basejs\bootstrap.js" />
     <Content Include="Scripts\user\basejs\bs-datepicker.js" />
@@ -265,6 +269,7 @@
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-solid-900.woff" />
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Airport\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />

@@ -12,7 +12,7 @@ namespace EaseFlight.Web.App_Start
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var authorized = false;
+            var authorized = true;
 
             if (SessionUtility.IsSessionAlive()) //Only check authorize with user logged
                 if (string.IsNullOrEmpty(this.Roles) == false)

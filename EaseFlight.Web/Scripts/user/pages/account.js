@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+ 
 })
 function register() {
     var formData = $('#registerForm').serialize();
@@ -103,7 +103,11 @@ function resetPassword() {
         type: 'post',
         data: $('#resetForm').serialize(),
         success: function (response) {
-            window.location.href = '/#login';
+            var data = JSON.parse(response);
+
+            if (data.type == 'admin')
+                window.location.href = '/Admin'
+            else window.location.href = '/#login';
         }
     });
 }

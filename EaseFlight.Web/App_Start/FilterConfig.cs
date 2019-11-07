@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using EaseFlight.Web.App_Start;
+using System.Web.Mvc;
 
 namespace EaseFlight.Web
 {
@@ -7,6 +8,9 @@ namespace EaseFlight.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+
+            // Add sesion check filter for all action
+            filters.Add(new SessionCheckActionFilterAttribute());
         }
     }
 }

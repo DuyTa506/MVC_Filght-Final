@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+    var msg = (string)ViewData["msg"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EaseFlight - Admin Sign In</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+@Styles.Render("~/Content/adminbasecss")
+@Styles.Render("~/Content/adminlogin")
+@Scripts.Render("~/bundles/adminbasejs")
+@Scripts.Render("~/bundles/adminlogin")
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Admin</b>EaseFlight</a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form action="@Url.Action("Login","Account")" method="post" name="login-form">
+                    <p class="msg-error-login">@msg</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="msg-valid msg-username">Username is required</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="msg-valid msg-pass">Password is required</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" onclick="login()" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="mb-1">
+                    <a href="@Url.Action("ForgotPassword","Account", new { Area = string.Empty })">I forgot my password</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

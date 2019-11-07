@@ -54,6 +54,9 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/ticket").Include(
                 "~/Scripts/user/pages/ticket.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminlogin").Include(
+               "~/Scripts/admin/pages/login.js"));
             #endregion
 
             #region Styles
@@ -86,6 +89,9 @@ namespace EaseFlight.Web
                      "~/Content/admin/plugins/fontawesome-free/css/all.min.css",
                      "~/Content/admin/plugins/select2/select2.min.css"
                      , "~/Content/admin/plugins/select2/select2-bootstrap4.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/adminlogin").Include(
+                      "~/Content/admin/pages/login.css"));
             #endregion
         }
     }
