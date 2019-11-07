@@ -70,7 +70,8 @@ namespace EaseFlight.Web.Controllers
                     SeatClass = this.SeatMapService.FindBySeatCode(firstTicketFlight.SeatCode.Split(',').First(), firstTicketFlight.Flight.PlaneID.Value),
                     DepartFlight = departFlight,
                     ReturnFlight = returnFlight,
-                    Passengers = passengers
+                    Passengers = passengers,
+                    TicketFlightList = this.TicketFlightService.FindByTicket(ticket.ID).ToList()
                 });
             }
 

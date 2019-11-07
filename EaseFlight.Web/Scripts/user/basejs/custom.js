@@ -47,9 +47,21 @@ $(document).ready(function(){
             if ($(window).scrollTop() > headerHeight) {
                 $('#main-nav').addClass('fixed');
                 $('#main-nav').removeClass('navbar-theme-transparent');
+
+                if ($('.div-oneway').hasClass('ticket-review'))
+                    $('.div-review-depart').addClass('review-fixed');
+
+                if ($('.div-return').hasClass('ticket-review'))
+                    $('.div-review-return').addClass('review-fixed');
             } else {
                 $('#main-nav').removeClass('fixed');
                 $('#main-nav').addClass('navbar-theme-transparent');
+
+                if ($('.div-oneway').hasClass('ticket-review'))
+                    $('.div-review-depart').removeClass('review-fixed');
+
+                if ($('.div-return').hasClass('ticket-review'))
+                    $('.div-review-return').removeClass('review-fixed');
             }
         }
     });

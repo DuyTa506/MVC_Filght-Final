@@ -4,11 +4,14 @@
 function register() {
     var formData = $('#registerForm').serialize();
     var formDataArr = $('#registerForm').serializeArray();
+
     if (formDataArr[4].value != formDataArr[5].value) {
         $('.error').addClass('alert alert-danger').html('Confirm password not correct!');
         return;
     }
+
     var inputs = $('#registerForm input');
+
     for (var i = 0; i < inputs.length - 1; ++i)
         if (!checkInputText(inputs.get(i))) return;
     
@@ -45,6 +48,7 @@ function checkUsernameExist(formData, callback) {
 
 function checkInputText(textInput) {
     textInput = textInput ? textInput : event.target;
+
     //Check empty
     if (textInput && textInput.value == "") {
         textInput.focus();
@@ -53,14 +57,44 @@ function checkInputText(textInput) {
         $('.msg-error').text(textInput.placeholder + ' is required!');
         return false;
     }
+
+    //Check email
+    if (textInput && $(textInput).attr('name') == 'email' && !validateEmail($(textInput).val())) {
+        $(textInput).focus();
+        $(textInput).addClass("has-error");
+        $('.error').addClass('alert alert-danger').html("Email address invalid!");
+        $('.msg-error').text("Email address invalid!");
+        return false;
+    }
+
+    //Check password
+    if (textInput && $(textInput).hasClass('register-password') && !validatePassword($(textInput).val())) {
+        $(textInput).focus();
+        $(textInput).addClass("has-error");
+        $('.error').addClass('alert alert-danger').html('Password must contain at least one uppercase letter, one lowercase letter, one numeric character and one special character');
+        $('.msg-error').text('Password must contain at least one uppercase letter, one lowercase letter, one numeric character and one special character');
+        return false;
+    }
+
+    //Check firstname and lastname
+    if (textInput && ($(textInput).attr('name') == 'firstname' || $(textInput).attr('name') == 'lastname') && !validateName($(textInput).val())) {
+        $(textInput).focus();
+        $(textInput).addClass("has-error");
+        $('.error').addClass('alert alert-danger').html('Invalid ' + textInput.placeholder);
+        $('.msg-error').text('Invalid ' + textInput.placeholder);
+        return false;
+    }
+
     $(textInput).removeClass("has-error");
     $('.error').removeClass('alert alert-danger').html('');
     $('.msg-error').text('');
+
     return true;
 }
 
 function forgotPassword() {
     var email = $('#email').val();
+
     if (!checkInputText(document.getElementById('email'))) return;
 
     $.ajax({
@@ -89,6 +123,7 @@ function resetPassword() {
     var formData = $('#resetForm').serializeArray();
     var password = document.getElementById('resetForm').querySelector('input[name="password"]');
     var repassword = document.getElementById('resetForm').querySelector('input[name="repassword"]');
+
     if (!checkInputText(password)) return;
     if (!checkInputText(repassword)) return;
 
@@ -116,6 +151,7 @@ function login() {
     var username = document.getElementById('loginForm').querySelector('input[name="username"]');
     var password = document.getElementById('loginForm').querySelector('input[name="password"]');
     var url = document.getElementById('redirectUrl').value;
+
     if (!checkInputText(username)) return;
     if (!checkInputText(password)) return;
 

@@ -12,5 +12,6 @@ namespace EaseFlight.Models.CustomModel
         public List<FlightModel> DepartFlight { get; set; }
         public List<FlightModel> ReturnFlight { get; set; }
         public List<PassengerTicketModel> Passengers { get; set; }
+        public List<TicketFlightModel> TicketFlightList { get; set; }
     }
 }

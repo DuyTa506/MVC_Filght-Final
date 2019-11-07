@@ -3,7 +3,8 @@
 });
 
 function returnTicket(id) {
-    var parent = $(event.target).parents('tr');
+    $('#confirm-return').modal('hide');
+    var parent = $('#ticket-' + id);
     parent.find('.td-status').html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
     parent.find('.td-refund').html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
 
@@ -24,4 +25,9 @@ function returnTicket(id) {
             }
         }
     });
+}
+
+function openReturnTicketModal(id) {
+    $('#confirm-return').find('.a-confirm').attr('onclick', 'returnTicket("' + id + '")');
+    $('#confirm-return').modal('show');
 }

@@ -79,3 +79,9 @@
     max-width: 320px;
     min-width: 320px;
 }
+.review-fixed {
+    position: fixed;
+    max-width: 320px;
+    min-width: 320px;
+    top: 60px;
+}

@@ -64,6 +64,12 @@ $(document).ready(function () {
     $('li.collapse').collapse('show');
     $('.ul-departure li.country').last().addClass('border-bottom-none');
     $('.ul-arrival li.country').last().addClass('border-bottom-none');
+
+    //Reset departdate for search flight
+    $('.datePickerStart._desk-h').attr('value', '');
+    $('.datePickerStart._desk-h').val('');
+    $('.datePickerStart._mob-h').attr('value', '');
+    $('.datePickerStart._mob-h').val('');
 });
 
 //Select Departure and Arrial dropdown

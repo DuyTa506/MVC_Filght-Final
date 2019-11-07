@@ -40,6 +40,7 @@ function returnTab() {
         $('.div-oneway .load-more').addClass('hide');
         $('.div-return').attr("style", "");
         $('.div-return').removeClass('ticket-review');
+        $('.div-review-return').removeClass('review-fixed');
 
         if ($('.return-ticket.hide').length == 0 || $('.departure-ticket.hide').length == 0) 
             ++firstTimeReturn;
@@ -70,6 +71,7 @@ function onewayTab() {
         $('.div-oneway .load-more').removeClass('hide');
         $('.div-oneway').attr("style", "");
         $('.div-oneway').removeClass('ticket-review');
+        $('.div-review-depart').removeClass('review-fixed');
 
         if ($('.departure-ticket.hide').length == 0 || $('.return-ticket.hide').length == 0)
             ++firstTimeDepart;
@@ -260,8 +262,7 @@ function loadMore(event) {
 
     getFlightSearch();
 }
-function chooseFlight(flights, price, seat) {
-    var divReturn = $(event.target).parents('.div-return');
+function chooseFlight(flights, price) {
     var divOneway = $(event.target).parents('.div-oneway');
     var parent = $(event.target).parents('.theme-search-results-item-preview');
     var img = parent.find('img').clone();
