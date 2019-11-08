@@ -33,12 +33,15 @@ namespace EaseFlight.Web.Controllers
         {
             var userModel = this.AccountService.FindByUsername(collection.Get("username"));
 
-            if (userModel != null && !string.IsNullOrEmpty(userModel.Password) && EncryptionUtility.BcryptCheckPassword(collection.Get("password"), userModel.Password))
+            if (userModel != null && !string.IsNullOrEmpty(userModel.Password) 
+                && EncryptionUtility.BcryptCheckPassword(collection.Get("password"), userModel.Password))
             {
-                SessionUtility.SetAuthenticationToken(userModel, 60);
+                if (userModel.Status.Value)
+                {
+                    SessionUtility.SetAuthenticationToken(userModel, 60);
 
-                return new JsonResult { ContentType = "text", Data = new { msg = "success" } };
-
+                    return new JsonResult { ContentType = "text", Data = new { msg = "success" } };
+                }else return new JsonResult { ContentType = "text", Data = new { msg = Constant.CONST_MESSAGE_LOGIN_DISABLE} };
             }
 
             return new JsonResult { ContentType = "text", Data = new { msg = Constant.CONST_MESSAGE_LOGIN_INVALID } };
@@ -180,6 +183,7 @@ namespace EaseFlight.Web.Controllers
         [HttpPost]
         public JsonResult ThirdPartyLogin(string id, string name, string email, string picture)
         {
+            var result = new JsonResult { ContentType = "text", Data = new { type = "success"} };
             var currentUser = this.AccountService.FindByUsername(id);
 
             if (currentUser == null)
@@ -197,9 +201,11 @@ namespace EaseFlight.Web.Controllers
                 this.AccountService.Insert(user);
                 SessionUtility.SetAuthenticationToken(user, 60);
             }
-            else SessionUtility.SetAuthenticationToken(currentUser, 60);
+            else if (currentUser.Status.Value)
+                SessionUtility.SetAuthenticationToken(currentUser, 60);
+            else result.Data = new { type = "error", msg = Constant.CONST_MESSAGE_LOGIN_DISABLE };
 
-            return new JsonResult { ContentType = "text" };
+            return result;
         }
 
         [HttpGet]

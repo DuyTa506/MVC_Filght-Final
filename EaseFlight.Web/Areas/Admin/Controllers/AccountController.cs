@@ -36,12 +36,15 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         {
             var userModel = this.AccountService.FindByUsername(collection.Get("username"));
 
-            if (userModel != null && !string.IsNullOrEmpty(userModel.Password) && EncryptionUtility.BcryptCheckPassword(collection.Get("password"), userModel.Password))
+            if (userModel != null && !string.IsNullOrEmpty(userModel.Password) 
+                && EncryptionUtility.BcryptCheckPassword(collection.Get("password"), userModel.Password))
             {
-                SessionUtility.SetAuthenticationToken(userModel, 60);
+                if (userModel.Status.Value)
+                {
+                    SessionUtility.SetAuthenticationToken(userModel, 60);
 
-                return RedirectToAction("Index", "Home");
-
+                    return RedirectToAction("Index", "Home");
+                }else return RedirectToAction("Login", new { msg = Constant.CONST_MESSAGE_LOGIN_DISABLE });
             }
 
             return RedirectToAction("Login" , new { msg = Constant.CONST_MESSAGE_LOGIN_INVALID});

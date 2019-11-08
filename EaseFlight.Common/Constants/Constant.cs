@@ -32,6 +32,7 @@
         public static string CONST_MESSAGE_EMAIL_SENT_RESET_PASSWORD_SUCCESS = "Email sent with password reset instructions<br/>(Missing Emails! Have you checked your Spam Folder?)";
         public static string CONST_MESSAGE_USERNAME_OR_EMAIL_INVALID = "Username or email does not exist!";
         public static string CONST_MESSAGE_LOGIN_INVALID = "Invalid username or password!";
+        public static string CONST_MESSAGE_LOGIN_DISABLE = "Your account has been disabled. Please contact support team EaseFlight!";
         public static string CONST_MESSAGE_USERNAME_LOGIN_WITH_GG_FB = "Your account is binding with Google or Facebook, try to sign in with this method!";
         #endregion
 

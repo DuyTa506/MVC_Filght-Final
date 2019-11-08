@@ -248,13 +248,17 @@ function getUserInfo() {
                     email: user.email,
                     picture: user.picture
                 },
-                success: function () {
-                    var url = document.getElementById('redirectUrl').value;
-                    if (url == '')
-                        window.location.reload();
-                    else if (url == 'bookflag')
-                        goBooking();
-                    else window.location.href = url;
+                success: function (response) {
+                    var data = JSON.parse(response);
+
+                    if (data.type == 'success') {
+                        var url = document.getElementById('redirectUrl').value;
+                        if (url == '')
+                            window.location.reload();
+                        else if (url == 'bookflag')
+                            goBooking();
+                        else window.location.href = url;
+                    } else $('.error').addClass('alert alert-danger').html(data.msg);
                 }
             });
         }
@@ -303,13 +307,17 @@ function getFbUserData() {
                     email: user.email,
                     picture: 'https://graph.facebook.com/' + user.id + '/picture?type=large'
                 },
-                success: function () {
-                    var url = document.getElementById('redirectUrl').value;
-                    if (url == '')
-                        window.location.reload();
-                    else if (url == 'bookflag')
-                        goBooking();
-                    else window.location.href = url;
+                success: function (response) {
+                    var data = JSON.parse(response);
+
+                    if (data.type == 'success') {
+                        var url = document.getElementById('redirectUrl').value;
+                        if (url == '')
+                            window.location.reload();
+                        else if (url == 'bookflag')
+                            goBooking();
+                        else window.location.href = url;
+                    } else $('.error').addClass('alert alert-danger').html(data.msg);
                 }
             });
         });
