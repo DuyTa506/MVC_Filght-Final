@@ -14,6 +14,32 @@
     $('select[name="Nationality"]').trigger("change");
     $('select[name="City"]').val(city);
     $('select[name="City"]').trigger("change");
+
+    //Onchange photo
+    $('.upload-photo').change(function () {
+        var formData = new FormData();
+        var file = document.getElementsByClassName('upload-photo')[0].files[0];
+
+        formData.append("file", file);
+
+        $.ajax({
+            type: 'post',
+            url: '/Account/ChangePhoto',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                var data = JSON.parse(response);
+
+                if (data.type = 'success') {
+                    var lastname = $('.dropdown-toggle.account-name').find('span').text();
+
+                    $('.theme-account-avatar-img').attr('src', data.path);
+                    $('.dropdown-toggle.account-name').html('<img class="user-avatar" src="' + data.path + '" width="20" height="20" /><span>' + lastname + '</span>')
+                }
+            }
+        });
+    });
 });
 
 function updateAccount() {

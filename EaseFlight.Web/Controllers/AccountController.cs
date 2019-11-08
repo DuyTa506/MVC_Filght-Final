@@ -7,6 +7,7 @@ using EaseFlight.Web.WebUtilities;
 using Newtonsoft.Json;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace EaseFlight.Web.Controllers
@@ -309,6 +310,28 @@ namespace EaseFlight.Web.Controllers
                 result.Data = new { type = "success" };
             }
             else result.Data = new {type = "error" };
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult ChangePhoto()
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var loggedUser = SessionUtility.GetLoggedUser();
+            var file = Request.Files["file"];
+            var fileName = loggedUser.ID.ToString() + "." + file.FileName.Split('.').Last();
+            var path = CommonMethods.ServerMapPath("Content/images/avatar/" + fileName);
+            var avatarPath = "/Content/images/avatar/" + fileName;
+
+            file.SaveAs(path);
+            result.Data = new { path = avatarPath, type = "success" };
+
+            //Update user
+            loggedUser.Photo = avatarPath;
+            loggedUser.AccountType = null;
+            this.AccountService.Update(loggedUser);
+            SessionUtility.SetAuthenticationToken(loggedUser, 60);
 
             return result;
         }

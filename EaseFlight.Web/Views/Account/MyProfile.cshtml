@@ -29,12 +29,13 @@
                     <div class="theme-account-avatar">
                         @if (string.IsNullOrEmpty(Model.Photo))
                         {
-                            <img class="theme-account-avatar-img" src="~/Content/images/user.png" alt="Image Alternative text" title="@Model.LastName" />
+                            <img class="theme-account-avatar-img" src="~/Content/images/avatar/user.png" alt="Image Alternative text" title="Change your avatar" />
                         }
                         else
                         {
-                            <img class="theme-account-avatar-img" src="@Model.Photo" alt="Image Alternative text" title="@Model.LastName" />
+                            <img class="theme-account-avatar-img" src="@Model.Photo" alt="Image Alternative text" title="Change your avatar" />
                         }
+                        <input type="file" class="upload-photo" title="Change your avatar" />
                         <p class="theme-account-avatar-name">
                             Welcome,
                             <br />@Model.FirstName @Model.LastName
@@ -325,34 +326,6 @@
                                     </div>
                                 </div>
                             }
-                            <!--Photo-->
-                            <div class="theme-account-preferences-item">
-                                <div class="row">
-                                    <div class="col-md-3 ">
-                                        <h5 class="theme-account-preferences-item-title">Avatar</h5>
-                                    </div>
-                                    <div class="col-md-7 ">
-                                        <p class="theme-account-preferences-item-value">Change your avatar picture</p>
-                                        <div class="collapse" id="ChangeAvatar">
-                                            <div class="theme-account-preferences-item-change">
-                                                <p class="theme-account-preferences-item-change-description">Please select your avatar picture</p>
-                                                <div class="form-group theme-account-preferences-item-change-form">
-                                                    <input name="Photo" class="form-control" type="file" />
-                                                </div>
-                                                <div class="theme-account-preferences-item-change-actions">
-                                                    <a class="btn btn-sm btn-primary" href="#">Save changes</a>
-                                                    <a class="btn btn-sm btn-default" href="#ChangeAvatar" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeAvatar">Cancel</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 ">
-                                        <a class="theme-account-preferences-item-change-link" href="#ChangeAvatar" data-toggle="collapse" aria-expanded="false" aria-controls="ChangeAvatar">
-                                            <i class="fa fa-pencil"></i>Edit
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -218,7 +218,7 @@ function getFlightSearch() {
                 var data = JSON.parse(response);
 
                 if (data.type == "error")
-                    $('.resultDiv').html('<h3>Nothing</h3>');
+                    $('.resultDiv').html('<p>There are no flights for your search!</p>');
                 else $('.resultDiv').html(data.result);
 
                 if ($('#flightcount').val()) {

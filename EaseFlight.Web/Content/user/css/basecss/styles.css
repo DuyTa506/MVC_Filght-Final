@@ -9852,6 +9852,7 @@ body {
 .theme-account-avatar-img {
   float: left;
   width: 40px;
+  height: 40px;
   display: block;
   border-radius: 50%;
   margin-right: 15px;

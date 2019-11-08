@@ -47,61 +47,68 @@
             <div class="col-md-9-5 ">
                 <h1 class="theme-account-page-title">Booking History</h1>
                 <div class="theme-account-history">
-                    <table class="table ticket-history">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Flight</th>
-                                <th>Passengers</th>
-                                <th>Seat Class</th>
-                                <th>Booking Date</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var history in Model)
-                            {
-                                var adult = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_ADULT)).Count();
-                                var child = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Count();
-                                var infant = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Count();
-                                var isReturn = (history.DepartFlight.First().DepartureDate.Value - DateTime.Now).TotalDays > 30 && !history.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN);
-                                <tr id="ticket-@history.Ticket.ID">
-                                    <td class="theme-account-history-type">
-                                        <i class="fa fa-plane theme-account-history-type-icon"></i>
-                                    </td>
-                                    <td>
-                                        <p class="theme-account-history-type-title">
-                                            @history.From.City (@history.From.Name.Split('-').First().Trim()) &rarr; @history.To.City (@history.To.Name.Split('-').First().Trim()) @(history.ReturnFlight.Count > 0 ? "(Round trip)" : "")
-                                        </p>
-                                        <a class="theme-account-history-item-name cursor-pointer" data-toggle="modal" data-target="#flightModal@(history.Ticket.ID)">Flight detail</a>
-                                    </td>
-                                    <td>
-                                        <p class="theme-account-history-type-title">@adult Adult, @child Child, @infant Infant</p>
-                                        <a data-toggle="modal" data-target="#passengerModal@(history.Ticket.ID)" class="theme-account-history-item-name cursor-pointer">Passenger detail</a>
-                                    </td>
-                                    <td>
-                                        <p class="">@history.SeatClass.Name</p>
-                                    </td>
-                                    <td class="">
-                                        <p class="">@history.Ticket.CreateDate.Value.ToString("MMM dd, yyyy")</p>
-                                    </td>
-                                    <td>
-                                        <p class="theme-account-history-item-price">$@history.Ticket.Price</p>
-                                    </td>
-                                    <td class="td-status-width @(isReturn?"td-status":"")">
-                                        <p class="@(history.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_SUCCESS)?"status-success":"status-return")">@history.Ticket.Status @(string.IsNullOrEmpty(history.Ticket.Description) ? "" : "(" + history.Ticket.Description.Split(' ').Last() + ")")</p>
-                                    </td>
-                                    @if (isReturn)
-                                    {
-                                        <td class="td-refund">
-                                            <span onclick="openReturnTicketModal('@history.Ticket.ID')" class="action-refund" title="Return your ticket"><i class="fa fa-credit-card"></i> Return ticket</span>
-                                        </td>
-                                    }
+                    @if (Model.Count > 0)
+                    {
+                        <table class="table ticket-history">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Flight</th>
+                                    <th>Passengers</th>
+                                    <th>Seat Class</th>
+                                    <th>Booking Date</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var history in Model)
+                                {
+                                    var adult = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_ADULT)).Count();
+                                    var child = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Count();
+                                    var infant = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Count();
+                                    var isReturn = (history.DepartFlight.First().DepartureDate.Value - DateTime.Now).TotalDays > 30 && !history.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN);
+                                    <tr id="ticket-@history.Ticket.ID">
+                                        <td class="theme-account-history-type">
+                                            <i class="fa fa-plane theme-account-history-type-icon"></i>
+                                        </td>
+                                        <td>
+                                            <p class="theme-account-history-type-title">
+                                                @history.From.City (@history.From.Name.Split('-').First().Trim()) &rarr; @history.To.City (@history.To.Name.Split('-').First().Trim()) @(history.ReturnFlight.Count > 0 ? "(Round trip)" : "")
+                                            </p>
+                                            <a class="theme-account-history-item-name cursor-pointer" data-toggle="modal" data-target="#flightModal@(history.Ticket.ID)">Flight detail</a>
+                                        </td>
+                                        <td>
+                                            <p class="theme-account-history-type-title">@adult Adult, @child Child, @infant Infant</p>
+                                            <a data-toggle="modal" data-target="#passengerModal@(history.Ticket.ID)" class="theme-account-history-item-name cursor-pointer">Passenger detail</a>
+                                        </td>
+                                        <td>
+                                            <p class="">@history.SeatClass.Name</p>
+                                        </td>
+                                        <td class="">
+                                            <p class="">@history.Ticket.CreateDate.Value.ToString("MMM dd, yyyy")</p>
+                                        </td>
+                                        <td>
+                                            <p class="theme-account-history-item-price">$@history.Ticket.Price</p>
+                                        </td>
+                                        <td class="td-status-width @(isReturn?"td-status":"")">
+                                            <p class="@(history.Ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_SUCCESS)?"status-success":"status-return")">@history.Ticket.Status @(string.IsNullOrEmpty(history.Ticket.Description) ? "" : "(" + history.Ticket.Description.Split(' ').Last() + ")")</p>
+                                        </td>
+                                        @if (isReturn)
+                                        {
+                                            <td class="td-refund">
+                                                <span onclick="openReturnTicketModal('@history.Ticket.ID')" class="action-refund" title="Return your ticket"><i class="fa fa-credit-card"></i> Return ticket</span>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>You have no tickets yet!</p>
+                    }
 
                     @foreach (var history in Model)
                     {

@@ -157,7 +157,7 @@
     <Content Include="Content\images\airline-logo\Jetstar.png" />
     <Content Include="Content\images\airline-logo\Vietjet Air.png" />
     <Content Include="Content\images\airline-logo\VietNam Airline.png" />
-    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\avatar\user.png" />
     <Content Include="Content\user\css\basecss\toastify.css" />
     <Content Include="Content\user\css\pages\myprofile.css" />
     <Content Include="Content\user\css\pages\ticket.css" />

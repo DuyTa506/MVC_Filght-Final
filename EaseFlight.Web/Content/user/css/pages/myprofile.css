@@ -19,3 +19,13 @@ input.invalid:focus, select.invalid:focus {
     border-color: red !important;
     outline: none;
 }
+.upload-photo:hover .theme-account-avatar-img {
+    opacity: 0.5;
+}
+.upload-photo{
+    opacity: 0;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+}
