@@ -47,5 +47,11 @@
         public static string CONST_EMAIL_RESET_PASSWORD_LINK = @"Account/ResetPassword?rt={0}";
 
         #endregion
+
+        #region Fight Status
+        public static string CONST_FLIGHT_STATUS_READY = "Ready";
+        public static string CONST_FLIGHT_STATUS_ONLINE = "Online";
+        public static string CONST_FLIGHT_STATUS_DELAY = "Delay";
+        #endregion
     }
 }

@@ -7,7 +7,8 @@ if((isSafari) && (isChrome)) {
     isSafari = false;
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
+    fullHeightScreen();
     OwlCarousel();
 
     $('.blur-area').blurArea();
@@ -64,6 +65,10 @@ $(document).ready(function(){
                     $('.div-review-return').removeClass('review-fixed');
             }
         }
+    });
+
+    $(window).resize(function () {
+        fullHeightScreen();
     });
 
     if (window.location.hostname == 'easeflight.somee.com')
@@ -570,4 +575,13 @@ function validatePassword(password) {
 
 function validateName(name) {
     return /^[a-z A-Z]+$/.test(name);
+}
+
+function fullHeightScreen() {
+    var windowHeight = $(window).height();
+    var bodyHeight = $('body').height();
+    var pageHeight = $('.theme-page-section').height();
+
+    if (bodyHeight < windowHeight)
+        $('.theme-page-section').height(pageHeight + (windowHeight - bodyHeight));
 }

@@ -26,42 +26,43 @@ namespace EaseFlight.Web
                         "~/Scripts/user/basejs/toastify.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/adminbasejs").Include(
-                         "~/Scripts/admin/basejs/jquery.min.js",
-                         "~/Scripts/admin/basejs/bootstrap.bundle.min.js",
-                          "~/Scripts/admin/basejs/adminlte.js",
-                          "~/Scripts/admin/basejs/demo.js",
-                           "~/Scripts/admin/basejs/select2.full.min.js",
-                          "~/Scripts/admin/pages/home.js" ));
+                        "~/Scripts/admin/basejs/jquery.min.js",
+                        "~/Scripts/admin/basejs/bootstrap.bundle.min.js",
+                        "~/Scripts/admin/basejs/adminlte.js",
+                        "~/Scripts/admin/basejs/demo.js",
+                        "~/Scripts/admin/basejs/select2.full.min.js",
+                        "~/Scripts/admin/basejs/admin.js",
+                        "~/Scripts/admin/pages/home.js" ));
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
-                "~/Scripts/user/pages/home.js"));
+                        "~/Scripts/user/pages/home.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/flight").Include(
-                "~/Scripts/user/pages/flight.js"));
+                        "~/Scripts/user/pages/flight.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/account").Include(
-                "~/Scripts/user/pages/account.js"));
+                        "~/Scripts/user/pages/account.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/booking").Include(
-                "~/Scripts/user/pages/booking.js"));
+                        "~/Scripts/user/pages/booking.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/geodata").Include(
-               "~/Scripts/user/basejs/geodatasource-cr.js",
-               "~/Scripts/user/basejs/Gettext.js"));
+                       "~/Scripts/user/basejs/geodatasource-cr.js",
+                       "~/Scripts/user/basejs/Gettext.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/myprofile").Include(
-                "~/Scripts/user/pages/myprofile.js"));
+                        "~/Scripts/user/pages/myprofile.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ticket").Include(
-                "~/Scripts/user/pages/ticket.js"));
+                        "~/Scripts/user/pages/ticket.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/adminlogin").Include(
-               "~/Scripts/admin/pages/login.js"));
+                        "~/Scripts/admin/pages/login.js"));
             #endregion
 
             #region Styles
             bundles.Add(new StyleBundle("~/Content/basecss").Include(
-                      "~/Content/user/css/basecss/bootstrap.css",
+                    "~/Content/user/css/basecss/bootstrap.css",
                       "~/Content/user/css/basecss/font-awesome.css",
                       "~/Content/user/css/basecss/lineicons.css",
                       "~/Content/user/css/basecss/styles.css",

@@ -1,4 +1,5 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Common.Constants;
 using EaseFlight.Common.Utilities;
 using EaseFlight.DAL.Entities;
 using EaseFlight.DAL.Interfaces;
@@ -56,15 +57,17 @@ namespace EaseFlight.BLL.Services
         {
             //Direct
             var result = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate
-                        && flight.Departure.ID == departure.ID && flight.Arrival.ID == arrival.ID)
+                        && flight.Departure.ID == departure.ID && flight.Arrival.ID == arrival.ID && flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_READY))
                         .Select(flight => new SearchFlightModel { FlightList = new List<FlightModel> { flight }, Price = flight.Price.Value }).ToList();
                         
             // 1 Transit
-            var resutlDeparture = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate && flight.Departure.ID == departure.ID);
-            var resultArrival = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate && flight.Arrival.ID == arrival.ID);
+            var resultDeparture = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate && flight.Departure.ID == departure.ID
+                                    && flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_READY));
+            var resultArrival = this.FindAll().Where(flight => flight.DepartureDate.Value.Date == departureDate && flight.Arrival.ID == arrival.ID
+                                    && flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_READY));
 
-            var flightTransit = from departures in resutlDeparture
-                        join arrivals in resultArrival on departures.Arrival.ID equals arrivals.Departure.ID
+            var flightTransit = from departures in resultDeparture
+                                join arrivals in resultArrival on departures.Arrival.ID equals arrivals.Departure.ID
                         where arrivals.ArrivalDate > departures.DepartureDate
                         let flight = new List<FlightModel> { departures, arrivals}
                         select flight;

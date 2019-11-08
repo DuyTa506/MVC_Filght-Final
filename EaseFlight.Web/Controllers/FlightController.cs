@@ -88,10 +88,10 @@ namespace EaseFlight.Web.Controllers
                 var returnDate = string.IsNullOrEmpty(collection.Get("return")) ? new DateTime()
                     : DateTime.ParseExact(collection.Get("return"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 var seatClass = this.SeatClassService.Find(int.Parse(collection.Get("seat")));
-                var adult = int.Parse(collection.Get("adult"));
-                var child = int.Parse(collection.Get("child"));
-                var infant = int.Parse(collection.Get("infant"));
-                var roundTrip = bool.Parse(collection.Get("roundtrip"));
+                var adultPassenger = int.Parse(collection.Get("adult"));
+                var childPassenger = int.Parse(collection.Get("child"));
+                var infantPassenger = int.Parse(collection.Get("infant"));
+                var isRoundTrip = bool.Parse(collection.Get("roundtrip"));
 
                 result.Data = new 
                 {
@@ -100,10 +100,10 @@ namespace EaseFlight.Web.Controllers
                     date = departureDate.ToString("yyyy-MM-dd"),
                     returnDate = returnDate.ToString("yyyy-MM-dd"),
                     seat = seatClass.Name.Replace(" ",""),
-                    adult = adult,
-                    child = child,
-                    infant = infant,
-                    roundTrip = roundTrip
+                    adult = adultPassenger,
+                    child = childPassenger,
+                    infant = infantPassenger,
+                    roundTrip = isRoundTrip
                 };
             }
             catch

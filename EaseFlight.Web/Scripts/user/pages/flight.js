@@ -216,6 +216,8 @@ function getFlightSearch() {
             setTimeout(function () {
                 $('.loadingbar').addClass('hide');
                 var data = JSON.parse(response);
+                var isTicketDepart = $('.div-review-depart').hasClass('review-fixed');
+                var isTicketReturn = $('.div-review-return').hasClass('review-fixed');
 
                 if (data.type == "error")
                     $('.resultDiv').html('<p>There are no flights for your search!</p>');
@@ -243,6 +245,9 @@ function getFlightSearch() {
 
                 if (ticketReturn != null)
                     $('.return-ticket').html(ticketReturn);
+
+                if (isTicketDepart) $('.div-review-depart').addClass('review-fixed');
+                if (isTicketReturn) $('.div-review-return').addClass('review-fixed');
             }, 1000);
         }
     });

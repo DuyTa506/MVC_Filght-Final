@@ -238,7 +238,7 @@ namespace EaseFlight.Web.Controllers
 
             if(loggedUser != null)
             {
-                var test = JsonConvert.SerializeObject(new { 
+                var currentUser = JsonConvert.SerializeObject(new { 
                     loggedUser.LastName,
                     loggedUser.FirstName,
                     loggedUser.Email,
@@ -251,7 +251,7 @@ namespace EaseFlight.Web.Controllers
                     Expire = loggedUser.DateIssueOrExpiry != null? loggedUser.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy"):""
                 });
 
-                result.Data = new { msg = "success", info = test };
+                result.Data = new { msg = "success", info = currentUser };
             }
 
             return result;

@@ -98,67 +98,6 @@
                 <a class="btn theme-search-results-sign-in-btn btn-ghost btn-white" onclick="openLoginModal()">Sign in now</a>
             </div>
         }
-        <div class="theme-search-results-sort _mob-h clearfix sort-result">
-            <h5 class="theme-search-results-sort-title">Sort by:</h5>
-            <ul class="theme-search-results-sort-list">
-                <li>
-                    <a href="#">
-                        Price
-                        <span>Low &rarr; High</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="#">
-                        Duration
-                        <span>Long &rarr; Short</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Recommended
-                        <span>High &rarr; Low</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Airline Name
-                        <span>Name &nbsp; A &rarr; Z</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="dropdown theme-search-results-sort-alt">
-                <a id="dropdownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">
-                    More
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li>
-                        <a href="#">Departure take-off</a>
-                    </li>
-                    <li>
-                        <a href="#">Departure landing</a>
-                    </li>
-                    <li>
-                        <a href="#">Return take-off</a>
-                    </li>
-                    <li>
-                        <a href="#">Return landing</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="theme-search-results-sort-select _desk-h sort-result">
-            <select>
-                <option>Price</option>
-                <option>Duration</option>
-                <option>Recommended</option>
-                <option>Airline Name</option>
-                <option>Departure take-off</option>
-                <option>Departure landing</option>
-                <option>Return take-off</option>
-                <option>Return landing</option>
-            </select>
-        </div>
         <div class="theme-search-results result-oneway">
             @foreach (var result in Model.DepartureData)
             {
@@ -426,67 +365,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="hide theme-search-results-sort _mob-h clearfix sort-result">
-            <h5 class="theme-search-results-sort-title">Sort by:</h5>
-            <ul class="theme-search-results-sort-list">
-                <li>
-                    <a href="#">
-                        Price
-                        <span>Low &rarr; High</span>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="#">
-                        Duration
-                        <span>Long &rarr; Short</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Recommended
-                        <span>High &rarr; Low</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Airline Name
-                        <span>Name &nbsp; A &rarr; Z</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="dropdown theme-search-results-sort-alt">
-                <a id="dropdownMenu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">
-                    More
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <li>
-                        <a href="#">Departure take-off</a>
-                    </li>
-                    <li>
-                        <a href="#">Departure landing</a>
-                    </li>
-                    <li>
-                        <a href="#">Return take-off</a>
-                    </li>
-                    <li>
-                        <a href="#">Return landing</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="hide theme-search-results-sort-select _desk-h sort-result">
-            <select>
-                <option>Price</option>
-                <option>Duration</option>
-                <option>Recommended</option>
-                <option>Airline Name</option>
-                <option>Departure take-off</option>
-                <option>Departure landing</option>
-                <option>Return take-off</option>
-                <option>Return landing</option>
-            </select>
         </div>
         <div class="theme-search-results result-return">
             @foreach (var result in Model.ReturnData)
