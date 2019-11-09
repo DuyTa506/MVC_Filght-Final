@@ -79,7 +79,7 @@ function savePlane() {
 
 function editPlane() {
     var planeid = $('.plane-name').val();
-    var planetype = $('.plane-type').;
+    var planetype = $('.plane-type');
     var planetype = $();
     var planetype = $();
     var planetype = $();

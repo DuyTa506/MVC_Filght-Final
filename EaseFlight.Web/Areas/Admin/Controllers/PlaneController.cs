@@ -90,7 +90,6 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                 };
                 this.PlaneSeatClassService.Insert(planeSeatClass);
             }
-            ViewBag["msg-status"] = "ADD COMPLETE!!!";
             return RedirectToAction("Index");
         }
         //EDIT PLANE
