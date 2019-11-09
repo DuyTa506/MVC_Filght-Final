@@ -46,7 +46,8 @@ namespace EaseFlight.DAL.Repositories
         public void Delete(int countryId)
         {
             var country = this.UnitOfWork.DBContext.Countries.Find(countryId);
-            if (country != null && country.Airports.Count == 0)
+
+            if (country.Airports.Count == 0)
             {
                 this.UnitOfWork.DBContext.Countries.Remove(country);
                 this.UnitOfWork.SaveChanges();

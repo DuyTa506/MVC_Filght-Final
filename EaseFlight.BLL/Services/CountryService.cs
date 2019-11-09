@@ -39,11 +39,10 @@ namespace EaseFlight.BLL.Services
             return result;
         }
 
-        public int Update(CountryModel country)
+        public void Update(CountryModel country)
         {
             this.CountryRepository.Update(country.GetModel());
             var result = this.UnitOfWork.SaveChanges();
-            return result;
         }
 
         public void Delete(int countryId)

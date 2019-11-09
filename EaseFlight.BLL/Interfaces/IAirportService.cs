@@ -7,5 +7,8 @@ namespace EaseFlight.BLL.Interfaces
     {
         IEnumerable<AirportModel> FindAll();
         AirportModel Find(int id);
+        int Insert(AirportModel airport);
+        void Update(AirportModel airport);
+        void Delete(int airportId);
     }
 }

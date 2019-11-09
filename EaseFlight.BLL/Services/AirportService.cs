@@ -54,6 +54,27 @@ namespace EaseFlight.BLL.Services
 
             return viewModel;
         }
+
+        public int Insert(AirportModel airport)
+        {
+            this.AirportRepository.Insert(airport.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+            return result;
+        }
+
+        public void Update(AirportModel airport)
+        {
+            this.AirportRepository.Update(airport.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+        }
+
+        public void Delete(int airportId)
+        {
+            this.AirportRepository.Delete(airportId);
+        }
+
+       
+
         #endregion
     }
 }

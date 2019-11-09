@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace EaseFlight.Web.Areas.Admin.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         #region Properties
         private IAccountService AccountService { get; set; }

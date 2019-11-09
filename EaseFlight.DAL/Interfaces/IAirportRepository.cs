@@ -7,5 +7,8 @@ namespace EaseFlight.DAL.Interfaces
     {
         IEnumerable<Airport> FindAll();
         Airport Find(int id);
+        int Insert(Airport airport);
+        void Update(Airport airport);
+        void Delete(int airportId);
     }
 }

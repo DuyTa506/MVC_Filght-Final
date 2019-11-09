@@ -7,7 +7,7 @@ namespace EaseFlight.BLL.Interfaces
     {
         IEnumerable<CountryModel> FindAll();
         int Insert(CountryModel country);
-        int Update(CountryModel country);
+        void Update(CountryModel country);
         void Delete(int countryId);
         CountryModel Find(int id);
     }

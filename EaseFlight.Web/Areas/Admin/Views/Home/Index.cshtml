@@ -54,18 +54,17 @@
                         {
                             <tbody>
                                 <tr role="row" class="odd">
-                                    <td class="sorting_1">@country.ID</td>
-                                    <td>@country.Name</td>
-                                    <td>@country.Region</td>
+                                    <td class="sorting_1 country-id">@country.ID</td>
+                                    <td class="country-name">@country.Name</td>
+                                    <td class="region-name">@country.Region</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default">Action</button>
                                             <button type="button" class="btn btn-default dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
                                                 <span class="sr-only">Toggle Dropdown</span>
                                                 <div class="dropdown-menu" role="menu">
-                                                    <a class="dropdown-item" href="#">Edit</a>
-                                                    <a class="dropdown-item" onclick="deleteCountry('@Url.Action("DeleteCountry","Home",new {id= country.ID })')">Delete</a>
-                                               
+                                                    <a class="dropdown-item" onclick="editCountry()">Edit</a>
+                                                    <a class="dropdown-item" onclick="deleteCountry('@Url.Action("DeleteCountry","Home",new {countryId = country.ID })')">Delete</a>
                                                 </div>
                                             </button>
                                         </div>
@@ -122,7 +121,8 @@
             <!-- Modal body -->
             <div class="modal-body">
                     <!-- form start -->
-                <form role="form" action="@Url.Action("AddNewCountry","Home")" method="post" name="addform">
+                <form role="form" action="@Url.Action("AddNewCountry","Home")" method="post" name="addform" class="country-form">
+                   <input type="hidden" id="idcountry" name="countryid"/>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
                         <input type="text" class="form-control countryName" name="country"  placeholder="Enter Name">
@@ -130,11 +130,11 @@
                     <div class="form-group">
                         <label>Region</label>
                         <select class="select2" style="width: 100%;" name="region">
-                            <option>Southeast Asia</option>
-                            <option>Europe</option>
-                            <option>Northeast Asia</option>
-                            <option>Australia</option>
-                            <option>America</option>
+                            <option value="Southeast Asia">Southeast Asia</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Northeast Asia">Northeast Asia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="America">America</option>
                         </select>
                     </div>
                 </form>

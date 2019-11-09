@@ -1,4 +1,5 @@
-﻿using EaseFlight.DAL.Entities;
+﻿using EaseFlight.Common.Utilities;
+using EaseFlight.DAL.Entities;
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
@@ -27,6 +28,34 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public int Insert(Airport airport)
+        {
+            this.UnitOfWork.DBContext.Airports.Add(airport);
+
+            return airport.ID;
+        }
+
+        public void Update(Airport airport)
+        {
+            var currentAirport = this.UnitOfWork.DBContext.Airports.Find(airport.ID);
+            if (currentAirport != null)
+            {
+                CommonMethods.CopyObjectProperties(airport,currentAirport);
+            }
+        }
+
+        public void Delete(int airportId)
+        {
+            var airport = this.UnitOfWork.DBContext.Airports.Find(airportId);
+
+            if (airport.PlaneAirports.Count == 0)
+            {
+                this.UnitOfWork.DBContext.Airports.Remove(airport);
+                this.UnitOfWork.SaveChanges();
+            }
+        }
+       
         #endregion
     }
 }
