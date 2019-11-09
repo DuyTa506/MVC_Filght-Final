@@ -42,11 +42,26 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult UpdateAirport(FormCollection collection)
+        {
+            var airport = new AirportModel
+            {
+                ID = int.Parse(collection.Get("airportid")),
+                Name = collection.Get("name"),
+                City = collection.Get("city"),
+                CountryID = int.Parse(collection.Get("countryid"))
+            };
+
+            this.AirportService.Update(airport);
+
+            return RedirectToAction("Index");
+        }
 
         [HttpGet]
-        public ActionResult DeleteCountry(int airport)
+        public ActionResult DeleteAirport(int airportid)
         {
-            this.AirportService.Delete(airport);
+            this.AirportService.Delete(airportid);
 
             return RedirectToAction("Index");
         }

@@ -138,6 +138,7 @@
     <Compile Include="Areas\Admin\Controllers\AirportController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PlaneAirportController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\GenerateDataController.cs" />
@@ -271,6 +272,7 @@
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Airport\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\PlaneAirport\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />

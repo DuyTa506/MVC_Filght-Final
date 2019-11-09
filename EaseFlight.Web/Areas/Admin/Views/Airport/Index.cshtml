@@ -59,7 +59,7 @@
                                     <td class="sorting_1 airport-id">@air.ID</td>
                                     <td class="airport-name">@air.Name</td>
                                     <td class="airport-city">@air.City</td>
-                                    <td class="airport-nameCity">@air.Country.Name</td>
+                                    <td class="airport-namecountry" data-value="@air.CountryID">@air.Country.Name</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default">Action</button>
@@ -67,7 +67,7 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                                 <div class="dropdown-menu" role="menu">
                                                     <a class="dropdown-item" onclick="editAirport()">Edit</a>
-                                                    <a class="dropdown-item" onclick="deleteAirport('@Url.Action("DeleteAirport","Airport",new {countryId = air.ID })')">Delete</a>
+                                                    <a class="dropdown-item" onclick="deleteAirport('@Url.Action("DeleteAirport","Airport",new {airportid = air.ID })')">Delete</a>
                                                 </div>
                                             </button>
                                         </div>
@@ -124,7 +124,7 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <!-- form start -->
-                <form role="form" action="@Url.Action("AddNewAirport","Airport")" method="post" name="addformairport" >
+                <form role="form" action="@Url.Action("AddNewAirport","Airport")" method="post" name="addformairport">
                     <input type="hidden" name="airportid" />
                     <input type="hidden" name="countryid" />
                    

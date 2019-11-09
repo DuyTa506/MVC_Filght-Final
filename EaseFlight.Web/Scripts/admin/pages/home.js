@@ -73,16 +73,23 @@ function saveAirport() {
 }
 
 function editAirport() {
-    var country = $(event.target).parents('tr').find('.country-name').text();
-    var region = $(event.target).parents('tr').find('.region-name').text();
-    var countryid = $(event.target).parents('tr').find('.country-id').text();
+    var name = $(event.target).parents('tr').find('.airport-name').text();
+    var city = $(event.target).parents('tr').find('.airport-city').text();
+    var country = $(event.target).parents('tr').find('.airport-namecountry').attr('data-value');
+    var airportid = $(event.target).parents('tr').find('.airport-id').text();
 
-    $('.country-form input[name="country"]').val(country);
-    $('.country-form .select2').val(region);
-    $('.country-form .select2').trigger('change');
-    $('.country-form input#idcountry').val(countryid);
-    $('.country-form').attr('action', '/Admin/Home/UpdateCountry');
+    $('form[name="addformairport"] input[name="name"]').val(name);
+    $('form[name="addformairport"] input[name="city"]').val(city);
+    $('form[name="addformairport"] select[name="country"]').val(country);
+    $('form[name="addformairport"] select[name="country"]').trigger('change');
+    $('form[name="addformairport"] input[name="airportid"]').val(airportid);
+    $('form[name="addformairport"]').attr('action', '/Admin/Airport/UpdateAirport');
 
-    $('#addnew').modal("show");
+    $('#addnewairport').modal("show");
 
+}
+
+function deleteAirport(url) {
+    if (confirm("Are You Sure?"))
+        window.location.href = url;
 }
