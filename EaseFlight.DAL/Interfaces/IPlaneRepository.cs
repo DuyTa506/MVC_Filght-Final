@@ -7,5 +7,8 @@ namespace EaseFlight.DAL.Interfaces
     {
         IEnumerable<Plane> FindAll();
         Plane Find(int id);
+        int Insert(Plane plane);
+        void Update(Plane plane);
+        void Delete(int planeid);
     }
 }

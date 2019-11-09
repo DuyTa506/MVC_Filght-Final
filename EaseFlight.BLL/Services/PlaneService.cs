@@ -39,6 +39,25 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+
+        public int Insert(PlaneModel plane)
+        {
+            var ID = this.PlaneRepository.Insert(plane.GetModel());
+
+            return ID;
+        }
+
+        public void Update(PlaneModel plane)
+        {
+            this.PlaneRepository.Update(plane.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+        }
+
+        public void Delete(int planeid)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
 
         #region Model Functions
@@ -55,6 +74,8 @@ namespace EaseFlight.BLL.Services
 
             return viewModel;
         }
+
+
         #endregion
     }
 }

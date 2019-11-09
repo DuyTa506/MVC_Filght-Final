@@ -8,5 +8,8 @@ namespace EaseFlight.DAL.Interfaces
         IEnumerable<PlaneSeatClass> FindAll();
         PlaneSeatClass Find(int planeId, int seatId);
         IEnumerable<PlaneSeatClass> FindByPlane(int planeId);
+        void Insert(PlaneSeatClass planeSeatClass);
+        void Update(PlaneSeatClass planeSeatClassairport);
+        void Delete(int planeseatid);
     }
 }

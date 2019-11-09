@@ -49,6 +49,11 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public void Delete(int planeid)
+        {
+            //this.UnitOfWork.DBContext.PlaneAirports.Remove(planeid);
+        }
         #endregion
     }
 }

@@ -62,6 +62,22 @@ namespace EaseFlight.BLL.Services
 
             return viewModel;
         }
+
+        public void Insert(PlaneSeatClassModel planeSeatClass)
+        {
+            this.PlaneSeatClassRepository.Insert(planeSeatClass.GetModel());
+
+        }
+
+        public void Update(PlaneSeatClassModel planeSeatClassairport)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int planeseatid)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }

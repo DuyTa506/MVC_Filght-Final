@@ -34,7 +34,11 @@ namespace EaseFlight.Web
                         "~/Scripts/admin/basejs/admin.js",
                         "~/Scripts/admin/pages/home.js" ));
 
-            bundles.Add(new ScriptBundle("~/bundles/home").Include(
+            bundles.Add(new ScriptBundle("~/bundles/adminplane").Include(
+                       "~/Scripts/admin/pages/plane.js"));
+
+
+          bundles.Add(new ScriptBundle("~/bundles/home").Include(
                         "~/Scripts/user/pages/home.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/flight").Include(

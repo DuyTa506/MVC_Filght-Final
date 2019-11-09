@@ -139,6 +139,7 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlaneAirportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PlaneController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\GenerateDataController.cs" />
@@ -198,6 +199,7 @@
     <Content Include="Scripts\admin\basejs\demo.js" />
     <Content Include="Scripts\admin\pages\home.js" />
     <Content Include="Scripts\admin\pages\login.js" />
+    <Content Include="Scripts\admin\pages\plane.js" />
     <Content Include="Scripts\user\basejs\blur-area.js" />
     <Content Include="Scripts\user\basejs\bootstrap.js" />
     <Content Include="Scripts\user\basejs\bs-datepicker.js" />
@@ -273,6 +275,7 @@
     <Content Include="Areas\Admin\Views\Airport\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Areas\Admin\Views\PlaneAirport\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Plane\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />

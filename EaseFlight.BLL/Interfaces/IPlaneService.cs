@@ -7,5 +7,8 @@ namespace EaseFlight.BLL.Interfaces
     {
         IEnumerable<PlaneModel> FindAll();
         PlaneModel Find(int id);
+        int Insert(PlaneModel plane);
+        void Update(PlaneModel plane);
+        void Delete(int planeid);
     }
 }

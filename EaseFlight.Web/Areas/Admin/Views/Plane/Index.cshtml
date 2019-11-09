@@ -1,0 +1,230 @@
+﻿@using EaseFlight.Models.EntityModels
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var planes = (IEnumerable<PlaneModel>)ViewData["planes"];
+    var seats = (IEnumerable<SeatMapModel>)ViewData["seats"];
+    var airports = (IEnumerable<AirportModel>)ViewData["airports"];
+
+}
+@Styles.Render("~/Content/adminbasecss")
+@Styles.Render("~/Content/adminlogin")
+@Scripts.Render("~/bundles/adminbasejs")
+@Scripts.Render("~/bundles/adminlogin")
+@Scripts.Render("~/bundles/adminplane")
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">DataTable with default features</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="dataTables_length" id="example1_length">
+                        <label>
+                            Show
+                            <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div id="example1_filter" class="dataTables_filter">
+                        <label>
+                            Search:
+                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1">
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <a class="btn btn-app" data-toggle="modal" data-target="#addnew">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">ID</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Plane code</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >Plane Type</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >Airline </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >Airports</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >Seat Class</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >Status</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" >Action</th>
+                            </tr>
+                        </thead>
+                        @foreach (var plane in planes)
+                        {
+                            var seatclass = plane.PlaneSeatClasses.Where(s => s.PlaneID == plane.ID).Select(a => a.SeatClass.Name +": "+a.Capacity+" seat");
+                            var planeairport = plane.PlaneAirports.Select(p => p.Airport.Name);
+                            <tbody>
+                                <tr role="row" class="odd">
+                                    <td class="sorting_1 plane-id">@plane.ID</td>
+                                    <td class="plane-type">@plane.Name</td>
+                                    <td class="plane-seatmap-name">@plane.SeatMap.Name</td>
+                                    <td class="plane-airline">@plane.Airline</td>
+                                    <td class="plane-airport">
+                                        <ul>
+                                            @foreach (var pl in planeairport)
+                                            {
+                                                <li data-airportid="@pl.">@pl</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td class="plane-seatclass">
+                                        <ul>
+                                            @foreach (var seat in seatclass)
+                                            {
+                                                <li>@seat</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td class="plane-status">@plane.Status</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default">Action</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle dropdown-hover dropdown-icon" data-toggle="dropdown">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <a class="dropdown-item" onclick="">Change Status</a>
+                                                    <a class="dropdown-item" onclick="editPlane()">Edit Plane</a>
+                                                    <a class="dropdown-item" onclick="">Delete</a>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                        <tfoot>
+                            <tr>
+                                <th rowspan="1" colspan="1">ID</th>
+                                <th rowspan="1" colspan="1">Plane code</th>
+                                <th rowspan="1" colspan="1">Airline</th>
+                                <th rowspan="1" colspan="1">Airport</th>
+                                <th rowspan="1" colspan="1">Seat Class</th>
+                                <th rowspan="1" colspan="1">Status</th>
+                                <th rowspan="1" colspan="1">Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                            <li class="paginate_button page-item active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                            <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                            <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                            <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                            <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                            <li class="paginate_button page-item "><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                            <li class="paginate_button page-item next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+</div>
+<!-- MODAL ADD NEW COUNTRY -->
+<!-- The Modal -->
+<div class="modal" id="addnew">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add new Plane</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- form start -->
+                <form action="@Url.Action("AddNewPlane","Plane")" method="post" name="addform">
+                    <input type="hidden" id="idplane" name="planeid" />
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Airline</label>
+                        <input type="text" class="form-control airplane" name="airline" placeholder="Enter plane Airline">
+                        <span class="msg-valid msg-airline">Airline is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Plane Type</label>
+                        <select class="select2" style="width: 100%;" name="planetype">
+                            @foreach (var seat in seats)
+                            {
+                                <option value="@seat.ID" data-capacity="@seat.Capacity">@seat.Name (@seat.Capacity Seat)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Airport</label>
+                        <select class="select2" style="width: 100%;" name="airport" multiple="multiple" data-placeholder="Select a airport">
+                            @foreach (var air in airports)
+                            {
+                                <option value="@air.ID">@air.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>First Class</label>
+                            <input type="number" value="0" min="0" class="form-control seatcapacity " name="firstclass">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Business</label>
+                            <input type="number" value="0" min="0" class="form-control seatcapacity" name="business">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Economy</label>
+                            <input type="number" value="0" min="0" class="form-control seatcapacity" name="economy">
+                        </div>
+                        <span class="msg-valid msg-class"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>First Class Price</label>
+                            <input type="number" value="0" min="0" class="form-control " name="firstclassprice">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Business Price</label>
+                            <input type="number" value="0" min="0" class="form-control " name="businessprice">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Economy Price</label>
+                            <input type="number" value="0" min="0" class="form-control " name="economyprice">
+                        </div>
+                        <span class="msg-valid msg-price">Price is required</span>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="savePlane()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+

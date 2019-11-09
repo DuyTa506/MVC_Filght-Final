@@ -35,6 +35,23 @@ namespace EaseFlight.DAL.Repositories
 
             return result;
         }
+
+        public void Insert(PlaneSeatClass planeSeatClass)
+        {
+            this.UnitOfWork.DBContext.PlaneSeatClasses.Add(planeSeatClass);
+            this.UnitOfWork.SaveChanges();
+
+        }
+
+        public void Update(PlaneSeatClass planeSeatClassairport)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int planeseatid)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }
