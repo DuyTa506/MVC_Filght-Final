@@ -67,7 +67,7 @@
                         @foreach (var plane in planes)
                         {
                             var seatclass = plane.PlaneSeatClasses.Where(s => s.PlaneID == plane.ID).Select(a => a.SeatClass.Name +": "+a.Capacity+" seat");
-                            var planeairport = plane.PlaneAirports.Select(p => p.Airport.Name);
+                            var planeairport = plane.PlaneAirports.Select(p => p.Airport);
                             <tbody>
                                 <tr role="row" class="odd">
                                     <td class="sorting_1 plane-id">@plane.ID</td>
@@ -78,7 +78,7 @@
                                         <ul>
                                             @foreach (var pl in planeairport)
                                             {
-                                                <li data-airportid="@pl.">@pl</li>
+                                                <li data-airportid="@pl.ID">@pl.Name</li>
                                             }
                                         </ul>
                                     </td>

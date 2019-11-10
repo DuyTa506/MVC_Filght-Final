@@ -13,15 +13,17 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         private ISeatMapService SeatMapService { set; get; }
         private IAirportService AirportService { set; get; }
         private IPlaneSeatClassService PlaneSeatClassService { set; get; }
+        private IPlaneAirportService PlaneAirportService { set; get; }
         #endregion
 
         #region Constructor
-        public PlaneController(IPlaneService planeService, ISeatMapService seatMapService, IAirportService airportService, IPlaneSeatClassService planeSeatClassService)
+        public PlaneController(IPlaneService planeService, ISeatMapService seatMapService, IAirportService airportService, IPlaneSeatClassService planeSeatClassService, IPlaneAirportService planeAirportService)
         {
             this.PlaneService = planeService;
             this.AirportService = airportService;
             this.SeatMapService = seatMapService;
             this.PlaneSeatClassService = planeSeatClassService;
+            this.PlaneAirportService = planeAirportService;
         }
         #endregion
 
@@ -90,6 +92,19 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                 };
                 this.PlaneSeatClassService.Insert(planeSeatClass);
             }
+
+            var air = collection.Get("airport").Split(',');
+            foreach (var a in air)
+            {
+                var planeAirport = new PlaneAirportModel
+                {
+                    PlaneID = planeID,
+                    AirportID = int.Parse(a)
+
+                };
+                this.PlaneAirportService.Insert(planeAirport);
+            }
+
             return RedirectToAction("Index");
         }
         //EDIT PLANE

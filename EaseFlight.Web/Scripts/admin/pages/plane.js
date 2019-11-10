@@ -74,6 +74,7 @@ function savePlane() {
         return;
     }
 
+
     $(form).submit();
 }
 
