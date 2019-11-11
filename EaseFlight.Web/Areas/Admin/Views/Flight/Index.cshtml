@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Flight";
     var flights = (IEnumerable<FlightModel>)ViewData["flights"];
+    var planes = (IEnumerable<PlaneModel>)ViewData["planes"];
 }
 @Scripts.Render("~/bundles/adminflight")
 
@@ -57,18 +58,45 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="" method="post" name="addform">
-                    <input type="hidden" id="idplane" name="planeid" />
+                <form action="" method="post" name="flightForm">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Airline</label>
-                        <input type="text" class="form-control airplane" name="airline" placeholder="Enter plane Airline">
-                        <span class="msg-valid msg-airline">Airline is required</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Plane Type</label>
-                        <select class="select2" style="width: 100%;" name="planetype">
-                            <option value="" ></option>
+                        <label>Plane</label>
+                        <select class="select2" name="plane">
+                            @foreach (var plane in planes)
+                            {
+                                <option value="@plane.ID">@plane.Name</option>
+                            }
                         </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Deapart</label>
+                            <select class="select2" name="depart"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Arrival</label>
+                            <select class="select2" name="arrival"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Deapart Date</label>
+                            <input type="text" class="form-control" name="" placeholder="dd/mm/yyyy hh:mm">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Arrival Date</label>
+                            <input type="text" class="form-control" name="" placeholder="dd/mm/yyyy hh:mm">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Price</label>
+                            <input type="number" class="form-control" name="" min="1" value="1">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Status</label>
+                            <input type="text" class="form-control disabled" value="Ready" disabled>
+                        </div>
                     </div>
                 </form>
             </div>
