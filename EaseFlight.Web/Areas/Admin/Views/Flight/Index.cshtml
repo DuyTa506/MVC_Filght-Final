@@ -1,0 +1,82 @@
+﻿@using EaseFlight.Models.EntityModels;
+@using EaseFlight.Common.Constants;
+@{
+    ViewBag.Title = "Flight";
+    var flights = (IEnumerable<FlightModel>)ViewData["flights"];
+}
+@Scripts.Render("~/bundles/adminflight")
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <h3 class="card-title">Ease Flight - Flight Schedule</h3>
+        </div>
+    </div>
+    <div class="card-body card-table">
+        <table id="flightTable" class="table table-bordered table-striped">
+            <thead>
+                <tr role="row">
+                    <th>ID</th>
+                    <th>Plane</th>
+                    <th>Depart</th>
+                    <th>Arrival</th>
+                    <th>Depart Date</th>
+                    <th>Arrival Date</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var flight in flights)
+                {
+                    var status = flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_READY) ? "ready-status" : (flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_ONLINE) ? "online-status" : "delay-status");
+                    <tr>
+                        <td class="flightId">@flight.ID</td>
+                        <td>@(flight.Plane.Airline + flight.PlaneID.Value.ToString("D3"))</td>
+                        <td>@flight.Departure.Name</td>
+                        <td>@flight.Arrival.Name</td>
+                        <td>@flight.DepartureDate.Value.ToString("dd/MM/yyyy HH:mm tt")</td>
+                        <td>@flight.ArrivalDate.Value.ToString("dd/MM/yyyy HH:mm tt")</td>
+                        <td>$@flight.Price</td>
+                        <td class="@status">@flight.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Add/Edit Flight Modal-->
+<div class="modal" id="flightModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add new Flight</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="" method="post" name="addform">
+                    <input type="hidden" id="idplane" name="planeid" />
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Airline</label>
+                        <input type="text" class="form-control airplane" name="airline" placeholder="Enter plane Airline">
+                        <span class="msg-valid msg-airline">Airline is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Plane Type</label>
+                        <select class="select2" style="width: 100%;" name="planetype">
+                            <option value="" ></option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="savePlane()">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

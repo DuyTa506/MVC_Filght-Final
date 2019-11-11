@@ -28,11 +28,17 @@ namespace EaseFlight.Web
             bundles.Add(new ScriptBundle("~/bundles/adminbasejs").Include(
                         "~/Scripts/admin/basejs/jquery.min.js",
                         "~/Scripts/admin/basejs/bootstrap.bundle.min.js",
+                        "~/Scripts/admin/basejs/jquery.datatable.js",
+                        "~/Scripts/admin/basejs/bs-datatable.js",
                         "~/Scripts/admin/basejs/adminlte.js",
                         "~/Scripts/admin/basejs/demo.js",
                         "~/Scripts/admin/basejs/select2.full.min.js",
                         "~/Scripts/admin/basejs/admin.js",
-                        "~/Scripts/admin/pages/home.js" ));
+                        "~/Scripts/admin/pages/home.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/admincontextmenu").Include(
+                        "~/Scripts/admin/basejs/jquery.contextMenu.min.js",
+                        "~/Scripts/admin/basejs/jquery.ui.position.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/adminplane").Include(
                        "~/Scripts/admin/pages/plane.js"));
@@ -62,6 +68,9 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/adminlogin").Include(
                         "~/Scripts/admin/pages/login.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminflight").Include(
+                       "~/Scripts/admin/pages/flight.js"));
             #endregion
 
             #region Styles
@@ -91,9 +100,12 @@ namespace EaseFlight.Web
 
             bundles.Add(new StyleBundle("~/Content/adminbasecss").Include(
                     "~/Content/admin/basecss/adminlte.min.css",
+                    "~/Content/admin/basecss/datatable.css",
                      "~/Content/admin/plugins/fontawesome-free/css/all.min.css",
-                     "~/Content/admin/plugins/select2/select2.min.css"
-                     , "~/Content/admin/plugins/select2/select2-bootstrap4.min.css"));
+                     "~/Content/admin/plugins/select2/select2.min.css",
+                     "~/Content/admin/plugins/select2/select2-bootstrap4.min.css",
+                     "~/Content/admin/basecss/basecss.css",
+                     "~/Content/admin/basecss/jquery.contextMenu.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/adminlogin").Include(
                       "~/Content/admin/pages/login.css"));
