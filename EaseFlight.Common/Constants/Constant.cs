@@ -56,6 +56,7 @@
         public static string CONST_FLIGHT_STATUS_READY = "Ready";
         public static string CONST_FLIGHT_STATUS_ONLINE = "Online";
         public static string CONST_FLIGHT_STATUS_DELAY = "Delay";
+        public static string CONST_FLIGHT_STATUS_DONE = "Done";
         #endregion
 
         #region Plane Status

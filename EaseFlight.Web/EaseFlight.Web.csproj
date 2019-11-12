@@ -157,6 +157,7 @@
     <Content Include="Content\admin\basecss\adminlte.min.css" />
     <Content Include="Content\admin\basecss\basecss.css" />
     <Content Include="Content\admin\basecss\datatable.css" />
+    <Content Include="Content\admin\basecss\daterangepicker.css" />
     <Content Include="Content\admin\basecss\jquery.contextMenu.min.css" />
     <Content Include="Content\admin\pages\login.css" />
     <Content Include="Content\admin\plugins\select2\select2-bootstrap4.min.css" />
@@ -169,9 +170,11 @@
     <Content Include="Content\user\css\pages\ticket.css" />
     <Content Include="Scripts\admin\basejs\admin.js" />
     <Content Include="Scripts\admin\basejs\bs-datatable.js" />
+    <Content Include="Scripts\admin\basejs\daterangepicker.js" />
     <Content Include="Scripts\admin\basejs\jquery.contextMenu.min.js" />
     <Content Include="Scripts\admin\basejs\jquery.datatable.js" />
     <Content Include="Scripts\admin\basejs\jquery.ui.position.js" />
+    <Content Include="Scripts\admin\basejs\moment.min.js" />
     <Content Include="Scripts\admin\basejs\select2.full.min.js" />
     <Content Include="Content\admin\plugins\select2\select2.min.css" />
     <Content Include="Content\admin\plugins\fontawesome-free\css\all.min.css" />

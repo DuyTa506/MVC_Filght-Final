@@ -33,8 +33,11 @@ namespace EaseFlight.Web
                         "~/Scripts/admin/basejs/adminlte.js",
                         "~/Scripts/admin/basejs/demo.js",
                         "~/Scripts/admin/basejs/select2.full.min.js",
+                         "~/Scripts/admin/basejs/moment.min.js",
+                          "~/Scripts/admin/basejs/daterangepicker.js",
                         "~/Scripts/admin/basejs/admin.js",
-                        "~/Scripts/admin/pages/home.js"));
+                        "~/Scripts/admin/pages/home.js",
+                        "~/Scripts/user/basejs/toastify.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admincontextmenu").Include(
                         "~/Scripts/admin/basejs/jquery.contextMenu.min.js",
@@ -95,6 +98,7 @@ namespace EaseFlight.Web
 
             bundles.Add(new StyleBundle("~/Content/myprofile").Include(
                     "~/Content/user/css/pages/myprofile.css"));
+
             bundles.Add(new StyleBundle("~/Content/ticket").Include(
                     "~/Content/user/css/pages/ticket.css"));
 
@@ -105,7 +109,9 @@ namespace EaseFlight.Web
                      "~/Content/admin/plugins/select2/select2.min.css",
                      "~/Content/admin/plugins/select2/select2-bootstrap4.min.css",
                      "~/Content/admin/basecss/basecss.css",
-                     "~/Content/admin/basecss/jquery.contextMenu.min.css"));
+                     "~/Content/admin/basecss/jquery.contextMenu.min.css",
+                     "~/Content/admin/basecss/daterangepicker.css",
+                     "~/Content/user/css/basecss/toastify.css"));
 
             bundles.Add(new StyleBundle("~/Content/adminlogin").Include(
                       "~/Content/admin/pages/login.css"));

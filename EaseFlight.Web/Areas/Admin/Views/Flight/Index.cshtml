@@ -4,8 +4,22 @@
     ViewBag.Title = "Flight";
     var flights = (IEnumerable<FlightModel>)ViewData["flights"];
     var planes = (IEnumerable<PlaneModel>)ViewData["planes"];
+    var msg = TempData["msg"] != null ? TempData["msg"].ToString().Split('-').ToList() : new List<string>();
 }
 @Scripts.Render("~/bundles/adminflight")
+
+@if (msg.Count() > 0 && msg[0].Equals("error"))
+{
+    <script>
+        ToastError('@msg[1]');
+    </script>
+}
+else if (msg.Count() > 0 && msg[0].Equals("success"))
+{
+    <script>
+        ToastSuccess('@msg[1]');
+    </script>
+}
 
 <div class="card">
     <div class="card-header">
@@ -31,15 +45,15 @@
                 @foreach (var flight in flights)
                 {
                     var status = flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_READY) ? "ready-status" : (flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_ONLINE) ? "online-status" : "delay-status");
-                    <tr>
+                    <tr class="tr-flight">
                         <td class="flightId">@flight.ID</td>
-                        <td>@(flight.Plane.Airline + flight.PlaneID.Value.ToString("D3"))</td>
-                        <td>@flight.Departure.Name</td>
-                        <td>@flight.Arrival.Name</td>
-                        <td>@flight.DepartureDate.Value.ToString("dd/MM/yyyy HH:mm tt")</td>
-                        <td>@flight.ArrivalDate.Value.ToString("dd/MM/yyyy HH:mm tt")</td>
-                        <td>$@flight.Price</td>
-                        <td class="@status">@flight.Status</td>
+                        <td class="plane" data-value="@flight.PlaneID">@(flight.Plane.Airline + flight.PlaneID.Value.ToString("D3"))</td>
+                        <td class="depart" data-value="@flight.Departure.ID">@flight.Departure.Name</td>
+                        <td class="arrival" data-value="@flight.Arrival.ID">@flight.Arrival.Name</td>
+                        <td class="departDate">@flight.DepartureDate.Value.ToString("dd/MM/yyyy hh:mm tt")</td>
+                        <td class="arrivalDate">@flight.ArrivalDate.Value.ToString("dd/MM/yyyy hh:mm tt")</td>
+                        <td class="price">$@flight.Price</td>
+                        <td class="@status td-status">@flight.Status</td>
                     </tr>
                 }
             </tbody>
@@ -58,7 +72,8 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="" method="post" name="flightForm">
+                <form action="@Url.Action("AddFlight","Flight")" method="post" name="flightForm">
+                    <input type="hidden" class="flightId" name="flightId" />
                     <div class="form-group">
                         <label>Plane</label>
                         <select class="select2" name="plane">
@@ -77,21 +92,17 @@
                             <label>Arrival</label>
                             <select class="select2" name="arrival"></select>
                         </div>
+                        <span class="msg-valid msg-place" style="margin-left: 10px;">Depart and Arrival can not at the same place</span>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label>Deapart Date</label>
-                            <input type="text" class="form-control" name="" placeholder="dd/mm/yyyy hh:mm">
-                        </div>
-                        <div class="col-md-6">
-                            <label>Arrival Date</label>
-                            <input type="text" class="form-control" name="" placeholder="dd/mm/yyyy hh:mm">
-                        </div>
+                    <div class="form-group">
+                        <label>Depart And Arrival Date</label>
+                        <input type="text" class="form-control departDate" name="flightDate" placeholder="dd/mm/yyyy hh:mm">
+                        <span class="msg-valid msg-date" style="margin-left: 10px;">Depart Date and Arrival Date is required</span>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Price</label>
-                            <input type="number" class="form-control" name="" min="1" value="1">
+                            <input type="number" class="form-control" name="price" min="1" value="1">
                         </div>
                         <div class="col-md-6">
                             <label>Status</label>
@@ -102,8 +113,44 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="savePlane()">Save</button>
+                <button type="button" class="btn btn-success" onclick="saveFlight()">Save</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Confirm modal-->
+<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm delete flight</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this flight? This procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger confirm-button" onclick="">Delete Flight</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Change Status modal-->
+<div class="modal fade" id="status-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Change flight status</h4>
+                <input type="hidden" name="flightId"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="changeReady()" class="btn btn-dark confirm-button btn-ready hide btn-status">Ready Status</button>
+                <button type="button" onclick="changeOnline()" class="btn btn-success confirm-button btn-online hide btn-status">Online Status</button>
+                <button type="button" onclick="changeDelay()" class="btn btn-danger confirm-button btn-delay hide btn-status">Delay Status</button>
             </div>
         </div>
     </div>

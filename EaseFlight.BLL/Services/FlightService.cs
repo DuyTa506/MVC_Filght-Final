@@ -39,8 +39,7 @@ namespace EaseFlight.BLL.Services
 
         public int Insert(FlightModel flight)
         {
-            this.FlightRepository.Insert(flight.GetModel());
-            var result = this.UnitOfWork.SaveChanges();
+            var result = this.FlightRepository.Insert(flight.GetModel());
 
             return result;
         }
@@ -82,6 +81,29 @@ namespace EaseFlight.BLL.Services
         {
             var modelList = this.FlightRepository.FindByTicket(ticketId, roundTrip);
             var result = modelList.Select(model => this.CreateViewModel(model));
+
+            return result;
+        }
+
+        public int Update(FlightModel flight)
+        {
+            this.FlightRepository.Update(flight.GetModel());
+            var result = this.UnitOfWork.SaveChanges();
+
+            return result;
+        }
+
+        public IEnumerable<FlightModel> FindByDateAndPlane(int planeId, DateTime departDate)
+        {
+            var modelList = this.FlightRepository.FindByDateAndPlane(planeId, departDate);
+            var result = modelList.Select(model => this.CreateViewModel(model));
+
+            return result;
+        }
+
+        public int Delete(int flightId)
+        {
+            var result = this.FlightRepository.Delete(flightId);
 
             return result;
         }
