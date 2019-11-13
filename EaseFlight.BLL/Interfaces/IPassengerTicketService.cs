@@ -8,5 +8,7 @@ namespace EaseFlight.BLL.Interfaces
         IEnumerable<PassengerTicketModel> FindAll();
         int Insert(PassengerTicketModel passengerTicket);
         IEnumerable<PassengerTicketModel> FindByTicket(int ticketId);
+        PassengerTicketModel Find(int passengerTicketId);
+        int Update(PassengerTicketModel passengerTicket);
     }
 }

@@ -1,0 +1,193 @@
+﻿@using EaseFlight.Models.CustomModel;
+@using EaseFlight.Common.Constants;
+@{
+    /**/
+
+    ViewBag.Title = "Ticket";
+    var ticketList = (List<TicketHistoryModel>)ViewData["tickets"];
+}
+@Scripts.Render("~/bundles/adminticket")
+@Scripts.Render("~/bundles/geodata")
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <h3 class="card-title">Ease Flight - Customer Tickets</h3>
+        </div>
+    </div>
+    <div class="card-body card-table">
+        <table id="ticketTable" class="table table-bordered table-striped">
+            <thead>
+                <tr role="row">
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Flight</th>
+                    <th>Passenger</th>
+                    <th>Seat Class</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Create Date</th>
+                    <th>Update Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var history in ticketList)
+                {
+                    var adult = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_ADULT)).Count();
+                    var child = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_CHILD)).Count();
+                    var infant = history.Passengers.Where(passenger => passenger.PassengerType.Name.Equals(Constant.CONST_DB_NAME_INFANT)).Count();
+                    <tr class="tr-ticket">
+                        <td class="ticketId">@history.Ticket.ID</td>
+                        <td>@history.Ticket.Account.FirstName @history.Ticket.Account.LastName</td>
+                        <td>
+                            @history.From.City → @history.To.City @(history.ReturnFlight.Count > 0) <br />
+                        </td>
+                        <td>
+                            @adult Adult
+                            @(child > 0 ? ", " + child + " Child" : "")
+                            @(infant > 0 ? ", " + infant + " Infant" : "")
+                        </td>
+                        <td>@history.SeatClass.Name</td>
+                        <td>@history.Ticket.Description</td>
+                        <td>$@history.Ticket.Price</td>
+                        <td>@history.Ticket.CreateDate.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@(history.Ticket.UpdateDate != null ? history.Ticket.UpdateDate.Value.ToString("dd/MM/yyyy"):"")</td>
+                        <td class="@history.Ticket.Status.ToLower()-status">@history.Ticket.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Passenger detail Modal-->
+@foreach (var history in ticketList)
+{
+    <div class="modal fade" id="passengerDetailModal@(history.Ticket.ID)">
+        <div class="modal-dialog passenger-detail-modal">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Passenger detail</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="passengerTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr role="row">
+                                <th>Title</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <td>Birthday</td>
+                                <th>Passport/ID</th>
+                                <th>Expiry/Date</th>
+                                <th>Nationality</th>
+                                <th>Provice/City</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var passenger in history.Passengers)
+                            {
+                                <tr class="tr-passenger">
+                                    <td class="hide id">@passenger.ID</td>
+                                    <td class="title">@(passenger.Gender.Value ? "Ms/Mrs" : "Mr")</td>
+                                    <td class="firstname">@passenger.FirstName</td>
+                                    <td class="lastname">@passenger.LastName</td>
+                                    <td class="birthday">@passenger.Birthday.Value.ToString("dd/MM/yyyy")</td>
+                                    <td class="passport">@passenger.IDCardOrPassport</td>
+                                    <td class="expiry">@(passenger.DateIssueOrExpiry != null ? passenger.DateIssueOrExpiry.Value.ToString("dd/MM/yyyy") : "")</td>
+                                    <td class="nationality">@(string.IsNullOrEmpty(passenger.PlaceIssue) ? "" : passenger.PlaceIssue.Split(',').First().Trim())</td>
+                                    <td class="city">@(string.IsNullOrEmpty(passenger.PlaceIssue) ? "" : passenger.PlaceIssue.Split(',').Last().Trim())</td>
+                                    <td class="type">@passenger.PassengerType.Name</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!--Edit passenger modal-->
+    <div class="modal fade" id="editPassengerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit passenger</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="" method="post" class="passenger-form">
+                        <input type="hidden" name="passengerId" />
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label class="required">Title</label>
+                                <select class="select2" name="title">
+                                    <option value="0">Mr</option>
+                                    <option value="1">Ms/Mrs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="required">First Name</label>
+                                <input type="text" class="form-control" name="firstname" placeholder="Enter passenger First Name">
+                                <span class="msg-valid msg-firstname">First Name is required</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="required">Last Name</label>
+                                <input type="text" class="form-control" name="lastname" placeholder="Enter passenger Last Name">
+                                <span class="msg-valid msg-lastname">Last Name is required</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="required">Birthday</label>
+                                <input type="text" class="form-control" name="birthday" placeholder="dd/mm/yyyy">
+                                <span class="msg-valid msg-birthday">Birthday is required</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Passenger Type</label>
+                                <input type="text" class="form-control disabled" name="passengertype" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>Passport/ID</label>
+                                <input type="text" class="form-control" name="passport" placeholder="Enter passenger Passport/ID">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Passport Expiry/Date Issue</label>
+                                <input type="text" class="form-control" name="expiry" placeholder="dd/mm/yyyy">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label>Nationality</label>
+                                <select name="nationality" class="form-control gds-cr select2" country-data-region-id="geo-data-adult" data-language="en"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Provice/City</label>
+                                <select name="city" class="form-control select2" id="geo-data-adult"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="savePassenger()">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>

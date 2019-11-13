@@ -1,4 +1,5 @@
-﻿using EaseFlight.DAL.Entities;
+﻿using EaseFlight.Common.Utilities;
+using EaseFlight.DAL.Entities;
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
@@ -34,6 +35,23 @@ namespace EaseFlight.DAL.Repositories
             var result = this.UnitOfWork.DBContext.PassengerTickets.Where(passengerTicket => passengerTicket.TicketID == ticketId);
 
             return result;
+        }
+
+        public PassengerTicket Find(int passengerTicketId)
+        {
+            var result = this.UnitOfWork.DBContext.PassengerTickets.Find(passengerTicketId);
+
+            return result;
+        }
+
+        public void Update(PassengerTicket passengerTicket)
+        {
+            var currentPassenger = this.UnitOfWork.DBContext.PassengerTickets.Find(passengerTicket.ID);
+
+            if (currentPassenger != null)
+            {
+                CommonMethods.CopyObjectProperties(passengerTicket, currentPassenger);
+            }
         }
         #endregion
     }

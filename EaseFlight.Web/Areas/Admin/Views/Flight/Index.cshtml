@@ -44,7 +44,6 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
             <tbody>
                 @foreach (var flight in flights)
                 {
-                    var status = flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_READY) ? "ready-status" : (flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_ONLINE) ? "online-status" : "delay-status");
                     <tr class="tr-flight">
                         <td class="flightId">@flight.ID</td>
                         <td class="plane" data-value="@flight.PlaneID">@(flight.Plane.Airline + flight.PlaneID.Value.ToString("D3"))</td>
@@ -53,7 +52,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
                         <td class="departDate">@flight.DepartureDate.Value.ToString("dd/MM/yyyy hh:mm tt")</td>
                         <td class="arrivalDate">@flight.ArrivalDate.Value.ToString("dd/MM/yyyy hh:mm tt")</td>
                         <td class="price">$@flight.Price</td>
-                        <td class="@status td-status">@flight.Status</td>
+                        <td class="@flight.Status.ToLower()-status td-status">@flight.Status</td>
                     </tr>
                 }
             </tbody>
@@ -62,7 +61,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
 </div>
 
 <!--Add/Edit Flight Modal-->
-<div class="modal" id="flightModal">
+<div class="modal fade" id="flightModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->

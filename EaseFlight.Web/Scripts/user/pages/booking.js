@@ -43,12 +43,12 @@ function onchangeMonth() {
     var parent = $(event.target).parents('.passenger-form');
 
     switch ($(event.target).val()) {
-        case '2':
+        case '02':
             parent.find('.febmonth').addClass('hide');
             if (leapYear(parseInt(parent.find('.year-form').find(":selected").text())))
                 parent.find('.leapyear').removeClass('hide');
             break;
-        case '4': case '6': case '9': case '11':
+        case '04': case '06': case '09': case '11':
             parent.find('.febmonth').removeClass('hide');
             parent.find('.daymonth').addClass('hide');
             break;

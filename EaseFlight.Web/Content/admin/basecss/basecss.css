@@ -12,12 +12,26 @@
 .ready-status{
     color: steelblue;
 }
-.online-status{
+.online-status, .success-status{
     color: green;
 }
-.delay-status{
+.delay-status, .return-status{
     color: brown;
+}
+.done-status{
+    color: black;
 }
 .hide{
     display: none !important;
+}
+.passenger-detail-modal{
+    min-width: 70%;
+}
+.required {
+    padding-right: 3px !important;
+}
+.required:after {
+    content: "*";
+    color: red;
+    margin-left: 3px;
 }

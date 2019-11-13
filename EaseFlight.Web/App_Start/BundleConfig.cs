@@ -74,6 +74,9 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/adminflight").Include(
                        "~/Scripts/admin/pages/flight.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminticket").Include(
+                       "~/Scripts/admin/pages/ticket.js"));
             #endregion
 
             #region Styles
