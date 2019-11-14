@@ -1,5 +1,4 @@
 ﻿.theme-search-results-item {
-  border: 1px solid #e6e6e6;
   margin-bottom: -1px;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
@@ -1639,4 +1638,7 @@
     width: 100%;
     max-height: none;
   }
+}
+.flight-modal{
+    min-width: 60%;
 }

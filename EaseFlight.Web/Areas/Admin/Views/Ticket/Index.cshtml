@@ -42,7 +42,7 @@
                         <td class="ticketId" data-return="@isReturn">@history.Ticket.ID</td>
                         <td>@history.Ticket.Account.FirstName @history.Ticket.Account.LastName</td>
                         <td>
-                            @history.From.City → @history.To.City @(history.ReturnFlight.Count > 0) <br />
+                            @history.From.City → @history.To.City @(history.ReturnFlight.Count > 0?"(Round trip)":"") <br />
                         </td>
                         <td>
                             @adult Adult
@@ -62,9 +62,9 @@
     </div>
 </div>
 
-<!--Passenger detail Modal-->
 @foreach (var history in ticketList)
 {
+    <!--Passenger detail Modal-->
     var hasFlight = DateTime.Now >= history.DepartFlight.First().DepartureDate;
     <div class="modal fade" id="passengerDetailModal@(history.Ticket.ID)">
         <div class="modal-dialog passenger-detail-modal">
@@ -117,11 +117,13 @@
         </div>
     </div>
 
+    <!--Flight detail Modal-->
     <div class="modal fade in" id="flightModal@(history.Ticket.ID)" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog flight-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p class="cofirm-title">Flight details</p>
+                    <h4 class="modal-title">Flight detail</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="theme-search-results-item _mb-10 theme-search-results-item-rounded theme-search-results-item-">

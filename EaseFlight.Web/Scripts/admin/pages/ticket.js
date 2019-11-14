@@ -52,6 +52,9 @@ $(document).ready(function () {
                     $('#confirm-modal .confirm-button').attr('onclick', 'cancelTicket(' + $(this).find('.ticketId').text() + ')');
                     $('#confirm-modal').modal('show');
                 }
+            } else if (key == 'flight') {
+                var flightModalId = '#flightModal' + $(this).find('.ticketId').text();
+                $(flightModalId).modal('show');
             }
         },
         items: {
