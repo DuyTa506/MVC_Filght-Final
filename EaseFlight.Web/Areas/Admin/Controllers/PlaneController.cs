@@ -107,6 +107,27 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+        //Change Status
+        [HttpGet]
+        public ActionResult ChangeStatus(string id, string status)
+        {
+            var currentPlane = this.PlaneService.Find(int.Parse(id));
+
+            if (currentPlane != null)
+            {
+                if (status.Equals("Ready"))
+                    currentPlane.Status = Constant.CONST_PLANE_STATUS_READY;
+                else if (status.Equals("Online"))
+                    currentPlane.Status = Constant.CONST_PLANE_STATUS_ONLINE;
+                else if (status.Equals("Repair"))
+                    currentPlane.Status = Constant.CONST_PLANE_STATUS_REPAIR;
+
+                this.PlaneService.Update(currentPlane);
+                TempData["msg"] = "success-Plane changed status successfully";
+            }
+
+            return RedirectToAction("Index");
+        }
         //EDIT PLANE
         [HttpPost]
         public ActionResult EditPlane(FormCollection collection)

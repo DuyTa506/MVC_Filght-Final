@@ -28,7 +28,7 @@ $(document).ready(function () {
             } else if (key == 'edit') { //Edit option
                 editPlane($(this));
             } else if (key == 'delete') { //Delete option
-                $('.confirm-button').attr('onclick', 'deletePlane("' + $(this).find('.planeId').text() + '")');
+                $('.confirm-button').attr('onclick', 'deletePlane("' + $(this).find('.planeid').text() + '")');
                 $('#confirm-modal').modal('show');
             }
         },
@@ -40,23 +40,30 @@ $(document).ready(function () {
         }
     }); 
 
-    //Select plane onchange
-    $('select[name="plane"]').change(function () {
-        planeSelectOnchange($(this).val());
-    });
-
-    planeSelectOnchange($('select[name="plane"]').val());
-
-    //Create Datetimepicker
-    $('input[name="flightDate"]').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 5,
-        minDate: moment(),
-        locale: {
-            format: 'DD/MM/YYYY hh:mm A'
-        }
-    })
 })
+function openStatusModal(parent) {
+    var status = $(parent).find('.plane-status').text();
+    var selector = '.btn-' + status.toLowerCase();
+
+    $('.btn-status').removeClass('hide');
+    $(selector).addClass('hide');
+    $('#status-modal').find('input').val($(parent).find('.plane-id').text());
+    $('#status-modal').modal('show');
+}
+function changeReady() {
+    var planeId = $('#status-modal').find('input').val();
+    window.location.href = '/Admin/Plane/ChangeStatus?id=' + planeId + '&status=Ready';
+}
+
+function changeOnline() {
+    var planeId = $('#status-modal').find('input').val();
+    window.location.href = '/Admin/Plane/ChangeStatus?id=' + planeId + '&status=Online';
+}
+
+function changeRepair() {
+    var planeId = $('#status-modal').find('input').val();
+    window.location.href = '/Admin/Plane/ChangeStatus?id=' + planeId + '&status=Repair';
+}
 
 function openAddModal() {
     $('form[name="planeForm"]').attr('action', '/Admin/Plane/AddNewPlane');
@@ -66,7 +73,7 @@ function openAddModal() {
 }
 
 function savePlane() {
-    var form = $('form[name="addform"]');
+    var form = $('form[name="planeForm"]');
     var checked = true, index = 0;
 
     if ($('input[name="airline"]').val().trim() == '') {
