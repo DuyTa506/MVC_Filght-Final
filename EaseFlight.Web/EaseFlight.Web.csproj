@@ -161,6 +161,7 @@
     <Content Include="Content\admin\basecss\daterangepicker.css" />
     <Content Include="Content\admin\basecss\jquery.contextMenu.min.css" />
     <Content Include="Content\admin\pages\login.css" />
+    <Content Include="Content\admin\pages\ticket.css" />
     <Content Include="Content\admin\plugins\select2\select2-bootstrap4.min.css" />
     <Content Include="Content\images\airline-logo\Jetstar.png" />
     <Content Include="Content\images\airline-logo\Vietjet Air.png" />

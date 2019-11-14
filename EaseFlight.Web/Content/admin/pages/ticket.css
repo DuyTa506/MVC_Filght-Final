@@ -1,0 +1,1642 @@
+﻿.theme-search-results-item {
+  border: 1px solid #e6e6e6;
+  margin-bottom: -1px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+  z-index: 1;
+  position: relative;
+  background: #fff;
+}
+.theme-search-results-item.active .theme-search-results-item-extend {
+  display: block;
+}
+.theme-search-results-item.active,
+.theme-search-results-item:hover {
+  -webkit-box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+.theme-search-results-item.active {
+  border-color: #bababa;
+  z-index: 2;
+}
+.theme-search-results-item-rounded {
+  border-radius: 5px;
+}
+.theme-search-results-item-rounded .theme-search-results-item-img-wrap {
+  border-radius: 3px;
+  overflow: hidden;
+}
+.theme-search-results-item-rounded .theme-search-results-item-tabs {
+  border-radius: 3px;
+}
+.theme-search-results-item-preview {
+  padding: 23px 20px;
+  position: relative;
+}
+.theme-search-results-item-mask-link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: block;
+  z-index: 5;
+}
+.theme-search-results-item-discount-label {
+  position: absolute;
+  top: 7px;
+  left: -3px;
+  padding: 7px;
+  line-height: 1em;
+  font-weight: 600;
+  font-size: 12px;
+  background: #0093d2;
+  color: #fff;
+  -webkit-box-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+}
+.theme-search-results-item-title,
+.theme-search-results-item-title-sm {
+  font-weight: 400;
+  margin-top: 0;
+  letter-spacing: 0;
+  font-size: 18px;
+  margin-bottom: 7px;
+  line-height: 1.3em;
+  color: #000;
+}
+.theme-search-results-item-title-sm {
+  font-size: 16px;
+}
+.theme-search-results-item-desc {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-bottom: 0;
+}
+.theme-search-results-item-location {
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+.theme-search-results-item-location .fa {
+  margin-right: 3px;
+}
+.theme-search-results-item-book {
+  position: relative;
+  height: 100%;
+}
+.theme-search-results-item-bs {
+  -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}
+.theme-search-results-item-bs:hover {
+  -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.theme-search-results-item-lift:hover {
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  -o-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+.theme-search-results-item-category {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #737373;
+  margin-bottom: 10px;
+  line-height: 1em;
+  letter-spacing: 0.5px;
+}
+.theme-search-results-item-full {
+  border: none;
+}
+.theme-search-results-item-full.active {
+  border-color: #bababa;
+}
+.theme-search-results-item-full.active .theme-search-results-item-body {
+  background: #fafafa;
+}
+.theme-search-results-item-full .theme-search-results-item-preview {
+  padding: 0;
+}
+.theme-search-results-item-full .theme-search-results-item-tabs {
+  margin-top: 15px;
+}
+.theme-search-results-item-full .theme-search-results-item-title {
+  height: 46px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.theme-search-results-item-img-full {
+  height: 100%;
+}
+.theme-search-results-item-body {
+  padding: 25px 23px;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+}
+.theme-search-results-item-sm {
+  padding: 15px;
+}
+.theme-search-results-item-sm .theme-search-results-item-title {
+  font-size: 13px;
+  line-height: 1.3em;
+  margin-bottom: 4px;
+}
+.theme-search-results-item-sm .theme-search-results-item-hotel-rating {
+  font-size: 10px;
+  margin-bottom: 0;
+}
+.theme-search-results-item-sm .theme-search-results-item-hotel-stars > li {
+  font-size: 6px;
+  margin-right: 1.5px;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.theme-search-results-item-sm .theme-search-results-item-price {
+  text-align: left;
+  margin-bottom: 0;
+  line-height: 1em;
+}
+.theme-search-results-item-sm .theme-search-results-item-price-tag {
+  display: inline;
+  font-size: 11px;
+  margin-right: 3px;
+}
+.theme-search-results-item-sm .theme-search-results-item-price-sign {
+  display: inline;
+  font-size: 10px;
+}
+.theme-search-results-item-sm .theme-search-results-item-car-company-logo {
+  max-width: 40px;
+}
+.theme-search-results-item-sm .theme-search-results-item-rating {
+  font-size: 10px;
+  margin-bottom: 3px;
+  margin-top: 2px;
+}
+.theme-search-results-item-sm .theme-search-results-item-rating .theme-search-results-item-stars > li {
+  font-size: 10px;
+  margin-right: 2px;
+}
+.theme-search-results-item-sm .theme-search-results-item-rating .theme-search-results-item-stars > li.active {
+  color: #4d4d4d;
+}
+.theme-search-results-item-rating {
+  font-size: 10px;
+  margin-bottom: 0;
+  margin-top: 2px;
+}
+.theme-search-results-item-rating .theme-search-results-item-stars > li {
+  font-size: 10px;
+  margin-right: 2px;
+}
+.theme-search-results-item-rating .theme-search-results-item-stars > li.active {
+  color: #4d4d4d;
+}
+.theme-search-results-item-rating .theme-search-results-item-car-company-logo {
+  max-width: 30px;
+  margin-bottom: 5px;
+}
+.theme-search-results-item-stars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  margin-right: 10px;
+}
+.theme-search-results-item-stars > li {
+  display: inline-block;
+  margin-right: 3px;
+  font-size: 11px;
+  color: #ccc;
+}
+.theme-search-results-item-stars > li.active {
+  color: #595959;
+}
+.theme-search-results-item-rating-sm {
+  font-size: 11px;
+  margin-bottom: 7px;
+  overflow: hidden;
+}
+.theme-search-results-item-rating-sm .theme-search-results-item-stars {
+  margin-right: 4px;
+}
+.theme-search-results-item-rating-sm .theme-search-results-item-stars > li.active {
+  color: #0093d2;
+}
+.theme-search-results-item-rating {
+  font-size: 11px;
+  margin-bottom: 7px;
+  overflow: hidden;
+}
+.theme-search-results-item-rating-title {
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.theme-search-results-item-rating-stars {
+  list-style: none;
+  margin: 0;
+  margin-right: 4px;
+  padding: 0;
+  float: left;
+}
+.theme-search-results-item-rating-stars > li {
+  display: inline-block;
+  margin-right: 3px;
+  font-size: 11px;
+  color: #ccc;
+}
+.theme-search-results-item-rating-stars > li.active {
+  color: #0093d2;
+}
+.theme-search-results-item-rating-sm-title {
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.theme-search-results-item-bookmark {
+  position: relative;
+  z-index: 15;
+  color: #8c8c8c;
+  text-align: center;
+  margin-top: 10px;
+  display: block;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+}
+.theme-search-results-item-bookmark:hover {
+  text-decoration: none;
+  color: #0093d2;
+}
+.theme-search-results-item-bookmark:active,
+.theme-search-results-item-bookmark:focus {
+  text-decoration: none;
+  color: #8c8c8c;
+}
+.theme-search-results-item-bookmark .fa {
+  margin-right: 5px;
+  font-size: 15px;
+}
+.theme-search-results-item-bookmark span {
+  font-size: 10px;
+  position: relative;
+  top: -1.5px;
+}
+.theme-search-results-item-bookmark.active {
+  color: #0093d2;
+  text-decoration: none;
+}
+.theme-search-results-item-bookmark-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.theme-search-results-item-bookmark-top {
+  position: absolute;
+  margin-top: 0;
+  top: 0px;
+  left: 5px;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}
+.theme-search-results-item-bookmark-top:hover {
+  color: #ff6c2d;
+}
+.theme-search-results-item-bookmark-top .fa {
+  font-size: 15px;
+}
+.theme-search-results-item-bookmark-top span {
+  opacity: 0.7;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  filter: alpha(opacity=70);
+  top: -1px;
+  font-size: 10px;
+}
+.theme-search-results-item-bookmark-top.active {
+  color: #ff6c2d;
+  top: -6px;
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.theme-search-results-item-bookmark-top.active span {
+  display: none;
+}
+.theme-search-results-item:hover .theme-search-results-item-bookmark-top {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.theme-search-results-item-bookmark-footer {
+  padding: 15px 27px;
+  border-top: 1px solid #ededed;
+  background: #fafafa;
+  font-size: 11px;
+}
+.theme-search-results-item-bookmark-footer-title {
+  margin-bottom: 0;
+  color: #727272;
+}
+.theme-search-results-item-bookmark-footer-title > b {
+  color: #595959;
+}
+.theme-search-results-item-bookmark-actions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+.theme-search-results-item-bookmark-actions > li {
+  display: inline-block;
+  margin-left: 15px;
+}
+.theme-search-results-item-bookmark-actions > li > a {
+  text-decoration: none !important;
+  color: #595959;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+}
+.theme-search-results-item-bookmark-actions > li > a:hover {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.theme-search-results-item-bookmark-actions > li > a > .fa {
+  margin-right: 5px;
+}
+.theme-search-results-item-extend {
+  position: relative;
+}
+.theme-search-results-item-extend-inner {
+  padding: 23px 27px;
+  padding-top: 30px;
+}
+.theme-search-results-item-extend-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  display: block;
+  padding: 0 23px;
+  color: #595959;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  font-family: Arial, Baskrville, monospace;
+}
+.theme-search-results-item-extend-close:hover {
+  text-decoration: none;
+  color: #595959;
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.theme-search-results-item-img {
+  width: 100%;
+}
+.theme-search-results-item-img-wrap {
+  position: relative;
+}
+.theme-search-results-item-img-wrap-inner {
+  position: relative;
+  margin: 10px 20px;
+}
+.theme-search-results-item-img-wrap-inner > img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  -moz-transform: translate3d(-50%, -50%, 0);
+  -o-transform: translate3d(-50%, -50%, 0);
+  -ms-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: auto;
+}
+.theme-search-results-item-price {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.theme-search-results-item-price-tag {
+  font-family: 'Roboto', helvetica, Arial, sans-serif;
+  font-size: 22px;
+  margin-bottom: 0;
+  line-height: 1em;
+}
+.theme-search-results-item-price-sign {
+  font-size: 10px;
+  color: #827e7e;
+  margin-bottom: 0;
+  margin-top: 2px;
+}
+.theme-search-results-item-price-btn {
+  padding: 7px 0;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 11px;
+  position: relative;
+  z-index: 10;
+}
+.theme-search-results-item-grid {
+  border: none;
+  overflow: hidden;
+}
+.theme-search-results-item-grid .theme-search-results-item-title {
+  font-size: 13px;
+  height: 34px;
+  overflow: hidden;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+.theme-search-results-item-grid .theme-search-results-item-hotel-rating {
+  font-size: 11px;
+  margin-bottom: 0;
+}
+.theme-search-results-item-grid .theme-search-results-item-hotel-rating b {
+  font-size: 13px;
+}
+.theme-search-results-item-grid .theme-search-results-item-price {
+  margin-bottom: 0;
+  text-align: right;
+}
+.theme-search-results-item-grid .theme-search-results-item-price-body {
+  text-align: center;
+}
+.theme-search-results-item-grid .theme-search-results-item-location {
+  margin-bottom: 0;
+  font-size: 11px;
+  color: #8c8c8c;
+}
+.theme-search-results-item-grid .theme-search-results-item-price-tag {
+  font-size: 15px;
+  line-height: 1em;
+  font-weight: normal;
+}
+.theme-search-results-item-grid .theme-search-results-item-price-sign {
+  font-size: 9px;
+}
+.theme-search-results-item-grid .theme-search-results-item-hotel-stars {
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+  margin-bottom: 2px;
+}
+.theme-search-results-item-grid .theme-search-results-item-car-location {
+  margin-top: 0;
+}
+.theme-search-results-item-grid .theme-search-results-item-stars {
+  float: none;
+  margin-right: 0;
+}
+.theme-search-results-item-grid .theme-search-results-item-room-feature-list {
+  font-size: 12px;
+}
+.theme-search-results-item-grid .theme-search-results-item-room-feature-list > li {
+  margin-right: 0;
+  display: block;
+  margin-bottom: 1px;
+}
+.theme-search-results-item-grid .theme-search-results-item-room-feature-list > li:last-child {
+  margin-bottom: 0;
+}
+.theme-search-results-item-grid .theme-search-results-item-room-feature-list > li:after {
+  display: none;
+}
+.theme-search-results-item-grid .theme-search-results-item-room-feature-list-icon {
+  display: inline-block;
+  width: 13px;
+  margin-right: 5px;
+}
+.theme-search-results-item-grid-caption {
+  margin-top: 7px;
+  padding-top: 12px;
+  border-top: 1px solid #ededed;
+}
+.theme-search-results-item-grid-caption .theme-search-results-item-rating {
+  margin: 0;
+}
+.theme-search-results-item-grid-caption .theme-search-results-item-rating-title {
+  font-weight: normal;
+}
+.theme-search-results-item-grid-caption .theme-search-results-item-rating-stars {
+  float: none;
+  margin-right: 0;
+  margin-bottom: 1px;
+}
+.theme-search-results-item-grid-caption .theme-search-results-item-rating-stars > li {
+  font-size: 10px;
+}
+.theme-search-results-item-grid-img {
+  height: 18vh;
+}
+.theme-search-results-item-grid-body {
+  padding: 20px;
+}
+.theme-search-results-item-grid-body-car {
+  padding-top: 0;
+}
+.theme-search-results-item-grid-body-car .theme-search-results-item-title {
+  padding-right: 60px;
+  position: relative;
+}
+.theme-search-results-item-grid-body-car .theme-search-results-item-car-company-logo {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  max-width: 50px;
+  max-height: 100%;
+}
+.theme-search-results-item-grid-header-logo {
+  position: relative;
+}
+.theme-search-results-item-grid-header-logo .theme-search-results-item-title {
+  padding-right: 60px;
+  position: relative;
+}
+.theme-search-results-item-grid-header-logo .theme-search-results-item-car-company-logo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  max-width: 50px;
+  max-height: 100%;
+}
+.theme-search-results-item-grid-car-img-wrap {
+  height: 18vh;
+  position: relative;
+  margin: 0 20px;
+}
+.theme-search-results-item-grid-car-img-wrap > img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.theme-search-results-item-grid-exp-time {
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+.theme-search-results-item-grid-inline {
+  background: none;
+}
+.theme-search-results-item-grid-inline:hover {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.theme-search-results-item-grid-inline:hover .theme-search-results-item-grid-body-car .theme-search-results-item-car-company-logo {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-grid-img {
+  border-radius: 2px;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-grid-body {
+  margin-top: 15px;
+  padding: 0;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-title {
+  height: auto;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-grid-caption {
+  border: none;
+  padding: 0;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-stars {
+  float: left;
+  margin-right: 4px;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-grid-car-img-wrap {
+  margin: 0 10px;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-grid-body-car .theme-search-results-item-car-feature-list {
+  margin-top: 5px;
+}
+.theme-search-results-item-grid-inline .theme-search-results-item-grid-body-car .theme-search-results-item-car-company-logo {
+  opacity: 0.33;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+  filter: alpha(opacity=33);
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+  right: 10px;
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .banner-caption {
+  padding-top: 120px;
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.01), rgba(0,0,0,0.7));
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.01), rgba(0,0,0,0.7));
+  background: -o-linear-gradient(top, rgba(0,0,0,0.01), rgba(0,0,0,0.7));
+  background: -ms-linear-gradient(top, rgba(0,0,0,0.01), rgba(0,0,0,0.7));
+  background: linear-gradient(to bottom, rgba(0,0,0,0.01), rgba(0,0,0,0.7));
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-title {
+  color: #fff;
+  height: auto;
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-hotel-stars {
+  color: #fff;
+  opacity: 0.86;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=86)";
+  filter: alpha(opacity=86);
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-grid-caption {
+  border-color: rgba(255,255,255,0.3);
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-hotel-rating {
+  color: rgba(255,255,255,0.4);
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-hotel-rating-title {
+  color: #fff;
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-hotel-rating-title > b {
+  color: #0093d2;
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-price-tag {
+  color: #fff;
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-rating-stars > li {
+  color: #fff;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.theme-search-results-item-grid .theme-search-results-item-grid-body-full .theme-search-results-item-rating-stars > li.active {
+  color: #1ebbff;
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.theme-search-results-item-tabs {
+  background: #fff;
+}
+.theme-search-results-item-tabs .nav-tabs {
+  padding: 0 20px;
+  border-color: #f0f0f0;
+}
+.theme-search-results-item-tabs .nav-tabs > li {
+  margin: 0 10px;
+}
+.theme-search-results-item-tabs .nav-tabs > li:first-child {
+  margin-left: 0;
+}
+.theme-search-results-item-tabs .nav-tabs > li:last-child {
+  margin-right: 0;
+}
+.theme-search-results-item-tabs .nav-tabs > li > a {
+  border: none !important;
+  outline: none !important;
+  background: none !important;
+  font-size: 13px;
+  color: #595959;
+  padding: 0;
+  padding-bottom: 7px;
+  display: block;
+  position: relative;
+}
+.theme-search-results-item-tabs .nav-tabs > li.active > a {
+  background: none;
+  color: #0093d2;
+}
+.theme-search-results-item-tabs .nav-tabs > li.active > a:after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #0093d2;
+}
+.theme-search-results-item-tabs .tab-content {
+  padding: 20px 20px;
+}
+.theme-search-results-item-tabs-gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-right: -5px;
+  margin-bottom: -5px;
+}
+.theme-search-results-item-tabs-gallery > li {
+  float: left;
+  width: 25%;
+}
+.theme-search-results-item-tabs-gallery > li > a {
+  display: block;
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+.theme-search-results-item-tabs-gallery > li > a > img {
+  width: 100%;
+}
+.theme-search-results-item-tabs-details-desc {
+  font-size: 13px;
+  line-height: 1.6em;
+  margin-bottom: 20px;
+}
+.theme-search-results-item-tabs-details-table {
+  width: 100%;
+  font-size: 13px;
+}
+.theme-search-results-item-tabs-details-table th {
+  height: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+.theme-search-results-item-tabs-details-table-title {
+  opacity: 0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+}
+.theme-search-results-item-tabs-details-table-value {
+  width: 50%;
+  height: 16px;
+}
+.theme-search-results-item-tabs-details-table-value-bar {
+  background: #e6e6e6;
+  width: 100%;
+  height: 10px;
+  margin-top: 3px;
+}
+.theme-search-results-item-tabs-details-table-value-bar > div {
+  height: 100%;
+  background: #0093d2;
+}
+.theme-search-results-item-tabs-map {
+  border: 1px solid #ccc;
+}
+.theme-search-results-item-tabs-map-title {
+  margin-top: 0;
+  font-size: 16px;
+}
+.theme-search-results-item-tabs-map-phone {
+  opacity: 0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+.theme-search-results-item-tabs-map-rates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: -20px;
+}
+.theme-search-results-item-tabs-map-rates > li {
+  margin-bottom: 20px;
+}
+.theme-search-results-item-tabs-map-rates-icon {
+  float: left;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: #e6e6e6;
+  color: #0093d2;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.theme-search-results-item-tabs-map-rates-title {
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 2px;
+}
+.theme-search-results-item-tabs-map-rates-sign {
+  margin-bottom: 0;
+  font-size: 11px;
+  opacity: 0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+}
+.theme-search-results-item-tabs-similar-item {
+  position: relative;
+  background: #fff;
+  z-index: 1;
+  border: 1px solid #d9d9d9;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+}
+.theme-search-results-item-tabs-similar-item:hover {
+  -webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.15);
+}
+.theme-search-results-item-tabs-similar-item-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: block;
+  z-index: 2;
+}
+.theme-search-results-item-tabs-similar-item-img {
+  width: 100%;
+}
+.theme-search-results-item-tabs-similar-item-caption {
+  padding: 10px 15px;
+}
+.theme-search-results-item-tabs-similar-item-price {
+  margin-bottom: 0;
+  font-weight: 700;
+  font-size: 17px;
+}
+.theme-search-results-item-tabs-similar-item-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  height: 27px;
+  overflow: hidden;
+}
+.theme-search-results-item-tabs-similar-item-book {
+  font-size: 11px;
+}
+.theme-search-results-item-tabs-similar-item-stars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.theme-search-results-item-tabs-similar-item-stars > li {
+  float: left;
+  margin-right: 3px;
+  font-size: 10px;
+  opacity: 0.33;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+  filter: alpha(opacity=33);
+}
+.theme-search-results-item-tabs-similar-item-stars > li.active {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.theme-search-results-item-flight-airline-title {
+  font-family: helvetica, Arial, sans-serif;
+  font-size: 11px;
+  margin-top: 0;
+  font-weight: 400;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  margin-bottom: 15px;
+}
+.theme-search-results-item-flight-airline-logo {
+  display: block;
+  width: 100%;
+}
+.theme-search-results-item-flight-sections .theme-search-results-item-flight-section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #e6e6e6;
+}
+@media (min-width: 992px) {
+  .theme-search-results-item-flight-sections .theme-search-results-item-flight-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+  }
+}
+.theme-search-results-item-flight-section-airline-logo-wrap {
+  position: relative;
+  height: 100%;
+}
+.theme-search-results-item-flight-section-airline-logo {
+  display: block;
+  max-width: 40%;
+  max-height: 50px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  -moz-transform: translate3d(-50%, -50%, 0);
+  -o-transform: translate3d(-50%, -50%, 0);
+  -ms-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+}
+@media (max-width: 992px) {
+  .theme-search-results-item-flight-section-airline-logo {
+    position: relative;
+    width: 50px;
+    max-height: none;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+    top: 0;
+    left: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@media (max-width: 992px) {
+  .theme-search-results-item-flight-section-meta {
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .theme-search-results-item-flight-section-meta > p {
+    display: inline-block;
+    margin: 0 7px;
+  }
+}
+.theme-search-results-item-flight-section-item {
+  padding: 0 15px;
+}
+.theme-search-results-item-flight-section-airline-title {
+  font-family: helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  filter: alpha(opacity=40);
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+@media (max-width: 992px) {
+  .theme-search-results-item-flight-section-airline-title {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    opacity: 0.65;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+    filter: alpha(opacity=65);
+  }
+}
+.theme-search-results-item-flight-section-meta-time {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+.theme-search-results-item-flight-section-meta-time > span {
+  font-weight: 400;
+  font-size: 10px;
+  margin-left: 2px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+  line-height: 1em;
+}
+.theme-search-results-item-flight-section-meta-city {
+  font-size: 13px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+  margin-bottom: 2px;
+}
+.theme-search-results-item-flight-section-meta-date {
+  font-size: 10px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+  margin-bottom: 0;
+}
+.theme-search-results-item-flight-section-path {
+  position: relative;
+  height: 60px;
+  margin: 0 5px;
+}
+@media (max-width: 992px) {
+  .theme-search-results-item-flight-section-path {
+    margin-bottom: 20px;
+  }
+}
+.theme-search-results-item-flight-section-path-line {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #dedede;
+}
+.theme-search-results-item-flight-section-path-icon {
+  margin-bottom: 9px;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.theme-search-results-item-flight-section-path-line-start,
+.theme-search-results-item-flight-section-path-line-end,
+.theme-search-results-item-flight-section-path-line-middle,
+.theme-search-results-item-flight-section-path-line-middle-1,
+.theme-search-results-item-flight-section-path-line-middle-2 {
+  position: absolute;
+  left: -15px;
+  text-align: center;
+  width: 30px;
+}
+.theme-search-results-item-flight-section-path-line-end {
+  right: -15px;
+  left: auto;
+}
+.theme-search-results-item-flight-section-path-line-end .theme-search-results-item-flight-section-path-icon {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.theme-search-results-item-flight-section-path-line-middle,
+.theme-search-results-item-flight-section-path-line-middle-1,
+.theme-search-results-item-flight-section-path-line-middle-2 {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.theme-search-results-item-flight-section-path-line-middle .theme-search-results-item-flight-section-path-line-dot,
+.theme-search-results-item-flight-section-path-line-middle-1 .theme-search-results-item-flight-section-path-line-dot,
+.theme-search-results-item-flight-section-path-line-middle-2 .theme-search-results-item-flight-section-path-line-dot {
+  background: #999;
+}
+.theme-search-results-item-flight-section-path-line-middle .theme-search-results-item-flight-section-path-icon,
+.theme-search-results-item-flight-section-path-line-middle-1 .theme-search-results-item-flight-section-path-icon,
+.theme-search-results-item-flight-section-path-line-middle-2 .theme-search-results-item-flight-section-path-icon {
+  visibility: hidden;
+}
+.theme-search-results-item-flight-section-path-line-middle-1 {
+  left: 33%;
+  -webkit-transform: traslateX(-33%);
+  -moz-transform: traslateX(-33%);
+  -o-transform: traslateX(-33%);
+  -ms-transform: traslateX(-33%);
+  transform: traslateX(-33%);
+}
+.theme-search-results-item-flight-section-path-line-middle-2 {
+  left: 66%;
+  transfrom: translateX(-66%);
+}
+.theme-search-results-item-flight-section-path-line-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #0093d2;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+  box-shadow: 0 0 0 2px #fff;
+}
+.theme-search-results-item-flight-section-path-line-title {
+  font-size: 9px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+}
+.theme-search-results-item-flight-section-path-fly-time {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.theme-search-results-item-flight-section-path-fly-time > p {
+  font-size: 12px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+}
+.theme-search-results-item-flight-section-path-stops-count {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 13px;
+  font-size: 9px;
+  opacity: 0.3;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter: alpha(opacity=30);
+}
+.theme-search-results-item-flight-detail-items .theme-search-results-item-flight-details {
+  margin-bottom: 30px;
+}
+.theme-search-results-item-flight-detail-items .theme-search-results-item-flight-details:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 992px) {
+  .theme-search-results-item-flight-details-info {
+    margin-bottom: 15px;
+  }
+}
+.theme-search-results-item-flight-details-info-title {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 10px;
+  color: #999;
+  margin-top: 0;
+  margin-bottom: 7px;
+}
+.theme-search-results-item-flight-details-info-date {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 3px;
+  line-height: 1em;
+}
+.theme-search-results-item-flight-details-info-cities {
+  font-size: 10px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+  margin-bottom: 10px;
+}
+.theme-search-results-item-flight-details-info-fly-time {
+  font-size: 16px;
+  opacity: 0.7;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  filter: alpha(opacity=70);
+  margin-bottom: 0;
+}
+.theme-search-results-item-flight-details-info-stops {
+  font-size: 12px;
+  margin-bottom: 0;
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  filter: alpha(opacity=40);
+}
+.theme-search-results-item-flight-details-schedule-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 30px;
+  position: relative;
+}
+.theme-search-results-item-flight-details-schedule-list:before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  background-color: #d9d9d9;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.theme-search-results-item-flight-details-schedule-list > li {
+  margin-bottom: 30px;
+  position: relative;
+}
+.theme-search-results-item-flight-details-schedule-list > li:last-child {
+  margin-bottom: 0;
+}
+.theme-search-results-item-flight-details-schedule-icon {
+  position: absolute;
+  top: 16px;
+  left: -42px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 0 1px #d9d9d9;
+  box-shadow: 0 0 0 1px #d9d9d9;
+  color: #0093d2;
+  border-radius: 50%;
+  display: block;
+  font-size: 12px;
+}
+.theme-search-results-item-flight-details-schedule-icon.fa-plane {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.theme-search-results-item-flight-details-schedule-icon.fa-plane:before {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: relative;
+  top: 1px;
+  margin-left: -1px;
+}
+.theme-search-results-item-flight-details-schedule-dots {
+  position: absolute;
+  top: 29px;
+  left: 0;
+  width: 100%;
+  border-top: 2px dotted #000;
+  opacity: 0.1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+  filter: alpha(opacity=10);
+}
+.theme-search-results-item-flight-details-schedule-date {
+  font-size: 10px;
+  margin-bottom: 7px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+}
+.theme-search-results-item-flight-details-schedule-time {
+  font-size: 16px;
+  margin-bottom: 7px;
+  line-height: 1em;
+  font-family: 'Roboto', helvetica, Arial, sans-serif;
+  background: #fff;
+  position: relative;
+  display: table;
+  z-index: 2;
+  padding-right: 10px;
+}
+.theme-search-results-item-flight-details-schedule-time-item {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.theme-search-results-item-flight-details-schedule-time-item > span {
+  font-weight: normal;
+  font-size: 10px;
+  margin-left: 1.5px;
+}
+.theme-search-results-item-flight-details-schedule-time-separator {
+  padding: 0 6px;
+  opacity: 0.3;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter: alpha(opacity=30);
+}
+.theme-search-results-item-flight-details-schedule-fly-time {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  font-size: 12px;
+  color: #999;
+  background-color: #fff;
+  padding-left: 10px;
+  z-index: 2;
+}
+.theme-search-results-item-flight-details-schedule-transfer {
+  font-size: 12px;
+  margin-bottom: 2px;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.theme-search-results-item-flight-details-list-body {
+  position: relative;
+}
+.theme-search-results-item-flight-details-schedule-destination {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.theme-search-results-item-flight-details-schedule-destination-item,
+.theme-search-results-item-flight-details-schedule-destination-separator {
+  float: left;
+}
+.theme-search-results-item-flight-details-schedule-destination-separator {
+  margin: 0 10px;
+}
+.theme-search-results-item-flight-details-schedule-destination-separator > span {
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  display: block;
+  line-height: 1em;
+}
+.theme-search-results-item-flight-details-schedule-destination-title {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.theme-search-results-item-flight-details-schedule-destination-city {
+  font-size: 10px;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  margin-bottom: 0;
+}
+.theme-search-results-item-flight-details-schedule-features {
+  font-size: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.theme-search-results-item-flight-details-schedule-features > li {
+  display: inline-block;
+  margin-right: 10px;
+}
+.theme-search-results-item-flight-payment-airline {
+  margin-bottom: 5px;
+  font-size: 12px;
+  opacity: 0.65;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+  filter: alpha(opacity=65);
+}
+.theme-search-results-item-flight-payment-info {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.theme-search-results-item-flight-payment-dates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.theme-search-results-item-flight-payment-details-link {
+  text-transform: uppercase;
+  text-decoration: none !important;
+  font-size: 12px;
+}
+.theme-search-results-item-hotel-feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: #6a6a6a;
+}
+.theme-search-results-item-hotel-feature-list > li {
+  margin-bottom: 4px;
+  hieght: 17px;
+  line-height: 17px;
+  color: #0093d2;
+}
+.theme-search-results-item-hotel-feature-list > li:last-child {
+  margin-bottom: 0;
+}
+.theme-search-results-item-hotel-feature-list > li > span {
+  display: inline-block;
+  font-weight: 700;
+  width: 13px;
+  text-align: center;
+  background: #0093d2;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  border-radius: 50%;
+  height: 13px;
+  line-height: 14px;
+  font-size: 8px;
+  position: relative;
+  top: -2px;
+  margin-right: 4px;
+}
+.theme-search-results-item-hotel-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: #6a6a6a;
+}
+.theme-search-results-item-hotel-features > li {
+  margin-bottom: 4px;
+  hieght: 17px;
+  line-height: 17px;
+  color: #ff6c2d;
+}
+.theme-search-results-item-hotel-features > li:last-child {
+  margin-bottom: 0;
+}
+.theme-search-results-item-hotel-features > li > span {
+  display: inline-block;
+  font-weight: 700;
+  width: 13px;
+  text-align: center;
+  background: #ff6c2d;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  border-radius: 50%;
+  height: 13px;
+  line-height: 14px;
+  font-size: 8px;
+  position: relative;
+  top: -2px;
+  margin-right: 4px;
+}
+.theme-search-results-item-hotel-book-count {
+  font-size: 11px;
+  margin-bottom: 12px;
+  color: #7a7a7a;
+}
+.theme-search-results-item-hotel-rating {
+  overflow: hidden;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+.theme-search-results-item-hotel-rating-title {
+  margin-bottom: 0;
+}
+.theme-search-results-item-hotel-rating-title > b {
+  color: #0093d2;
+}
+.theme-search-results-item-hotel-stars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: 1px;
+}
+.theme-search-results-item-hotel-stars > li {
+  float: left;
+  font-size: 8px;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  margin-right: 3px;
+}
+.theme-search-results-item-full .theme-search-results-item-hotel-book-count {
+  margin-bottom: 0;
+}
+.theme-search-results-item-hotel-room-features,
+.theme-search-results-item-hotel-room-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.85;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=85)";
+  filter: alpha(opacity=85);
+}
+.theme-search-results-item-hotel-room-features > li,
+.theme-search-results-item-hotel-room-options > li {
+  margin-bottom: 5px;
+}
+.theme-search-results-item-hotel-room-features > li:last-child,
+.theme-search-results-item-hotel-room-options > li:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 992px) {
+  .theme-search-results-item-hotel-room-options {
+    margin-bottom: 15px;
+  }
+}
+.theme-search-results-item-hotel-room-features > li > .fa {
+  text-align: center;
+  margin-right: 7px;
+  width: 20px;
+  display: inline-block;
+}
+.theme-search-results-item-room-feature-list {
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+.theme-search-results-item-room-feature-list > li {
+  display: inline-block;
+  margin-right: 15px;
+  position: relative;
+}
+.theme-search-results-item-room-feature-list > li:after {
+  content: '';
+  width: 2px;
+  height: 2px;
+  background: #000;
+  position: absolute;
+  top: 50%;
+  right: -7.5px;
+  margin-top: -1px;
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  filter: alpha(opacity=40);
+}
+.theme-search-results-item-room-feature-list > li:last-child {
+  margin-right: 0;
+}
+.theme-search-results-item-room-feature-list > li:last-child:after {
+  display: none;
+}
+.theme-search-results-item-room-feature-list-icon {
+  margin-right: 3px;
+  opacity: 0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+  font-size: 11px;
+  position: relative;
+  top: -1px;
+}
+.theme-search-results-item-car-feature-list {
+  list-style: none;
+  margin: 0 auto;
+  display: table;
+  margin-top: 10px;
+  padding: 0;
+}
+.theme-search-results-item-car-feature-list > li {
+  display: inline-block;
+  margin-right: 14px;
+  text-align: center;
+}
+.theme-search-results-item-car-feature-list > li:last-child {
+  margin-right: 0;
+}
+.theme-search-results-item-car-feature-list > li .fa {
+  display: block;
+  font-size: 19px;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  margin-bottom: 2px;
+}
+.theme-search-results-item-car-feature-list > li span {
+  font-size: 9px;
+  display: block;
+}
+.theme-search-results-item-car-location {
+  overflow: hidden;
+  margin-top: 15px;
+}
+.theme-search-results-item-car-location-icon {
+  display: block;
+  float: left;
+  font-size: 27px;
+  margin-right: 10px;
+  opacity: 0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: alpha(opacity=75);
+}
+.theme-search-results-item-car-location-body {
+  display: table;
+}
+.theme-search-results-item-car-location-title {
+  font-size: 12px;
+  line-height: 1em;
+  margin-bottom: 4px;
+}
+.theme-search-results-item-car-location-subtitle {
+  font-size: 11px;
+  line-height: 1em;
+  margin-bottom: 0;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.theme-search-results-item-car-company {
+  margin-bottom: 5px;
+}
+.theme-search-results-item-car-company-title {
+  font-size: 11px;
+  margin-bottom: 4px;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+.theme-search-results-item-car-company-logo {
+  max-height: 20px;
+  max-width: 60px;
+}
+.theme-search-results-item-car-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 15px;
+  font-size: 12px;
+}
+.theme-search-results-item-car-list > li {
+  margin-bottom: 3px;
+}
+.theme-search-results-item-car-list > li .fa {
+  margin-right: 5px;
+  color: #0093d2;
+}
+.theme-search-results-item-exp-time {
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+.theme-payment-page-item-thumb .theme-search-results-item-img {
+  max-width: 40%;
+  float: right;
+  display: block;
+  width: auto;
+}
+@media (max-width: 992px) {
+  .theme-payment-page-item-thumb .theme-search-results-item-img {
+    float: none;
+    width: 100%;
+    max-height: none;
+  }
+}
