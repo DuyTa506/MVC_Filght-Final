@@ -113,7 +113,6 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         {
 
 
-
             return RedirectToAction("Index");
         }
 
