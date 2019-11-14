@@ -11,9 +11,6 @@
         public static string CONST_DB_NAME_ADULT = "Adult";
         public static string CONST_DB_NAME_CHILD = "Child";
         public static string CONST_DB_NAME_INFANT = "Infant";
-        public static string CONST_DB_TICKET_STATUS_SUCCESS = "Success";
-        public static string CONST_DB_TICKET_STATUS_FAILD = "Faild";
-        public static string CONST_DB_TICKET_STATUS_RETURN = "Return";
         public static int CONST_DB_SEAT_CLASS_FIRSTCLASS_ID = 1;
         public static int CONST_DB_SEAT_CLASS_BUSINESS_ID = 2;
         public static int CONST_DB_SEAT_CLASS_ECONOMY_ID = 3;
@@ -63,6 +60,13 @@
         public static string CONST_PLANE_STATUS_READY = "Ready";
         public static string CONST_PLANE_STATUS_ONLINE = "Online";
         public static string CONST_PLANE_STATUS_REPAIR = "Repair";
+        #endregion
+
+        #region Ticket Status
+        public static string CONST_DB_TICKET_STATUS_SUCCESS = "Success";
+        public static string CONST_DB_TICKET_STATUS_FAILD = "Faild";
+        public static string CONST_DB_TICKET_STATUS_RETURN = "Return";
+        public static string CONST_DB_TICKET_STATUS_CANCEL = "Cancel";
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EaseFlight.BLL.Interfaces;
+using EaseFlight.Common.Constants;
 using EaseFlight.Models.CustomModel;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,40 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             else currentPassenger.DateIssueOrExpiry = DateTime.ParseExact(collection.Get("expiry"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             this.PassengerTicketService.Update(currentPassenger);
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult CancelTicket(string ticketId)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var currentTicket = this.TicketService.Find(int.Parse(ticketId));
+
+            if (currentTicket == null || currentTicket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_CANCEL))
+            {
+                result.Data = new { type = "error" };
+                return result;
+            }
+
+            currentTicket.Status = Constant.CONST_DB_TICKET_STATUS_CANCEL;
+            result.Data = new { type = "success" };
+            this.TicketService.Update(currentTicket);
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult DeleteTicket(string ticketId)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var currentTicket = this.TicketService.Find(int.Parse(ticketId));
+
+            if(currentTicket != null && currentTicket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_CANCEL))
+            {
+
+                result.Data = new { type = "success" };
+            }
 
             return result;
         }

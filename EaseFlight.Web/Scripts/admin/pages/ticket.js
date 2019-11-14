@@ -10,11 +10,48 @@ $(document).ready(function () {
     $.contextMenu({
         selector: '.tr-ticket',
         callback: function (key, options) {
-
             if (key == 'passenger') { //Passenger detail
+                $.contextMenu('destroy', '.tr-passenger.can-edit');
+                if ($(this).find('.ticket-status').text() == 'Success')
+                    //Add context Menu passenger detail table
+                    $.contextMenu({
+                        selector: '.tr-passenger.can-edit',
+                        callback: function (key, options) {
+
+                            if (key == 'edit') { //Edit option
+                                openEditPassengerModal($(this));
+                            }
+                        },
+                        items: {
+                            "edit": { name: "Edit", icon: "edit" },
+                        }
+                    });
+
                 openPassengerDeatilModal($(this).find('.ticketId').text());
-            }else if(key == 'delete') { //Delete option
-            
+            } else if (key == 'return') { //Return ticket option
+
+                if ($(this).find('.ticket-status').text() == 'Return')
+                    ToastError("You can't return a ticket had returned");
+                else if ($(this).find('.ticket-status').text() == 'Cancel')
+                    ToastError("You can't return a ticket had canceled");
+                else {
+                    $('#confirm-modal .modal-title').text('Confirm Return Ticket');
+                    $('#confirm-modal .areyousure').text('Are you sure to return this ticket? This procedure is irreversible.');
+                    $('#confirm-modal .confirm-button').text('Return Ticket');
+                    $('#confirm-modal .confirm-button').attr('onclick', 'returnTicket(' + $(this).find('.ticketId').text() + ')');
+                    $('#confirm-modal').modal('show');
+                }
+            } else if (key == 'cancel') { //Cancel ticket option
+
+                if ($(this).find('.ticket-status').text() == 'Cancel')
+                    ToastError("You can't cancel a ticket had canceled");
+                else {
+                    $('#confirm-modal .modal-title').text('Confirm Cancel Ticket');
+                    $('#confirm-modal .areyousure').text('Are you sure to cancel this ticket? This procedure is irreversible.');
+                    $('#confirm-modal .confirm-button').text('Cancel Ticket');
+                    $('#confirm-modal .confirm-button').attr('onclick', 'cancelTicket(' + $(this).find('.ticketId').text() + ')');
+                    $('#confirm-modal').modal('show');
+                }
             }
         },
         items: {
@@ -22,24 +59,9 @@ $(document).ready(function () {
             "flight": { name: "Flight detail", icon: "fas fa-fighter-jet" },
             "sep1": "---------",
             "return": { name: "Return ticket", icon: "fas fa-undo" },
-            "cancel": { name: "Cancel ticket", icon: "fas fa-ban" },
-            "delete": { name: "Delete", icon: "delete" }
+            "cancel": { name: "Cancel ticket", icon: "fas fa-ban" }
         }
     }); 
-
-    //Add context Menu passenger detail table
-    $.contextMenu({
-        selector: '.tr-passenger',
-        callback: function (key, options) {
-
-            if (key == 'edit') { //Edit option
-                openEditPassengerModal($(this));
-            }
-        },
-        items: {
-            "edit": { name: "Edit", icon: "edit" },
-        }
-    });
 
     //On hide modal edit passenger
     $('#editPassengerModal').on('hidden.bs.modal', function () {
@@ -166,14 +188,81 @@ function savePassenger() {
         $('input[name="birthday"]').removeClass('is-invalid');
     }
 
+    if (!checked) return;
+
+    var data = $('.passenger-form').serializeArray();
+
     $.ajax({
         url: '/Admin/Ticket/UpdatePassenger',
         type: 'post',
         data: $('.passenger-form').serialize(),
-        success: function (response) {
+        success: function () {
+            var title = 'Mr';
+            if (data[1].value == '1') title = 'Ms/Mrs';
 
+            $(passengerModalId).find('td.title').text(title);
+            $(passengerModalId).find('td.firstname').text(data[2].value);
+            $(passengerModalId).find('td.lastname').text(data[3].value);
+            $(passengerModalId).find('td.birthday').text(data[4].value);
+            $(passengerModalId).find('td.passport').text(data[5].value);
+            $(passengerModalId).find('td.expiry').text(data[6].value);
+            $(passengerModalId).find('td.nationality').text(data[7].value);
+            $(passengerModalId).find('td.city').text(data[8].value);
+
+            $('#editPassengerModal').modal('hide');
+            ToastSuccess('Update passenger detail successfully');
         }
     });
+}
 
-    if (!checked) return;
+function returnTicket(id) {
+    var parent = $('.tr-ticket .ticketId:contains("' + id + '")').parents('.tr-ticket');
+
+    if ($(parent).find('.ticketId').attr('data-return') == 'False') {
+        ToastError('You can only return ticket at least 1 month from departure');
+        return;
+    }
+
+    $(parent).find('.ticket-status').html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
+    $('#confirm-modal').modal('hide');
+
+    $.ajax({
+        url: '/Ticket/RefundTicket',
+        data: {
+            ticketId: id
+        },
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if (data.type == 'success') {
+                $(parent).find('.ticket-status').html('Return');
+                $(parent).find('.ticket-status').removeClass('success-status').addClass('return-status');
+                $(parent).find('.description').text('Refund ' + data.refund);
+                ToastSuccess('Refund ticket successfully');
+            }
+        }
+    });
+}
+
+function cancelTicket(id) {
+    var parent = $('.tr-ticket .ticketId:contains("' + id + '")').parents('.tr-ticket');
+    $('#confirm-modal').modal('hide');
+
+    $.ajax({
+        url: '/Admin/Ticket/CancelTicket',
+        data: {
+            ticketId: id
+        },
+        type: 'post',
+        success: function (response) {
+            var data = JSON.parse(response);
+
+            if (data.type == 'success') {
+                $(parent).find('.ticket-status').text('Cancel');
+                $(parent).find('.ticket-status').removeClass('success-status return-status').addClass('cancel-status');
+                ToastSuccess('Cancel ticket successfully');
+            }
+        }
+    });
 }
