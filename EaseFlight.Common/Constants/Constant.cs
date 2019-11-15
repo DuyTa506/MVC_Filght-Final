@@ -14,6 +14,7 @@
         public static int CONST_DB_SEAT_CLASS_FIRSTCLASS_ID = 1;
         public static int CONST_DB_SEAT_CLASS_BUSINESS_ID = 2;
         public static int CONST_DB_SEAT_CLASS_ECONOMY_ID = 3;
+        public static string CONST_PASSWORD_DEFAULT = "P@ssword123";
 
         #endregion
 

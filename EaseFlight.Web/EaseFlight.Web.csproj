@@ -167,6 +167,7 @@
     <Content Include="Content\images\airline-logo\Vietjet Air.png" />
     <Content Include="Content\images\airline-logo\VietNam Airline.png" />
     <Content Include="Content\images\avatar\user.png" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\user\css\basecss\toastify.css" />
     <Content Include="Content\user\css\pages\myprofile.css" />
     <Content Include="Content\user\css\pages\ticket.css" />
@@ -201,7 +202,6 @@
     <Content Include="Content\user\css\fonts\Simple-Line-Iconsb26c.svg" />
     <Content Include="Content\user\css\fonts\weathericons-regular-webfont.svg" />
     <Content Include="Content\images\logo-black.png" />
-    <Content Include="Content\images\logo.png" />
     <Content Include="Content\user\css\pages\accessDenied.css" />
     <Content Include="Content\user\css\pages\booking.css" />
     <Content Include="Content\user\css\pages\flight.css" />
@@ -210,6 +210,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\admin\basejs\adminlte.js" />
     <Content Include="Scripts\admin\basejs\demo.js" />
+    <Content Include="Scripts\admin\pages\account.js" />
     <Content Include="Scripts\admin\pages\flight.js" />
     <Content Include="Scripts\admin\pages\home.js" />
     <Content Include="Scripts\admin\pages\login.js" />
@@ -297,6 +298,7 @@
     <Content Include="Content\admin\basecss\font\context-menu-icons.woff" />
     <Content Include="Content\admin\basecss\font\context-menu-icons.woff2" />
     <Content Include="Areas\Admin\Views\Ticket\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />

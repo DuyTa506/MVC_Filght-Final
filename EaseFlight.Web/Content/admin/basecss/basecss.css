@@ -12,10 +12,10 @@
 .ready-status{
     color: steelblue;
 }
-.online-status, .success-status{
+.online-status, .success-status, .account-active{
     color: green;
 }
-.delay-status, .return-status{
+.delay-status, .return-status, .account-disable{
     color: brown;
 }
 .done-status{

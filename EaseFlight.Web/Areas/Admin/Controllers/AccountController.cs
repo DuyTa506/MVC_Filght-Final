@@ -1,7 +1,11 @@
 ﻿using EaseFlight.BLL.Interfaces;
 using EaseFlight.Common.Constants;
 using EaseFlight.Common.Utilities;
+using EaseFlight.Models.EntityModels;
 using EaseFlight.Web.WebUtilities;
+using System;
+using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace EaseFlight.Web.Areas.Admin.Controllers
@@ -10,12 +14,14 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
     {
         #region Properties
         private IAccountService AccountService { get; set; }
+        private IAccountTypeService AccountTypeService { get; set; }
         #endregion
 
         #region Constructors
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IAccountTypeService accountTypeService)
         {
             this.AccountService = accountService;
+            this.AccountTypeService = accountTypeService;
         }
         #endregion
 
@@ -62,6 +68,38 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             SessionUtility.Logout();
 
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            ViewData["account"] = this.AccountService.FindAll().Where(account => account.AccountType.Name.Equals(Constant.CONST_ROLE_USER));
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddAccount(FormCollection collection)
+        {
+            var account = new AccountModel
+            {
+                FirstName = collection.Get("firstname"),
+                LastName = collection.Get("lastname"),
+                Gender = collection.Get("title").Equals("1") ? true : false,
+                Birthday = DateTime.ParseExact(collection.Get("birthday"), "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Username = collection.Get("username"),
+                Address = collection.Get("address"),
+                Phone = collection.Get("phone"),
+                Email = collection.Get("email"),
+                Password = EncryptionUtility.BcryptHashPassword(Constant.CONST_PASSWORD_DEFAULT),
+                AccountTypeID = this.AccountTypeService.FindByName(Constant.CONST_ROLE_USER).ID,
+                Status = true
+            };
+
+            this.AccountService.Insert(account);
+            TempData["msg"] = "success-Account added successfully";
+
+            return RedirectToAction("Index");
         }
         #endregion
     }
