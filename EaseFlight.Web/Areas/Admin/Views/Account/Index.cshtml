@@ -54,7 +54,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
                         <td class="email">@account.Email</td>
                         <td class="phone">@account.Phone</td>
                         <td class="address">@account.Address</td>
-                        <td class="account-@(account.Status.Value?"active":"disable")">@(account.Status.Value ? "Active" : "Disable")</td>
+                        <td class="account-status account-@(account.Status.Value?"active":"disable")">@(account.Status.Value ? "Active" : "Disable")</td>
                     </tr>
                 }
             </tbody>
@@ -68,7 +68,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title"></h4>
+                <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
@@ -88,42 +88,42 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
                         <div class="col-md-6">
                             <label class="required">First Name</label>
                             <input type="text" class="form-control" name="firstname" placeholder="Enter account First Name">
-                            <span class="msg-valid msg-firstname">First Name is required</span>
+                            <span class="msg-valid msg-firstname msg-span">First Name is required</span>
                         </div>
                         <div class="col-md-6">
                             <label class="required">Last Name</label>
                             <input type="text" class="form-control" name="lastname" placeholder="Enter account Last Name">
-                            <span class="msg-valid msg-lastname">Last Name is required</span>
+                            <span class="msg-valid msg-lastname msg-span">Last Name is required</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label class="required">Username</label>
                             <input type="text" class="form-control" name="username" placeholder="Enter account Username">
-                            <span class="msg-valid msg-username">Username is required</span>
+                            <span class="msg-valid msg-username msg-span">Username is required</span>
                         </div>
                         <div class="col-md-6">
                             <label class="required">Birthday</label>
                             <input type="text" class="form-control" name="birthday" placeholder="dd/mm/yyyy">
-                            <span class="msg-valid msg-birthday">Birthday is required</span>
+                            <span class="msg-valid msg-birthday msg-span">Birthday is required</span>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label class="required">Email</label>
                             <input type="text" class="form-control" name="email" placeholder="Enter account Email">
-                            <span class="msg-valid msg-email">Email is required</span>
+                            <span class="msg-valid msg-email msg-span">Email is required</span>
                         </div>
                         <div class="col-md-6">
                             <label class="required">Phone</label>
                             <input type="text" class="form-control" name="phone" placeholder="Enter account Phone number">
-                            <span class="msg-valid msg-phone">Phone is required</span>
+                            <span class="msg-valid msg-phone msg-span">Phone is required</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="required">Address</label>
                         <input type="text" class="form-control" name="address" placeholder="Enter account Address">
-                        <span class="msg-valid msg-address">Address is required</span>
+                        <span class="msg-valid msg-address msg-span">Address is required</span>
                     </div>
                     <div class="form-group">
                         <label class="required pwdefault-label"></label>
@@ -133,8 +133,27 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="saveAccount()">Save</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-success" onclick="saveAccount()">Save</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Confirm modal-->
+<div class="modal fade" id="confirm-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete Account</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this account? This procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-danger confirm-button" onclick="">Delete Account</button>
             </div>
         </div>
     </div>

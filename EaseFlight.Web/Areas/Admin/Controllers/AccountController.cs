@@ -101,6 +101,79 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult UpdateAccount(FormCollection collection)
+        {
+            var currentAccount = this.AccountService.Find(int.Parse(collection.Get("accountId")));
+
+            if(currentAccount != null)
+            {
+                currentAccount.FirstName = collection.Get("firstname");
+                currentAccount.LastName = collection.Get("lastname");
+                currentAccount.Gender = collection.Get("title").Equals("1") ? true : false;
+                currentAccount.Birthday = DateTime.ParseExact(collection.Get("birthday"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                currentAccount.Username = currentAccount.IsThirdLogin()? currentAccount.Username : collection.Get("username");
+                currentAccount.Address = collection.Get("address");
+                currentAccount.Phone = collection.Get("phone");
+                currentAccount.Email = collection.Get("email");
+
+                this.AccountService.Update(currentAccount);
+                TempData["msg"] = "success-Account updated successfully";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult DisableAccount(string accountId)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var currentAccount = this.AccountService.Find(int.Parse(accountId));
+
+            if(currentAccount != null)
+            {
+                currentAccount.Status = false;
+
+                this.AccountService.Update(currentAccount);
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult ActiveAccount(string accountId)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var currentAccount = this.AccountService.Find(int.Parse(accountId));
+
+            if (currentAccount != null)
+            {
+                currentAccount.Status = true;
+
+                this.AccountService.Update(currentAccount);
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAccount(string accountId)
+        {
+            var result = new JsonResult { ContentType = "text" };
+            var currentAccount = this.AccountService.Find(int.Parse(accountId));
+
+            if(currentAccount != null)
+            {
+                var resultDelete = this.AccountService.Delete(int.Parse(accountId));
+
+                if (resultDelete == 0)
+                    TempData["msg"] = "error-Account delete failed because there were tickets booked";
+                else TempData["msg"] = "success-Account delete successfully";
+            }
+
+            return result;
+        }
         #endregion
     }
 }

@@ -12,5 +12,6 @@ namespace EaseFlight.BLL.Interfaces
         int Insert(AccountModel account);
         int Update(AccountModel account);
         AccountModel CheckUsernameExists(string username, string email);
+        int Delete(int accountId);
     }
 }

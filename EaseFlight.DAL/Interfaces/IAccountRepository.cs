@@ -11,5 +11,6 @@ namespace EaseFlight.DAL.Interfaces
         Account FindByEmail(string email);
         int Insert(Account account);
         void Update(Account account);
+        int Delete(int accountId);
     }
 }

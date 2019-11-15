@@ -122,7 +122,7 @@ namespace EaseFlight.Web
             bundles.Add(new StyleBundle("~/Content/adminlogin").Include(
                       "~/Content/admin/pages/login.css"));
 
-            bundles.Add(new StyleBundle("~/Content/ticket").Include(
+            bundles.Add(new StyleBundle("~/Content/adminticket").Include(
                      "~/Content/admin/pages/ticket.css"));
             #endregion
         }

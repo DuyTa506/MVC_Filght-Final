@@ -113,3 +113,28 @@
     padding: 5px 13px !important;
     font-size: 14px;
 }
+body{
+    font-size: 14px;
+}
+.form-control {
+    font-size: 14px;
+    height: 33px;
+    line-height: 33px;
+}
+.select2-container--bootstrap4 .select2-selection--single{
+    height: 33px !important;
+    line-height: 33px !important;
+}
+.modal-header{
+    padding: 5px 15px;
+}
+.modal-footer{
+    padding: 10px 15px;
+}
+.custom-select{
+    line-height: 20px !important;
+    height: 30px !important;
+}
+.dataTables_filter .form-control{
+    height: 30px !important;
+}

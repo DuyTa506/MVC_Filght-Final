@@ -7,7 +7,7 @@
 }
 @Scripts.Render("~/bundles/adminticket")
 @Scripts.Render("~/bundles/geodata")
-@Styles.Render("~/Content/ticket")
+@Styles.Render("~/Content/adminticket")
 
 <div class="card">
     <div class="card-header">
@@ -71,7 +71,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Passenger detail</h4>
+                    <h5 class="modal-title">Passenger Detail</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
@@ -111,7 +111,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@
         <div class="modal-dialog flight-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Flight detail</h4>
+                    <h5 class="modal-title">Flight Detail</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -484,7 +484,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -497,7 +497,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Edit passenger</h4>
+                <h5 class="modal-title">Edit Passenger</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
@@ -560,8 +560,8 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="savePassenger()">Save</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-success" onclick="savePassenger()">Save</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -572,15 +572,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"></h4>
+                <h5 class="modal-title"></h5>
             </div>
             <div class="modal-body">
                 <p class="areyousure"></p>
                 <p>Do you want to proceed?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger confirm-button" onclick=""></button>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-danger confirm-button" onclick=""></button>
             </div>
         </div>
     </div>

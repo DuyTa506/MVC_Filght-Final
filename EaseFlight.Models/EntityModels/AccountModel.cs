@@ -38,6 +38,11 @@ namespace EaseFlight.Models.EntityModels
 
             return model;
         }
+
+        public bool IsThirdLogin()
+        {
+            return string.IsNullOrEmpty(this.Password);
+        }
         #endregion
     }
 }

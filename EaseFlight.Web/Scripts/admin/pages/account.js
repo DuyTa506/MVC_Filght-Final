@@ -14,16 +14,31 @@ $(document).ready(function () {
         callback: function (key, options) {
 
             if (key == 'disable') { //Disable account option
-                
+                if ($(this).find('.account-status').text() == 'Disable')
+                    ToastError("You can't disable to account has disabled");
+                else {
+                    disableAccount($(this));
+                }
+            } else if (key == 'active') { //Active account option
+                if ($(this).find('.account-status').text() == 'Active')
+                    ToastError("You can't active to account has actived");
+                else {
+                    activeAccount($(this));
+                }
             } else if (key == 'edit') { //Edit option
                 openEditModal($(this));
             } else if (key == 'delete') { //Delete option
-                $('.confirm-button').attr('onclick', 'deleteAccount("' + $(this).find('.flightId').text() + '")');
+                $('.confirm-button').attr('onclick', 'deleteAccount("' + $(this).find('.accountId').text() + '")');
                 $('#confirm-modal').modal('show');
             }
         },
         items: {
-            "disable": { name: "Disable account", icon: "paste" },
+            "active": { name: "Active account", icon: "paste" },
+            "disable": {
+                name: "Disable account", icon: function() {
+                    return 'context-menu-icon context-menu-icon-quit';
+                }
+            },
             "sep1": "---------",
             "edit": { name: "Edit", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" }
@@ -39,11 +54,11 @@ $(document).ready(function () {
         }
     });
 
-    //$('#accountModal').on('shown.bs.modal', function () {
-    //    $('input[name="firstname"]').focus();
-    //    $('.account-form span').removeClass('msg-invalid').addClass('msg-valid');
-    //    $('.account-form input').removeClass('is-invalid');
-    //});
+    $('#accountModal').on('shown.bs.modal', function () {
+        $('input[name="firstname"]').focus();
+        $('.account-form .msg-span').removeClass('msg-invalid').addClass('msg-valid');
+        $('.account-form input').removeClass('is-invalid');
+    });
     $('#accountModal').on('hidden.bs.modal', function () {
         username = ''; email = '';
     });
@@ -225,11 +240,16 @@ function openEditModal(parent) {
     if ($(parent).find('.username').text() == 'Third Login')
         $('input[name="username"]').attr('disabled', 'true');
 
+    var birthday = $(parent).find('.birthday').text();
+
+    if (birthday.trim() == '')
+        birthday = moment().format("DD/MM/YYYY");
+
     $('input[name="birthday"]').daterangepicker({
         timePicker: false,
         singleDatePicker: true,
         showDropdowns: true,
-        startDate: $(parent).find('.birthday').text(),
+        startDate: birthday,
         locale: {
             format: 'DD/MM/YYYY'
         }
@@ -237,4 +257,51 @@ function openEditModal(parent) {
 
     username = $('input[name="username"]').val();
     email = $('input[name="email"]').val();
+}
+
+function disableAccount(parent) {
+    var id = $(parent).find('.accountId').text();
+
+    $.ajax({
+        url: '/Admin/Account/DisableAccount',
+        data: {
+            accountId: id
+        },
+        type: 'post',
+        success: function () {
+            ToastSuccess('Disable account successfully');
+            $(parent).find('.account-status').text('Disable');
+            $(parent).find('.account-status').removeClass('account-active').addClass('account-disable');
+        }
+    });
+}
+
+function activeAccount(parent) {
+    var id = $(parent).find('.accountId').text();
+
+    $.ajax({
+        url: '/Admin/Account/ActiveAccount',
+        data: {
+            accountId: id
+        },
+        type: 'post',
+        success: function () {
+            ToastSuccess('Active account successfully');
+            $(parent).find('.account-status').text('Active');
+            $(parent).find('.account-status').removeClass('account-disable').addClass('account-active');
+        }
+    });
+}
+
+function deleteAccount(id) {
+    $.ajax({
+        url: '/Admin/Account/DeleteAccount',
+        data: {
+            accountId: id
+        },
+        type: 'post',
+        success: function() {
+            window.location.reload();
+        }
+    });
 }

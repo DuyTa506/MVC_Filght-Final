@@ -79,6 +79,13 @@ namespace EaseFlight.BLL.Services
 
             return userModelByUsername ?? userModelByEmail;
         }
+
+        public int Delete(int accountId)
+        {
+            var result = this.AccountRepository.Delete(accountId);
+
+            return result;
+        }
         #endregion
 
         #region Model Functions

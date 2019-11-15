@@ -60,6 +60,21 @@ namespace EaseFlight.DAL.Repositories
             if (currentAccount != null)
                 CommonMethods.CopyObjectProperties(account, currentAccount);
         }
+
+        public int Delete(int accountId)
+        {
+            var currentAccount = this.UnitOfWork.DBContext.Accounts.Find(accountId);
+            var result = 0;
+
+            if (currentAccount.Tickets.Count == 0)
+            {
+                this.UnitOfWork.DBContext.Accounts.Remove(currentAccount);
+                this.UnitOfWork.SaveChanges();
+                result = 1;
+            }
+
+            return result;
+        }
         #endregion
     }
 }
