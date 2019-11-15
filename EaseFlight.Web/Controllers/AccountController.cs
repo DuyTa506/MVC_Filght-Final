@@ -261,7 +261,7 @@ namespace EaseFlight.Web.Controllers
         public JsonResult Update(FormCollection collection)
         {
             var result = new JsonResult { ContentType = "text" };
-            var loggedUser = SessionUtility.GetLoggedUser();
+            var loggedUser = this.AccountService.Find(SessionUtility.GetLoggedUser().ID);
 
             foreach(var key in collection.AllKeys)
             {
@@ -293,7 +293,6 @@ namespace EaseFlight.Web.Controllers
 
             }
 
-            loggedUser.AccountType = null;
             this.AccountService.Update(loggedUser);
             SessionUtility.SetAuthenticationToken(loggedUser, 60);
 
@@ -304,12 +303,11 @@ namespace EaseFlight.Web.Controllers
         public JsonResult ChangePassword(FormCollection collection)
         {
             var result = new JsonResult { ContentType = "text" };
-            var loggedUser = SessionUtility.GetLoggedUser();
+            var loggedUser = this.AccountService.Find(SessionUtility.GetLoggedUser().ID);
 
-            if(EncryptionUtility.BcryptCheckPassword(collection.Get("CurrentPassword"), loggedUser.Password))
+            if (EncryptionUtility.BcryptCheckPassword(collection.Get("CurrentPassword"), loggedUser.Password))
             {
                 loggedUser.Password = EncryptionUtility.BcryptHashPassword(collection.Get("NewPassword"));
-                loggedUser.AccountType = null;
                 this.AccountService.Update(loggedUser);
                 SessionUtility.SetAuthenticationToken(loggedUser, 60);
 
@@ -324,7 +322,7 @@ namespace EaseFlight.Web.Controllers
         public JsonResult ChangePhoto()
         {
             var result = new JsonResult { ContentType = "text" };
-            var loggedUser = SessionUtility.GetLoggedUser();
+            var loggedUser = this.AccountService.Find(SessionUtility.GetLoggedUser().ID);
             var file = Request.Files["file"];
             var fileName = loggedUser.ID.ToString() + "." + file.FileName.Split('.').Last();
             var path = CommonMethods.ServerMapPath("Content/images/avatar/" + fileName);
@@ -335,7 +333,6 @@ namespace EaseFlight.Web.Controllers
 
             //Update user
             loggedUser.Photo = avatarPath;
-            loggedUser.AccountType = null;
             this.AccountService.Update(loggedUser);
             SessionUtility.SetAuthenticationToken(loggedUser, 60);
 

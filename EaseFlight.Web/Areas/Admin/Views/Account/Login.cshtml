@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
     var msg = (string)ViewData["msg"];
+    var callUrl = (string)ViewData["callUrl"];
 }
 <!DOCTYPE html>
 <html>
@@ -27,6 +28,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
                 <form action="@Url.Action("Login","Account")" method="post" name="login-form">
+                    <input type="hidden" name="callUrl" value="@callUrl" />
                     <p class="msg-error-login">@msg</p>
                     <div class="input-group">
                         <input type="text" class="form-control" name="username" placeholder="Username">

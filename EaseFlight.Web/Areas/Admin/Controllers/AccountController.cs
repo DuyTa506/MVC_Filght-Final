@@ -21,12 +21,13 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
         #region Actions
         [HttpGet]
-        public ActionResult Login(string msg)
+        public ActionResult Login(string msg, string callUrl)
         {
             if (SessionUtility.IsSessionAlive())
                 return RedirectToAction("Index", "Home");
 
             ViewData["msg"] = msg;
+            ViewData["callUrl"] = callUrl;
 
             return View();
         }
@@ -41,9 +42,14 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             {
                 if (userModel.Status.Value)
                 {
+                    var callBackUrl = collection.Get("callUrl");
+
                     SessionUtility.SetAuthenticationToken(userModel, 60);
 
-                    return RedirectToAction("Index", "Home");
+                    if (!string.IsNullOrEmpty(callBackUrl))
+                        return RedirectToAction(callBackUrl.Split('/')[1], callBackUrl.Split('/')[0]);
+                    else return RedirectToAction("Index", "Home");
+
                 }else return RedirectToAction("Login", new { msg = Constant.CONST_MESSAGE_LOGIN_DISABLE });
             }
 

@@ -17,11 +17,16 @@ namespace EaseFlight.Web.App_Start
             {
                 if (SessionUtility.IsSessionAlive() == false)
                 {
+                    string controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+                    string actionName = filterContext.ActionDescriptor.ActionName;
+                    var callBack = controllerName + "/" + actionName;
+
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                     {
                         { "action", "Login" },
                         { "controller", "Account" },
-                        { "Area", "Admin" }
+                        { "Area", "Admin" },
+                        { "callUrl", callBack}
                     });
                 }
             }

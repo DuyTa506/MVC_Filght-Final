@@ -93,3 +93,23 @@
     transform: translate(19px, 0);
   }
 }
+.main-header{
+    padding: 3px 5px !important;
+}
+.brand-link{
+    padding: 8px 0px !important;
+}
+.nav-avt{
+    padding-top: 6px !important;
+}
+.nav-avt img{
+    border-radius: 50%;
+}
+.user-panel img{
+    height: 30px !important;
+    width: 30px !important;
+}
+.dropdown-menu-lg .dropdown-item{
+    padding: 5px 13px !important;
+    font-size: 14px;
+}

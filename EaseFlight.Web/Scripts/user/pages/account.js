@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
- 
+    //Enter Key
+    $(document).on('keypress', function (e) {
+        if (e.which == 13) {
+            var text = $('#loginModal .modal-header').text();
+
+            if (text.includes('Login'))
+                login();
+            else if (text.includes('Register'))
+                register();
+        }
+    });
 })
 function register() {
     var formData = $('#registerForm').serialize();
