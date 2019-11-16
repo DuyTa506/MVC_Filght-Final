@@ -76,9 +76,10 @@ namespace EaseFlight.BLL.Services
 
         }
 
-        public void Delete(int planeseatid)
+        public void Delete(int planeid,int planeseatid)
         {
-            throw new System.NotImplementedException();
+            this.PlaneSeatClassRepository.Delete(planeid,planeseatid);
+            this.UnitOfWork.DBContext.SaveChanges();
         }
         #endregion
     }

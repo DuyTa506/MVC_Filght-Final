@@ -53,13 +53,11 @@ namespace EaseFlight.DAL.Repositories
             }
         }
 
-        public void Delete(int planeseatid)
+        public void Delete(int planeid,int planeseatid)
         {
-            var CurrentPlaneSeatClass = this.UnitOfWork.DBContext.PlaneSeatClasses.Find(planeseatid);
-            if (CurrentPlaneSeatClass.Plane.PlaneAirports.Count == 0)
-            {
-                this.UnitOfWork.DBContext.PlaneSeatClasses.Remove(CurrentPlaneSeatClass);
-            }
+            var CurrentPlaneSeatClass = this.UnitOfWork.DBContext.PlaneSeatClasses.Find(planeid, planeseatid);
+
+            this.UnitOfWork.DBContext.PlaneSeatClasses.Remove(CurrentPlaneSeatClass);
         }
         #endregion
     }

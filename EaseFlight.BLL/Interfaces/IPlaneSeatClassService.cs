@@ -10,6 +10,6 @@ namespace EaseFlight.BLL.Interfaces
         IEnumerable<PlaneSeatClassModel> FindByPlane(int planeId);
         void Insert(PlaneSeatClassModel planeSeatClass);
         void Update(PlaneSeatClassModel planeSeatClassairport);
-        void Delete(int planeseatid);
+        void Delete(int planeid, int planeseatid);
     }
 }

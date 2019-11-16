@@ -200,6 +200,22 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult DelelePlane(string planeid)
         {
+            var currentPlane = this.PlaneService.Find(int.Parse(planeid));
+
+            if (currentPlane.Flights.Count == 0)
+            {
+                var planeSeatClassList = currentPlane.PlaneSeatClasses.ToList();
+                var planeAirportList = currentPlane.PlaneAirports.ToList();
+
+                foreach (var seat in planeSeatClassList)
+                {
+                    this.PlaneSeatClassService.Delete(currentPlane.ID, seat.SeatClassID);
+                }
+                foreach (var planeair in planeAirportList)
+                {
+                    this.PlaneAirportService.Delete(currentPlane.ID, planeair.AirportID);
+                }
+            }
             if (this.PlaneService.Delete(int.Parse(planeid)) == 1)
             {
                 TempData["msg"] = "success-Delete plane successfully";
