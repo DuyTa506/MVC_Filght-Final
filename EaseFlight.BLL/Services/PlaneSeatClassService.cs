@@ -71,7 +71,9 @@ namespace EaseFlight.BLL.Services
 
         public void Update(PlaneSeatClassModel planeSeatClassairport)
         {
-            throw new System.NotImplementedException();
+            this.PlaneSeatClassRepository.Update(planeSeatClassairport.GetModel());
+            this.UnitOfWork.SaveChanges();
+
         }
 
         public void Delete(int planeseatid)

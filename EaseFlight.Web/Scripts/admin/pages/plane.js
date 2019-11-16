@@ -1,24 +1,11 @@
-﻿//$(document).ready(function () {
-
-//    $('input[type="number"]').change(function () {
-//        var firstclass = parseInt($('input[name="firstclass"]').val());
-//        var business = parseInt($('input[name="business"]').val());
-//        var economy = parseInt($('input[name="economy"]').val());
-//        var capacity = parseInt($('select[name="planetype"] option:selected').attr('data-capacity'));
-
-//    })
-
-//})
-$(document).ready(function () {
+﻿$(document).ready(function () {
     //Init datatable
-    $("#planeTable").DataTable({
-        "order": [[0, "desc"]]
-    });
+    $("#planeTable").DataTable();
 
     ////Add create button
     var parent = $('.dataTables_filter').parent();
     parent.append('<button title="Create plane" onclick="openAddModal()" type="button" class="btn btn-block btn-success btn-sm btn-create"><i class="fas fa-plus"></i></button>');
-    
+
     $.contextMenu({
         selector: '.tr-plane',
         callback: function (key, options) {
@@ -28,7 +15,7 @@ $(document).ready(function () {
             } else if (key == 'edit') { //Edit option
                 editPlane($(this));
             } else if (key == 'delete') { //Delete option
-                $('.confirm-button').attr('onclick', 'deletePlane("' + $(this).find('.planeid').text() + '")');
+                $('.confirm-button').attr('onclick', 'deletePlane("' + $(this).find('.plane-id').text() + '")');
                 $('#confirm-modal').modal('show');
             }
         },
@@ -38,7 +25,7 @@ $(document).ready(function () {
             "edit": { name: "Edit", icon: "edit" },
             "delete": { name: "Delete", icon: "delete" }
         }
-    }); 
+    });
 
 })
 function openStatusModal(parent) {
@@ -69,6 +56,7 @@ function openAddModal() {
     $('form[name="planeForm"]').attr('action', '/Admin/Plane/AddNewPlane');
     $('form[name="planeForm"]').trigger('reset');
 
+    $('#planeModal .modal-title').text('Add New Plane');
     $('#planeModal').modal('show');
 }
 
@@ -136,56 +124,64 @@ function savePlane() {
         return;
     }
 
-
     $(form).submit();
 }
 
-function editPlane() {
-    var planeid = $(event.target).parents('tr').find('.plane-id').text();
-    var planetype = $(event.target).parents('tr').find('.plane-type').text();
-    var planeseatmap = $(event.target).parents('tr').find('plane-seatmap-name').text();
-    var planeairline = $(event.target).parents('tr').find('plane-airline').text();
-    var planeairport = $(event.target).parents('tr').find('plane-airport').text();
-    var planeseatclass = $(event.target).parents('tr').find('plane-seatclass').text();
+function editPlane(parent) {
+    $('form[name="planeForm"]').attr('action', '/Admin/Plane/UpdatePlane');
+    $('form[name="planeForm"]').trigger('reset');
+    $('#planeModal .modal-title').text('Edit Plane');
+    var planeairportid = [];
+    var planeseatclass = [];
+    var seatcapacity = [];
+    var seatprice = [];
+    var planeid = $(parent).find('.plane-id').text();
+    var planeairline = $(parent).find('.plane-airline').text();
+    var planetypeid = $(parent).find('.plane-type').attr("data-id");
 
-    $('form[name="addform"] input[name="airline"]').val(planetype);
-    $('form[name="addform"]').attr('action', '/Admin/Plane/UpdatePlane');
+    $(parent).find('.plane-airport li').each(function () {
+        planeairportid.push($(this).attr("data-id"));
+    })
 
-    $('#addnew').modal("show");
+    $(parent).find('.plane-seatclass li').each(function () {
+        planeseatclass.push($(this).attr("data-id"));
+        seatcapacity.push($(this).attr("data-capacity"));
+        seatprice.push($(this).attr("data-price"));
+    })
 
+    //Set Plane ID
+    $('form[name="planeForm"]').find('input[name="planeid"]').val(planeid);
+    $('form[name="planeForm"]').find('.plane-type').val($(parent).find('.plane-id').text());
+    //
+    $('form[name="planeForm"]').find('.airplane').val(planeairline);
+    //
+    $('form[name="planeForm"]').find('input[name="firstclass"]').val(typeof seatcapacity[0] == "undefined" ? "0" : seatcapacity[0]);
+    $('form[name="planeForm"]').find('input[name="business"]').val(typeof seatcapacity[1] == "undefined" ? "0" : seatcapacity[1]);
+    $('form[name="planeForm"]').find('input[name="economy"]').val(typeof seatcapacity[2] == "undefined" ? "0" : seatcapacity[2]);
+    //
+    $('form[name="planeForm"]').find('input[name="firstclassprice"]').val(typeof seatprice[0] == "undefined" ? "0" : seatprice[0]);
+    $('form[name="planeForm"]').find('input[name="businessprice"]').val(typeof seatprice[1] == "undefined" ? "0" : seatprice[1]);
+    $('form[name="planeForm"]').find('input[name="economyprice"]').val(typeof seatprice[2] == "undefined" ? "0" : seatprice[2]);
+    //
+    $('form[name="planeForm"]').find('select[name="planetype"]').val(planetypeid);
+    $('select[name="planetype"]').trigger('change');
+    //
+    $('form[name="planeForm"]').find('select[name="airport"]').val(planeairportid);
+    $('select[name="airport"]').trigger('change');
+
+    $('#planeModal').modal("show");
 }
 
-function editPlane(parent) {
-    //Set plane ID
-    $('form[name="planeForm"]').find('.planeId').val($(parent).find('.planeId').text());
-
-    //Set Plane
-    $('select[name="plane"]').val($(parent).find('.plane').attr('data-value'));
-    $('select[name="plane"]').trigger('change');
-
-    //Set Depart and Arrival
-    setTimeout(function () {
-        $('select[name="depart"]').val($(parent).find('.depart').attr('data-value'));
-        $('select[name="depart"]').trigger('change');
-        $('select[name="arrival"]').val($(parent).find('.arrival').attr('data-value'));
-        $('select[name="arrival"]').trigger('change');
-    }, 200);
-
-    //Set DepartDate and ArrivalDate
-    var departDate = $(parent).find('.departDate').text();
-    var arrivalDate = $(parent).find('.arrivalDate').text();
-
-    $('input[name="flightDate"]').val(departDate + ' - ' + arrivalDate);
-    $('input[name="flightDate"]').data('daterangepicker').setStartDate(departDate);
-    $('input[name="flightDate"]').data('daterangepicker').setEndDate(arrivalDate);
-
-    //Set Price
-    setTimeout(function () {
-        $('input[name="price"]').val(parseFloat($(parent).find('.price').text().split('$')[1]));
-    }, 200);
-
-    $('form[name="flightForm"]').attr('action', '/Admin/Flight/UpdateFlight');
-
-    $('#flightModal').modal('show');
+function deletePlane(id) {
+    $.ajax({
+        url: '/Admin/Plane/DelelePlane',
+        type: 'post',
+        data: {
+            planeid: id
+        },
+        success: function () {
+            window.location.reload();
+        }
+    })
 }
 

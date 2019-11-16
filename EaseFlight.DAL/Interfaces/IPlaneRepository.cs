@@ -9,6 +9,6 @@ namespace EaseFlight.DAL.Interfaces
         Plane Find(int id);
         int Insert(Plane plane);
         void Update(Plane plane);
-        void Delete(int planeid);
+        int Delete(int planeid);
     }
 }

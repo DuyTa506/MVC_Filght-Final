@@ -53,9 +53,10 @@ namespace EaseFlight.BLL.Services
             var result = this.UnitOfWork.SaveChanges();
         }
 
-        public void Delete(int planeid)
+        public int Delete(int planeid)
         {
-            throw new System.NotImplementedException();
+            var result = this.PlaneRepository.Delete(planeid);
+            return result;
         }
 
         #endregion

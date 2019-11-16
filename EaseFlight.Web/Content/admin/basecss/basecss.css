@@ -27,6 +27,9 @@
 .hide{
     display: none !important;
 }
+.repair-status{
+    color: hotpink;
+}
 .passenger-detail-modal{
     min-width: 70%;
 }

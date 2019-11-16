@@ -55,6 +55,10 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
+        public void Delete(int planeid, int planeAirportId)
+        {
+            this.PlaneAirportRepository.Delete(planeid,planeAirportId);
+        }
 
         public IEnumerable<PlaneAirportModel> FindByPlane(int planeId)
         {
@@ -103,7 +107,7 @@ namespace EaseFlight.BLL.Services
 
             if (departure)
             {
-                if(planeAirportDepartOld.AirportID != airportId)
+                if (planeAirportDepartOld.AirportID != airportId)
                 {
                     var oldList = planeAirportDepartOld.DepartureOrArrival.Split('-').ToList();
 
@@ -118,7 +122,7 @@ namespace EaseFlight.BLL.Services
             }
             else
             {
-                if(planeAirportArrivalOld.AirportID != airportId)
+                if (planeAirportArrivalOld.AirportID != airportId)
                 {
                     var oldList = planeAirportArrivalOld.DepartureOrArrival.Split('-').ToList();
 

@@ -10,6 +10,6 @@ namespace EaseFlight.DAL.Interfaces
         PlaneAirport Find(int planeId, int airportId);
         void Update(PlaneAirport planeAirport);
         IEnumerable<PlaneAirport> FindByPlane(int planeId);
-        void Delete(int planeid);
+        void Delete(int planeid, int planeAirportId);
     }
 }

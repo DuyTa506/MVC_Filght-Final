@@ -1,4 +1,5 @@
-﻿using EaseFlight.DAL.Entities;
+﻿using EaseFlight.Common.Utilities;
+using EaseFlight.DAL.Entities;
 using EaseFlight.DAL.Interfaces;
 using EaseFlight.DAL.UnitOfWorks;
 using System.Collections.Generic;
@@ -45,12 +46,20 @@ namespace EaseFlight.DAL.Repositories
 
         public void Update(PlaneSeatClass planeSeatClassairport)
         {
-            throw new System.NotImplementedException();
+            var CurrentPlaneSeatClass = this.UnitOfWork.DBContext.PlaneSeatClasses.Find(planeSeatClassairport.PlaneID, planeSeatClassairport.SeatClassID);
+            if (CurrentPlaneSeatClass != null)
+            {
+                CommonMethods.CopyObjectProperties(planeSeatClassairport, CurrentPlaneSeatClass);
+            }
         }
 
         public void Delete(int planeseatid)
         {
-            throw new System.NotImplementedException();
+            var CurrentPlaneSeatClass = this.UnitOfWork.DBContext.PlaneSeatClasses.Find(planeseatid);
+            if (CurrentPlaneSeatClass.Plane.PlaneAirports.Count == 0)
+            {
+                this.UnitOfWork.DBContext.PlaneSeatClasses.Remove(CurrentPlaneSeatClass);
+            }
         }
         #endregion
     }

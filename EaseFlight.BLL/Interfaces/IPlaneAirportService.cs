@@ -13,5 +13,6 @@ namespace EaseFlight.BLL.Interfaces
         void UpdateDepartureOrArrival(int planeId, int airportId, int flightId, bool departure);
         void ChangeDepartureOrArrival(int planeId, int airportId, int flightId, bool departure);
         void DeleteDepartureOrArrival(int planeId, int departId, int arrivalId, int flightId);
+        void Delete(int planeid, int planeAirportId);
     }
 }

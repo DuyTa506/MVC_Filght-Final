@@ -50,9 +50,10 @@ namespace EaseFlight.DAL.Repositories
             return result;
         }
 
-        public void Delete(int planeid)
+        public void Delete(int planeid, int planeAirportId)
         {
-            //this.UnitOfWork.DBContext.PlaneAirports.Remove(planeid);
+            var CurrentPlaneAirport = this.UnitOfWork.DBContext.PlaneAirports.Find(planeid,planeAirportId);
+            this.UnitOfWork.DBContext.PlaneAirports.Remove(CurrentPlaneAirport);
         }
         #endregion
     }

@@ -49,30 +49,32 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
             <tbody>
                 @foreach (var plane in planes)
                 {
-                    var seatclass = plane.PlaneSeatClasses.Where(s => s.PlaneID == plane.ID).Select(a => a.SeatClass.Name + ": " + a.Capacity + " seat");
-                    var planeairport = plane.PlaneAirports.Select(p => p.Airport);
                     <tr class="tr-plane">
                         <td class="plane-id">@plane.ID</td>
-                        <td class="plane-type">@plane.Name</td>
-                        <td class="plane-seatclass">@plane.SeatMap.Name</td>
+                        <td>@plane.Name</td>
+                        <td class="plane-type" data-id="@plane.SeatMap.ID">@plane.SeatMap.Name</td>
                         <td class="plane-airline">@plane.Airline</td>
                         <td class="plane-airport">
                             <ul>
-                                @foreach (var pl in planeairport)
+                                @foreach (var pl in plane.PlaneAirports)
                                 {
-                                    <li data-airportid="@pl.ID">@pl.Name</li>
+                                    <li data-id="@pl.Airport.ID">@pl.Airport.Name</li>
                                 }
                             </ul>
                         </td>
                         <td class="plane-seatclass">
                             <ul>
-                                @foreach (var seat in seatclass)
+                                @foreach (var seat in plane.PlaneSeatClasses)
                                 {
-                                    <li>@seat</li>
+                                    if (seat.Capacity > 0)
+                                    {
+                                        <li data-id="@seat.SeatClassID" data-capacity="@seat.Capacity" data-price="@seat.Price">@seat.SeatClass.Name: @seat.Capacity seat</li>
+
+                                    }
                                 }
                             </ul>
                         </td>
-                        <td class="plane-status">@plane.Status</td>
+                        <td class="plane-status @plane.Status.ToLower()-status">@plane.Status</td>
                     </tr>
                 }
             </tbody>
@@ -92,7 +94,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
             <!-- Modal body -->
             <div class="modal-body">
                 <form action="@Url.Action("AddNewPlane","Plane")" method="post" name="planeForm">
-                    <input type="hidden" id="idplane" name="planeid" />
+                    <input type="hidden" name="planeid" />
                     <div class="form-group">
                         <label for="exampleInputEmail1">Airline</label>
                         <input type="text" class="form-control airplane" name="airline" placeholder="Enter plane Airline">
@@ -157,88 +159,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
         </div>
     </div>
 </div>
-<!-- The Modal -->
-<div class="modal" id="addnew">
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title">Add New Plane</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <!-- form start -->
-                <form action="@Url.Action("AddNewPlane","Plane")" method="post" name="addform">
-                    <input type="hidden" id="idplane" name="planeid" />
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Airline</label>
-                        <input type="text" class="form-control airplane" name="airline" placeholder="Enter plane Airline">
-                        <span class="msg-valid msg-airline">Airline is required</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Plane Type</label>
-                        <select class="select2" style="width: 100%;" name="planetype">
-                            @foreach (var seat in seats)
-                            {
-                                <option value="@seat.ID" data-capacity="@seat.Capacity">@seat.Name (@seat.Capacity Seat)</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Airport</label>
-                        <select class="select2" style="width: 100%;" name="airport" multiple="multiple" data-placeholder="Select a airport">
-                            @foreach (var air in airports)
-                            {
-                                <option value="@air.ID">@air.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label>First Class</label>
-                            <input type="number" value="0" min="0" class="form-control seatcapacity " name="firstclass">
-                        </div>
-                        <div class="col-md-4">
-                            <label>Business</label>
-                            <input type="number" value="0" min="0" class="form-control seatcapacity" name="business">
-                        </div>
-                        <div class="col-md-4">
-                            <label>Economy</label>
-                            <input type="number" value="0" min="0" class="form-control seatcapacity" name="economy">
-                        </div>
-                        <span class="msg-valid msg-class"></span>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-4">
-                            <label>First Class Price</label>
-                            <input type="number" value="0" min="0" class="form-control " name="firstclassprice">
-                        </div>
-                        <div class="col-md-4">
-                            <label>Business Price</label>
-                            <input type="number" value="0" min="0" class="form-control " name="businessprice">
-                        </div>
-                        <div class="col-md-4">
-                            <label>Economy Price</label>
-                            <input type="number" value="0" min="0" class="form-control " name="economyprice">
-                        </div>
-                        <span class="msg-valid msg-price">Price is required</span>
-                    </div>
-
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-success" onclick="savePlane()">Save</button>
-                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
-            </div>
-
-        </div>
-    </div>
-</div>
 <!--Change Status modal-->
 <div class="modal fade" id="status-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -250,9 +171,27 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
             <div class="modal-footer">
                 <button type="button" onclick="changeReady()" class="btn btn-sm btn-dark confirm-button btn-ready hide btn-status">Ready Status</button>
                 <button type="button" onclick="changeOnline()" class="btn btn-sm btn-success confirm-button btn-online hide btn-status">Online Status</button>
-                <button type="button" onclick="changeRepair()" class="btn btn-sm btn-danger confirm-button btn-delay hide btn-status">Repair Status</button>
+                <button type="button" onclick="changeRepair()" class="btn btn-sm btn-danger confirm-button btn-repair hide btn-status">Repair Status</button>
             </div>
         </div>
     </div>
 </div>
 
+<!--Confirm modal-->
+<div class="modal fade" id="confirm-modal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete Plane</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this plane? This procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-danger confirm-button" onclick="">Delete Plane</button>
+            </div>
+        </div>
+    </div>
+</div>

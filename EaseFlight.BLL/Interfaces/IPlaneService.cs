@@ -9,6 +9,6 @@ namespace EaseFlight.BLL.Interfaces
         PlaneModel Find(int id);
         int Insert(PlaneModel plane);
         void Update(PlaneModel plane);
-        void Delete(int planeid);
+        int Delete(int planeid);
     }
 }
