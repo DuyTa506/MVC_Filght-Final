@@ -83,6 +83,12 @@ namespace EaseFlight.Web
 
             bundles.Add(new ScriptBundle("~/bundles/adminaccount").Include(
                        "~/Scripts/admin/pages/account.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminchart").Include(
+                       "~/Scripts/admin/basejs/chart.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/admindashboard").Include(
+                       "~/Scripts/admin/pages/dashboard.js"));
             #endregion
 
             #region Styles

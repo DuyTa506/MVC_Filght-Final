@@ -173,6 +173,7 @@
     <Content Include="Content\user\css\pages\ticket.css" />
     <Content Include="Scripts\admin\basejs\admin.js" />
     <Content Include="Scripts\admin\basejs\bs-datatable.js" />
+    <Content Include="Scripts\admin\basejs\chart.min.js" />
     <Content Include="Scripts\admin\basejs\daterangepicker.js" />
     <Content Include="Scripts\admin\basejs\jquery.contextMenu.min.js" />
     <Content Include="Scripts\admin\basejs\jquery.datatable.js" />
@@ -213,6 +214,7 @@
     <Content Include="Scripts\admin\pages\account.js" />
     <Content Include="Scripts\admin\pages\airport.js" />
     <Content Include="Scripts\admin\pages\country.js" />
+    <Content Include="Scripts\admin\pages\dashboard.js" />
     <Content Include="Scripts\admin\pages\flight.js" />
     <Content Include="Scripts\admin\pages\home.js" />
     <Content Include="Scripts\admin\pages\login.js" />

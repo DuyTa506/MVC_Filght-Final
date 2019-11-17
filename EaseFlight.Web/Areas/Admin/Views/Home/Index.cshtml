@@ -1,5 +1,129 @@
 ﻿@using EaseFlight.Models.EntityModels;
 @{
-    ViewBag.Title = "ADMIN  PANEL";
+    ViewBag.Title = "Dashboard";
+    var flights = (IEnumerable<FlightModel>)ViewData["flights"];
+    var tickets = (IEnumerable<TicketModel>)ViewData["tickets"];
+    var planes = (IEnumerable<PlaneModel>)ViewData["planes"];
+    var accounts = (IEnumerable<AccountModel>)ViewData["accounts"];
 }
-<h2>HELLO HOMW</h2>
+@Scripts.Render("~/bundles/adminchart")
+@Scripts.Render("~/bundles/admindashboard")
+
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-fighter-jet"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Flight</span>
+                <span class="info-box-number">@flights.Count()</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-paper-plane"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Aircraft</span>
+                <span class="info-box-number">@planes.Count()</span>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix hidden-md-up"></div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-address-card"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Ticket</span>
+                <span class="info-box-number">@tickets.Count()</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Customers</span>
+                <span class="info-box-number">@accounts.Count()</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Monthly Ticket Booking Report</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="text-center">
+                            <strong>Ticket Booking: 1 November, 2019 - 30 November, 2019</strong>
+                        </p>
+                        <div class="chart">
+                            <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-center">
+                            <strong>Goal Completion</strong>
+                        </p>
+                        <div class="progress-group">
+                            New Customer
+                            <span class="float-right"><b>80</b>/100</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-group">
+                            Complete Ticket Booking
+                            <span class="float-right"><b>165</b>/200</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-danger" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-group">
+                            <span class="progress-text">Ticket With Round Trip</span>
+                            <span class="float-right"><b>60</b>/100</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-success" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-3 col-6">
+                        <div class="description-block border-right">
+                            <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+                            <h5 class="description-header">$35,210.43</h5>
+                            <span class="description-text">TOTAL REVENUE</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="description-block border-right">
+                            <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+                            <h5 class="description-header">$10,390.90</h5>
+                            <span class="description-text">TOTAL RECEIVE</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="description-block border-right">
+                            <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+                            <h5 class="description-header">$24,813.53</h5>
+                            <span class="description-text">TOTAL REFUND</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-6">
+                        <div class="description-block">
+                            <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
+                            <h5 class="description-header">$10,390.90</h5>
+                            <span class="description-text">GOAL PROFIT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
