@@ -137,6 +137,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AirportController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CountryController.cs" />
     <Compile Include="Areas\Admin\Controllers\FlightController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlaneController.cs" />
@@ -210,6 +211,8 @@
     <Content Include="Scripts\admin\basejs\adminlte.js" />
     <Content Include="Scripts\admin\basejs\demo.js" />
     <Content Include="Scripts\admin\pages\account.js" />
+    <Content Include="Scripts\admin\pages\airport.js" />
+    <Content Include="Scripts\admin\pages\country.js" />
     <Content Include="Scripts\admin\pages\flight.js" />
     <Content Include="Scripts\admin\pages\home.js" />
     <Content Include="Scripts\admin\pages\login.js" />
@@ -298,6 +301,7 @@
     <Content Include="Content\admin\basecss\font\context-menu-icons.woff2" />
     <Content Include="Areas\Admin\Views\Ticket\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Country\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />

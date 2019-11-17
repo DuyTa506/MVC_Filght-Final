@@ -1,0 +1,113 @@
+﻿@using EaseFlight.Models.EntityModels;
+@{
+    ViewBag.Title = "Country Manager";
+    var countrys = (IEnumerable<CountryModel>)ViewData["countrys"];
+    var msg = TempData["msg"] != null ? TempData["msg"].ToString().Split('-').ToList() : new List<string>();
+}
+@Styles.Render("~/Content/adminbasecss")
+@Styles.Render("~/Content/adminlogin")
+@Scripts.Render("~/bundles/adminbasejs")
+@Scripts.Render("~/bundles/adminlogin")
+@Scripts.Render("~/bundles/adminplane")
+@Scripts.Render("~/bundles/admincontextmenu")
+
+@if (msg.Count() > 0 && msg[0].Equals("error"))
+{
+    <script>
+        ToastError('@msg[1]');
+    </script>
+}
+else if (msg.Count() > 0 && msg[0].Equals("success"))
+{
+    <script>
+        ToastSuccess('@msg[1]');
+    </script>
+}
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <h3 class="card-title">Ease Flight - Country Manager</h3>
+        </div>
+    </div>
+    <div class="card-body card-table">
+        <table id="countryTable" class="table table-bordered table-striped">
+            <thead>
+                <tr role="row">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Region</th>
+                </tr>
+            </thead>
+            @foreach (var country in countrys)
+            {
+                <tbody>
+                    <tr role="row" class="tr-country">
+                        <td class="sorting_1 country-id">@country.ID</td>
+                        <td class="country-name">@country.Name</td>
+                        <td class="country-region">@country.Region</td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+<!-- MODAL ADD NEW COUNTRY -->
+<!-- The Modal -->
+<div class="modal" id="countryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Plane</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- form start -->
+                <form action="@Url.Action("AddNewCountry","Country")" method="post" name="countryForm">
+                    <input type="hidden" name="countryid" />
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" class="form-control countryName" name="country" placeholder="Enter Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Region</label>
+                        <select class="select2" style="width: 100%;" name="region">
+                            <option value="Southeast Asia">Southeast Asia</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Northeast Asia">Northeast Asia</option>
+                            <option value="Australia">Australia</option>
+                            <option value="America">America</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-success" onclick="saveCountry()">Save</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Confirm modal-->
+<div class="modal fade" id="confirm-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete Country</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to delete this country? This procedure is irreversible.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-danger confirm-button" onclick="">Delete Country</button>
+            </div>
+        </div>
+    </div>
+</div>

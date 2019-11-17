@@ -37,6 +37,7 @@ namespace EaseFlight.Web
                           "~/Scripts/admin/basejs/daterangepicker.js",
                         "~/Scripts/admin/basejs/admin.js",
                         "~/Scripts/admin/pages/home.js",
+                        "~/Scripts/admin/pages/country.js",
                         "~/Scripts/user/basejs/toastify.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admincontextmenu").Include(
