@@ -76,7 +76,7 @@ function editAirport(parent) {
     var name = $(parent).find('.airport-name').text();
     var city = $(parent).find('.airport-city').text();
     var countryid = $(parent).find('.airport-country').attr('data-value');
-    var airportid = $(parent).find('.airport-id').val();
+    var airportid = $(parent).find('.airport-id').text();
 
     $('form[name="airportForm"]').find('input[name = "name"]').val(name);
 
