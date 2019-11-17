@@ -39,7 +39,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             };
 
             this.AirportService.Insert(airport);
-
+            TempData["msg"] = "success-Country add successfully";
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -54,16 +54,16 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             };
 
             this.AirportService.Update(airport);
-
+            TempData["msg"] = "success-Country update successfully";
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public ActionResult DeleteAirport(int airportid)
+        [HttpPost]
+        public JsonResult DeleteAirport(int airportid)
         {
             this.AirportService.Delete(airportid);
-
-            return RedirectToAction("Index");
+            TempData["msg"] = "success-Country delete successfully";
+            return new JsonResult { ContentType = "text" };
         }
 
 

@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
+    //Init datatable
+    $("#countryTable").DataTable();
     $('.select2').select2({
         theme: 'bootstrap4'
     })
-    //Init datatable
-    $("#countryTable").DataTable();
-
     ////Add create button
     var parent = $('.dataTables_filter').parent();
     parent.append('<button title="Create country" onclick="openAddModal()" type="button" class="btn btn-block btn-success btn-sm btn-create"><i class="fas fa-plus"></i></button>');
@@ -14,9 +13,8 @@
         callback: function (key, options) {
 
             if (key == 'edit') { //Edit option
-                editPlane($(this));
-            } else if (key == 'delete')
-            { //Delete option
+                editCountry($(this));
+            } else if (key == 'delete') { //Delete option
                 $('.confirm-button').attr('onclick', 'deleteCountry("' + $(this).find('.country-id').text() + '")');
                 $('#confirm-modal').modal('show');
             }
@@ -70,13 +68,14 @@ function editCountry(parent) {
     var country = $(parent).find('.country-name').text();
     var region = $(parent).find('.country-region').text();
 
+    $('form[name="countryForm"]').find('input[name="countryid"]').val(countryid);
     $('form[name="countryForm"]').trigger('reset');
     $('#countryModal .modal-title').text('Edit Country');
 
-    $('.country-form input[name="country"]').val(country);
-    $('.country-form .select2').val(region);
-    $('.country-form .select2').trigger('change');
-    $('.country-form input#idcountry').val(countryid);
+    $('form[name="countryForm"]').find('input[name="country"').val(country);
+    $('form[name="countryForm"]').find('select[name="region"]').val(region);
+    $('select[name="region"]').trigger('change');
+
     $('form[name="countryForm"]').attr('action', '/Admin/Country/UpdateCountry');
     $('#countryModal').modal("show");
 

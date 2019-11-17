@@ -40,12 +40,12 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public ActionResult DeleteCountry(int countryId)
+        [HttpPost]
+        public JsonResult DeleteCountry(int countryid)
         {
-            this.CountryService.Delete(countryId);
+            this.CountryService.Delete(countryid);
             TempData["msg"] = "success-Country add successfully";
-            return RedirectToAction("Index");
+            return new JsonResult { ContentType = "text" };
         }
 
         [HttpPost]

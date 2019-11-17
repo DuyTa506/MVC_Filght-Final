@@ -1,5 +1,42 @@
-﻿function saveAirport() {
-    var form = $('form[name="addformairport"]');
+﻿$(document).ready(function () {
+    //Init datatable
+    $("#airportTable").DataTable();
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    })
+    ////Add create button
+    var parent = $('.dataTables_filter').parent();
+    parent.append('<button title="Create airport" onclick="openAddModal()" type="button" class="btn btn-block btn-success btn-sm btn-create"><i class="fas fa-plus"></i></button>');
+
+    $.contextMenu({
+        selector: '.tr-airport',
+        callback: function (key, options) {
+
+            if (key == 'edit') { //Edit option
+                editAirport($(this));
+            } else if (key == 'delete') { //Delete option
+                $('.confirm-button').attr('onclick', 'deleteAirport("' + $(this).find('.airport-id').text() + '")');
+                $('#confirm-modal').modal('show');
+            }
+        },
+        items: {
+            "edit": { name: "Edit", icon: "edit" },
+            "delete": { name: "Delete", icon: "delete" }
+        }
+    });
+
+})
+
+function openAddModal() {
+    $('form[name="airportForm"]').attr('action', '/Admin/Airport/AddNewAirport');
+    $('form[name="airportForm"]').trigger('reset');
+
+    $('#airportModal .modal-title').text('Add New Airport');
+    $('#airportModal').modal('show');
+}
+
+function saveAirport() {
+    var form = $('form[name="airportForm"]');
     var checked = true, index = 0;
 
     if ($('input[name="name"]').val().trim() == '') {
@@ -27,31 +64,45 @@
 
     if (!checked) return;
 
-    var idcountry = $(".select2").val();
 
-    $('input[name="countryid"]').val(idcountry);
+    var idcountry = $('form[name="airportForm"]').find('select[name="country"]').val();
+
+    $('form[name="airportForm"]').find('input[name="countryid"]').val(idcountry);
 
     $(form).submit();
 }
 
-function editAirport() {
-    var name = $(event.target).parents('tr').find('.airport-name').text();
-    var city = $(event.target).parents('tr').find('.airport-city').text();
-    var country = $(event.target).parents('tr').find('.airport-namecountry').attr('data-value');
-    var airportid = $(event.target).parents('tr').find('.airport-id').text();
+function editAirport(parent) {
+    var name = $(parent).find('.airport-name').text();
+    var city = $(parent).find('.airport-city').text();
+    var countryid = $(parent).find('.airport-country').attr('data-value');
+    var airportid = $(parent).find('.airport-id').val();
 
-    $('form[name="addformairport"] input[name="name"]').val(name);
-    $('form[name="addformairport"] input[name="city"]').val(city);
-    $('form[name="addformairport"] select[name="country"]').val(country);
-    $('form[name="addformairport"] select[name="country"]').trigger('change');
-    $('form[name="addformairport"] input[name="airportid"]').val(airportid);
-    $('form[name="addformairport"]').attr('action', '/Admin/Airport/UpdateAirport');
+    $('form[name="airportForm"]').find('input[name = "name"]').val(name);
 
-    $('#addnewairport').modal("show");
+    $('form[name="airportForm"]').find('input[name="city"]').val(city);
+
+    $('form[name="airportForm"]').find('select[name="countryid"]').val(countryid);
+    $('form[name="airportForm"]').find('select[name="countryid"]').trigger('change');
+
+    $('form[name="airportForm"]').find('input[name="airportid"]').val(airportid);
+
+    $('form[name="airportForm"]').attr('action', '/Admin/Airport/UpdateAirport');
+
+    $('#airportModal').modal("show");
 
 }
 
-function deleteAirport(url) {
-    if (confirm("Are You Sure?"))
-        window.location.href = url;
+
+function deleteAirport(id) {
+    $.ajax({
+        url: '/Admin/Airport/DeleteAirport',
+        type: 'post',
+        data: {
+            airportid: id
+        },
+        success: function () {
+            window.location.reload();
+        }
+    })
 }
