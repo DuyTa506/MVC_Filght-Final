@@ -161,20 +161,18 @@ namespace EaseFlight.Web.Controllers
 
         public ActionResult GenerateFlight2()
         {
-            var planeList = this.PlaneService.FindAll().ToList();
+            var planeList = this.PlaneService.FindAll().Where(plane => plane.PlaneAirports.Count > 0).OrderBy(plane => plane.ID).ToList();
             var minutes = new List<int> { 40, 45, 50, 55, 60 };
             var minutes2 = new List<int> { 30, 35, 40, 45, 50, 55, 60 };
-            var count = 0;
 
             foreach (var plane in planeList)
             {
-                if (++count == 5) break;
                 var departureDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1); //Day 1 next month
                 var arrivalDate = new DateTime();
                 var departure = new AirportModel();
                 var arrival = new AirportModel();
 
-                while (departureDate.Day <= 3) //Generate one month
+                while (departureDate.Day <= 5) //Generate 5 days
                 {
                     var flight = new FlightModel
                     {
@@ -216,12 +214,12 @@ namespace EaseFlight.Web.Controllers
                     }
                     else if (departure.Country.Region.Equals(arrival.Country.Region)) //In Region
                     {
-                        arrivalDate = arrivalDate.AddHours(new Random().Next(2, 6));
+                        arrivalDate = arrivalDate.AddMinutes(new Random().Next(20, 60));
                         flight.Price = new Random().Next(30, 1000);
                     }
                     else //Diff Region
                     {
-                        arrivalDate = arrivalDate.AddHours(new Random().Next(4, 8));
+                        arrivalDate = arrivalDate.AddMinutes(new Random().Next(20, 60));
                         flight.Price = new Random().Next(200, 3000);
                     }
 
