@@ -107,6 +107,8 @@ function forgotPassword() {
 
     if (!checkInputText(document.getElementById('email'))) return;
 
+    $('.btn-reset').html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
+
     $.ajax({
         url: '/Account/ForgotPassword',
         type: 'post',
@@ -114,6 +116,7 @@ function forgotPassword() {
             email: email
         },
         success: function (response) {
+            $('.btn-reset').html('Resend Link');
             var message = JSON.parse(response).msg;
             var type = JSON.parse(response).type;
             if (type == "error") {
