@@ -145,7 +145,53 @@ function openPassengerModal() {
 }
 
 function savePassenger(update, edit) {
+    var checked = true;
+    $('input[name="Phone"]').parent().find('span').text('Phone is required');
+    $('input[name="FirstName"]').parent().find('span').text('First Name is required');
+    $('input[name="LastName"]').parent().find('span').text('Last Name is required');
+
     if (!validatePassenger(update)) return;
+
+    //Check Phone format
+    if (!isNumeric($('input[name="Phone"]').val()) && update == 'update') {
+        $('input[name="Phone"]').addClass("invalid");
+        $('input[name="Phone"]').parent().find('span').removeClass('valid-msg');
+        $('input[name="Phone"]').parent().find('span').addClass('invalid-msg');
+        $('input[name="Phone"]').parent().find('span').text('Invalid Phone');
+        checked = false;
+    } else {
+        $('input[name="Phone"]').removeClass("invalid");
+        $('input[name="Phone"]').parent().find('span').addClass('valid-msg');
+        $('input[name="Phone"]').parent().find('span').removeClass('invalid-msg');
+    }
+
+    //Check Lastname format
+    if (!validateName($('input[name="LastName"]').val())) {
+        $('input[name="LastName"]').addClass("invalid");
+        $('input[name="LastName"]').parent().find('span').removeClass('valid-msg');
+        $('input[name="LastName"]').parent().find('span').addClass('invalid-msg');
+        $('input[name="LastName"]').parent().find('span').text('Invalid Last Name');
+        checked = false;
+    } else {
+        $('input[name="LastName"]').removeClass("invalid");
+        $('input[name="LastName"]').parent().find('span').addClass('valid-msg');
+        $('input[name="LastName"]').parent().find('span').removeClass('invalid-msg');
+    }
+
+    //Check First Name format
+    if (!validateName($('input[name="FirstName"]').val())) {
+        $('input[name="FirstName"]').addClass("invalid");
+        $('input[name="FirstName"]').parent().find('span').removeClass('valid-msg');
+        $('input[name="FirstName"]').parent().find('span').addClass('invalid-msg');
+        $('input[name="FirstName"]').parent().find('span').text('Invalid First Name');
+        checked = false;
+    } else {
+        $('input[name="FirstName"]').removeClass("invalid");
+        $('input[name="FirstName"]').parent().find('span').addClass('valid-msg');
+        $('input[name="FirstName"]').parent().find('span').removeClass('invalid-msg');
+    }
+
+    if (!checked) return;
 
     var passenger = $('#editPassenger .modal-title').text().split('Information')[0].replace(' ', '').trim();
     $('.dob').val($('.day-form').val() + '/' + $('.month-form').val() + '/' + $('.year-form').val());

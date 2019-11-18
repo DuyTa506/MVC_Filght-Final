@@ -116,16 +116,18 @@ function forgotPassword() {
             email: email
         },
         success: function (response) {
-            $('.btn-reset').html('Resend Link');
+            
             var message = JSON.parse(response).msg;
             var type = JSON.parse(response).type;
             if (type == "error") {
                 $('.msg-error').html(message);
                 $('.msg-success').html('');
+                $('.btn-reset').html('Reset Password');
             }
             else {
                 $('.msg-success').html(message);
                 $('.msg-error').html('');
+                $('.btn-reset').html('Resend Link');
             }
                 
         }

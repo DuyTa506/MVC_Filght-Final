@@ -30,6 +30,8 @@
 function openAddModal() {
     $('form[name="countryForm"]').attr('action', '/Admin/Country/AddNewCountry');
     $('form[name="countryForm"]').trigger('reset');
+    $('form[name="countryForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="countryForm"] input').removeClass('is-invalid');
 
     $('#countryModal .modal-title').text('Add New Country');
     $('#countryModal').modal('show');
@@ -40,10 +42,12 @@ function saveCountry() {
     if ($('.countryName').val() == '') {
         $('.countryName').addClass('is-invalid');
         $('.countryName').removeClass('is-valid');
+        $('.msg-country').removeClass('msg-valid').addClass('msg-invalid');
         return;
     } else {
         $('.countryName').addClass('is-valid');
         $('.countryName').removeClass('is-invalid');
+        $('.msg-country').removeClass('msg-invalid').addClass('msg-valid');
     }
     $(form).submit();
 }
@@ -63,7 +67,8 @@ function deleteCountry(id) {
 
 
 function editCountry(parent) {
-
+    $('form[name="countryForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="countryForm"] input').removeClass('is-invalid');
     var countryid = $(parent).find('.country-id').text();
     var country = $(parent).find('.country-name').text();
     var region = $(parent).find('.country-region').text();

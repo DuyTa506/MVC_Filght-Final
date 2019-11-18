@@ -135,28 +135,36 @@
                 <div class="row">
                     <div class="col-sm-3 col-6">
                         <div class="description-block border-right">
-                            <span class="description-percentage text-success"><i class="fas @(inYearRevenue > lastYearRevenue?"fa-caret-up":(inYearRevenue == lastYearRevenue?"fa-caret-left":"fa-caret-down"))"></i> @((inYearRevenue - lastYearRevenue) / 100)%</span>
+                            <span class="description-percentage @(inYearRevenue > lastYearRevenue?"text-success":(inYearRevenue == lastYearRevenue?"text-warning":"text-danger"))">
+                                <i class="fas @(inYearRevenue > lastYearRevenue?"fa-caret-up":(inYearRevenue == lastYearRevenue?"fa-caret-left":"fa-caret-down"))"></i> @((inYearRevenue - lastYearRevenue) / 100)%
+                            </span>
                             <h5 class="description-header">$@tickets.Select(ticket => ticket.Price).Sum()</h5>
                             <span class="description-text">TOTAL REVENUE</span>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="description-block border-right">
-                            <span class="description-percentage text-success"><i class="fas @(inYearSuccess > lastYearSuccess?"fa-caret-up":(inYearSuccess == lastYearSuccess?"fa-caret-left":"fa-caret-down"))"></i> @((inYearSuccess - lastYearSuccess) / 100)%</span>
+                            <span class="description-percentage @(inYearSuccess > lastYearSuccess?"text-success":(inYearSuccess == lastYearSuccess?"text-warning":"text-danger"))">
+                                <i class="fas @(inYearSuccess > lastYearSuccess?"fa-caret-up":(inYearSuccess == lastYearSuccess?"fa-caret-left":"fa-caret-down"))"></i> @((inYearSuccess - lastYearSuccess) / 100)%
+                            </span>
                             <h5 class="description-header">$@tickets.Where(ticket => ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_SUCCESS)).Select(ticket => ticket.Price).Sum()</h5>
                             <span class="description-text">TOTAL SUCCESS</span>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="description-block border-right">
-                            <span class="description-percentage text-success"><i class="fas @(inYearReturn > lastYearReturn?"fa-caret-up":(inYearReturn == lastYearReturn?"fa-caret-left":"fa-caret-down"))"></i> @((inYearReturn - lastYearReturn) / 100)%</span>
+                            <span class="description-percentage @(inYearReturn > lastYearReturn?"text-success":(inYearReturn == lastYearReturn?"text-warning":"text-danger"))">
+                                <i class="fas @(inYearReturn > lastYearReturn?"fa-caret-up":(inYearReturn == lastYearReturn?"fa-caret-left":"fa-caret-down"))"></i> @((inYearReturn - lastYearReturn) / 100)%
+                            </span>
                             <h5 class="description-header">$@tickets.Where(ticket => ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN)).Select(ticket => ticket.Price).Sum()</h5>
                             <span class="description-text">TOTAL REFUND</span>
                         </div>
                     </div>
                     <div class="col-sm-3 col-6">
                         <div class="description-block">
-                            <span class="description-percentage text-success"><i class="fas @(inYearProfit > lastYearProfit?"fa-caret-up":(inYearProfit == lastYearProfit?"fa-caret-left":"fa-caret-down"))"></i> @((inYearProfit - lastYearProfit) / 100)%</span>
+                            <span class="description-percentage @(inYearProfit > lastYearProfit?"text-success":(inYearProfit == lastYearProfit?"text-warning":"text-danger"))">
+                                <i class="fas @(inYearProfit > lastYearProfit?"fa-caret-up":(inYearProfit == lastYearProfit?"fa-caret-left":"fa-caret-down"))"></i> @((inYearProfit - lastYearProfit) / 100)%
+                            </span>
                             <h5 class="description-header">$@(tickets.Select(ticket => ticket.Price).Sum() - @tickets.Where(ticket => ticket.Status.Equals(Constant.CONST_DB_TICKET_STATUS_RETURN)).Select(ticket => ticket.Price).Sum())</h5>
                             <span class="description-text">GOAL PROFIT</span>
                         </div>

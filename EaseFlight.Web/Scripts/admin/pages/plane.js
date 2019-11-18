@@ -57,6 +57,9 @@ function changeRepair() {
 function openAddModal() {
     $('form[name="planeForm"]').attr('action', '/Admin/Plane/AddNewPlane');
     $('form[name="planeForm"]').trigger('reset');
+    $('form[name="planeForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="planeForm"] input').removeClass('is-invalid');
+    $('form[name="planeForm"] select').removeClass('is-invalid');
 
     $('#planeModal .modal-title').text('Add New Aircraft');
     $('#planeModal').modal('show');
@@ -130,6 +133,9 @@ function savePlane() {
 }
 
 function editPlane(parent) {
+    $('form[name="planeForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="planeForm"] input').removeClass('is-invalid');
+    $('form[name="planeForm"] select').removeClass('is-invalid');
     $('form[name="planeForm"]').attr('action', '/Admin/Plane/UpdatePlane');
     $('form[name="planeForm"]').trigger('reset');
     $('#planeModal .modal-title').text('Edit Aircraft');

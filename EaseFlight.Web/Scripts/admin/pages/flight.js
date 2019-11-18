@@ -53,6 +53,9 @@
 function openAddModal() {
     $('form[name="flightForm"]').attr('action', '/Admin/Flight/AddFlight');
     $('form[name="flightForm"]').trigger('reset');
+    $('form[name="flightForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="flightForm"] input').removeClass('is-invalid');
+    $('form[name="flightForm"] select').removeClass('is-invalid');
     $('#flightModal .modal-title').text('Add New Flight');
 
     $('#flightModal').modal('show');
@@ -114,6 +117,9 @@ function saveFlight() {
 }
 
 function editFlight(parent) {
+    $('form[name="flightForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="flightForm"] input').removeClass('is-invalid');
+    $('form[name="flightForm"] select').removeClass('is-invalid');
     $('#flightModal .modal-title').text('Edit Flight')
     //Set flight ID
     $('form[name="flightForm"]').find('.flightId').val($(parent).find('.flightId').text());

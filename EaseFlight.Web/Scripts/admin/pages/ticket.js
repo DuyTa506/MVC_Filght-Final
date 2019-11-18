@@ -90,6 +90,9 @@ function openEditPassengerModal(parent) {
         title = 1;
 
     form.trigger('reset');
+    $(form).find('span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $(form).find('input').removeClass('is-invalid');
+    $(form).find('select').removeClass('is-invalid');
     form.find('select[name="title"]').val(title);
     form.find('input[name="firstname"]').val($(parent).find('.firstname').text());
     form.find('input[name="lastname"]').val($(parent).find('.lastname').text());

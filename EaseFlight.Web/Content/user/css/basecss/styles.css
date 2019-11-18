@@ -14659,10 +14659,8 @@ body {
 .login .modal-header {
     border: 0 none;
     padding: 15px 15px 15px;
-/*     padding: 11px 15px; */
 }
 .login .modal-body{
-/*     background-color: #eeeeee; */
     padding: 0px 15px !important;
 }
 .login .division {

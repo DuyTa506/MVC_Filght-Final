@@ -24,12 +24,14 @@
             "delete": { name: "Delete", icon: "delete" }
         }
     });
-
 })
 
 function openAddModal() {
     $('form[name="airportForm"]').attr('action', '/Admin/Airport/AddNewAirport');
     $('form[name="airportForm"]').trigger('reset');
+    $('form[name="airportForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="airportForm"] input').removeClass('is-invalid');
+    $('form[name="airportForm"] select').removeClass('is-invalid');
 
     $('#airportModal .modal-title').text('Add New Airport');
     $('#airportModal').modal('show');
@@ -64,7 +66,6 @@ function saveAirport() {
 
     if (!checked) return;
 
-
     var idcountry = $('form[name="airportForm"]').find('select[name="country"]').val();
 
     $('form[name="airportForm"]').find('input[name="countryid"]').val(idcountry);
@@ -73,6 +74,9 @@ function saveAirport() {
 }
 
 function editAirport(parent) {
+    $('form[name="airportForm"] span.msg-invalid').removeClass('msg-invalid').addClass('msg-valid');
+    $('form[name="airportForm"] input').removeClass('is-invalid');
+    $('form[name="airportForm"] select').removeClass('is-invalid');
     var name = $(parent).find('.airport-name').text();
     var city = $(parent).find('.airport-city').text();
     var countryid = $(parent).find('.airport-country').attr('data-value');
@@ -90,9 +94,7 @@ function editAirport(parent) {
     $('form[name="airportForm"]').attr('action', '/Admin/Airport/UpdateAirport');
 
     $('#airportModal').modal("show");
-
 }
-
 
 function deleteAirport(id) {
     $.ajax({

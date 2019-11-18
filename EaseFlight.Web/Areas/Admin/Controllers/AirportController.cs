@@ -47,15 +47,13 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UpdateAirport(FormCollection collection)
         {
-            var airport = new AirportModel
-            {
-                ID = int.Parse(collection.Get("airportid")),
-                Name = collection.Get("name"),
-                City = collection.Get("city"),
-                CountryID = int.Parse(collection.Get("countryid"))
-            };
+            var currentAirpot = this.AirportService.Find(int.Parse(collection.Get("airportid")));
 
-            this.AirportService.Update(airport);
+            currentAirpot.Name = collection.Get("name");
+            currentAirpot.City = collection.Get("city");
+            currentAirpot.CountryID = int.Parse(collection.Get("countryid"));
+
+            this.AirportService.Update(currentAirpot);
             TempData["msg"] = "success-Country update successfully";
 
             return RedirectToAction("Index");

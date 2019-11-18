@@ -53,14 +53,12 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UpdateCountry(FormCollection collection)
         {
-            var country = new CountryModel
-            {
-                ID = int.Parse(collection.Get("countryid")),
-                Name = collection.Get("country"),
-                Region = collection.Get("region")
-            };
+            var currentCountry = this.CountryService.Find(int.Parse(collection.Get("countryid")));
 
-            this.CountryService.Update(country);
+            currentCountry. Name = collection.Get("country");
+            currentCountry.Region = collection.Get("region");
+
+            this.CountryService.Update(currentCountry);
             TempData["msg"] = "success-Country update successfully";
 
             return RedirectToAction("Index");
