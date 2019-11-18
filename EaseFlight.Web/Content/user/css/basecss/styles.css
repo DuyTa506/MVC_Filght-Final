@@ -14829,6 +14829,9 @@ body {
 .msg-success{
     color: green;
 }
+.msg-valid{
+    display: none !important;
+}
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -15234,4 +15237,9 @@ body {
     content: "*";
     color: red;
     margin-left: 3px;
+}
+.msg-login-modal{
+    margin-left: 4px;
+    margin-bottom: 3px;
+    display: block;
 }

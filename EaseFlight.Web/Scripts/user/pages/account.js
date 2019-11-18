@@ -12,18 +12,107 @@
     });
 })
 function register() {
+    $('.error').removeClass('alert alert-danger').html('');
+    $('.msg-firstname').text('First Name is requied');
+    $('.msg-lastname').text('Last Name is requied');
+    $('.msg-email').text('Email is requied');
+    $('.msg-password').text('Password is requied');
+    $('.msg-repeatpassword').text('Repeat Password is requied');
     var formData = $('#registerForm').serialize();
-    var formDataArr = $('#registerForm').serializeArray();
+    var checked = true, index = 0;
 
-    if (formDataArr[4].value != formDataArr[5].value) {
-        $('.error').addClass('alert alert-danger').html('Confirm password not correct!');
-        return;
+    //Validate required
+    $('#registerForm input[type="text"], #registerForm input[type="password"]').each(function () {
+        var spanmsg = '.msg-' + $(this).attr('name');
+
+        if ($(this).val().trim() == '') {
+            if (index++ == 0)
+                $(this).focus();
+
+            $(spanmsg).removeClass('msg-valid').addClass('msg-error');
+            $(this).addClass('has-error');
+            checked = false;
+        } else {
+            $(spanmsg).removeClass('msg-error').addClass('msg-valid');
+            $(this).removeClass('has-error');
+        }
+    });
+
+    if (!checked) return;
+
+    //Validate format
+    checked = true, index = 0;
+    if (!validateName($('#registerForm input[name="firstname"]').val())) {
+        if (index++ == 0)
+            $('#registerForm input[name="username"]').focus();
+
+        $('#registerForm input[name="firstname"]').addClass("has-error");
+        $('.msg-firstname').removeClass('msg-valid').addClass('msg-error');
+        $('.msg-firstname').text('Invalid First Name');
+        checked = false;
+    } else {
+        $('#registerForm input[name="firstname"]').removeClass("has-error");
+        $('.msg-firstname').removeClass('msg-error').addClass('msg-valid');
     }
 
-    var inputs = $('#registerForm input');
+    if (!validateName($('#registerForm input[name="lastname"]').val())) {
+        if (index++ == 0)
+            $('#registerForm input[name="lastname"]').focus();
 
-    for (var i = 0; i < inputs.length - 1; ++i)
-        if (!checkInputText(inputs.get(i))) return;
+        $('#registerForm input[name="lastname"]').addClass("has-error");
+        $('.msg-lastname').removeClass('msg-valid').addClass('msg-error');
+        $('.msg-lastname').text('Invalid Last Name');
+        checked = false;
+    } else {
+        $('#registerForm input[name="lastname"]').removeClass("has-error");
+        $('.msg-lastname').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if (!validateEmail($('#registerForm input[name="email"]').val())) {
+        if (index++ == 0)
+            $('#registerForm input[name="email"]').focus();
+
+        $('#registerForm input[name="email"]').addClass("has-error");
+        $('.msg-email').removeClass('msg-valid').addClass('msg-error');
+        $('.msg-email').text('Invalid Email');
+        checked = false;
+    } else {
+        $('#registerForm input[name="email"]').removeClass("has-error");
+        $('.msg-email').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if (!checked) return;
+
+    //Validate Password
+    checked = true, index = 0;
+
+    if ($('#registerForm input[name="password"]').val() != $('#registerForm input[name="repeatpassword"]').val()) {
+        if (index++ == 0)
+            $('#registerForm input[name="repeatpassword"]').focus();
+
+        $('#registerForm input[name="repeatpassword"]').addClass("has-error");
+        $('.msg-repeatpassword').removeClass('msg-valid').addClass('msg-error');
+        $('.msg-repeatpassword').text('Repeat Password not correct');
+        checked = false;
+    } else {
+        $('#registerForm input[name="repeatpassword"]').removeClass("has-error");
+        $('.msg-repeatpassword').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if (!validatePassword($('#registerForm input[name="password"]').val())) {
+        if (index++ == 0)
+            $('#registerForm input[name="password"]').focus();
+
+        $('#registerForm input[name="password"]').addClass("has-error");
+        $('.msg-password').removeClass('msg-valid').addClass('msg-error');
+        $('.msg-password').text('Password must contain at least one uppercase letter, one lowercase letter, one numeric character and one special character');
+        checked = false;
+    } else {
+        $('#registerForm input[name="password"]').removeClass("has-error");
+        $('.msg-password').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if (!checked) return;
     
     checkUsernameExist(formData, function callback(data) {
         var msg = data.msg;
@@ -163,12 +252,35 @@ function resetPassword() {
 }
 
 function login() {
-    var username = document.getElementById('loginForm').querySelector('input[name="username"]');
-    var password = document.getElementById('loginForm').querySelector('input[name="password"]');
+    $('.error').removeClass('alert alert-danger').html('');
     var url = document.getElementById('redirectUrl').value;
+    var checked = true, i = 0;
 
-    if (!checkInputText(username)) return;
-    if (!checkInputText(password)) return;
+    if ($('#loginForm input[name="username"]').val().trim() == '') {
+        if(i++ == 0)
+            $('#loginForm input[name="username"]').focus();
+
+        $('#loginForm input[name="username"]').addClass("has-error");
+        $('.msg-username').removeClass('msg-valid').addClass('msg-error');
+        checked = false;
+    } else {
+        $('#loginForm input[name="username"]').removeClass("has-error");
+        $('.msg-username').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if ($('#loginForm input[name="password"]').val().trim() == '') {
+        if(i++ == 0)
+            $('#loginForm input[name="password"]').focus();
+
+        $('#loginForm input[name="password"]').addClass("has-error");
+        $('.msg-password').removeClass('msg-valid').addClass('msg-error');
+        checked = false;
+    } else {
+        $('#loginForm input[name="password"]').removeClass("has-error");
+        $('.msg-password').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if (!checked) return;
 
     var formData = $('#loginForm').serialize();
     $.ajax({
