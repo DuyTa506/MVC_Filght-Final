@@ -36,6 +36,7 @@ namespace EaseFlight.BLL.Services
         {
             this.CountryRepository.Insert(country.GetModel());
             var result = this.UnitOfWork.SaveChanges();
+
             return result;
         }
 
@@ -57,7 +58,6 @@ namespace EaseFlight.BLL.Services
 
             return result;
         }
-
         #endregion
 
         #region Model Functions

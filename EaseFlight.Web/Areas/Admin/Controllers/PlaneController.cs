@@ -21,7 +21,8 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         #endregion
 
         #region Constructor
-        public PlaneController(IPlaneService planeService, ISeatMapService seatMapService, IAirportService airportService, IPlaneSeatClassService planeSeatClassService, IPlaneAirportService planeAirportService, ITicketFlightService ticketFlightService)
+        public PlaneController(IPlaneService planeService, ISeatMapService seatMapService, IAirportService airportService, 
+            IPlaneSeatClassService planeSeatClassService, IPlaneAirportService planeAirportService, ITicketFlightService ticketFlightService)
         {
             this.PlaneService = planeService;
             this.AirportService = airportService;
@@ -43,6 +44,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             return View();
         }
+
         //ADD NEW PLANE+SEAT CLASS
         [HttpPost]
         public ActionResult AddNewPlane(FormCollection collection)
@@ -58,6 +60,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             var business = int.Parse(collection.Get("business"));
             var economy = int.Parse(collection.Get("economy"));
             var order = 1;
+
             //for FirstClass
             if (firstclass > 0)
             {
@@ -69,8 +72,10 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                     Price = double.Parse(collection.Get("firstclassprice")),
                     Order = order++
                 };
+
                 this.PlaneSeatClassService.Insert(planeSeatClass);
             }
+
             //for Business
             if (business > 0)
             {
@@ -82,8 +87,10 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                     Price = double.Parse(collection.Get("businessprice")),
                     Order = order++
                 };
+
                 this.PlaneSeatClassService.Insert(planeSeatClass);
             }
+
             //for Economy
             if (economy > 0)
             {
@@ -95,10 +102,12 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                     Price = double.Parse(collection.Get("economyprice")),
                     Order = order++
                 };
+
                 this.PlaneSeatClassService.Insert(planeSeatClass);
             }
 
             var air = collection.Get("airport").Split(',');
+
             foreach (var a in air)
             {
                 var planeAirport = new PlaneAirportModel
@@ -107,11 +116,14 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                     AirportID = int.Parse(a)
 
                 };
+
                 this.PlaneAirportService.Insert(planeAirport);
             }
             TempData["msg"] = "success-Plane add successfully";
+
             return RedirectToAction("Index");
         }
+
         //Change Status
         [HttpGet]
         public ActionResult ChangeStatus(string id, string status)
@@ -133,6 +145,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
         }
+
         //EDIT PLANE
         [HttpPost]
         public ActionResult UpdatePlane(FormCollection collection)
@@ -163,6 +176,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                             return RedirectToAction("Index");
                         }
                     }
+
                     foreach (var air in airportAdd)
                     {
                         var planeAirport = new PlaneAirportModel
@@ -188,11 +202,9 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                     UpdatePlaneSeatClass(economy, currentPlane.ID, int.Parse(collection.Get("economy")), double.Parse(collection.Get("economyprice")), Constant.CONST_DB_SEAT_CLASS_ECONOMY_ID);
 
                 }
-                else
-                    TempData["msg"] = "error-Update plane failed because plane has ticket booked";
+                else TempData["msg"] = "error-Update plane failed because plane has ticket booked";
             }
-            else
-                TempData["msg"] = "error-Update plane failed because plane is online";
+            else TempData["msg"] = "error-Update plane failed because plane is online";
 
             return RedirectToAction("Index");
         }
@@ -208,26 +220,18 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                 var planeAirportList = currentPlane.PlaneAirports.ToList();
 
                 foreach (var seat in planeSeatClassList)
-                {
                     this.PlaneSeatClassService.Delete(currentPlane.ID, seat.SeatClassID);
-                }
+
                 foreach (var planeair in planeAirportList)
-                {
                     this.PlaneAirportService.Delete(currentPlane.ID, planeair.AirportID);
-                }
             }
+
             if (this.PlaneService.Delete(int.Parse(planeid)) == 1)
-            {
                 TempData["msg"] = "success-Delete plane successfully";
-            }
-            else
-            {
-                TempData["msg"] = "error-Delete plane failed";
-            }
+            else TempData["msg"] = "error-Delete plane failed";
 
             return new JsonResult { ContentType = "text" };
         }
-
         #endregion
 
         #region Private Fuctions
@@ -236,6 +240,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             foreach (var id in flightIdList)
             {
                 var flightTicket = this.TicketFlightService.FindByFlight(id);
+
                 if (flightTicket == null)
                     return false;
             }
@@ -263,6 +268,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
                     Price = price,
                     Order = (order == null) ? 1 : ++order
                 };
+
                 this.PlaneSeatClassService.Insert(planeSeatClass);
 
             }

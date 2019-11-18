@@ -32,6 +32,7 @@ namespace EaseFlight.DAL.Repositories
         public void Update(Country country)
         {
             var currentCountry = this.UnitOfWork.DBContext.Countries.Find(country.ID);
+
             if (currentCountry != null)
                 CommonMethods.CopyObjectProperties(country,currentCountry);
         }

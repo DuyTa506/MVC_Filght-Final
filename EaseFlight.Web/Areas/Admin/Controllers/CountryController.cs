@@ -8,7 +8,6 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
     {
         #region Properties
         private ICountryService CountryService { get; set; }
-
         #endregion
 
         #region Constructor
@@ -26,6 +25,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             return View();
         }
+
         [HttpPost]
         public ActionResult AddNewCountry(FormCollection collection)
         {
@@ -37,6 +37,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             this.CountryService.Insert(country);
             TempData["msg"] = "success-Country add successfully";
+
             return RedirectToAction("Index");
         }
 
@@ -45,6 +46,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         {
             this.CountryService.Delete(countryid);
             TempData["msg"] = "success-Country add successfully";
+
             return new JsonResult { ContentType = "text" };
         }
 
@@ -60,6 +62,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             this.CountryService.Update(country);
             TempData["msg"] = "success-Country update successfully";
+
             return RedirectToAction("Index");
         }
         #endregion

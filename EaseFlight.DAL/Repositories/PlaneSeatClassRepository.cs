@@ -41,12 +41,12 @@ namespace EaseFlight.DAL.Repositories
         {
             this.UnitOfWork.DBContext.PlaneSeatClasses.Add(planeSeatClass);
             this.UnitOfWork.SaveChanges();
-
         }
 
         public void Update(PlaneSeatClass planeSeatClassairport)
         {
             var CurrentPlaneSeatClass = this.UnitOfWork.DBContext.PlaneSeatClasses.Find(planeSeatClassairport.PlaneID, planeSeatClassairport.SeatClassID);
+
             if (CurrentPlaneSeatClass != null)
             {
                 CommonMethods.CopyObjectProperties(planeSeatClassairport, CurrentPlaneSeatClass);

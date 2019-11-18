@@ -16,7 +16,6 @@
     @Styles.Render("~/Content/adminbasecss")
     @Styles.Render("~/Content/adminlogin")
     @Scripts.Render("~/bundles/adminbasejs")
-    @Scripts.Render("~/bundles/adminlogin")
     @Scripts.Render("~/bundles/admincontextmenu")
 </head>
 
@@ -48,8 +47,8 @@
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="index3.html" class="brand-link">
-                <img src="~/Content/images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle"
+            <a href="/Admin" class="brand-link">
+                <img src="~/Content/images/logo.png" alt="EaseFlight Logo" class="brand-image img-circle"
                      style="opacity: .8">
                 <span class="brand-text font-weight-light">Ease Flight</span>
             </a>
@@ -64,56 +63,46 @@
                 </div>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
+                        <li class="nav-item">
+                            <a href="/Admin" class="nav-link dashboard-menu">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
+                                <p>Dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("Index","Airport")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    View Airport
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
+                            <a href="@Url.Action("Index","Flight")" class="nav-link flight-menu">
+                                <i class="nav-icon fas fa-plane-departure"></i>
+                                <p>Flight Management</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="@Url.Action("Index","Plane")" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Plane Manager
-
-                                </p>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Ticket")" class="nav-link ticket-menu">
+                                <i class="nav-icon fas fa-credit-card"></i>
+                                <p>Ticket Management</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="@Url.Action("Index","Country")" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Country Manager
-
-                                </p>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Airport")" class="nav-link airport-menu">
+                                <i class="nav-icon fas fa-route"></i>
+                                <p>Airport Management</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="@Url.Action("Index","Airport")" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    Airport Manager
-                                </p>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Plane")" class="nav-link plane-menu">
+                                <i class="nav-icon fas fa-plane"></i>
+                                <p>Aircraft Management</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Forms
-                                </p>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Country")" class="nav-link country-menu">
+                                <i class="nav-icon fas fa-globe-asia"></i>
+                                <p>Country Management</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Account")" class="nav-link account-menu">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Account Management</p>
                             </a>
                         </li>
                     </ul>

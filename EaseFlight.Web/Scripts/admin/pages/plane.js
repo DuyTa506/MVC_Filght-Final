@@ -1,10 +1,12 @@
 ﻿$(document).ready(function () {
+    $('.plane-menu').addClass('menu-active');
+
     //Init datatable
     $("#planeTable").DataTable();
 
     ////Add create button
     var parent = $('.dataTables_filter').parent();
-    parent.append('<button title="Create plane" onclick="openAddModal()" type="button" class="btn btn-block btn-success btn-sm btn-create"><i class="fas fa-plus"></i></button>');
+    parent.append('<button title="Create aircraft" onclick="openAddModal()" type="button" class="btn btn-block btn-success btn-sm btn-create"><i class="fas fa-plus"></i></button>');
 
     $.contextMenu({
         selector: '.tr-plane',
@@ -56,7 +58,7 @@ function openAddModal() {
     $('form[name="planeForm"]').attr('action', '/Admin/Plane/AddNewPlane');
     $('form[name="planeForm"]').trigger('reset');
 
-    $('#planeModal .modal-title').text('Add New Plane');
+    $('#planeModal .modal-title').text('Add New Aircraft');
     $('#planeModal').modal('show');
 }
 
@@ -130,7 +132,7 @@ function savePlane() {
 function editPlane(parent) {
     $('form[name="planeForm"]').attr('action', '/Admin/Plane/UpdatePlane');
     $('form[name="planeForm"]').trigger('reset');
-    $('#planeModal .modal-title').text('Edit Plane');
+    $('#planeModal .modal-title').text('Edit Aircraft');
     var planeairportid = [];
     var planeseatclass = [];
     var seatcapacity = [];

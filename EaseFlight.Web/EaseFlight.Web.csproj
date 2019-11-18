@@ -216,7 +216,6 @@
     <Content Include="Scripts\admin\pages\country.js" />
     <Content Include="Scripts\admin\pages\dashboard.js" />
     <Content Include="Scripts\admin\pages\flight.js" />
-    <Content Include="Scripts\admin\pages\home.js" />
     <Content Include="Scripts\admin\pages\login.js" />
     <Content Include="Scripts\admin\pages\plane.js" />
     <Content Include="Scripts\admin\pages\ticket.js" />
@@ -294,7 +293,6 @@
     <Content Include="Content\admin\plugins\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Areas\Admin\Views\Airport\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
-    <Content Include="Areas\Admin\Views\PlaneAirport\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Plane\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Flight\Index.cshtml" />
     <Content Include="Content\admin\basecss\font\context-menu-icons.eot" />

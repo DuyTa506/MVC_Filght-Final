@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
+    $('.airport-menu').addClass('menu-active');
+
     //Init datatable
     $("#airportTable").DataTable();
-    $('.select2').select2({
-        theme: 'bootstrap4'
-    })
-    ////Add create button
+
+    //Add create button
     var parent = $('.dataTables_filter').parent();
     parent.append('<button title="Create airport" onclick="openAddModal()" type="button" class="btn btn-block btn-success btn-sm btn-create"><i class="fas fa-plus"></i></button>');
 

@@ -9,7 +9,6 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         #region Properties
         private IAirportService AirportService { get; set; }
         private ICountryService CountryService { get; set; }
-
         #endregion
 
         #region Constructor
@@ -28,6 +27,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             ViewData["countrys"] = this.CountryService.FindAll();
             return View();
         }
+
         [HttpPost]
         public ActionResult AddNewAirport(FormCollection collection)
         {
@@ -40,8 +40,10 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             this.AirportService.Insert(airport);
             TempData["msg"] = "success-Country add successfully";
+
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public ActionResult UpdateAirport(FormCollection collection)
         {
@@ -55,6 +57,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
 
             this.AirportService.Update(airport);
             TempData["msg"] = "success-Country update successfully";
+
             return RedirectToAction("Index");
         }
 
@@ -63,10 +66,9 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         {
             this.AirportService.Delete(airportid);
             TempData["msg"] = "success-Country delete successfully";
+
             return new JsonResult { ContentType = "text" };
         }
-
-
         #endregion
     }
 }

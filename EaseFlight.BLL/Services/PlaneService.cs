@@ -56,9 +56,9 @@ namespace EaseFlight.BLL.Services
         public int Delete(int planeid)
         {
             var result = this.PlaneRepository.Delete(planeid);
+
             return result;
         }
-
         #endregion
 
         #region Model Functions

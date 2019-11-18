@@ -1,8 +1,5 @@
 ﻿$(document).ready(function () {
     $('input[name="username"]').focus();
-    $('input[type="text"]').change(function () {
-        $(this).val(convertVNToEN($(this).val()));
-    });
 
     //Enter Key
     $(document).on('keypress', function (e) {
@@ -11,9 +8,7 @@
         }
     });
 })
-function convertVNToEN(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
-}
+
 function login() {
     var form = $('form[name="login-form"]');
     var checked = true, index = 0;

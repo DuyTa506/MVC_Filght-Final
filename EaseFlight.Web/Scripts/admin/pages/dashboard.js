@@ -1,35 +1,61 @@
-﻿$(document).ready(function() {
-    var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
+﻿$(document).ready(function () {
+    $('.dashboard-menu').addClass('menu-active');
 
-    var salesChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    var ticketChartCanvas = $('#ticketChart').get(0).getContext('2d');
+    var monthArr = [];
+
+    switch (new Date().getMonth() + 1) {
+        case 12: monthArr.push("December");
+        case 11: monthArr.push("November");
+        case 10: monthArr.push("October");
+        case 9: monthArr.push("September");
+        case 8: monthArr.push("August");
+        case 7: monthArr.push("July");
+        case 6: monthArr.push("June");
+        case 5: monthArr.push("May");
+        case 4: monthArr.push("April");
+        case 3: monthArr.push("March");
+        case 2: monthArr.push("Febnuary");
+        case 1: monthArr.push("January");
+    }
+
+    var ticketChartData = {
+        labels: monthArr.reverse(),
         datasets: [
             {
-                label: 'Digital Goods',
-                backgroundColor: 'rgba(60,141,188,0.9)',
-                borderColor: 'rgba(60,141,188,0.8)',
+                label: 'TicketSuccess',
+                borderColor: '#28a745',
                 pointRadius: false,
                 pointColor: '#3b8bba',
                 pointStrokeColor: 'rgba(60,141,188,1)',
                 pointHighlightFill: '#fff',
                 pointHighlightStroke: 'rgba(60,141,188,1)',
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: ticketSuccess
             },
             {
-                label: 'Electronics',
-                backgroundColor: 'rgba(210, 214, 222, 1)',
-                borderColor: 'rgba(210, 214, 222, 1)',
+                label: 'TicketReturn',
+                borderColor: '#dc3545',
                 pointRadius: false,
                 pointColor: 'rgba(210, 214, 222, 1)',
                 pointStrokeColor: '#c1c7d1',
                 pointHighlightFill: '#fff',
                 pointHighlightStroke: 'rgba(220,220,220,1)',
-                data: [65, 59, 80, 81, 56, 55, 40]
+                data: ticketReturn
             },
+            {
+                label: 'Roundtrip',
+                borderColor: '#6c757d',
+                pointRadius: false,
+                pointColor: 'rgba(210, 214, 222, 4)',
+                pointStrokeColor: '#c1c7d1',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,220,220,1)',
+                data: ticketRoundtrip
+            }
         ]
-    }
+    };
 
-    var salesChartOptions = {
+    var ticketChartOptions = {
         maintainAspectRatio: false,
         responsive: true,
         legend: {
@@ -47,13 +73,12 @@
                 }
             }]
         }
-    }
+    };
 
     // This will get the first returned node in the jQuery collection.
-    var salesChart = new Chart(salesChartCanvas, {
+    var ticketChart = new Chart(ticketChartCanvas, {
         type: 'line',
-        data: salesChartData,
-        options: salesChartOptions
-    }
-    )
+        data: ticketChartData,
+        options: ticketChartOptions
+    });
 })

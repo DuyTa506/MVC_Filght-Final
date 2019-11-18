@@ -1,6 +1,14 @@
 ﻿$(document).ready(function () {
     if (window.location.hostname == 'easeflight.somee.com')
         setInterval(function () { removeAds() }, 0);
+
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    });
+
+    $('input[type="text"]').change(function () {
+        $(this).val(convertVNToEN($(this).val()));
+    });
 });
 
 //Remove ADS Somme host
@@ -58,4 +66,8 @@ function validatePassword(password) {
 
 function validateName(name) {
     return /^[a-z A-Z]+$/.test(name);
+}
+
+function convertVNToEN(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 }

@@ -39,6 +39,7 @@ namespace EaseFlight.DAL.Repositories
         public void Update(Airport airport)
         {
             var currentAirport = this.UnitOfWork.DBContext.Airports.Find(airport.ID);
+
             if (currentAirport != null)
             {
                 CommonMethods.CopyObjectProperties(airport,currentAirport);
@@ -55,7 +56,6 @@ namespace EaseFlight.DAL.Repositories
                 this.UnitOfWork.SaveChanges();
             }
         }
-       
         #endregion
     }
 }

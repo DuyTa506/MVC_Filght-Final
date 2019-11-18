@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $('.flight-menu').addClass('menu-active');
+
     //Init datatable
     $("#flightTable").DataTable({
         "order": [[0, "desc"]]
@@ -51,6 +53,7 @@
 function openAddModal() {
     $('form[name="flightForm"]').attr('action', '/Admin/Flight/AddFlight');
     $('form[name="flightForm"]').trigger('reset');
+    $('#flightModal .modal-title').text('Add New Flight');
 
     $('#flightModal').modal('show');
 }
@@ -111,6 +114,7 @@ function saveFlight() {
 }
 
 function editFlight(parent) {
+    $('#flightModal .modal-title').text('Edit Flight')
     //Set flight ID
     $('form[name="flightForm"]').find('.flightId').val($(parent).find('.flightId').text());
 

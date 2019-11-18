@@ -141,3 +141,13 @@ body{
 .dataTables_filter .form-control{
     height: 30px !important;
 }
+.menu-active {
+    background-color: rgba(255,255,255,.1) !important;
+    color: white !important;
+}
+.top75percent{
+    top: 75% !important;
+}
+.top25percent {
+    top: 25% !important;
+}

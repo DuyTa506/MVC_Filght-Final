@@ -33,22 +33,23 @@ namespace EaseFlight.Web
                         "~/Scripts/admin/basejs/adminlte.js",
                         "~/Scripts/admin/basejs/demo.js",
                         "~/Scripts/admin/basejs/select2.full.min.js",
-                         "~/Scripts/admin/basejs/moment.min.js",
-                          "~/Scripts/admin/basejs/daterangepicker.js",
+                        "~/Scripts/admin/basejs/moment.min.js",
+                        "~/Scripts/admin/basejs/daterangepicker.js",
                         "~/Scripts/admin/basejs/admin.js",
-                        "~/Scripts/admin/pages/home.js",
                         "~/Scripts/user/basejs/toastify.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/admincontextmenu").Include(
                         "~/Scripts/admin/basejs/jquery.contextMenu.min.js",
                         "~/Scripts/admin/basejs/jquery.ui.position.js"));
-            bundles.Add(new ScriptBundle("~/bundles/admincountry").Include("~/Scripts/admin/pages/country.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/admincountry").Include(
+                       "~/Scripts/admin/pages/country.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/adminplane").Include(
                        "~/Scripts/admin/pages/plane.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/adminairport").Include(
                        "~/Scripts/admin/pages/airport.js"));
-
 
             bundles.Add(new ScriptBundle("~/bundles/home").Include(
                           "~/Scripts/user/pages/home.js"));

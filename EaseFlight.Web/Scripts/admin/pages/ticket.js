@@ -1,6 +1,8 @@
 ﻿var passengerModalId = null, minyear = 0, maxyear = 0;
 
 $(document).ready(function () {
+    $('.ticket-menu').addClass('menu-active');
+
     //Init datatable
     $("#ticketTable").DataTable({
         "order": [[0, "desc"]]

@@ -1,15 +1,10 @@
 ﻿@using EaseFlight.Models.EntityModels;
 @{
-    ViewBag.Title = "Country Manager";
+    ViewBag.Title = "Country";
     var countrys = (IEnumerable<CountryModel>)ViewData["countrys"];
     var msg = TempData["msg"] != null ? TempData["msg"].ToString().Split('-').ToList() : new List<string>();
 }
-@Styles.Render("~/Content/adminbasecss")
-@Styles.Render("~/Content/adminlogin")
-@Scripts.Render("~/bundles/adminbasejs")
-@Scripts.Render("~/bundles/adminlogin")
 @Scripts.Render("~/bundles/admincountry")
-@Scripts.Render("~/bundles/admincontextmenu")
 
 @if (msg.Count() > 0 && msg[0].Equals("error"))
 {
@@ -38,21 +33,21 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
                     <th>Region</th>
                 </tr>
             </thead>
-            @foreach (var country in countrys)
-            {
-                <tbody>
+            <tbody>
+                @foreach (var country in countrys)
+                {
                     <tr class="tr-country">
-                        <td class="sorting_1 country-id">@country.ID</td>
+                        <td class="country-id">@country.ID</td>
                         <td class="country-name">@country.Name</td>
                         <td class="country-region">@country.Region</td>
                     </tr>
+                }
                 </tbody>
-            }
         </table>
     </div>
 </div>
 <!--Add/Edit Plane Modal-->
-<div class="modal" id="countryModal">
+<div class="modal fade" id="countryModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -70,7 +65,7 @@ else if (msg.Count() > 0 && msg[0].Equals("success"))
                     </div>
                     <div class="form-group">
                         <label>Region</label>
-                        <select class="select2" style="width: 100%;" name="region">
+                        <select class="select2" name="region">
                             <option value="Southeast Asia">Southeast Asia</option>
                             <option value="Europe">Europe</option>
                             <option value="Northeast Asia">Northeast Asia</option>

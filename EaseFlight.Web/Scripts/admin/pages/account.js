@@ -1,6 +1,8 @@
 ﻿var username = '', email = '';
 
 $(document).ready(function () {
+    $('.account-menu').addClass('menu-active');
+
     //Init datatable
     $("#accountTable").DataTable();
 
