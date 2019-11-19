@@ -227,6 +227,7 @@ function returnTicket(id) {
     var parent = $('.tr-ticket .ticketId:contains("' + id + '")').parents('.tr-ticket');
 
     if ($(parent).find('.ticketId').attr('data-return') == 'False') {
+        $('#confirm-modal').modal('hide');
         ToastError('You can only return ticket at least 1 month from departure');
         return;
     }
@@ -237,7 +238,8 @@ function returnTicket(id) {
     $.ajax({
         url: '/Ticket/RefundTicket',
         data: {
-            ticketId: id
+            ticketId: id,
+            admin: "admin"
         },
         type: 'post',
         success: function (response) {

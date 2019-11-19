@@ -106,7 +106,7 @@ namespace EaseFlight.Web.Controllers
                     var salt = EncryptionUtility.BcryptGenerateSalt(12);
                     var token = EncryptionUtility.Base64Encode(userModel.ID + " " + salt);
 
-                    if (EmailSender.Send(userModel.Email, baseUrl, token))
+                    if (EmailSender.SendMailResetPassword(userModel.Email, baseUrl, token))
                     {
                         result.Data = new { type = "success", msg = Constant.CONST_MESSAGE_EMAIL_SENT_RESET_PASSWORD_SUCCESS };
                         userModel.ResetPasswordToken = salt;

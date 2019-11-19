@@ -1,5 +1,6 @@
 ﻿using EaseFlight.BLL.Interfaces;
 using EaseFlight.Common.Constants;
+using EaseFlight.Common.EmailSenders;
 using EaseFlight.Models.CustomModel;
 using EaseFlight.Models.EntityModels;
 using EaseFlight.Web.WebUtilities;
@@ -291,14 +292,18 @@ namespace EaseFlight.Web.Controllers
                 Price = totalPrice
             };
 
+            var baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
             var currentUser = this.AccountService.Find(loggedUser.ID);
+
+            EmailSender.SendMailBookingSuccess(currentUser.Email, baseUrl + "Ticket", model.PaymentId, 
+                model.DepartDate.ToString("dd/MM/yyyy"), model.Flight, model.Passenger, model.SeatCode, model.Price.ToString());
             SessionUtility.SetAuthenticationToken(currentUser, 60);
 
             return View(model);
         }
 
         [HttpPost]
-        public JsonResult RefundTicket(string ticketId)
+        public JsonResult RefundTicket(string ticketId, string admin = null)
         {
             var result = new JsonResult { ContentType = "text" };
             var currentTicket = this.TicketService.Find(int.Parse(ticketId));
@@ -310,6 +315,10 @@ namespace EaseFlight.Web.Controllers
             }
 
             var firstFlight = this.FlightService.FindByTicket(currentTicket.ID).First();
+            var departFlight = this.FlightService.FindByTicket(currentTicket.ID).ToList();
+            var returnFlight = this.FlightService.FindByTicket(currentTicket.ID, true).ToList();
+            var flightTicket = departFlight.First().Departure.City + " to " + departFlight.Last().Arrival.City + (returnFlight.Count() > 0 ? " (Roundtrip)" : "");
+
             var refundPrice = currentTicket.Price.Value / 2;
             APIContext apiContext = PaypalUtility.GetAPIContext();
 
@@ -321,6 +330,7 @@ namespace EaseFlight.Web.Controllers
                     currentTicket.UpdateDate = DateTime.Now;
                     currentTicket.Description = "Refund $" + string.Format("{0:0.00}", refundPrice);
 
+                    EmailSender.SendMailReturnTicket(currentTicket.Account.Email, flightTicket, currentTicket.Price.ToString(), string.Format("{0:0.00}", refundPrice), admin);
                     this.TicketService.Update(currentTicket);
                 }
                 else result.Data = new { type = "error" };
