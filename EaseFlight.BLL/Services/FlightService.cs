@@ -17,14 +17,17 @@ namespace EaseFlight.BLL.Services
         #region Properties
         private IFlightRepository FlightRepository { get; set; }
         private IPlaneAirportService PlaneAirportService { get; set; }
+        private IPlaneService PlaneService { get; set; }
         #endregion
 
         #region Constructors
         public FlightService(IUnitOfWork unitOfWork,
-            IFlightRepository flightRepository, IPlaneAirportService planeAirportService) : base(unitOfWork)
+            IFlightRepository flightRepository, IPlaneAirportService planeAirportService,
+            IPlaneService planeService) : base(unitOfWork)
         {
             this.FlightRepository = flightRepository;
             this.PlaneAirportService = planeAirportService;
+            this.PlaneService = planeService;
         }
         #endregion
 
@@ -106,6 +109,32 @@ namespace EaseFlight.BLL.Services
             var result = this.FlightRepository.Delete(flightId);
 
             return result;
+        }
+
+        public void UpdateFlightDone()
+        {
+            var flights = FindAll().Where(flight => !flight.Status.Equals(Constant.CONST_FLIGHT_STATUS_DONE)).ToList();
+
+            foreach(var flight in flights)
+            {
+                var currentPlane = this.PlaneService.Find(flight.PlaneID.Value);
+
+                if (DateTime.Now >= flight.DepartureDate && DateTime.Now <= flight.ArrivalDate)
+                {
+                    flight.Status = Constant.CONST_FLIGHT_STATUS_ONLINE;
+                    currentPlane.Status = Constant.CONST_PLANE_STATUS_ONLINE;
+
+                    this.PlaneService.Update(currentPlane);
+                    Update(flight);
+                }else if(DateTime.Now >= flight.ArrivalDate)
+                {
+                    flight.Status = Constant.CONST_FLIGHT_STATUS_DONE;
+                    currentPlane.Status = Constant.CONST_PLANE_STATUS_READY;
+
+                    this.PlaneService.Update(currentPlane);
+                    Update(flight);
+                }
+            }
         }
         #endregion
 

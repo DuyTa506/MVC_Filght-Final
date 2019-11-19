@@ -30,6 +30,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            this.FlightService.UpdateFlightDone();
             ViewData["flights"] = this.FlightService.FindAll();
             ViewData["planes"] = this.PlaneService.FindAll().Where(plane => plane.PlaneAirports.Count > 1);
 

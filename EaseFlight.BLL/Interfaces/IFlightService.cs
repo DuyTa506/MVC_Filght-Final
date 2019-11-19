@@ -15,5 +15,6 @@ namespace EaseFlight.BLL.Interfaces
         int Update(FlightModel flight);
         IEnumerable<FlightModel> FindByDateAndPlane(int planeId, DateTime departDate);
         int Delete(int flightId);
+        void UpdateFlightDone();
     }
 }

@@ -117,6 +117,7 @@ namespace EaseFlight.Web.Controllers
         [HttpPost]
         public JsonResult Find(FormCollection collection)
         {
+            this.FlightService.UpdateFlightDone();
             var result = new JsonResult { ContentType = "text" };
 
             try

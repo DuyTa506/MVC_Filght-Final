@@ -1,8 +1,6 @@
 ﻿using EaseFlight.BLL.Interfaces;
-using EaseFlight.BLL.Services;
 using EaseFlight.Common.Constants;
 using EaseFlight.Models.EntityModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -18,11 +16,13 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         private IPlaneSeatClassService PlaneSeatClassService { get; set; }
         private IPlaneAirportService PlaneAirportService { get; set; }
         private ITicketFlightService TicketFlightService { get; set; }
+        private IFlightService FlightService { get; set; }
         #endregion
 
         #region Constructor
         public PlaneController(IPlaneService planeService, ISeatMapService seatMapService, IAirportService airportService, 
-            IPlaneSeatClassService planeSeatClassService, IPlaneAirportService planeAirportService, ITicketFlightService ticketFlightService)
+            IPlaneSeatClassService planeSeatClassService, IPlaneAirportService planeAirportService, ITicketFlightService ticketFlightService,
+            IFlightService flightService)
         {
             this.PlaneService = planeService;
             this.AirportService = airportService;
@@ -30,6 +30,7 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
             this.PlaneSeatClassService = planeSeatClassService;
             this.PlaneAirportService = planeAirportService;
             this.TicketFlightService = ticketFlightService;
+            this.FlightService = flightService;
         }
         #endregion
 
@@ -38,6 +39,8 @@ namespace EaseFlight.Web.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            this.FlightService.UpdateFlightDone();
+
             ViewData["planes"] = this.PlaneService.FindAll();
             ViewData["seats"] = this.SeatMapService.FindAll();
             ViewData["airports"] = this.AirportService.FindAll();
