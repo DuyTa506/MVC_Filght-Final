@@ -42,9 +42,23 @@ function register() {
 
     //Validate format
     checked = true, index = 0;
-    if (!validateName($('#registerForm input[name="firstname"]').val())) {
+
+    if ($('#registerForm input[name="username"]').val().length < 6 || $('#registerForm input[name="username"]').val().length > 20) {
         if (index++ == 0)
             $('#registerForm input[name="username"]').focus();
+
+        $('#registerForm input[name="username"]').addClass("has-error");
+        $('.msg-username').removeClass('msg-valid').addClass('msg-error');
+        $('.msg-username').text('Length of Username minimum is 6 characters and maximum is 20 characters');
+        checked = false;
+    } else {
+        $('#registerForm input[name="username"]').removeClass("has-error");
+        $('.msg-username').removeClass('msg-error').addClass('msg-valid');
+    }
+
+    if (!validateName($('#registerForm input[name="firstname"]').val())) {
+        if (index++ == 0)
+            $('#registerForm input[name="firstname"]').focus();
 
         $('#registerForm input[name="firstname"]').addClass("has-error");
         $('.msg-firstname').removeClass('msg-valid').addClass('msg-error');

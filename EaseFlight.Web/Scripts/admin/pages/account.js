@@ -108,6 +108,20 @@ function saveAccount() {
     var checked = true, index = 0;
 
     //Validate first name
+    if ($('input[name="username"]').val().length < 6 || $('input[name="username"]').val().length > 20) {
+        if (index++ == 0)
+            $('input[name="username"]').focus();
+
+        $('.msg-username').removeClass('msg-valid').addClass('msg-invalid');
+        $('.msg-username').text('Length of Username minimum is 6 characters and maximum is 20 characters');
+        $('input[name="username"]').addClass('is-invalid');
+        checked = false;
+    } else {
+        $('.msg-username').removeClass('msg-invalid').addClass('msg-valid');
+        $('input[name="username"]').removeClass('is-invalid');
+    }
+
+    //Validate first name
     if (!validateName($('input[name="firstname"]').val())) {
         if (index++ == 0)
             $('input[name="firstname"]').focus();
