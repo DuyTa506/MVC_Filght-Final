@@ -282,6 +282,7 @@ namespace EaseFlight.Web.Controllers
 
             var model = new BookingSuccessModel
             {
+                TicketId = ticketId,
                 PaymentId = ticket.PaymentID.Split('-')[1],
                 Customer = loggedUser.FirstName + " " + loggedUser.LastName,
                 DepartDate = booking.DepartFlight.First().DepartureDate.Value,
@@ -296,7 +297,7 @@ namespace EaseFlight.Web.Controllers
             var currentUser = this.AccountService.Find(loggedUser.ID);
 
             EmailSender.SendMailBookingSuccess(currentUser.Email, baseUrl + "Ticket", model.PaymentId, 
-                model.DepartDate.ToString("dd/MM/yyyy"), model.Flight, model.Passenger, model.SeatCode, model.Price.ToString());
+                model.DepartDate.ToString("dd/MM/yyyy hh:mm tt"), model.Flight, model.Passenger, model.SeatCode, model.Price.ToString(), ticketId);
             SessionUtility.SetAuthenticationToken(currentUser, 60);
 
             return View(model);

@@ -11,5 +11,6 @@ namespace EaseFlight.Models.CustomModel
         public string Passenger { get; set; }
         public string SeatCode { get; set; }
         public double Price { get; set; }
+        public int TicketId { get; set; }
     }
 }

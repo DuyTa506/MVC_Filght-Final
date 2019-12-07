@@ -70,7 +70,7 @@ namespace EaseFlight.BLL.Services
 
             var flightTransit = from departures in resultDeparture
                                 join arrivals in resultArrival on departures.Arrival.ID equals arrivals.Departure.ID
-                        where arrivals.ArrivalDate > departures.DepartureDate
+                        where arrivals.DepartureDate > departures.ArrivalDate
                         let flight = new List<FlightModel> { departures, arrivals}
                         select flight;
 

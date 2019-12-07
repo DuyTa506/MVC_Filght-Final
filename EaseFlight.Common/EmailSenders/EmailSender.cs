@@ -16,11 +16,11 @@ namespace EaseFlight.Common.EmailSenders
             return result;
         }
 
-        public static bool SendMailBookingSuccess(string toAddress, string myticketUrl, string paymentId, string departDate, string flight, string passenger, string seat, string price)
+        public static bool SendMailBookingSuccess(string toAddress, string myticketUrl, string paymentId, string departDate, string flight, string passenger, string seat, string price, int ticketID)
         {
             var subject = Constants.Constant.CONST_EMAIL_BOOK_SUCCESS_SUBJECT;
             var body = "<html><body style=\"font-size:13px; font-family:Tahoma;\"><h1>Flight: "+ flight +"</h1><p>You have successfully booked a ticket, to review all ticket: <a href=\"" + myticketUrl + "\">My Ticket</a></p>"
-                       + "<p>Ticket Information:</p><ul><li><b>Payment ID:</b> "+ paymentId +"</li><li><b>Depart Date:</b> "+ departDate +"</li><li><b>Flight:</b> "+ flight +"</li><li><b>Passengers:</b> "
+                       + "<p>Ticket Information:</p><ul><li><b>Ticket ID:</b> " + ticketID + "</li><li><b>Payment ID:</b> " + paymentId +"</li><li><b>Depart Date:</b> "+ departDate +"</li><li><b>Flight:</b> "+ flight +"</li><li><b>Passengers:</b> "
                        + passenger +"</li><li><b>Seat:</b> "+ seat +"</li><li><b>Payment Method:</b> Paypal</li><li><b>Amount Paid:</b> $"+ price +"</li></ul></body></html>";
 
             var result = SendMail(subject, body, toAddress);
